@@ -35,3 +35,6 @@ Le rendu et le contenu restent ceux de la version Emergent ; seule la forme des 
 `bundle.js` est un bundle de développement compilé. Il permet de conserver très fidèlement le site actuel, mais ce n'est pas la forme idéale pour modifier durablement le projet.
 
 Les fichiers React d'origine n'étaient pas disponibles sous forme de sources séparées et le fichier `bundle.js.map` n'était pas accessible. Une reconstruction propre en React/Vite pourra être faite ensuite à partir du bundle et des CSS récupérés, sans repartir visuellement de zéro.
+
+## Version V2 — immersion prospect
+Cette copie ajoute `static/custom/enhancements.js` et `enhancements.css` : correctifs des boutons d'ancrage sous GitHub Pages et personnalisation des démos selon le métier du prospect. Voir `EVOLUTIONS_V2.md`.
