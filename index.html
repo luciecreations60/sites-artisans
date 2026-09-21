@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Des sites qui font sonner le téléphone des artisans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Gabarito:wght@500;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p:#2540FF; --p2:#5C6BFF; --co:#FF5A45; --ye:#FFC43D; --gr:#10B981;
+  --ink:#131426; --mute:#5A5C72; --line:#E6E7F2; --bg:#FFFFFF; --soft:#F3F5FF; --cream:#FFF6EC;
+  --body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --disp:'Outfit','Figtree',system-ui,sans-serif;
+  --demobar:56px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#F1F1F6;--mute:#A9AAC0;--line:#2A2B40;--bg:#101124;--soft:#181A33;--cream:#231D2E;--p:#7A8BFF;--p2:#9AA5FF;}}
+:root[data-theme="dark"]{--ink:#F1F1F6;--mute:#A9AAC0;--line:#2A2B40;--bg:#101124;--soft:#181A33;--cream:#231D2E;--p:#7A8BFF;--p2:#9AA5FF;}
+*{box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--p);outline-offset:2px}
+[hidden]{display:none !important}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none !important;transition:none !important}}
+.pic{position:relative;overflow:hidden;background:linear-gradient(140deg,var(--f1,#44506B),var(--f2,#171B26))}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ================= SITE DE PRÉSENTATION ================= */
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.phead{position:sticky;top:0;z-index:120;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.phead .in{display:flex;align-items:center;justify-content:space-between;gap:20px;height:74px;max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+.plogo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:21px;letter-spacing:-.02em}
+.plogo i{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--p),var(--co));display:block}
+.pnav{display:flex;gap:6px}
+.pnav a{padding:9px 13px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.pnav a:hover{background:var(--soft);color:var(--p)}
+.hbtn{height:46px;padding:0 20px;border-radius:12px;background:var(--p);color:#fff;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+@media (max-width:900px){.pnav{display:none}}
+
+.phero{padding:clamp(40px,6vw,80px) 0 0;text-align:center}
+.tagline{display:inline-flex;align-items:center;gap:8px;background:var(--cream);color:#8A4B12;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px}
+.phero h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,6.4vw,84px);line-height:1;letter-spacing:-.035em;margin:20px auto 0;max-width:16ch}
+.phero h1 em{font-style:normal;background:linear-gradient(100deg,var(--p),var(--co) 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.phero p{font-size:clamp(17px,1.6vw,21px);color:var(--mute);max-width:56ch;margin:22px auto 0}
+.cta3{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.b{height:58px;padding:0 26px;border-radius:14px;font-weight:700;display:inline-flex;align-items:center;gap:10px;text-decoration:none;border:none;font-size:17px;transition:transform .2s}
+.b:hover{transform:translateY(-2px)}
+.b.p{background:var(--p);color:#fff}
+.b.c{background:var(--co);color:#fff}
+.b.o{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.b.w{background:#fff;color:var(--p)}
+.pictos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:clamp(40px,5vw,64px)}
+@media (max-width:860px){.pictos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.picto{background:var(--soft);border-radius:20px;padding:22px;text-align:left}
+.picto i{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fff;margin-bottom:14px}
+.picto b{display:block;font-family:var(--disp);font-size:19px;font-weight:700;line-height:1.15}
+.picto span{font-size:15px;color:var(--mute)}
+
+.sect{padding:clamp(56px,7vw,110px) 0}
+.sect.alt{background:var(--soft)}
+.sect.dark{background:var(--ink);color:var(--bg)}
+.sect.dark .lead{color:color-mix(in srgb,var(--bg) 72%,var(--ink))}
+.h2{font-family:var(--disp);font-weight:800;font-size:clamp(32px,4.4vw,56px);line-height:1.02;letter-spacing:-.03em;margin:0}
+.lead{color:var(--mute);font-size:18px;max-width:60ch;margin:16px 0 0}
+.head2{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,3vw,44px)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.steps{grid-template-columns:1fr}}
+.step{background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:26px}
+.step b{font-family:var(--disp);font-size:21px;display:block;margin:14px 0 6px}
+.step span{color:var(--mute);font-size:16px}
+.num{width:42px;height:42px;border-radius:21px;background:var(--p);color:#fff;display:grid;place-items:center;font-weight:800;font-family:var(--disp)}
+
+/* formules */
+.offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+@media (max-width:900px){.offers{grid-template-columns:1fr}}
+.offer{border-radius:26px;padding:28px;border:2px solid var(--line);background:var(--bg);display:flex;flex-direction:column;gap:14px;position:relative}
+.offer.hot{border-color:var(--p);box-shadow:0 24px 50px -30px var(--p)}
+.offer .flag{position:absolute;top:-14px;left:28px;background:var(--p);color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px}
+.offer h3{font-family:var(--disp);font-size:34px;font-weight:800;margin:0;letter-spacing:-.02em}
+.offer .price{font-family:var(--disp);font-size:20px;font-weight:700;color:var(--p)}
+.offer .pitch{color:var(--mute);font-size:16px;margin:0}
+.offer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:16px}
+.offer li{display:flex;gap:10px}
+.offer li svg{flex-shrink:0;margin-top:4px;color:var(--gr)}
+.offer .keyf{background:var(--cream);border-radius:16px;padding:14px 16px;font-size:15px}
+.offer .keyf b{display:block;font-family:var(--disp);font-size:16px;margin-bottom:4px}
+
+/* tableau comparatif */
+.compare{margin-top:22px;border:1px solid var(--line);border-radius:24px;background:var(--bg)}
+.crow{display:grid;grid-template-columns:minmax(0,1fr) 92px 92px 92px;align-items:center;gap:8px;padding:13px clamp(14px,2vw,26px);border-top:1px solid var(--line)}
+.crow:first-child{border-top:none}
+.crow.hd{position:sticky;top:74px;background:var(--bg);z-index:8;font-family:var(--disp);font-weight:800;border-radius:22px 22px 0 0;box-shadow:0 8px 18px -12px rgba(0,0,0,.3)}
+.crow.grp{position:sticky;top:126px;z-index:6}
+.more{border-top:1px solid var(--line);padding:18px 0}
+.more summary{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none;font-family:var(--disp);font-weight:800}
+.more summary::-webkit-details-marker{display:none}
+.more .chev{width:40px;height:40px;border-radius:20px;background:var(--soft);color:var(--p);display:grid;place-items:center;font-size:24px;line-height:1;flex-shrink:0}
+.more[open] .chev{transform:rotate(45deg)}
+details.fld summary{list-style:none}
+details.fld summary::-webkit-details-marker{display:none}
+.crow.grp{background:var(--soft);font-weight:800;font-family:var(--disp);font-size:18px;grid-template-columns:1fr}
+.crow .c{text-align:center;font-weight:700}
+.crow .lbl{font-size:16px}
+.crow .lbl small{display:block;color:var(--mute);font-size:14px;font-weight:400}
+.yes{color:var(--gr)}
+.no{color:var(--line)}
+.opt{color:var(--co);font-size:13px;font-weight:700}
+@media (max-width:640px){.crow{grid-template-columns:minmax(0,1fr) 54px 54px 54px;gap:4px}.crow .lbl{font-size:15px}}
+
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{position:relative;border:none;padding:0;border-radius:22px;aspect-ratio:3/4;overflow:hidden;color:#fff;text-align:left;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.tile:hover{transform:translateY(-4px)}
+.tile .pic{position:absolute;inset:0}
+.tile .pic img{transition:transform .8s}
+.tile:hover .pic img{transform:scale(1.07)}
+.tile .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),transparent 58%)}
+.tile .txt{position:absolute;left:18px;right:18px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.tile .tt{font-size:28px;line-height:1;display:block}
+.tile .ts{font-size:14px;opacity:.85}
+.tile .check{width:32px;height:32px;border-radius:16px;background:#fff;color:var(--p);display:grid;place-items:center;flex-shrink:0;transform:scale(0);transition:transform .25s}
+.tile[aria-pressed="true"]{outline:3px solid var(--p);outline-offset:3px}
+.tile[aria-pressed="true"] .check{transform:scale(1)}
+
+.form2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px;margin-top:26px}
+@media (max-width:640px){.form2{grid-template-columns:1fr}}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:14px;font-weight:600;color:var(--mute)}
+.fld input{height:50px;border:2px solid var(--line);border-radius:12px;background:var(--bg);padding:0 14px;font-size:17px}
+.fld input:focus{outline:none;border-color:var(--p)}
+.opts3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:6px}
+@media (max-width:640px){.opts3{grid-template-columns:1fr}}
+.opts3 button{height:56px;border-radius:14px;border:2px solid var(--line);background:var(--bg);font-weight:700}
+.opts3 button[aria-pressed="true"]{border-color:var(--p);background:color-mix(in srgb,var(--p) 10%,var(--bg));color:var(--p)}
+.launch{position:sticky;bottom:0;z-index:100;padding:12px 0 18px;background:linear-gradient(to top,var(--bg) 62%,transparent)}
+.launch-in{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:20px;padding:12px 12px 12px 24px}
+.pfoot{background:var(--ink);color:var(--bg);padding:clamp(40px,5vw,72px) 0 28px}
+.pfoot .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+@media (max-width:760px){.pfoot .cols{grid-template-columns:1fr}}
+.pfoot h4{margin:0 0 10px;font-size:14px;opacity:.6}
+.pfoot p,.pfoot li{opacity:.9;font-size:16px;margin:0;line-height:1.9;list-style:none;padding:0}
+
+/* ================= BARRE DÉMO ================= */
+.demobar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--demobar);background:#131426;color:#fff;display:flex;align-items:center;gap:10px;padding:0 10px;font-size:14px}
+.demobar .grow{flex:1}
+.dbb{height:38px;padding:0 13px;border-radius:10px;border:1px solid #33344F;background:#1E2039;color:#fff;display:inline-flex;align-items:center;gap:7px;font-weight:600;white-space:nowrap}
+.dbb:hover{background:#2A2C4A}
+.dbseg{display:inline-flex;padding:3px;border-radius:11px;background:#1E2039;border:1px solid #33344F}
+.dbseg button{height:30px;padding:0 13px;border:none;border-radius:8px;background:transparent;color:#A3A5C4;font-weight:600;font-size:14px}
+.dbseg button[aria-pressed="true"]{background:#fff;color:#131426}
+.amb{display:inline-flex;gap:6px}
+.amb button{width:30px;height:30px;border-radius:15px;border:2px solid #131426;padding:0;position:relative;overflow:hidden;box-shadow:0 0 0 1px #44466B}
+.amb button span{position:absolute;right:0;bottom:0;width:50%;height:50%}
+.amb button[aria-pressed="true"]{box-shadow:0 0 0 2px #fff}
+.dbcta{height:38px;padding:0 15px;border-radius:10px;background:#fff;color:#131426;font-weight:700;text-decoration:none;display:inline-flex;align-items:center}
+.showbar{position:fixed;left:12px;bottom:86px;z-index:210;height:40px;padding:0 16px;border-radius:20px;border:none;background:#131426;color:#fff;font-weight:600;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+body.nobar{--demobar:0px}
+@media (max-width:980px){.hsm{display:none !important}}
+/* panneau fonctions */
+.panel{position:fixed;top:var(--demobar);right:0;bottom:0;width:min(420px,92vw);z-index:190;background:#fff;color:#131426;overflow:auto;box-shadow:-20px 0 60px rgba(0,0,0,.3);padding:20px 20px 40px}
+.panel h3{font-family:var(--disp);margin:0 0 4px;font-size:24px}
+.panel .sub{color:#5A5C72;font-size:15px;margin:0 0 16px}
+.panel .g{font-family:var(--disp);font-weight:800;margin:20px 0 8px;font-size:17px}
+.panel .r{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid #E6E7F2;font-size:15px}
+.panel .r.off{color:#9A9CB4}
+.panel .tag{margin-left:auto;font-size:12px;font-weight:800;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.panel .close{position:absolute;top:14px;right:16px;width:40px;height:40px;border-radius:20px;border:none;background:#F3F5FF;display:grid;place-items:center}
+
+/* ================= SITE GÉNÉRÉ ================= */
+.site{--sbg:#F5F8F9;--sink:#0B2233;--acc:#0A5C8A;--on:#fff;--hi:#C47A3D;--fd:var(--disp);
+  --ssoft:color-mix(in srgb,var(--sink) 5%,var(--sbg));--sline:color-mix(in srgb,var(--sink) 14%,var(--sbg));--smute:color-mix(in srgb,var(--sink) 66%,var(--sbg));
+  --f1:color-mix(in srgb,var(--acc) 60%,#1a1a1a);--f2:color-mix(in srgb,var(--sink) 85%,#000);
+  container-type:inline-size;background:var(--sbg);color:var(--sink);font-family:var(--body);padding-top:var(--demobar);overflow-x:clip}
+.site a{color:inherit}
+.site .in{width:100%;max-width:1320px;margin:0 auto;padding:0 clamp(20px,4cqw,56px)}
+.site .disp{font-family:var(--fd);font-weight:700;letter-spacing:-.02em}
+.site[data-m="electricien"] .disp{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:115%}
+.site[data-m="paysagiste"] .disp{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.01em}
+.site[data-m="jardinier"] .disp{font-family:'Gabarito',sans-serif;font-weight:800}
+.site[data-m="plombier"] .disp{font-family:'Outfit',sans-serif;font-weight:800;letter-spacing:-.03em}
+
+.site .nav{position:fixed;top:var(--demobar);left:0;right:0;z-index:100;color:#fff;transition:background .35s,color .35s,box-shadow .35s}
+.site .nav.solid{background:color-mix(in srgb,var(--sbg) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--sink);box-shadow:0 1px 0 var(--sline)}
+.site .nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:82px}
+.site .links{display:flex;align-items:center;gap:2px}
+.site .links button{height:42px;padding:0 13px;border:none;background:transparent;font-weight:600;color:inherit;position:relative;font-size:15px}
+.site .links button::after{content:"";position:absolute;left:13px;right:13px;bottom:8px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.site .links button:hover::after,.site .links button.cur::after{transform:scaleX(1)}
+.site .logo{font-size:26px;line-height:1;border:none;background:none;color:inherit;padding:0;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.site .logo small{font-size:11px;letter-spacing:.22em;opacity:.7;font-family:var(--body);font-weight:600}
+.site .navr{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.site .soc{width:40px;height:40px;border-radius:20px;display:grid;place-items:center;color:inherit;text-decoration:none;box-shadow:inset 0 0 0 1.5px currentColor;opacity:.85}
+.site .soc:hover{opacity:1}
+.site .telb{height:46px;padding:0 20px;border-radius:999px;background:var(--acc);color:var(--on) !important;display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;border:none}
+.site[data-m="electricien"] .telb,.site[data-m="electricien"] .btn{border-radius:6px}
+.site .burger{display:none;width:46px;height:46px;border:none;background:transparent;color:inherit;place-items:center}
+.site .drawer{position:fixed;inset:var(--demobar) 0 0 0;z-index:150;background:var(--sink);color:var(--sbg);padding:24px;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.site .drawer .close{align-self:flex-end;width:48px;height:48px;border:none;background:transparent;color:inherit;display:grid;place-items:center}
+.site .drawer button.it{border:none;background:none;color:inherit;text-align:left;font-size:30px;padding:9px 0}
+
+/* encart appel */
+.site .callcard{position:fixed;right:clamp(12px,3cqw,28px);top:calc(var(--demobar) + 96px);z-index:160;width:min(340px,92vw);background:var(--sbg);color:var(--sink);border-radius:20px;padding:22px;box-shadow:0 30px 70px -20px rgba(0,0,0,.45)}
+.site .callcard h4{font-family:var(--fd);margin:0 0 14px;font-size:22px}
+.site .callcard .l{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--sline);font-size:15px}
+.site .callcard .big{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:700;text-decoration:none;margin-bottom:10px}
+.site .callcard .x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:18px;border:none;background:var(--ssoft);display:grid;place-items:center;color:var(--sink)}
+.site .callcard .btn{width:100%;justify-content:center;margin-top:14px;height:48px}
+
+/* hero */
+.site .hero{position:relative;height:calc(100svh - var(--demobar));min-height:580px;color:#fff;overflow:hidden;background:var(--f2)}
+.site .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.site .slide.on{opacity:1}
+.site .slide .pic{position:absolute;inset:0}
+.site .slide.on .pic img{animation:kb 9s ease-out both}
+.site[data-f="simple"] .slide.on .pic img{animation:none}
+.site[data-f="simple"] .card:hover .pic img,.site[data-f="simple"] .shot:hover .pic img{transform:none}
+@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+.site .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.74),rgba(0,0,0,.2) 52%,rgba(0,0,0,.42))}
+.site .hero .in{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,6cqw,84px)}
+.site .rate{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);font-size:15px;margin-bottom:22px}
+.site .rate b{color:#FFD166;letter-spacing:2px}
+.site .h1{margin:0;font-size:clamp(46px,8cqw,124px);line-height:.94;max-width:15ch}
+.site[data-m="electricien"] .h1{font-size:clamp(38px,6.4cqw,100px)}
+.site .hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;margin-top:26px}
+.site .lede{margin:0;font-size:clamp(17px,1.6cqw,21px);max-width:44ch;opacity:.93}
+.site .btns{display:flex;gap:10px;flex-wrap:wrap}
+.site .btn{height:56px;padding:0 26px;border-radius:999px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border:none;text-decoration:none;transition:transform .2s}
+.site .btn:hover{transform:translateY(-2px)}
+.site .btn.p{background:var(--acc);color:var(--on)}
+.site .btn.w{background:#fff;color:#111}
+.site .btn.s{background:transparent;color:var(--sink);box-shadow:inset 0 0 0 2px var(--sink)}
+.site .btn[disabled]{opacity:.4;cursor:not-allowed}
+.site .dots{position:absolute;right:clamp(20px,4cqw,56px);top:50%;transform:translateY(-50%);z-index:4;display:flex;flex-direction:column;gap:10px}
+.site .dots button{width:12px;height:12px;border-radius:6px;border:2px solid #fff;background:transparent;padding:0}
+.site .dots button.on{background:#fff}
+.site .vslide{position:absolute;inset:0;display:grid;place-items:center;z-index:2}
+.site .playbtn{width:96px;height:96px;border-radius:48px;border:none;background:rgba(255,255,255,.92);color:#111;display:grid;place-items:center;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.site .vtag{position:absolute;bottom:26%;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;padding:7px 14px;border-radius:999px;font-size:14px;white-space:nowrap}
+
+.site .sec{padding:clamp(64px,9cqw,140px) 0}
+.site .h2{margin:0;font-size:clamp(36px,5.2cqw,76px);line-height:1;max-width:16ch}
+.site[data-m="electricien"] .h2{font-size:clamp(30px,4.2cqw,60px)}
+.site .sechead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,4cqw,52px)}
+.site .sechead p{margin:0;max-width:42ch;color:var(--smute)}
+.site .intro{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(36px,6cqw,100px);align-items:center}
+.site .intro p{color:var(--smute);font-size:clamp(17px,1.5cqw,20px);margin:22px 0 28px;max-width:52ch}
+.site .collage{position:relative;aspect-ratio:1/1.04}
+.site .collage .a{position:absolute;left:0;top:0;width:74%;height:82%;border-radius:6px}
+.site .collage .b{position:absolute;right:0;bottom:0;width:52%;height:52%;border-radius:6px;box-shadow:0 0 0 clamp(8px,1.2cqw,14px) var(--sbg)}
+.site[data-m="paysagiste"] .collage .a{border-radius:999px 999px 8px 8px}
+.site[data-m="jardinier"] .collage .a,.site[data-m="jardinier"] .collage .b{border-radius:26px}
+.site .since{position:absolute;left:6%;bottom:6%;background:var(--acc);color:var(--on);padding:16px 20px;line-height:1.05;z-index:2}
+.site .since b{display:block;font-family:var(--fd);font-size:clamp(28px,3.2cqw,44px)}
+
+.site .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6cqw,22px)}
+.site .card{position:relative;aspect-ratio:4/5;color:#fff;border:none;padding:0;text-align:left;background:none;overflow:hidden;border-radius:6px}
+.site[data-m="jardinier"] .card{border-radius:26px}
+.site .card .pic{position:absolute;inset:0}
+.site .card .pic img{transition:transform 1s}
+.site .card:hover .pic img{transform:scale(1.07)}
+.site .card .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent 62%)}
+.site .card .ct{position:absolute;left:22px;right:22px;bottom:22px}
+.site .card h3{margin:0;font-size:clamp(24px,2.4cqw,34px);line-height:1.05}
+.site .card p{margin:8px 0 0;font-size:15px;opacity:.9}
+.site .card .more{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-weight:700;font-size:15px}
+.site .from{position:absolute;top:16px;left:16px;background:var(--hi);color:#111;font-weight:800;font-size:13px;padding:5px 11px;border-radius:999px}
+
+.site .band{position:relative;color:#fff;background:var(--f2)}
+.site .band .pic{position:absolute;inset:0}
+.site .band .veil{background:color-mix(in srgb,var(--sink) 80%,transparent)}
+.site .band .in{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:clamp(52px,6cqw,92px);padding-bottom:clamp(52px,6cqw,92px)}
+.site .band b{display:block;font-family:var(--fd);font-size:clamp(20px,2cqw,27px);margin:12px 0 4px}
+.site .band span{opacity:.82;font-size:15px}
+.site .band svg{color:var(--hi)}
+
+.site .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.site .filters button{height:44px;padding:0 18px;border-radius:999px;border:none;box-shadow:inset 0 0 0 1.5px var(--sline);background:transparent;color:var(--sink);font-weight:600}
+.site .filters button.on{background:var(--sink);color:var(--sbg);box-shadow:none}
+.site .masonry{columns:3 280px;column-gap:clamp(10px,1.4cqw,20px)}
+.site .shot{display:block;width:100%;margin:0 0 clamp(10px,1.4cqw,20px);break-inside:avoid;border:none;padding:0;background:none;border-radius:6px;overflow:hidden;position:relative;cursor:zoom-in}
+.site .shot .pic{position:relative;width:100%}
+.site .shot figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.6);color:#fff;font-size:13px;padding:5px 11px;border-radius:999px;opacity:0;transition:opacity .3s}
+.site .shot:hover figcaption{opacity:1}
+.site .gsimple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.site .gsimple .pic{aspect-ratio:4/5;border-radius:6px}
+.site .lightbox{position:fixed;inset:0;z-index:300;background:rgba(8,8,14,.95);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,60px)}
+.site .lightbox .pic{width:min(1100px,100%);aspect-ratio:3/2;max-height:80vh;border-radius:6px}
+.site .lightbox .pic img{object-fit:contain;background:#000}
+.site .lightbox .x{position:absolute;right:16px;top:16px;width:52px;height:52px;border-radius:26px;border:none;background:#fff;color:#111;display:grid;place-items:center}
+.site .lightbox .cap{position:absolute;left:0;right:0;bottom:20px;text-align:center;color:#fff}
+
+/* fiche prestation */
+.site .sheet{position:fixed;inset:0;z-index:300;background:rgba(8,8,14,.8);display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,48px)}
+.site .sheetin{background:var(--sbg);color:var(--sink);border-radius:20px;overflow:auto;max-height:88vh;width:min(920px,100%);display:grid;grid-template-columns:1fr 1fr}
+.site .sheetin .pic{min-height:280px}
+.site .sheetin .body{padding:clamp(22px,3vw,36px)}
+.site .sheetin h3{font-size:clamp(26px,3vw,40px);margin:0 0 10px}
+.site .sheetin ul{margin:18px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.site .sheetin li{display:flex;gap:10px}
+.site .sheetin li svg{flex-shrink:0;margin-top:4px;color:var(--acc)}
+.site .sheetin .x{position:absolute;right:20px;top:20px;width:48px;height:48px;border-radius:24px;border:none;background:#fff;color:#111;display:grid;place-items:center}
+
+/* avis */
+.site .reviews{background:var(--ssoft);text-align:center}
+.site .stars{color:var(--hi);font-size:24px;letter-spacing:4px}
+.site .quote{margin:20px auto 0;font-size:clamp(26px,3.4cqw,50px);line-height:1.16;max-width:26ch}
+.site .who{margin-top:22px;font-weight:700}
+.site .demo{font-size:13px;color:var(--smute);font-weight:400}
+.site .qnav{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:26px}
+.site .qnav button{width:52px;height:52px;border-radius:26px;border:none;box-shadow:inset 0 0 0 2px var(--sink);background:transparent;color:var(--sink);display:grid;place-items:center}
+.site .revform{max-width:620px;margin:34px auto 0;background:var(--sbg);border-radius:20px;padding:24px;text-align:left}
+.site .starpick{display:flex;gap:6px;margin:6px 0 14px}
+.site .starpick button{width:44px;height:44px;border:none;background:transparent;font-size:28px;color:var(--sline);line-height:1;padding:0}
+.site .starpick button.on{color:var(--hi)}
+.site .newrev{background:var(--sbg);border-radius:16px;padding:18px;margin-top:16px;text-align:left}
+.site .pill{display:inline-block;background:var(--acc);color:var(--on);font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px}
+
+/* temps forts */
+.site .moments{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.site .moment{position:relative;border-radius:16px;overflow:hidden;color:#fff;aspect-ratio:3/4;border:none;padding:0;text-align:left}
+.site .moment .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),transparent 60%)}
+.site .moment .ct{position:absolute;left:16px;right:16px;bottom:16px}
+.site .moment small{display:block;opacity:.85;font-size:13px}
+.site .moment b{font-family:var(--fd);font-size:20px;line-height:1.1;display:block;margin-top:4px}
+
+/* configurateur */
+.site .cfg{background:var(--sink);color:var(--sbg)}
+.site .cfgbox{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4cqw,56px);align-items:start}
+.site .cfgopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.site .copt{min-height:62px;border-radius:14px;border:2px solid color-mix(in srgb,var(--sbg) 26%,transparent);background:transparent;color:var(--sbg);font-weight:600;padding:8px 14px;text-align:left}
+.site .copt.sel{border-color:var(--hi);background:color-mix(in srgb,var(--hi) 22%,transparent)}
+.site .recap{background:var(--sbg);color:var(--sink);border-radius:20px;padding:24px}
+.site .recap .l{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--sline)}
+.site .recap textarea{width:100%;min-height:90px;border:2px solid var(--sline);border-radius:12px;background:transparent;padding:10px 12px;margin-top:10px;resize:vertical}
+
+.site .contact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-height:720px;background:var(--sink);color:var(--sbg)}
+.site .contact > .pic{min-height:400px}
+.site .contact .side{padding:clamp(36px,5cqw,88px) clamp(20px,5cqw,72px)}
+.site .contact .h2{color:var(--sbg)}
+.site .clines{margin:26px 0 26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 26px}
+.site .clines small{display:block;opacity:.6;font-size:13px}
+.site .clines a{text-decoration:none;font-weight:700}
+.site .form{background:var(--sbg);color:var(--sink);padding:clamp(20px,3cqw,32px);display:flex;flex-direction:column;gap:14px;border-radius:8px}
+.site .form h3{margin:0;font-size:clamp(24px,2.4cqw,34px)}
+.site .fl label{display:block;font-size:14px;font-weight:600;color:var(--smute);margin-bottom:5px}
+.site .fl input,.site .fl textarea{width:100%;min-height:50px;border:none;border-bottom:2px solid var(--sline);background:transparent;padding:10px 0;font-size:17px;color:var(--sink)}
+.site .fl textarea{min-height:86px;resize:vertical}
+.site .fl input:focus,.site .fl textarea:focus{outline:none;border-color:var(--acc)}
+.site .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.site .prog{display:flex;gap:6px}
+.site .prog i{flex:1;height:4px;border-radius:2px;background:var(--sline)}
+.site .prog i.on{background:var(--acc)}
+.site .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.site .opt2{min-height:60px;border-radius:12px;border:2px solid var(--sline);background:transparent;font-weight:600;padding:8px 14px;text-align:left;color:var(--sink)}
+.site .opt2.sel{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--sbg))}
+.site .done{text-align:center;padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.site .done i{width:68px;height:68px;border-radius:34px;background:var(--acc);color:var(--on);display:grid;place-items:center}
+.site .wa{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;height:50px;padding:0 20px;border-radius:999px;background:#25D366;color:#0B2A17 !important;font-weight:700;text-decoration:none}
+
+.site .shops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.site .shop{background:var(--ssoft);border-radius:18px;padding:22px}
+.site .shop b{font-family:var(--fd);font-size:20px;display:block;margin-bottom:6px}
+.site .jobs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.site .job{border-radius:18px;padding:24px;box-shadow:inset 0 0 0 1.5px var(--sline)}
+.site .job b{font-family:var(--fd);font-size:24px;display:block}
+.site .zone{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(30px,5cqw,80px);align-items:center}
+.site .towns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.site .towns a{height:44px;padding:0 18px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--sink);display:inline-flex;align-items:center;text-decoration:none;font-weight:600}
+.site .map{aspect-ratio:4/3;background:var(--ssoft);border-radius:8px;overflow:hidden}
+.site .news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2cqw,26px)}
+.site .news .pic{aspect-ratio:3/2;border-radius:6px}
+.site .news h3{margin:14px 0 4px;font-size:clamp(20px,1.9cqw,26px);line-height:1.1}
+.site footer{background:color-mix(in srgb,var(--sink) 94%,#000);color:var(--sbg)}
+.site footer .in{padding-top:clamp(52px,6cqw,84px);padding-bottom:32px}
+.site footer .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+.site footer .logo{font-size:clamp(30px,3.2cqw,46px);text-align:left}
+.site footer h4{margin:0 0 10px;font-size:14px;opacity:.6}
+.site footer p,.site footer li{margin:0;font-size:15px;line-height:1.85;opacity:.9;list-style:none}
+.site footer ul{padding:0;margin:0}
+.site footer .socs{display:flex;gap:10px;margin-top:14px}
+.site footer .bottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:44px;padding-top:20px;border-top:1px solid color-mix(in srgb,var(--sbg) 16%,transparent);font-size:13px;opacity:.6}
+.site .sticky{display:none}
+.top2{position:fixed;right:18px;bottom:18px;z-index:120;width:52px;height:52px;border-radius:26px;border:none;background:var(--ink);color:var(--bg);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+
+@container (max-width:900px){
+  .site .links,.site .navr .soc{display:none}
+  .site .burger{display:grid}
+  .site .nav .in{height:66px}
+  .site .intro,.site .contact,.site .zone,.site .cfgbox,.site .sheetin,.site .jobs{grid-template-columns:1fr}
+  .site .cards,.site .news,.site .shops{grid-template-columns:1fr}
+  .site .card{aspect-ratio:5/4}
+  .site .band .in,.site .moments{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 18px}
+  .site .gsimple{grid-template-columns:1fr 1fr}
+  .site .masonry{columns:2 140px}
+  .site .dots{top:auto;bottom:22px;right:18px;flex-direction:row;transform:none}
+  .site .contact > .pic{min-height:260px}
+  .site .clines,.site .opts,.site .two,.site .cfgopts{grid-template-columns:1fr}
+  .site footer .top{grid-template-columns:1fr 1fr}
+  .site footer .in{padding-bottom:104px}
+  .site .callcard{right:12px;left:12px;width:auto}
+  .site .sticky{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:90;padding:10px 12px 14px;background:color-mix(in srgb,var(--sbg) 94%,transparent);backdrop-filter:blur(14px);box-shadow:0 -1px 0 var(--sline)}
+  .site .sticky a,.site .sticky button{height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border:none;text-decoration:none;font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= SITE DE PRÉSENTATION ================= -->
+<div id="configView">
+  <header class="phead"><div class="in">
+    <div class="plogo"><i></i>[Votre marque]</div>
+    <nav class="pnav" aria-label="Menu">
+      <a href="#comment">Comment ça marche</a><a href="#formules">Formules</a><a href="#options">Options</a><a href="#demo">Voir une démo</a>
+    </nav>
+    <a class="hbtn" href="#demo">Essayer la démo</a>
+  </div></header>
+
+  <div class="wrap">
+    <section class="phero">
+      <span class="tagline">Sites internet pour artisans</span>
+      <h1>Un site qui fait <em>sonner votre téléphone</em>.</h1>
+      <p>Site, fiche Google et avis clients. En ligne en une semaine.</p>
+      <div class="cta3">
+        <a class="b p" href="#demo">Voir ma démo en 30 secondes</a>
+        <a class="b o" href="#formules">Les formules</a>
+      </div>
+      <div class="pictos" id="pictos"></div>
+    </section>
+  </div>
+
+  <section class="sect alt" id="demo"><div class="wrap">
+    <div class="head2"><div><h2 class="h2">Votre démo, à votre nom</h2><p class="lead">Choisissez votre métier, entrez vos informations, le site s'ouvre en plein écran.</p></div></div>
+    <div class="tiles" id="tiles" role="group" aria-label="Votre métier"></div>
+    <div class="form2">
+      <div class="fld full"><label for="nom">Nom de l'entreprise</label><input id="nom" autocomplete="organization"></div>
+      <div class="fld"><label for="ville">Ville</label><input id="ville" autocomplete="address-level2"></div>
+      <div class="fld"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+      <div class="fld full"><label id="lblf">Formule à afficher</label><div class="opts3" id="planPick" role="group" aria-labelledby="lblf"></div></div>
+      <details class="fld full"><summary style="cursor:pointer;font-weight:600;color:var(--p)">Ajouter email, note et nombre d'avis</summary>
+        <div class="form2" style="margin-top:14px">
+          <div class="fld full"><label for="email">Email</label><input id="email" type="email" autocomplete="email"></div>
+          <div class="fld"><label for="note">Note Google</label><input id="note" inputmode="decimal"></div>
+          <div class="fld"><label for="nb">Nombre d'avis</label><input id="nb" inputmode="numeric"></div>
+        </div>
+      </details>
+    </div>
+    <div class="launch"><div class="launch-in">
+      <div id="recap"></div>
+      <button class="b w" id="go">Ouvrir ma démo
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
+    </div></div>
+  </div></section>
+
+  <section class="sect" id="formules"><div class="wrap">
+    <div class="head2"><div><h2 class="h2">Trois formules</h2><p class="lead">Cliquez sur une formule, puis ouvrez la démo pour la voir en vrai.</p></div></div>
+    <div class="offers" id="offers" role="group" aria-label="Formules"></div>
+    <details class="more" style="margin-top:26px">
+      <summary><span class="h2" style="font-size:clamp(24px,2.6vw,32px)">Comparer le détail des formules</span><span class="chev">+</span></summary>
+      <div class="compare" id="compare"></div>
+    </details>
+  </div></section>
+
+  <section class="sect alt" id="options"><div class="wrap">
+    <div class="head2"><div><h2 class="h2">En option, quelle que soit la formule</h2><p class="lead">Facturées à part, ajoutées quand vous en avez besoin.</p></div></div>
+    <div class="steps" id="options3"></div>
+  </div></section>
+
+  <section class="sect" id="comment"><div class="wrap">
+    <details class="more">
+      <summary><span class="h2" style="font-size:clamp(26px,3vw,38px)">Comment ça marche</span><span class="chev">+</span></summary>
+      <div class="steps" style="margin-top:26px">
+        <div class="step"><span class="num">1</span><b>On discute 30 minutes</b><span>Vos prestations, votre secteur, vos photos.</span></div>
+        <div class="step"><span class="num">2</span><b>Vous validez la maquette</b><span>Votre site en ligne sous une semaine, modifications comprises.</span></div>
+        <div class="step"><span class="num">3</span><b>On met en ligne et on suit</b><span>Fiche Google, avis, statistiques, modifications.</span></div>
+      </div>
+    </details>
+    <details class="more">
+      <summary><span class="h2" style="font-size:clamp(26px,3vw,38px)">Questions fréquentes</span><span class="chev">+</span></summary>
+      <div class="steps" style="margin-top:26px">
+        <div class="step"><b>Le site m'appartient ?</b><span>Le nom de domaine est à votre nom, chez OVH. Vous le gardez si vous partez.</span></div>
+        <div class="step"><b>Je peux changer mes photos ?</b><span>Oui, depuis votre téléphone, à partir de la formule Plus. En option sur Simple.</span></div>
+        <div class="step"><b>Et si j'ai déjà un site ?</b><span>On récupère vos textes et vos photos, et on garde votre adresse actuelle.</span></div>
+      </div>
+    </details>
+  </div></section>
+
+  <footer class="pfoot"><div class="wrap"><div class="cols">
+    <div><div class="plogo" style="color:#fff"><i></i>[Votre marque]</div><p style="margin-top:10px">Sites internet, fiche Google et avis clients pour les artisans de [votre secteur].</p></div>
+    <div><h4>Nous contacter</h4><p>[téléphone]<br>[email]<br>Micro-entreprise, SIRET [numéro]</p></div>
+    <div><h4>Informations</h4><ul><li>Mentions légales</li><li>Politique de confidentialité</li><li>Conditions générales</li></ul></div>
+  </div></div></footer>
+</div>
+
+<!-- ================= DÉMO ================= -->
+<div id="siteView" hidden>
+  <div class="demobar" id="demobar">
+    <button class="dbb" id="back" aria-label="Modifier mes informations">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg><span class="hsm">Modifier</span>
+    </button>
+    <div class="grow"></div>
+    <div class="dbseg" id="dbPlans" role="group" aria-label="Formule"></div>
+    <div class="amb hsm" id="dbAmb" role="group" aria-label="Ambiance"></div>
+    <button class="dbb" id="openPanel">Ce que contient cette formule</button>
+    <div class="grow"></div>
+    <a class="dbcta hsm" id="want" href="#">Je veux ce site</a>
+    <button class="dbb" id="hideBar" aria-label="Masquer la barre de démo">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <button class="showbar" id="showBar" hidden>Options de la démo</button>
+  <div class="panel" id="panel" hidden></div>
+  <div class="site" id="site"></div>
+</div>
+<button class="top2" id="top2" hidden aria-label="Revenir en haut de la page">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function(){
+'use strict';
+var CONTACT_EMAIL='contact@votre-domaine.fr';
+function IMG(id,w){if(/^https?:|^img\//.test(id))return id;return 'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+(w||1600)+'&q=72';}
+
+/* ---------- Formules ---------- */
+var PLANS={
+  simple:{nom:'Simple',prix:'[Prix] / mois',desc:'Exister sur internet et être appelé',
+    li:['Site une page, adapté au téléphone','Nom de domaine à votre nom, hébergement, HTTPS','Bouton d\'appel et formulaire de contact','Fiche Google créée et vérifiée','Photos fixes (modification en option)'],
+    key:['La base qui manque à beaucoup d\'artisans','Un site propre, trouvable, avec votre numéro en évidence.']},
+  plus:{nom:'Plus',prix:'[Prix] / mois',desc:'Donner envie et rassurer',
+    li:['Site de 5 pages avec design et animations propres à votre métier','Diaporama d\'accueil avec votre vidéo de présentation','Logo centré, menu réparti autour','Bouton d\'appel qui ouvre vos coordonnées et horaires','Instagram et Facebook reliés au site','Avis Google affichés et mis à jour'],
+    key:['Le site qu\'on regarde jusqu\'au bout','Vidéo, animations, galerie : on voit votre travail avant de vous appeler.']},
+  pro:{nom:'Pro',prix:'[Prix] / mois',desc:'Transformer les visiteurs en demandes',
+    li:['Configurateur : le client compose sa demande en ligne','Fiche détaillée par prestation, avec tarif de départ','Avis déposés directement sur votre site','Design construit à partir de votre logo','Temps forts de l\'année mis en avant','Une page par commune, actualités, WhatsApp'],
+    key:['Votre site travaille pour vous','Le client choisit, décrit, envoie. Vous recevez une demande déjà qualifiée.']}
+};
+var RANK={simple:1,plus:2,pro:3};
+var GROUPS=[
+  ['Les bases',[
+    ['Nom de domaine à votre nom, hébergement, HTTPS','simple'],
+    ['Site adapté au téléphone et appel en un geste','simple'],
+    ['Formulaire de contact','simple'],
+    ['Mentions légales et conformité RGPD','simple'],
+    ['Fiche Google créée et optimisée','simple'],
+    ['Vous modifiez vos photos vous-même','plus','En option sur la formule Simple'],
+    ['Bouton de retour en haut de page','simple']
+  ]],
+  ['Design et contenu',[
+    ['Site de 5 pages','plus','Une seule page en Simple'],
+    ['Design et animations propres à votre métier','plus'],
+    ['Vidéo de présentation dans le diaporama d\'accueil','plus'],
+    ['Logo centré avec le menu réparti autour','plus'],
+    ['Galerie de réalisations filtrable','plus'],
+    ['Vous modifiez aussi textes, horaires et vidéos','plus'],
+    ['Design construit à partir de votre logo','pro'],
+    ['Temps forts de l\'année mis en avant','pro','Fêtes, saisons, périodes de rush']
+  ]],
+  ['Contact et clients',[
+    ['Encart d\'appel : coordonnées, horaires, lien vers le formulaire','plus'],
+    ['Instagram et Facebook reliés au site','plus'],
+    ['Avis Google affichés automatiquement','plus'],
+    ['Avis déposés directement sur le site','pro'],
+    ['Configurateur de demande en ligne','pro','Le client compose et décrit sa demande'],
+    ['Fiche détaillée par prestation','pro'],
+    ['Bouton WhatsApp','pro'],
+    ['Demandes d\'avis par SMS après chantier','pro']
+  ]],
+  ['Visibilité',[
+    ['Référencement local de base','simple'],
+    ['Une page optimisée par prestation','plus'],
+    ['Une page par commune de votre secteur','pro'],
+    ['Actualités et publications Google mensuelles','pro'],
+    ['Rapport de visites','plus','Trimestriel en Plus, mensuel en Pro']
+  ]],
+  ['En option (sur devis)',[
+    ['Modification de vos photos sur la formule Simple','opt'],
+    ['Page recrutement','opt'],
+    ['Plusieurs adresses géolocalisées','opt'],
+    ['Boutique en ligne','opt'],
+    ['Séance photo de vos chantiers','opt']
+  ]]
+];
+var OPTIONS3=[
+  ['Modifier vos photos (formule Simple)','Inclus à partir de la formule Plus. En Simple, les photos restent fixes.'],
+  ['Page recrutement','Vos offres, vos conditions et un formulaire de candidature avec CV.'],
+  ['Plusieurs adresses','Un bloc carte avec chaque agence, ses horaires et son téléphone.'],
+  ['Boutique en ligne','Vendre des prestations ou des produits, avec paiement en ligne.']
+];
+var PICTOS=[
+  ['pin','Visible dans votre secteur','Fiche Google et pages par commune.','var(--p)'],
+  ['star','Des avis qui rassurent','Collecte et affichage automatiques.','var(--ye)'],
+  ['camera','Vos photos, par vous','Vous les changez depuis votre téléphone.','var(--co)'],
+  ['doc','Sans engagement piège','Votre nom de domaine reste le vôtre.','var(--gr)']
+];
+
+var I={
+  phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+  up:'<path d="M7 17L17 7"/><path d="M8 7h9v9"/>', check:'<path d="M20 6L9 17l-5-5"/>', minus:'<path d="M6 12h12"/>',
+  left:'<path d="M15 18l-6-6 6-6"/>', right:'<path d="M9 18l6-6-6-6"/>', x:'<path d="M18 6L6 18"/><path d="M6 6l12 12"/>',
+  menu:'<path d="M4 8h16"/><path d="M4 16h16"/>', play:'<path d="M8 5l12 7-12 7z" fill="currentColor"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
+  doc:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 14h6"/><path d="M9 18h4"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', pin:'<path d="M12 22s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+  star:'<path d="M12 3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.9l1.1-6.5L2.6 9.8l6.5-.9z"/>',
+  broom:'<path d="M19 3l-7 7"/><path d="M8 11l5 5-3 6-7-7z"/><path d="M4 21l3-3"/>', bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  leaf:'<path d="M11 20A7 7 0 0 1 4 13c0-6 7-10 16-10 0 9-4 16-10 16"/><path d="M4 21c4-6 8-9 12-11"/>',
+  sprout:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 3 4c0 5 4 8 9 8z"/><path d="M12 14c0-4 3-7 9-7 0 4-3 7-9 7z"/>',
+  chat:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/>',
+  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  insta:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
+  fb:'<path d="M14 9h3V6h-3c-2 0-3 1.3-3 3v2H9v3h2v7h3v-7h2.5l.5-3H14v-1.6c0-.8.2-1.4 1-1.4z"/>',
+  euro:'<path d="M17 6a7 7 0 1 0 0 12"/><path d="M4 10h9"/><path d="M4 14h9"/>'
+};
+function ic(n,s,w){return '<svg width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+I[n]+'</svg>';}
+
+/* ---------- Métiers ---------- */
+var M={
+  plombier:{label:'Plombier',sub:'Chauffagiste',icon:'phone',nom:'Martin Plomberie',mot:'plombier',depuis:'2009',
+    pal:[{n:'Eau profonde',bg:'#F4F8FA',ink:'#0B2233',acc:'#0A5C8A',on:'#FFFFFF',hi:'#E0A35E'},{n:'Cuivre',bg:'#F7F1EB',ink:'#2A1A10',acc:'#9C4F1C',on:'#FFFFFF',hi:'#E0A35E'},{n:'Ardoise',bg:'#F3F4F6',ink:'#111827',acc:'#1F2937',on:'#FFFFFF',hi:'#60A5FA'},{n:'Lagon',bg:'#EEF9F8',ink:'#0B2B2B',acc:'#0E8C8C',on:'#FFFFFF',hi:'#F0A202'},{n:'Marine',bg:'#F2F4FA',ink:'#111A33',acc:'#22357A',on:'#FFFFFF',hi:'#E4572E'},{n:'Nuit',bg:'#101A24',ink:'#EAF2F5',acc:'#58B7E0',on:'#0B2233',hi:'#E09A5E'}],
+    h:'Votre plombier à {ville}, rapide et soigneux.',lede:'Fuites, chauffe-eau, salles de bain : on arrive vite, on explique tout, on repart en laissant propre.',
+    intro:['Un artisan qui répond, et qui revient si besoin.','Depuis plus de quinze ans, nous dépannons et installons chez les particuliers de {ville} et des alentours. Un seul interlocuteur, un devis clair, un chantier rendu propre.'],
+    eng:[['clock','Dépannage 7j/7','Une fuite ne prévient pas.'],['doc','Devis détaillé','Le prix annoncé est le prix payé.'],['shield','Garantie décennale','Chaque installation est assurée.'],['broom','Chantier propre','Protégé pendant, nettoyé après.']],
+    services:[['Fuites et dépannages','Canalisations, robinetterie, WC : on trouve la cause et on répare.',6,'[XX] €','Déplacement et diagnostic compris','Intervention sous 24 h','Devis avant toute réparation'],
+      ['Salles de bain','Douche à l\'italienne, meubles, raccordements, de la dépose à la finition.',1,'[XXXX] €','Plan et choix des matériaux','Dépose de l\'ancienne salle de bain','Garantie décennale sur l\'installation'],
+      ['Chauffe-eau et chaudières','Remplacement, entretien annuel et mise en service.',3,'[XXX] €','Conseil sur le modèle adapté','Évacuation de l\'ancien appareil','Contrat d\'entretien possible']],
+    cfg:[['Votre besoin',['Fuite ou dépannage','Salle de bain complète','Chauffe-eau','Rénovation de réseau']],['Le logement',['Appartement','Maison','Local professionnel']],['Le délai',['Urgent','Sous un mois','Dans trois mois','Je me renseigne']]],
+    moments:[['Novembre','Purge avant les gels',2],['Janvier','Entretien de chaudière',3],['Mars','Projets salle de bain',1],['Juin','Avant les vacances',4]],
+    photos:[['1676210134188-4c05dd172f89','Intervention sur une canalisation',0],['1749532125405-70950966b0e5','Réparation en salle de bain',1],['1596394723269-b2cbca4e6313','Raccord en laiton',0],['1676210134190-3f2c0d5cf58d','Chauffe-eau',2],['1542013936693-884638332954','Robinetterie',1],['1530124566582-a618bc2615dc','Outillage',0],['1676210133055-eab6ef033ce3','Raccordement sous évier',0],['1521207418485-99c705420785','Évier de cuisine',1]],
+    avis:[['Venu le jour même pour une fuite sous l\'évier. Tout expliqué, prix respecté.','Sophie L.'],['Salle de bain refaite en dix jours, chantier nettoyé chaque soir.','Marc D.'],['Chauffe-eau changé un samedi matin. Réactif et très correct.','Nadia B.']],
+    news:[['Éviter le gel des canalisations cet hiver',2],['Chauffe-eau : les signes qu\'il faut le remplacer',3],['Entretenir sa robinetterie en cinq minutes',4]],
+    jobs:[['Plombier confirmé (H/F)','CDI, permis B, secteur {ville}'],['Apprenti plomberie (H/F)','Alternance, rentrée de septembre']]},
+  electricien:{label:'Électricien',sub:'Dépannage et rénovation',icon:'bolt',nom:'Lefèvre Électricité',mot:'électricien',depuis:'2012',
+    pal:[{n:'Signal',bg:'#F7F7F5',ink:'#141414',acc:'#F5C400',on:'#141414',hi:'#F5C400'},{n:'Bleu tension',bg:'#F4F6FF',ink:'#0E1440',acc:'#2B3BFF',on:'#FFFFFF',hi:'#FFD60A'},{n:'Graphite',bg:'#F4F4F5',ink:'#18181B',acc:'#E4572E',on:'#FFFFFF',hi:'#F59E0B'},{n:'Cuivre chaud',bg:'#FBF3EC',ink:'#20140C',acc:'#B45309',on:'#FFFFFF',hi:'#F5C400'},{n:'Vert néon',bg:'#F2F7F2',ink:'#10261A',acc:'#127A45',on:'#FFFFFF',hi:'#C8F169'},{n:'Nuit',bg:'#15161A',ink:'#F2F2F2',acc:'#FFD60A',on:'#141414',hi:'#FFD60A'}],
+    h:'Électricien à {ville}. Sûr, net, expliqué.',lede:'Tableaux, mises aux normes, pannes, éclairage et bornes de recharge, pour les particuliers et les professionnels.',
+    intro:['Une installation que vous comprenez.','Nous remettons en sécurité les logements de {ville} et des environs, du dépannage à la rénovation complète. Chaque circuit est testé, étiqueté et expliqué.'],
+    eng:[['bolt','Intervention rapide','Panne ou disjoncteur qui saute.'],['shield','Aux normes','Sécurité vérifiée à chaque chantier.'],['doc','Devis clair','Chaque poste détaillé avant travaux.'],['clock','Rendez-vous tenus','On arrive à l\'heure annoncée.']],
+    services:[['Mise aux normes','Tableau électrique, prises, mise à la terre : un logement en sécurité.',4,'[XXX] €','Diagnostic de l\'installation','Tableau étiqueté et expliqué','Attestation de conformité'],
+      ['Dépannage','Court-circuit, panne générale : diagnostic et réparation.',3,'[XX] €','Déplacement et recherche de panne','Réparation immédiate si possible','Devis si pièces à commander'],
+      ['Éclairage et bornes','Éclairage intérieur, extérieur et bornes pour véhicule électrique.',2,'[XXX] €','Étude de puissance','Pose et mise en service','Aide au dossier de subvention']],
+    cfg:[['Votre besoin',['Panne ou dépannage','Mise aux normes','Borne de recharge','Éclairage']],['Le lieu',['Appartement','Maison','Local professionnel']],['Le délai',['Urgent','Sous un mois','Dans trois mois','Je me renseigne']]],
+    moments:[['Septembre','Avant l\'hiver, vérifiez le tableau',4],['Décembre','Illuminations et prises extérieures',5],['Mars','Bornes de recharge : aides en cours',2],['Juin','Climatisation et ventilation',1]],
+    photos:[['1621905251189-08b45d6a269e','Pose de câblage',0],['1660330589693-99889d60181e','Intervention sur un tableau',0],['1473308822086-710304d7d30c','Éclairage',2],['1758101755915-462eddc23f57','Contrôle au multimètre',1],['1544724569-5f546fd6f2b5','Tableau et disjoncteurs',0],['1507494924047-60b8ee826ca9','Ampoules décoratives',2],['1682345262055-8f95f3c513ea','Raccordement de fils',1],['1635335874521-7987db781153','Boîte de dérivation',1]],
+    avis:[['Tableau refait proprement, tout étiqueté et expliqué. On sait enfin à quoi sert chaque disjoncteur.','Julien R.'],['Borne installée en une matinée, dossier d\'aide géré avec nous.','Claire M.'],['Panne générale un dimanche, courant rétabli dans l\'heure.','Hugo T.']],
+    news:[['Borne de recharge : les étapes pour l\'installer',2],['Cinq signes que votre tableau doit être changé',4],['Bien choisir son éclairage extérieur',5]],
+    jobs:[['Électricien bâtiment (H/F)','CDI, habilitations à jour'],['Alternant électricité (H/F)','Bac pro ou BTS']]},
+  paysagiste:{label:'Paysagiste',sub:'Création de jardins',icon:'leaf',nom:'Jardins Duval',mot:'paysagiste',depuis:'2006',
+    pal:[{n:'Mousse',bg:'#F4F3EE',ink:'#1D2E1F',acc:'#2F5A36',on:'#FFFFFF',hi:'#D9A441'},{n:'Pierre',bg:'#F5F2ED',ink:'#2B2926',acc:'#6B5B45',on:'#FFFFFF',hi:'#C08457'},{n:'Sauge',bg:'#F2F5F1',ink:'#1F2A24',acc:'#5F7F68',on:'#FFFFFF',hi:'#E3B45A'},{n:'Terre cuite',bg:'#FAF2EC',ink:'#2C1B14',acc:'#A85434',on:'#FFFFFF',hi:'#6F8F4F'},{n:'Ardoise et lin',bg:'#F1F3F4',ink:'#1B2226',acc:'#3E5C5A',on:'#FFFFFF',hi:'#D9A441'},{n:'Forêt',bg:'#14231A',ink:'#E8EDDF',acc:'#9BC17F',on:'#14231A',hi:'#E3B45A'}],
+    h:'Des jardins qui vous ressemblent.',lede:'Paysagiste à {ville}. Nous dessinons, plantons et construisons l\'extérieur dont vous rêvez.',
+    intro:['Chaque jardin commence par une conversation.','Nous prenons le temps de comprendre votre terrain et votre façon de vivre dehors. Puis nous dessinons le projet, choisissons les végétaux et réalisons tout, de la terrasse au dernier massif.'],
+    eng:[['leaf','Étude offerte','Visite et plan de votre futur jardin.'],['sprout','Végétaux adaptés','Choisis pour votre sol et votre climat.'],['shield','Garantie de reprise','Les plantations sont suivies.'],['clock','Délais tenus','Un planning annoncé et respecté.']],
+    services:[['Création de jardins','Plans, choix des végétaux et réalisation complète.',0,'[XXXX] €','Visite et relevé du terrain','Plan et palette végétale','Réalisation par nos équipes'],
+      ['Terrasses et allées','Bois, pierre, pavés : des matières qui vieillissent bien.',2,'[XXX] € / m²','Étude des niveaux et écoulements','Préparation du sol','Pose et finitions'],
+      ['Plantations','Haies, massifs, arbres, gazon et arrosage.',4,'[XXX] €','Choix des végétaux','Amendement du sol','Suivi de la reprise']],
+    cfg:[['Votre projet',['Création complète','Terrasse ou allée','Plantations','Arrosage automatique']],['La surface',['Moins de 100 m²','100 à 300 m²','300 à 1000 m²','Plus de 1000 m²']],['Le style',['Naturel et champêtre','Contemporain et graphique','Méditerranéen','Sans idée précise']]],
+    moments:[['Mars','Préparer le jardin du printemps',4],['Mai','Terrasses avant l\'été',2],['Septembre','Plantations d\'automne',7],['Novembre','Élagage et structures',5]],
+    photos:[['1597201278257-3687be27d954','Massifs fleuris',0],['1663185777390-d44a6f4724b9','Allée de jardin',1],['1617850687395-620757feb1f3','Terrasse en bois',1],['1700689807667-82630348b301','Chemin en briques',1],['1632161293871-cf2083474e34','Jardin de vivaces',2],['1686663048931-6df69f577a2f','Jardin arboré',0],['1734079692087-91bac04efcd1','Pose de bordures',1],['1734079692079-aae7e24a7035','Pose de gazon',2]],
+    avis:[['Notre jardin est méconnaissable. Le plan dessiné au départ correspond exactement au résultat.','Anne et Paul G.'],['Terrasse superbe, équipe agréable, délais tenus.','Karim S.'],['Quelques plantes n\'ont pas repris : remplacées sans discuter.','Élise V.']],
+    news:[['Un jardin sans arrosage : quelles plantes choisir',4],['Terrasse bois ou pierre : comment choisir',2],['Les vivaces qui fleurissent tout l\'été',0]],
+    jobs:[['Ouvrier paysagiste (H/F)','CDI, CAP ou expérience'],['Chef d\'équipe création (H/F)','CDI, permis EB apprécié']]},
+  jardinier:{label:'Jardinier',sub:'Entretien de jardins',icon:'sprout',nom:'Au Jardin Net',mot:'jardinier',depuis:'2015',
+    pal:[{n:'Gazon',bg:'#F5F9EF',ink:'#1C2B12',acc:'#3F7F26',on:'#FFFFFF',hi:'#F2C94C'},{n:'Menthe',bg:'#EFF7F3',ink:'#0F2A22',acc:'#0F735A',on:'#FFFFFF',hi:'#FF9466'},{n:'Potager',bg:'#FFF7EA',ink:'#2B2111',acc:'#B24D1B',on:'#FFFFFF',hi:'#8BBF4A'},{n:'Prairie',bg:'#F7F7EE',ink:'#26280F',acc:'#6B8E23',on:'#FFFFFF',hi:'#E86A33'},{n:'Ciel',bg:'#F1F6FB',ink:'#132330',acc:'#2C6E9B',on:'#FFFFFF',hi:'#8BBF4A'},{n:'Sous-bois',bg:'#18200F',ink:'#EDF3E2',acc:'#9FCE63',on:'#18200F',hi:'#F2C94C'}],
+    h:'Votre jardin, sans y penser.',lede:'Jardinier à {ville}. Tonte, haies, entretien régulier : vous profitez, on s\'occupe du reste.',
+    intro:['Le même jardinier, à chaque passage.','Nous entretenons les jardins de {ville} et des alentours toute l\'année. Vous choisissez la fréquence, nous connaissons votre jardin et repartons avec les déchets verts.'],
+    eng:[['clock','Passages réguliers','À la fréquence qui vous convient.'],['broom','Déchets évacués','Rien ne reste derrière nous.'],['doc','[Crédit d\'impôt]','Si agréé services à la personne.'],['sprout','Conseils de saison','Tailles et soins au bon moment.']],
+    services:[['Tonte et haies','Pelouse nette et haies taillées au cordeau, toute l\'année.',1,'[XX] € / passage','Tonte et finitions','Taille de haies','Déchets verts évacués'],
+      ['Entretien régulier','Avec ou sans contrat, un jardinier qui connaît votre jardin.',0,'[XX] € / mois','Fréquence au choix','Même intervenant à chaque passage','Report en cas de mauvais temps'],
+      ['Débroussaillage','Remise en état de terrains laissés à l\'abandon.',3,'[XXX] €','Devis après visite','Évacuation en déchetterie','Terrain rendu praticable']],
+    cfg:[['Votre besoin',['Tonte','Taille de haies','Entretien complet','Débroussaillage']],['La surface',['Moins de 200 m²','200 à 500 m²','500 à 1500 m²','Plus de 1500 m²']],['La fréquence',['Une seule fois','Tous les quinze jours','Une fois par mois','À la saison']]],
+    moments:[['Mars','Première tonte et réveil du jardin',1],['Juin','Haies avant l\'été',0],['Septembre','Scarification et regarnissage',7],['Novembre','Feuilles et taille d\'hiver',3]],
+    photos:[['1668120089662-42642838cfef','Pelouse entretenue',1],['1734303023491-db8037a21f09','Tonte',0],['1689728318937-17d24bc0a65c','Finitions au coupe-bordure',0],['1734079692160-fcbe4be6ab96','Évacuation des déchets',2],['1458245201577-fc8a130b8829','Tondeuse',0],['1605117882932-f9e32b03fea9','Travaux de terrain',2],['1734079692079-172d8243ebd3','Élagage',2],['1734079692079-aae7e24a7035','Regarnissage de gazon',1]],
+    avis:[['Passage tous les quinze jours, toujours à l\'heure. Le jardin n\'a jamais été aussi beau.','Monique F.'],['Trente mètres de haie taillés au cordeau, et tout est reparti dans le camion.','Bruno L.'],['Sérieux et à l\'écoute, prévient quand la météo décale un passage.','Inès K.']],
+    news:[['Quand tailler ses haies : le calendrier simple',2],['Préparer son jardin pour l\'automne',3],['Une pelouse dense sans produits chimiques',0]],
+    jobs:[['Jardinier d\'entretien (H/F)','CDI, permis B'],['Saisonnier tonte (H/F)','Mars à octobre']]}
+};
+
+var S={m:'plombier',nom:M.plombier.nom,ville:'Chantilly',tel:'06 12 34 56 78',email:'contact@exemple.fr',note:'4,9',nb:'48',a:0,f:'plus',
+  page:'accueil',q:0,slide:0,cat:-1,menu:false,lb:-1,sheet:-1,call:false,panel:false,cfg:[null,null,null],revStars:5,posted:null,devis:{step:0,choix:null,delai:null}};
+var FIELDS=['nom','ville','tel','email','note','nb'];
+var $=function(i){return document.getElementById(i);};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function stars(n){var v=parseFloat(String(n).replace(',','.'));if(isNaN(v))v=5;var f=Math.max(0,Math.min(5,Math.round(v)));return '★★★★★'.slice(0,f)+'☆☆☆☆☆'.slice(0,5-f);}
+function telHref(){return 'tel:'+String(S.tel).replace(/[^\d+]/g,'');}
+function waNum(){var d=String(S.tel).replace(/\D/g,'');if(d.charAt(0)==='0')d='33'+d.slice(1);return d;}
+function V(s){return esc(String(s).replace('{ville}',S.ville));}
+function pal(){var p=M[S.m].pal;return p[Math.max(0,Math.min(p.length-1,S.a|0))];}
+function pic(i,w,cls){var ph=M[S.m].photos[i%M[S.m].photos.length];return '<div class="pic '+(cls||'')+'"><img src="'+IMG(ph[0],w)+'" alt="'+esc(ph[1])+'" loading="lazy" decoding="async"></div>';}
+function telBtn(cls,inner,style){return '<a class="'+cls+'" href="'+telHref()+'"'+(style?' style="'+style+'"':'')+'>'+inner+'</a>';}
+
+/* ---------- Présentation ---------- */
+function renderConfig(){
+  $('pictos').innerHTML=PICTOS.map(function(p){return '<div class="picto"><i style="background:'+p[3]+'">'+ic(p[0],22,2)+'</i><b>'+p[1]+'</b><span>'+p[2]+'</span></div>';}).join('');
+  $('offers').innerHTML=Object.keys(PLANS).map(function(k){var p=PLANS[k];
+    return '<div class="offer'+(k==='plus'?' hot':'')+'">'+(k==='plus'?'<span class="flag">Le plus choisi</span>':'')+
+      '<h3>'+p.nom+'</h3><div class="price">'+p.prix+'</div><p class="pitch">'+p.desc+'</p>'+
+      '<div class="keyf"><b>'+p.key[0]+'</b>'+p.key[1]+'</div><ul>'+p.li.map(function(l){return '<li>'+ic('check',17,2.6)+'<span>'+esc(l)+'</span></li>';}).join('')+'</ul>'+
+      '<button class="b '+(k==='plus'?'p':'o')+'" data-p="'+k+'" style="height:50px;justify-content:center">Voir la formule '+p.nom+'</button></div>';}).join('');
+  var rows='<div class="crow hd"><div class="lbl">Ce qui est inclus</div><div class="c">Simple</div><div class="c">Plus</div><div class="c">Pro</div></div>';
+  GROUPS.forEach(function(g){
+    rows+='<div class="crow grp">'+g[0]+'</div>';
+    g[1].forEach(function(f){
+      var cell=function(k){if(f[1]==='opt')return '<div class="c"><span class="opt">Option</span></div>';
+        return '<div class="c">'+(RANK[k]>=RANK[f[1]]?'<span class="yes">'+ic('check',20,3)+'</span>':'<span class="no">'+ic('minus',20,3)+'</span>')+'</div>';};
+      rows+='<div class="crow"><div class="lbl">'+esc(f[0])+(f[2]?'<small>'+esc(f[2])+'</small>':'')+'</div>'+cell('simple')+cell('plus')+cell('pro')+'</div>';
+    });
+  });
+  $('compare').innerHTML=rows;
+  $('options3').innerHTML=OPTIONS3.map(function(o){return '<div class="step"><span class="num" style="background:var(--co)">+</span><b>'+o[0]+'</b><span>'+o[1]+'</span></div>';}).join('');
+  $('tiles').innerHTML=Object.keys(M).map(function(k){var m=M[k],on=S.m===k,ph=m.photos[0];
+    return '<button class="tile" data-m="'+k+'" aria-pressed="'+on+'"><div class="pic"><img src="'+IMG(ph[0],800)+'" alt="" loading="lazy"></div><span class="shade"></span>'+
+      '<span class="txt"><span><span class="tt" style="font-family:var(--disp);font-weight:800">'+m.label+'</span><span class="ts">'+m.sub+'</span></span><span class="check">'+ic('check',18,3)+'</span></span></button>';}).join('');
+  $('planPick').innerHTML=Object.keys(PLANS).map(function(k){return '<button data-p="'+k+'" aria-pressed="'+(S.f===k)+'">'+PLANS[k].nom+'</button>';}).join('');
+  $('recap').innerHTML='<strong>'+esc(S.nom||'Votre entreprise')+'</strong>, '+M[S.m].label.toLowerCase()+' à '+esc(S.ville)+' · formule <strong>'+PLANS[S.f].nom+'</strong>';
+  mail();
+}
+function syncInputs(){FIELDS.forEach(function(k){$(k).value=S[k];});}
+
+/* ---------- Démo : sections ---------- */
+function pages(){
+  if(S.f==='simple')return [];
+  var p=[['accueil','Accueil'],['services','Prestations'],['realisations','Réalisations'],['avis','Avis'],['contact','Contact']];
+  if(S.f==='pro')p=[['accueil','Accueil'],['services','Prestations'],['realisations','Réalisations'],['avis','Avis'],['zone','Secteur'],['recrutement','Recrutement'],['agences','Nos agences'],['contact','Devis']];
+  return p;
+}
+function socials(){
+  if(S.f==='simple')return '';
+  return '<a class="soc" href="#" aria-label="Instagram">'+ic('insta',18,1.8)+'</a><a class="soc" href="#" aria-label="Facebook">'+ic('fb',18,1.8)+'</a>';
+}
+function hero(){
+  var m=M[S.m];
+  var n=(S.f==='simple')?1:3;
+  var slides='';
+  for(var i=0;i<n;i++){
+    var isVideo=(S.f!=='simple'&&i===2);
+    slides+='<div class="slide'+(i===S.slide?' on':'')+'">'+pic(i,2000)+(isVideo?'<div class="vslide"><button class="playbtn" data-video="1" aria-label="Lire la vidéo de présentation">'+ic('play',34,0)+'</button><span class="vtag">Vidéo de présentation de l\'entreprise</span></div>':'')+'</div>';
+  }
+  var dots=n>1?'<div class="dots" role="group" aria-label="Diaporama">'+Array.apply(null,{length:n}).map(function(_,i){return '<button data-dot="'+i+'" class="'+(i===S.slide?'on':'')+'" aria-label="Image '+(i+1)+'"></button>';}).join('')+'</div>':'';
+  return '<section class="hero">'+slides+'<div class="veil"></div><div class="in">'+
+    '<div class="rate"><b>'+stars(S.note)+'</b>'+esc(S.note)+' sur 5, '+esc(S.nb)+' avis Google</div>'+
+    '<h1 class="h1 disp">'+V(m.h)+'</h1><div class="row"><p class="lede">'+V(m.lede)+'</p>'+
+    '<div class="btns"><button class="btn p" data-go="contact">'+(S.f==='pro'?'Composer ma demande':'Demander un devis')+'</button>'+
+    (S.f==='simple'?telBtn('btn w',ic('phone',18)+esc(S.tel)):'<button class="btn w" data-call="1">'+ic('phone',18)+'Nous appeler</button>')+'</div></div></div>'+dots+'</section>';
+}
+function intro(){
+  var m=M[S.m];
+  return '<section class="sec"><div class="in intro"><div><h2 class="h2 disp">'+V(m.intro[0])+'</h2><p>'+V(m.intro[1])+'</p><div class="btns"><button class="btn s" data-go="contact">Parler de mon projet</button></div></div>'+
+    '<div class="collage">'+pic(3,1000,'a')+pic(4,800,'b')+'<div class="since"><small>Depuis</small><b>'+m.depuis+'</b></div></div></div></section>';
+}
+function services(){
+  var m=M[S.m],pro=S.f==='pro';
+  return '<section class="sec" style="padding-top:0"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos prestations</h2><p>'+(pro?'Chaque prestation a sa fiche : ce qui est compris, le déroulé et le tarif de départ.':'Des interventions soignées, du petit dépannage au chantier complet.')+'</p></div><div class="cards">'+
+    m.services.map(function(s,i){return '<button class="card" '+(pro?'data-sheet="'+i+'"':'data-go="contact"')+' aria-label="'+esc(s[0])+'">'+pic(s[2],900)+'<span class="shade"></span>'+(pro?'<span class="from">à partir de '+esc(s[3])+'</span>':'')+
+      '<span class="ct"><h3 class="disp">'+esc(s[0])+'</h3><p>'+esc(s[1])+'</p><span class="more">'+(pro?'Voir la fiche ':'Demander un devis ')+ic('up',16,2.4)+'</span></span></button>';}).join('')+'</div></div></section>';
+}
+function band(){
+  return '<section class="band">'+pic(5,2000)+'<div class="veil"></div><div class="in">'+M[S.m].eng.map(function(e){return '<div class="it">'+ic(e[0],32,1.6)+'<b>'+esc(e[1])+'</b><span>'+esc(e[2])+'</span></div>';}).join('')+'</div></section>';
+}
+function gallery(){
+  var m=M[S.m];
+  if(S.f==='simple')return '<section class="sec"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos réalisations</h2></div><div class="gsimple">'+[0,2,4].map(function(i){return pic(i,900);}).join('')+'</div></div></section>';
+  var cats='<div class="filters" role="group" aria-label="Filtrer"><button data-cat="-1" class="'+(S.cat<0?'on':'')+'">Tout</button>'+m.services.map(function(s,i){return '<button data-cat="'+i+'" class="'+(S.cat===i?'on':'')+'">'+esc(s[0])+'</button>';}).join('')+'</div>';
+  var r=['4/5','1/1','3/4','4/3','1/1','4/5','3/4','4/3'];
+  var shots=m.photos.map(function(ph,i){if(S.cat>=0&&ph[2]!==S.cat)return '';
+    return '<button class="shot" data-lb="'+i+'" aria-label="Agrandir : '+esc(ph[1])+'"><div class="pic" style="aspect-ratio:'+r[i]+'"><img src="'+IMG(ph[0],900)+'" alt="'+esc(ph[1])+'" loading="lazy"></div><figcaption>'+esc(ph[1])+'</figcaption></button>';}).join('');
+  return '<section class="sec"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos réalisations</h2><p>Cliquez sur une photo pour l\'agrandir.</p></div>'+cats+'<div class="masonry">'+shots+'</div></div></section>';
+}
+function moments(){
+  var m=M[S.m];
+  return '<section class="sec" style="padding-top:0"><div class="in"><div class="sechead"><h2 class="h2 disp">Les temps forts de l\'année</h2><p>Chaque saison a ses travaux. On met en avant le bon service au bon moment.</p></div><div class="moments">'+
+    m.moments.map(function(x){return '<button class="moment" data-go="contact">'+pic(x[2],700)+'<span class="shade"></span><span class="ct"><small>'+esc(x[0])+'</small><b>'+esc(x[1])+'</b></span></button>';}).join('')+'</div></div></section>';
+}
+function reviews(){
+  var m=M[S.m];
+  if(S.f==='simple')return '<section class="sec reviews" style="padding:clamp(48px,6cqw,84px) 0"><div class="in"><div class="stars">'+stars(S.note)+'</div><h2 class="h2 disp" style="margin:12px auto 0">'+esc(S.note)+' sur 5</h2><p class="demo" style="font-size:16px">'+esc(S.nb)+' avis sur Google</p></div></section>';
+  var q=m.avis[S.q%m.avis.length];
+  var form='';
+  if(S.f==='pro'){
+    form='<div class="revform"><h3 class="disp" style="margin:0 0 4px;font-size:24px">Vous êtes client ? Laissez votre avis ici</h3><p class="demo" style="margin:0 0 10px">Publié sur le site, et repris automatiquement sur votre fiche Google.</p>'+
+      '<div class="starpick" role="group" aria-label="Votre note">'+[1,2,3,4,5].map(function(i){return '<button data-rs="'+i+'" class="'+(i<=S.revStars?'on':'')+'" aria-label="'+i+' étoile'+(i>1?'s':'')+'">★</button>';}).join('')+'</div>'+
+      '<div class="fl"><label for="r-n">Votre prénom</label><input id="r-n"></div><div class="fl"><label for="r-t">Votre avis</label><textarea id="r-t"></textarea></div>'+
+      '<button class="btn p" style="margin-top:12px" data-postrev="1">Publier mon avis</button>'+
+      (S.posted?'<div class="newrev"><span class="pill">En ligne</span><div style="margin-top:8px;color:var(--hi)">'+'★'.repeat(S.posted.s)+'</div><p style="margin:6px 0 0">« '+esc(S.posted.t)+' »</p><div class="demo">'+esc(S.posted.n)+' · à l\'instant · transmis à Google</div></div>':'')+'</div>';
+  }
+  return '<section class="sec reviews"><div class="in"><div class="stars">★★★★★</div><blockquote class="quote disp">« '+esc(q[0])+' »</blockquote><div class="who">'+esc(q[1])+' <span class="demo">(avis d\'exemple)</span></div>'+
+    '<div class="qnav"><button data-q="-1" aria-label="Avis précédent">'+ic('left',22)+'</button><span class="demo">'+(S.q%3+1)+' / 3</span><button data-q="1" aria-label="Avis suivant">'+ic('right',22)+'</button></div>'+form+'</div></section>';
+}
+function configurator(){
+  var m=M[S.m],ok=S.cfg.every(function(x){return !!x;});
+  return '<section class="sec cfg" id="s-contact"><div class="in"><div class="sechead"><h2 class="h2 disp" style="color:var(--sbg)">Composez votre demande</h2><p style="color:color-mix(in srgb,var(--sbg) 70%,var(--sink))">Trois questions, une minute. Vous recevez une proposition adaptée, pas un tarif au hasard.</p></div>'+
+    '<div class="cfgbox"><div>'+m.cfg.map(function(st,si){return '<div style="margin-bottom:22px"><b class="disp" style="font-size:20px">'+(si+1)+'. '+esc(st[0])+'</b><div class="cfgopts">'+
+      st[1].map(function(o){return '<button class="copt'+(S.cfg[si]===o?' sel':'')+'" data-cfg="'+si+'" data-val="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div></div>';}).join('')+'</div>'+
+    '<div class="recap"><b class="disp" style="font-size:22px">Votre demande</b>'+
+      m.cfg.map(function(st,si){return '<div class="l"><span class="demo">'+esc(st[0])+'</span><strong>'+(S.cfg[si]?esc(S.cfg[si]):'—')+'</strong></div>';}).join('')+
+      '<label class="demo" for="cfg-msg" style="display:block;margin-top:14px">Un message pour '+esc(S.nom)+' (facultatif)</label><textarea id="cfg-msg" placeholder="Précisez ce qui compte pour vous, ajoutez une photo au besoin."></textarea>'+
+      '<div class="two" style="margin-top:12px"><div class="fl"><label for="cfg-n">Nom</label><input id="cfg-n"></div><div class="fl"><label for="cfg-t">Téléphone</label><input id="cfg-t" type="tel"></div></div>'+
+      '<button class="btn p" style="width:100%;margin-top:14px;justify-content:center" data-send="1"'+(ok?'':' disabled')+'>'+(ok?'Envoyer ma demande':'Répondez aux trois questions')+'</button>'+
+      '<a class="wa" style="margin:14px 0 0" href="https://wa.me/'+waNum()+'" target="_blank" rel="noopener">'+ic('chat',20)+'Ou écrire sur WhatsApp</a></div></div></div></section>';
+}
+function contact(){
+  if(S.f==='pro')return configurator();
+  return '<section class="contact" id="s-contact">'+pic(6,1400)+'<div class="side"><h2 class="h2 disp">Parlons de votre projet.</h2>'+
+    '<div class="clines"><div><small>Téléphone</small>'+telBtn('',esc(S.tel))+'</div><div><small>Email</small><a href="mailto:'+esc(S.email)+'">'+esc(S.email)+'</a></div><div><small>Secteur</small>'+esc(S.ville)+' et [XX] km autour</div><div><small>Horaires</small>Lun – Sam, 8 h – 19 h</div></div>'+
+    '<div class="form"><h3 class="disp">Écrivez-nous</h3><div class="two"><div class="fl"><label for="c-n">Nom</label><input id="c-n"></div><div class="fl"><label for="c-t">Téléphone</label><input id="c-t" type="tel"></div></div><div class="fl"><label for="c-m">Votre besoin</label><textarea id="c-m"></textarea></div><button class="btn p" data-send="1">Envoyer ma demande</button></div></div></section>';
+}
+function zone(){
+  var p=pal();
+  return '<section class="sec"><div class="in zone"><div><h2 class="h2 disp">Nous intervenons à '+esc(S.ville)+' et autour.</h2><p class="demo" style="font-size:18px;margin-top:18px">Chaque commune a sa page, pour que vos clients vous trouvent en cherchant « '+esc(M[S.m].mot)+' + leur commune ».</p>'+
+    '<div class="towns"><a href="#">'+esc(M[S.m].label)+' à '+esc(S.ville)+'</a><a href="#">[Commune 2]</a><a href="#">[Commune 3]</a><a href="#">[Commune 4]</a><a href="#">[Commune 5]</a></div></div>'+
+    '<div class="map"><svg width="100%" height="100%" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 240 C180 180 320 330 500 270 S740 170 800 230" stroke="'+p.ink+'" stroke-opacity=".12" stroke-width="18" fill="none"/><path d="M260 0 C300 200 210 380 300 600" stroke="'+p.ink+'" stroke-opacity=".1" stroke-width="12" fill="none"/><circle cx="400" cy="300" r="200" fill="'+p.acc+'" fill-opacity=".12"/><circle cx="400" cy="300" r="200" fill="none" stroke="'+p.acc+'" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/><circle cx="400" cy="300" r="18" fill="'+p.acc+'"/><circle cx="400" cy="300" r="7" fill="'+p.bg+'"/></svg></div></div></section>';
+}
+function agences(){
+  var p=pal(),villes=[S.ville,'[Commune 2]','[Commune 3]'];
+  return '<section class="sec"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos agences</h2><p><span class="pill">Option</span> Utile si vous avez plusieurs adresses ou dépôts.</p></div>'+
+    '<div class="map" style="aspect-ratio:16/6;margin-bottom:18px"><svg width="100%" height="100%" viewBox="0 0 1200 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 200 C250 130 450 300 700 230 S1100 140 1200 200" stroke="'+p.ink+'" stroke-opacity=".12" stroke-width="16" fill="none"/>'+
+      [[300,180],[620,260],[900,170]].map(function(c){return '<circle cx="'+c[0]+'" cy="'+c[1]+'" r="60" fill="'+p.acc+'" fill-opacity=".14"/><circle cx="'+c[0]+'" cy="'+c[1]+'" r="14" fill="'+p.acc+'"/>';}).join('')+'</svg></div>'+
+    '<div class="shops">'+villes.map(function(v,i){return '<div class="shop"><b>'+esc(S.nom)+' '+esc(v)+'</b><div class="demo">[Adresse], '+esc(v)+'</div><div style="margin-top:8px">'+esc(S.tel)+'</div><div class="demo">Lun – Sam, 8 h – 19 h</div><div style="margin-top:12px">'+telBtn('btn p',ic('phone',16)+'Appeler cette agence','height:46px')+'</div></div>';}).join('')+'</div></div></section>';
+}
+function recrutement(){
+  var m=M[S.m];
+  return '<section class="sec"><div class="in"><div class="sechead"><h2 class="h2 disp">Rejoindre l\'équipe</h2><p><span class="pill">Option</span> Une page qui vous évite de repasser des annonces payantes.</p></div>'+
+    '<div class="jobs">'+m.jobs.map(function(j){return '<div class="job"><b>'+esc(j[0])+'</b><div class="demo" style="margin:6px 0 14px">'+V(j[1])+'</div><button class="btn p" data-go="contact">Postuler</button></div>';}).join('')+'</div>'+
+    '<div class="jobs" style="margin-top:16px"><div class="job"><b>Candidature spontanée</b><div class="demo" style="margin:6px 0 14px">Envoyez votre CV, on vous répond sous une semaine.</div><button class="btn s" data-go="contact">Envoyer mon CV</button></div>'+pic(0,900,'')+'</div></div></section>';
+}
+function news(){
+  return '<section class="sec" style="padding-top:0"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos conseils</h2></div><div class="news">'+M[S.m].news.map(function(n){return '<a href="#">'+pic(n[1],900)+'<h3 class="disp">'+esc(n[0])+'</h3><span class="demo">Par '+esc(S.nom)+'</span></a>';}).join('')+'</div></div></section>';
+}
+function footer(){
+  var m=M[S.m],pg=pages();
+  return '<footer><div class="in"><div class="top"><div><div class="logo disp">'+esc(S.nom)+'</div><p style="margin-top:10px;opacity:.7">'+esc(m.label)+' à '+esc(S.ville)+'</p>'+(S.f!=='simple'?'<div class="socs">'+socials()+'</div>':'')+'</div>'+
+    '<div><h4>Coordonnées</h4><p>'+esc(S.tel)+'<br>'+esc(S.email)+'<br>[Adresse]</p></div>'+
+    '<div><h4>Horaires</h4><p>Lundi – vendredi : 8 h – 19 h<br>Samedi : 9 h – 17 h</p></div>'+
+    '<div><h4>Navigation</h4><ul>'+(pg.length?pg.map(function(x){return '<li>'+x[1]+'</li>';}).join(''):'<li>Accueil</li><li>Contact</li>')+'</ul></div></div>'+
+    '<div class="bottom"><span>'+esc(S.nom)+', SIRET [numéro]</span><span>Mentions légales · Confidentialité · Photos d\'illustration</span></div></div></footer>';
+}
+
+function renderSite(){
+  var m=M[S.m],p=pal(),el=$('site');
+  el.setAttribute('data-m',S.m);el.setAttribute('data-f',S.f);
+  [['--sbg',p.bg],['--sink',p.ink],['--acc',p.acc],['--on',p.on],['--hi',p.hi]].forEach(function(v){el.style.setProperty(v[0],v[1]);});
+  var pg=pages();if(!pg.some(function(x){return x[0]===S.page;}))S.page='accueil';var cur=S.page;
+  var hasHero=(S.f==='simple'||cur==='accueil');
+  var tabs=pg.map(function(x){return '<button data-page="'+x[0]+'" class="'+(x[0]===cur?'cur':'')+'">'+x[1]+'</button>';}).join('');
+  var nav;
+  if(S.f==='simple'){
+    nav='<header class="nav'+(hasHero?'':' solid')+'" id="snav"><div class="in"><button class="logo disp" data-page="accueil">'+esc(S.nom)+'</button>'+telBtn('telb',ic('phone',16)+esc(S.tel))+'</div></header>';
+  } else {
+    nav='<header class="nav'+(hasHero?'':' solid')+'" id="snav"><div class="in">'+
+      '<button class="logo disp" data-page="accueil">'+esc(S.nom)+'<small>'+esc(m.label).toUpperCase()+'</small></button>'+
+      '<div class="navr"><nav class="links" aria-label="Menu">'+tabs+'</nav>'+socials()+'<button class="telb" data-call="1">'+ic('phone',16)+'Appeler</button>'+
+      '<button class="burger" data-menu="1" aria-label="Ouvrir le menu">'+ic('menu',26)+'</button></div></div></header>';
+  }
+  var drawer=S.menu?'<div class="drawer"><button class="close" data-menu="0" aria-label="Fermer">'+ic('x',28)+'</button>'+(pg.length?pg:[['accueil','Accueil'],['contact','Contact']]).map(function(x){return '<button class="it disp" data-page="'+x[0]+'">'+x[1]+'</button>';}).join('')+'<div style="display:flex;gap:10px;margin-top:18px">'+socials()+'</div>'+telBtn('telb',ic('phone',16)+esc(S.tel),'margin-top:18px;align-self:flex-start')+'</div>':'';
+  var callcard=S.call?'<div class="callcard"><button class="x" data-call="0" aria-label="Fermer">'+ic('x',18)+'</button><h4>Nous joindre</h4>'+
+    telBtn('big',ic('phone',22)+esc(S.tel))+
+    '<div class="l"><span class="demo">Lundi – vendredi</span><strong>8 h – 19 h</strong></div><div class="l"><span class="demo">Samedi</span><strong>9 h – 17 h</strong></div><div class="l"><span class="demo">Dimanche</span><strong>Urgences seulement</strong></div><div class="l"><span class="demo">Email</span><a href="mailto:'+esc(S.email)+'">'+esc(S.email)+'</a></div>'+
+    '<button class="btn p" data-go="contact">'+(S.f==='pro'?'Composer ma demande':'Écrire un message')+'</button></div>':'';
+  var pad='<div style="height:100px"></div>';
+  var b;
+  if(S.f==='simple')b=hero()+intro()+services()+band()+gallery()+reviews()+contact();
+  else if(cur==='accueil')b=hero()+intro()+services()+band()+gallery()+(S.f==='pro'?moments():'')+reviews()+(S.f==='pro'?news():'')+contact();
+  else if(cur==='services')b=pad+services()+band()+contact();
+  else if(cur==='realisations')b=pad+gallery();
+  else if(cur==='avis')b=pad+reviews();
+  else if(cur==='zone')b=pad+zone()+contact();
+  else if(cur==='agences')b=pad+agences();
+  else if(cur==='recrutement')b=pad+recrutement();
+  else b=pad+contact();
+  var over='';
+  if(S.lb>=0){var ph=m.photos[S.lb];over+='<div class="lightbox" role="dialog"><button class="x" data-lbclose="1" aria-label="Fermer">'+ic('x',24)+'</button>'+pic(S.lb,2000)+'<div class="cap">'+esc(ph[1])+'</div></div>';}
+  if(S.sheet>=0){var sv=m.services[S.sheet];
+    over+='<div class="sheet" role="dialog"><button class="x" data-sheetclose="1" aria-label="Fermer">'+ic('x',22)+'</button><div class="sheetin">'+pic(sv[2],1200)+
+      '<div class="body"><span class="pill">à partir de '+esc(sv[3])+'</span><h3 class="disp" style="margin-top:12px">'+esc(sv[0])+'</h3><p style="color:var(--smute)">'+esc(sv[1])+'</p><ul>'+
+      [sv[4],sv[5],sv[6]].map(function(x){return '<li>'+ic('check',18,2.6)+'<span>'+esc(x)+'</span></li>';}).join('')+'</ul>'+
+      '<button class="btn p" data-go="contact" style="width:100%;justify-content:center">Demander cette prestation</button></div></div></div>';}
+  var sticky='<div class="sticky">'+(S.f==='simple'?telBtn('',ic('phone',18)+'Appeler','background:var(--ssoft);color:var(--sink)'):'<button data-call="1" style="background:var(--ssoft);color:var(--sink)">'+ic('phone',18)+'Appeler</button>')+
+    '<button data-go="contact" style="background:var(--acc);color:var(--on)">'+(S.f==='pro'?'Ma demande':'Devis gratuit')+'</button></div>';
+  el.innerHTML=nav+drawer+callcard+'<main>'+b+'</main>'+footer()+sticky+over;
+  document.title=S.nom+', '+m.label.toLowerCase()+' à '+S.ville;
+  onScroll();
+}
+function renderBar(){
+  $('dbPlans').innerHTML=Object.keys(PLANS).map(function(k){return '<button data-p="'+k+'" aria-pressed="'+(S.f===k)+'">'+PLANS[k].nom+'</button>';}).join('');
+  $('dbAmb').innerHTML=M[S.m].pal.map(function(p,i){return '<button data-a="'+i+'" aria-pressed="'+(S.a===i)+'" aria-label="Ambiance '+esc(p.n)+'" title="'+esc(p.n)+'" style="background:'+p.ink+'"><span style="background:'+p.acc+'"></span></button>';}).join('');
+  mail();
+}
+function renderPanel(){
+  var col={simple:'#10B981',plus:'#2540FF',pro:'#FF5A45',opt:'#8A4B12'};
+  var h='<button class="close" data-panel="0" aria-label="Fermer">'+ic('x',20)+'</button><h3>Formule '+PLANS[S.f].nom+'</h3><p class="sub">'+PLANS[S.f].desc+'. Ce qui est actif sur cette démo est en couleur.</p>';
+  GROUPS.forEach(function(g){
+    h+='<div class="g">'+g[0]+'</div>';
+    g[1].forEach(function(f){
+      var on=f[1]!=='opt'&&RANK[S.f]>=RANK[f[1]];
+      h+='<div class="r'+(on?'':' off')+'">'+(on?'<span style="color:#10B981">'+ic('check',18,2.8)+'</span>':'<span style="color:#C9CBE0">'+ic('minus',18,2.8)+'</span>')+
+        '<span>'+esc(f[0])+(f[2]?'<br><span style="font-size:13px;color:#8A8CA6">'+esc(f[2])+'</span>':'')+'</span>'+
+        '<span class="tag" style="background:'+col[f[1]]+'22;color:'+col[f[1]]+'">'+(f[1]==='opt'?'Option':PLANS[f[1]].nom)+'</span></div>';
+    });
+  });
+  $('panel').innerHTML=h;
+}
+function mail(){
+  var body=['Bonjour,','','La démo m\'a plu, je souhaite en parler.','Formule : '+PLANS[S.f].nom,'Entreprise : '+S.nom,'Métier : '+M[S.m].label,'Ville : '+S.ville,'Téléphone : '+S.tel,'Email : '+S.email].join('\r\n');
+  var href='mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent('Mon site '+M[S.m].label.toLowerCase()+', formule '+PLANS[S.f].nom)+'&body='+encodeURIComponent(body);
+  $('want').href=href;$('topContact').href=href;
+}
+
+/* ---------- Diaporama, scroll ---------- */
+var timer=null;
+function startSlides(){
+  if(timer)clearInterval(timer);
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(S.f==='simple')return;
+  timer=setInterval(function(){
+    if($('siteView').hidden)return;
+    var sl=document.querySelectorAll('#site .slide');if(sl.length<2)return;
+    S.slide=(S.slide+1)%sl.length;
+    sl.forEach(function(s,i){s.classList.toggle('on',i===S.slide);});
+    document.querySelectorAll('#site .dots button').forEach(function(d,i){d.classList.toggle('on',i===S.slide);});
+  },6500);
+}
+function onScroll(){
+  var n=$('snav');if(n){var hasHero=!!document.querySelector('#site .hero');n.classList.toggle('solid',!hasHero||window.scrollY>60);}
+  $('top2').hidden=window.scrollY<400;
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+$('top2').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(S.lb>=0||S.menu||S.sheet>=0||S.call){S.lb=-1;S.menu=false;S.sheet=-1;S.call=false;keep();}else if(S.panel){S.panel=false;$('panel').hidden=true;}}});
+
+function toQuery(demo){var q=new URLSearchParams();q.set('demo',demo?'1':'0');q.set('m',S.m);q.set('f',S.f);q.set('a',String(S.a));FIELDS.forEach(function(k){q.set(k,S[k]);});return q.toString();}
+function fromQuery(){var q;try{q=new URLSearchParams(location.search);}catch(e){return false;}
+  if(q.get('m')&&M[q.get('m')])S.m=q.get('m');if(q.get('f')&&PLANS[q.get('f')])S.f=q.get('f');
+  var a=parseInt(q.get('a'),10);if(!isNaN(a))S.a=Math.max(0,Math.min(5,a));
+  FIELDS.forEach(function(k){if(q.has(k))S[k]=q.get(k).slice(0,80);});return q.get('demo')==='1';}
+function resetSite(){S.page='accueil';S.q=0;S.slide=0;S.cat=-1;S.menu=false;S.lb=-1;S.sheet=-1;S.call=false;S.cfg=[null,null,null];S.posted=null;S.revStars=5;}
+function keep(){var y=window.scrollY;renderSite();window.scrollTo(0,y);}
+function showSite(){$('configView').hidden=true;$('siteView').hidden=false;document.documentElement.setAttribute('data-theme','light');resetSite();renderBar();renderPanel();renderSite();window.scrollTo(0,0);startSlides();}
+function showConfig(){$('siteView').hidden=true;$('configView').hidden=false;$('panel').hidden=true;S.panel=false;document.documentElement.removeAttribute('data-theme');document.title='Des sites qui font sonner le téléphone des artisans';syncInputs();renderConfig();window.scrollTo(0,0);}
+function openDemo(){
+  var standalone=/^https?:$/.test(location.protocol),embedded=true;
+  try{embedded=window.top!==window.self;}catch(e){embedded=true;}
+  if(standalone&&!embedded){var w=window.open(location.pathname+'?'+toQuery(true),'_blank');if(w){try{w.opener=null;}catch(e){}return;}}
+  showSite();
+}
+document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'&&t.parentNode&&t.parentNode.classList&&t.parentNode.classList.contains('pic'))t.style.display='none';},true);
+
+document.addEventListener('click',function(e){
+  var t=e.target.closest('button,a');if(!t)return;
+  if(!t.closest('#site')){
+    if(t.dataset.m){var old=M[S.m];S.m=t.dataset.m;S.a=0;if(!S.nom||S.nom===old.nom)S.nom=M[S.m].nom;syncInputs();renderConfig();return;}
+    if(t.dataset.p){S.f=t.dataset.p;S.cfg=[null,null,null];S.posted=null;
+      if(!$('siteView').hidden){renderBar();renderPanel();S.page='accueil';S.slide=0;renderSite();window.scrollTo(0,0);startSlides();}else{renderConfig();}
+      return;}
+    if(t.dataset.a){S.a=parseInt(t.dataset.a,10)||0;renderBar();keep();return;}
+    if(t.id==='openPanel'){S.panel=!S.panel;renderPanel();$('panel').hidden=!S.panel;return;}
+    if(t.dataset.panel==='0'){S.panel=false;$('panel').hidden=true;return;}
+    return;
+  }
+  var h=t.getAttribute('href')||'';
+  if(t.tagName==='A'&&/^(tel:|mailto:|https:\/\/wa\.me)/.test(h))return;
+  e.preventDefault();
+  if(t.dataset.menu){S.menu=t.dataset.menu==='1';keep();return;}
+  if(t.dataset.call){S.call=t.dataset.call==='1';keep();return;}
+  if(t.dataset.page){S.page=t.dataset.page;S.menu=false;S.call=false;S.cat=-1;renderSite();window.scrollTo(0,0);return;}
+  if(t.dataset.go){S.menu=false;S.call=false;S.sheet=-1;var c=document.getElementById('s-contact');
+    if(c){renderSite();document.getElementById('s-contact').scrollIntoView({block:'start'});}else{S.page='contact';renderSite();window.scrollTo(0,0);}return;}
+  if(t.dataset.video){S.lb=2;keep();return;}
+  if(t.dataset.dot){S.slide=parseInt(t.dataset.dot,10)||0;startSlides();keep();return;}
+  if(t.dataset.cat){S.cat=parseInt(t.dataset.cat,10);keep();return;}
+  if(t.dataset.lb){S.lb=parseInt(t.dataset.lb,10);keep();return;}
+  if(t.dataset.lbclose){S.lb=-1;keep();return;}
+  if(t.dataset.sheet){S.sheet=parseInt(t.dataset.sheet,10);keep();return;}
+  if(t.dataset.sheetclose){S.sheet=-1;keep();return;}
+  if(t.dataset.q){S.q=(S.q+parseInt(t.dataset.q,10)+3)%3;keep();return;}
+  if(t.dataset.rs){S.revStars=parseInt(t.dataset.rs,10)||5;keep();return;}
+  if(t.dataset.postrev){
+    var n=(document.getElementById('r-n')||{}).value||'Client',txt=(document.getElementById('r-t')||{}).value||'Très satisfait de la prestation.';
+    S.posted={s:S.revStars,n:n,t:txt};keep();
+    var nr=document.querySelector('#site .newrev');if(nr)nr.scrollIntoView({block:'center'});return;}
+  if(t.dataset.cfg!==undefined&&t.dataset.val){S.cfg[parseInt(t.dataset.cfg,10)]=t.dataset.val;keep();return;}
+  if(t.dataset.send&&!t.disabled){var o=t.innerHTML;t.textContent='Demande envoyée, réponse sous 24 h';setTimeout(function(){t.innerHTML=o;},2200);return;}
+});
+document.addEventListener('click',function(e){var c=e.target.classList;if(!c)return;
+  if(S.lb>=0&&c.contains('lightbox')){S.lb=-1;keep();}
+  if(S.sheet>=0&&c.contains('sheet')){S.sheet=-1;keep();}});
+FIELDS.forEach(function(k){$(k).addEventListener('input',function(){S[k]=this.value;renderConfig();});});
+$('go').addEventListener('click',openDemo);
+$('back').addEventListener('click',function(){
+  var tab=false;try{tab=new URLSearchParams(location.search).get('demo')==='1';}catch(e){}
+  if(tab){location.href=location.pathname+'?'+toQuery(false);return;}
+  showConfig();
+});
+$('hideBar').addEventListener('click',function(){$('demobar').hidden=true;document.body.classList.add('nobar');$('showBar').hidden=false;});
+$('showBar').addEventListener('click',function(){$('demobar').hidden=false;document.body.classList.remove('nobar');$('showBar').hidden=true;});
+
+var demo=fromQuery();syncInputs();renderConfig();if(demo)showSite();
+})();
+</script>
+</body>
+</html>
