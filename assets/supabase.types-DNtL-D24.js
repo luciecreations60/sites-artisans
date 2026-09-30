@@ -1,0 +1,1 @@
+var e={brief:`Brief`,design:`Maquette`,contenu:`Contenus`,recette:`Recette`,en_ligne:`En ligne`,maintenance:`Maintenance`},t={devis:`Devis`,facture:`Facture`,contrat:`Contrat`,brief:`Brief`,autre:`Autre`};export{e as n,t};

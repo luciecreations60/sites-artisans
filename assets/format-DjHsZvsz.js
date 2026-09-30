@@ -1,0 +1,1 @@
+function e(e){let t=e.replace(/\D/g,``);return t.length===10?t.replace(/(\d{2})(?=\d)/g,`$1 `).trim():e.trim()}function t(e,t){let n=t?.decimals??0;return new Intl.NumberFormat(`fr-FR`,{style:`currency`,currency:`EUR`,minimumFractionDigits:n,maximumFractionDigits:n}).format(e)}export{e as n,t};

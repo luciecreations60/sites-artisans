@@ -1,0 +1,1 @@
+import{o as e,t}from"./jsx-runtime-BhrUJmMK.js";import{t as n}from"./legal-placeholder-1cYj0iVc.js";var r=t(),i=()=>[{title:`Mentions légales — Sites Artisans`}],a=e(function(){return(0,r.jsx)(n,{title:`Mentions légales`})});export{a as default,i as meta};
