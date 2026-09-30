@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "react-router dev",
     "build": "react-router build",
-    "build:pages": "react-router build && node scripts/prepare-gh-pages.mjs",
+    "build:pages": "node scripts/build-pages.mjs",
     "typecheck": "react-router typegen && tsc",
     "preview": "vite preview --outDir build/client",
     "photos": "node scripts/download-photos.mjs"
