@@ -28,17 +28,24 @@
 .aw-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
 .aw-field { display: grid; gap: 8px; }
 .aw-field.aw-span-2 { grid-column: 1 / -1; }
-.aw-field label { font: 650 12px/1.2 Manrope,sans-serif; letter-spacing: .035em; color: rgba(247,241,231,.82); }
+.aw-field label { font: 600 12px/1.2 Manrope,sans-serif; letter-spacing: .035em; color: rgba(247,241,231,.82); }
 .aw-field input, .aw-field select {
   width: 100%; min-height: 48px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14);
-  background: #2a2521; color: #fffaf2; padding: 0 14px; font: 550 14px/1.2 Manrope,sans-serif;
-  outline: none;
+  background: #2a2521; color: #fffaf2; padding: 0 14px; font: 500 14px/1.2 Manrope,sans-serif;
+  outline: none; color-scheme: dark;
 }
-.aw-field input:focus, .aw-field select:focus { border-color: #d69378; box-shadow: 0 0 0 3px rgba(214,147,120,.12); }
+.aw-field input::placeholder { color: rgba(247,241,231,.42); }
+.aw-field input[aria-invalid="true"] { border-color: #e7a08a; }
+.aw-form-error { margin: 14px 0 0; color: #ffc7b3; font: 600 13px/1.45 Manrope, sans-serif; }
+.aw-form-error[hidden] { display: none; }
+.aw-field input:focus, .aw-field select:focus,
+.aw-primary:focus-visible, .aw-secondary:focus-visible, .aw-demo-link:focus-visible, .aw-profile-pill button:focus-visible {
+  border-color: #d69378; box-shadow: 0 0 0 3px rgba(214,147,120,.35); outline: none;
+}
 .aw-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
 .aw-primary, .aw-secondary, .aw-demo-link {
   border: 0; cursor: pointer; text-decoration: none; border-radius: 999px; padding: 13px 18px;
-  font: 750 13px/1 Manrope,sans-serif; transition: transform .2s ease, background .2s ease, color .2s ease;
+  font: 700 13px/1 Manrope,sans-serif; transition: transform .2s ease, background .2s ease, color .2s ease;
 }
 .aw-primary { background: #d06f4d; color: #fff; }
 .aw-primary:hover, .aw-demo-link:hover { transform: translateY(-1px); }
@@ -55,12 +62,13 @@
   position: fixed; right: 16px; bottom: 16px; z-index: 9997; display:flex; gap:10px; align-items:center;
   max-width: min(390px, calc(100vw - 32px)); padding: 10px 12px 10px 14px; border-radius: 999px;
   background: rgba(31,27,24,.95); color:#fff8ef; border:1px solid rgba(255,255,255,.13); box-shadow:0 14px 45px rgba(0,0,0,.24);
-  backdrop-filter: blur(12px); font: 650 12px/1.2 Manrope,sans-serif;
+  backdrop-filter: blur(12px); font: 600 12px/1.2 Manrope,sans-serif;
 }
 .aw-profile-pill strong { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .aw-profile-pill button { border:0; border-radius:999px; background:#d06f4d; color:white; cursor:pointer; padding:8px 11px; font:700 11px/1 Manrope,sans-serif; }
 .aw-toast { position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:9999; opacity:0; pointer-events:none; background:#fffaf2; color:#211d1a; border:1px solid rgba(0,0,0,.08); box-shadow:0 14px 45px rgba(0,0,0,.18); border-radius:999px; padding:11px 16px; font:700 12px/1.2 Manrope,sans-serif; transition:.25s ease; }
 .aw-toast.is-visible { opacity:1; transform:translate(-50%,0); }
+body.aw-has-pill .aw-toast { bottom: 84px; }
 @media (max-width: 820px){
   .aw-personalizer { padding:58px 0; }
   .aw-personalizer .aw-wrap { width:min(100% - 28px,1180px); }
@@ -73,4 +81,8 @@
   .aw-actions { flex-direction:column; }
   .aw-primary,.aw-secondary { width:100%; }
   .aw-profile-pill { left:12px; right:12px; max-width:none; justify-content:space-between; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-primary, .aw-secondary, .aw-demo-link, .aw-toast { transition: none; }
+  .aw-primary:hover, .aw-demo-link:hover { transform: none; }
 }
