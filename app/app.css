@@ -591,3 +591,110 @@ ul {
 .page-main {
   min-height: 60vh;
 }
+
+/* Espace client */
+.portal-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+
+.portal-project-list {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.portal-project-card {
+  display: block;
+  padding: 1rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--surface);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.portal-project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.portal-project-card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+}
+
+.portal-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 840px) {
+  .portal-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stack-form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.stack-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.stack-form input,
+.stack-form textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.form-error {
+  color: #b91c1c;
+  margin: 0;
+}
+
+.timeline,
+.checklist,
+.doc-list,
+.request-list {
+  margin: 0.5rem 0 1.5rem;
+  padding-left: 1.15rem;
+}
+
+.timeline li,
+.request-list li {
+  margin-bottom: 0.85rem;
+}
+
+.checklist li[data-done="1"] {
+  opacity: 0.65;
+  text-decoration: line-through;
+}
+
+button.linkish {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+}
+

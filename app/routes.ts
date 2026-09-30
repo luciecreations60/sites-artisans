@@ -12,11 +12,15 @@ export default [
     route("offres", "./routes/offres.tsx"),
     route("comparatif", "./routes/comparatif.tsx"),
     route("demos", "./routes/demos.tsx"),
-    route("espace-client", "./routes/espace-client.tsx"),
     route("contact", "./routes/contact.tsx"),
     route("mentions-legales", "./routes/mentions-legales.tsx"),
     route("cgv", "./routes/cgv.tsx"),
     route("confidentialite", "./routes/confidentialite.tsx"),
+    layout("./routes/espace-client.layout.tsx", [
+      route("espace-client", "./routes/espace-client.tsx"),
+      route("espace-client/connexion", "./routes/espace-client.connexion.tsx"),
+      route("espace-client/projet/:projectId", "./routes/espace-client.projet.tsx"),
+    ]),
   ]),
   ...prefix("demos/:trade", [
     index("./routes/demos.trade.tsx"),

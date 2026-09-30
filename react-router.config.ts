@@ -7,6 +7,7 @@ const commercial = [
   "/comparatif",
   "/demos",
   "/espace-client",
+  "/espace-client/connexion",
   "/contact",
   "/mentions-legales",
   "/cgv",

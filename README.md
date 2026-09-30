@@ -33,8 +33,6 @@ node scripts/download-photos.mjs
 - Personnalisation démo via `localStorage` (formulaire sur `/demos`)
 - Espace client : page d’attente + schéma Supabase dans `supabase/schema.sql`
 
-## Ordre de suite prévu
+## Espace client (Supabase)
 
-1. Brancher Supabase (auth + tables du schéma)
-2. Admin upload devis/factures (Indy manuel)
-3. Nom de société + domaine + SEO actif au lancement
+Voir `supabase/README.md` : schéma SQL, auth, bucket `project-docs`, variables `.env`.
