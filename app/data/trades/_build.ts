@@ -8,6 +8,7 @@ import type {
   TradeSlug,
   TradeTestimonial,
 } from "../types";
+import { publicUrl } from "../../lib/publicUrl";
 
 type Seed = {
   slug: TradeSlug;
@@ -33,7 +34,7 @@ type Seed = {
 };
 
 function img(slug: TradeSlug, name: string, alt: string): TradeImage {
-  return { src: `/img/${slug}/${name}.jpg`, alt };
+  return { src: publicUrl(`img/${slug}/${name}.jpg`), alt };
 }
 
 export function buildTrade(seed: Seed): TradeData {

@@ -7,20 +7,26 @@ export default function Offres() {
   return (
     <section className="section">
       <div className="container">
-        <h1>Nos offres</h1>
+        <p className="eyebrow">Les formules</p>
+        <h1>Trois offres, une même exigence.</h1>
         <p className="lead">
-          Tarifs indicatifs pour une micro-entreprise artisanale. Chaque projet est ajusté après
-          un premier échange.
+          Tarifs indicatifs pour les artisans et petites entreprises. Chaque projet est ajusté
+          après un premier échange.
         </p>
-        <div className="grid grid-3" style={{ marginTop: "2rem" }}>
+        <div className="grid grid-3" style={{ marginTop: "2.5rem" }}>
           {offerPlans.map((plan) => (
-            <article key={plan.tier} className="card">
-              <h2>{plan.name}</h2>
-              <p className="text-muted">{plan.tagline}</p>
-              <p>
-                <strong>Création : {plan.setup}</strong>
-                <br />
-                <span className="text-muted">Abonnement : {plan.monthly}</span>
+            <article
+              key={plan.tier}
+              className={`offer-card${plan.tier === "avance" ? " offer-card--featured" : ""}`}
+            >
+              {plan.tier === "avance" && <span className="offer-chip">Le plus choisi</span>}
+              <h2 style={{ fontSize: "1.75rem" }}>{plan.name}</h2>
+              <p className="text-muted" style={{ margin: 0 }}>
+                {plan.tagline}
+              </p>
+              <p className="offer-price">Création : {plan.setup}</p>
+              <p className="text-muted" style={{ margin: 0 }}>
+                Abonnement : {plan.monthly}
               </p>
               <ul>
                 {plan.highlights.map((h) => (
@@ -33,7 +39,7 @@ export default function Offres() {
             </article>
           ))}
         </div>
-        <p style={{ marginTop: "2rem" }}>
+        <p style={{ marginTop: "2.5rem" }}>
           <Link to="/comparatif">Comparer les formules en détail →</Link>
         </p>
       </div>

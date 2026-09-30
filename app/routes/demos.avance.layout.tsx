@@ -24,23 +24,29 @@ export default function DemoAvanceLayout() {
   const basePath = `/demos/${trade.slug}`;
 
   return (
-    <TradeTheme trade={trade}>
+    <TradeTheme trade={trade} className="sg-shell">
       <DemoChrome tradeLabel={trade.label} tier="avance" />
-      <header className="container section--tight">
-        <p style={{ margin: 0, fontWeight: 600 }}>{companyName(trade)}</p>
-        <p className="text-muted" style={{ margin: "0.25rem 0 0" }}>{trade.defaultCity}</p>
-      </header>
-      <nav className="container demo-nav" aria-label="Navigation démo">
-        {nav.map((item) => {
-          const href = `${basePath}/${item.path}`;
-          const active = location.pathname === href || location.pathname === `${href}/`;
-          return (
-            <Link key={item.path} to={href} className={active ? "active" : undefined}>
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
+      <div className="container">
+        <div className="sg-topbar">
+          <p className="sg-topbar__brand" style={{ margin: 0 }}>
+            {companyName(trade)}
+          </p>
+          <p className="text-muted" style={{ margin: 0 }}>
+            {trade.defaultCity} · {trade.label}
+          </p>
+        </div>
+        <nav className="demo-nav" aria-label="Navigation démo">
+          {nav.map((item) => {
+            const href = `${basePath}/${item.path}`;
+            const active = location.pathname === href || location.pathname === `${href}/`;
+            return (
+              <Link key={item.path} to={href} className={active ? "active" : undefined}>
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
       <Outlet context={{ trade }} />
     </TradeTheme>
   );

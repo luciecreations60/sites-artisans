@@ -1,4 +1,5 @@
 import type { TradeData } from "~/data/types";
+import { getFontPreset, getThemePreset } from "~/data/stylePresets";
 
 export const PROFILE_KEY = "sa-profile";
 export const PROFILE_UPDATED_EVENT = "sa-profile-updated";
@@ -11,6 +12,8 @@ export type Profile = {
   phone: string;
   email: string;
   specialty: string;
+  themeId: string;
+  fontId: string;
 };
 
 export const emptyProfile = (): Profile => ({
@@ -21,6 +24,8 @@ export const emptyProfile = (): Profile => ({
   phone: "",
   email: "",
   specialty: "",
+  themeId: "sage",
+  fontId: "classic",
 });
 
 export function loadProfile(): Profile | null {
@@ -28,7 +33,8 @@ export function loadProfile(): Profile | null {
   try {
     const raw = localStorage.getItem(PROFILE_KEY);
     if (!raw) return null;
-    return JSON.parse(raw) as Profile;
+    const parsed = JSON.parse(raw) as Partial<Profile>;
+    return { ...emptyProfile(), ...parsed };
   } catch {
     return null;
   }
@@ -53,6 +59,7 @@ function pick(value: string | undefined, fallback: string): string {
 
 export function applyProfile(trade: TradeData, profile: Profile | null): TradeData {
   if (!profile) return trade;
+  const theme = getThemePreset(profile.themeId);
   return {
     ...trade,
     defaultFirstName: pick(profile.firstName, trade.defaultFirstName),
@@ -62,11 +69,27 @@ export function applyProfile(trade: TradeData, profile: Profile | null): TradeDa
     defaultPhone: pick(profile.phone, trade.defaultPhone),
     defaultEmail: pick(profile.email, trade.defaultEmail),
     specialty: pick(profile.specialty, trade.specialty),
+    palette: theme
+      ? {
+          ink: theme.ink,
+          paper: theme.paper,
+          muted: theme.muted,
+          accent: theme.accent,
+          accentSoft: theme.accentSoft,
+          surface: theme.surface,
+        }
+      : trade.palette,
     projects: trade.projects.map((p) => ({
       ...p,
       location: pick(profile.city, p.location),
     })),
   };
+}
+
+export function profileFontFamily(profile: Profile | null): { display?: string; body?: string } {
+  const font = getFontPreset(profile?.fontId);
+  if (!font) return {};
+  return { display: font.display, body: font.body };
 }
 
 export function artisanName(trade: TradeData): string {

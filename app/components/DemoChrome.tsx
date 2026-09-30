@@ -33,7 +33,7 @@ export function DemoChrome({ tradeLabel, tier }: Props) {
       </div>
       {showPersonalizer && (
         <div className="container" style={{ paddingBottom: "0.75rem" }}>
-          <Personalizer compact />
+          <Personalizer compact variant="light" />
         </div>
       )}
     </div>

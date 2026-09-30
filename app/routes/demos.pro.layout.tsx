@@ -24,27 +24,25 @@ export default function DemoProLayout() {
   const basePath = `/demos/${trade.slug}`;
 
   return (
-    <TradeTheme trade={trade}>
+    <TradeTheme trade={trade} className="r-shell">
       <DemoChrome tradeLabel={trade.label} tier="pro" />
-      <header className="container section--tight">
-        <p style={{ margin: 0, fontFamily: "var(--font-display)", fontSize: "1.25rem" }}>
-          {companyName(trade)}
-        </p>
-      </header>
-      <nav className="container demo-nav" aria-label="Navigation démo Pro">
-        {nav.map((item) => {
-          const href = `${basePath}/${item.path}`;
-          const active =
-            item.path === "pro"
-              ? location.pathname === href || location.pathname === `${href}/`
-              : location.pathname.startsWith(href);
-          return (
-            <Link key={item.path} to={href} className={active ? "active" : undefined}>
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
+      <div className="container">
+        <div className="r-topbar">{companyName(trade)}</div>
+        <nav className="demo-nav" aria-label="Navigation démo Pro">
+          {nav.map((item) => {
+            const href = `${basePath}/${item.path}`;
+            const active =
+              item.path === "pro"
+                ? location.pathname === href || location.pathname === `${href}/`
+                : location.pathname.startsWith(href);
+            return (
+              <Link key={item.path} to={href} className={active ? "active" : undefined}>
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
       <Outlet context={{ trade }} />
     </TradeTheme>
   );

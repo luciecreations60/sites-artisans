@@ -13,7 +13,9 @@ export default function Comparatif() {
     <section className="section">
       <div className="container">
         <h1>Comparatif des formules</h1>
-        <p className="text-muted">Vue d’ensemble pour choisir la formule adaptée à votre activité.</p>
+        <p className="lead">
+          Vue d’ensemble pour choisir la formule adaptée à votre activité — sans liste interminable.
+        </p>
         <div style={{ overflowX: "auto", marginTop: "1.5rem" }}>
           <table className="compare-table">
             <thead>

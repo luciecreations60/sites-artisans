@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { TradeData } from "~/data/types";
+import { useProfileStyleVars } from "~/lib/useAppliedTrade";
 
 type Props = {
   trade: TradeData;
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export function TradeTheme({ trade, children, className }: Props) {
+  const fontVars = useProfileStyleVars();
   const style = {
     "--trade-ink": trade.palette.ink,
     "--trade-paper": trade.palette.paper,
@@ -15,6 +17,7 @@ export function TradeTheme({ trade, children, className }: Props) {
     "--trade-accent": trade.palette.accent,
     "--trade-accent-soft": trade.palette.accentSoft,
     "--trade-surface": trade.palette.surface,
+    ...fontVars,
   } as CSSProperties;
 
   return (
