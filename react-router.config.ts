@@ -1,9 +1,6 @@
 import type { Config } from "@react-router/dev/config";
 import { TRADE_SLUGS } from "./app/data/trades";
 
-const forPages = process.env.GITHUB_PAGES === "true";
-const basename = forPages ? "/sites-artisans" : "/";
-
 const commercial = [
   "/",
   "/offres",
@@ -36,7 +33,6 @@ const demoPaths = TRADE_SLUGS.flatMap((trade) => [
 export default {
   appDirectory: "app",
   buildDirectory: "build",
-  basename,
   ssr: false,
   prerender: [...commercial, ...demoPaths],
 } satisfies Config;

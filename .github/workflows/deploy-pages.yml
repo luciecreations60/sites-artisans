@@ -24,16 +24,11 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
-      - name: Build
+      - name: Build for GitHub Pages
         env:
-          GITHUB_PAGES: "true"
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-        run: npm run build
-      - name: Prepare Pages artifact
-        run: |
-          cp build/client/index.html build/client/404.html
-          touch build/client/.nojekyll
+        run: npm run build:pages
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/client
