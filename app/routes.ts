@@ -20,6 +20,15 @@ export default [
       route("espace-client", "./routes/espace-client.tsx"),
       route("espace-client/connexion", "./routes/espace-client.connexion.tsx"),
       route("espace-client/projet/:projectId", "./routes/espace-client.projet.tsx"),
+      layout("./routes/admin.layout.tsx", [
+        route("admin", "./routes/admin.tsx"),
+        route("admin/clients", "./routes/admin.clients.tsx"),
+        route("admin/projets", "./routes/admin.projets.tsx"),
+        route("admin/projets/:projectId", "./routes/admin.projet.tsx"),
+        route("admin/demandes", "./routes/admin.demandes.tsx"),
+        route("admin/documents", "./routes/admin.documents.tsx"),
+        route("admin/maintenance", "./routes/admin.maintenance.tsx"),
+      ]),
     ]),
   ]),
   ...prefix("demos/:trade", [

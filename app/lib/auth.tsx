@@ -91,6 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!sb) return;
     await sb.auth.signOut();
     setProfile(null);
+    setSession(null);
   }, []);
 
   const refreshProfile = useCallback(async () => {

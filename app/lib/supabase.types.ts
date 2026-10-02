@@ -8,9 +8,16 @@ export type ProjectStatus =
   | "en_ligne"
   | "maintenance";
 
+export type OfferTier = "essentiel" | "avance" | "pro";
+
 export type DocumentKind = "devis" | "facture" | "contrat" | "brief" | "autre";
 
-export type ChangeRequestStatus = "ouvert" | "en_cours" | "termine" | "refuse";
+export type ChangeRequestStatus =
+  | "ouvert"
+  | "en_cours"
+  | "besoin_info"
+  | "termine"
+  | "refuse";
 
 export type Profile = {
   id: string;
@@ -18,6 +25,7 @@ export type Profile = {
   full_name: string | null;
   company_name: string | null;
   phone: string | null;
+  email: string | null;
   created_at: string;
 };
 
@@ -26,10 +34,11 @@ export type Project = {
   client_id: string;
   title: string;
   trade_slug: string | null;
-  offer_tier: "essentiel" | "avance" | "pro" | null;
+  offer_tier: OfferTier | null;
   status: ProjectStatus;
   domain: string | null;
   notes: string | null;
+  target_date: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -41,6 +50,7 @@ export type ProjectEvent = {
   detail: string | null;
   created_by: string | null;
   created_at: string;
+  visible_to_client: boolean;
 };
 
 export type DocumentRow = {
@@ -80,10 +90,10 @@ export type MaintenanceQuota = {
 };
 
 export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
-  brief: "Brief",
-  design: "Maquette",
-  contenu: "Contenus",
-  recette: "Recette",
+  brief: "Brief / préparation",
+  design: "Création",
+  contenu: "Éléments & contenus",
+  recette: "Validation client",
   en_ligne: "En ligne",
   maintenance: "Maintenance",
 };

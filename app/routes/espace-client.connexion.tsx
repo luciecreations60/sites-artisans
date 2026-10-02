@@ -1,9 +1,10 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "~/lib/auth";
+import { postLoginPath } from "~/lib/portal";
 
 export default function EspaceClientConnexion() {
-  const { configured, loading, user, signIn } = useAuth();
+  const { configured, loading, user, profile, signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,8 +12,10 @@ export default function EspaceClientConnexion() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) navigate("/espace-client", { replace: true });
-  }, [loading, user, navigate]);
+    if (!loading && user && profile) {
+      navigate(postLoginPath(profile.role), { replace: true });
+    }
+  }, [loading, user, profile, navigate]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -20,8 +23,11 @@ export default function EspaceClientConnexion() {
     setError(null);
     const res = await signIn(email.trim(), password);
     setBusy(false);
-    if (res.error) setError(res.error);
-    else navigate("/espace-client", { replace: true });
+    if (res.error) {
+      setError(res.error);
+      return;
+    }
+    // La redirection se fait via l'effet une fois le profil chargé
   }
 
   if (!configured) {
@@ -38,8 +44,8 @@ export default function EspaceClientConnexion() {
   return (
     <section className="section">
       <div className="container" style={{ maxWidth: "28rem" }}>
-        <h1>Connexion espace client</h1>
-        <p className="text-muted">Identifiants fournis lors de l’ouverture de votre dossier.</p>
+        <h1>Connexion</h1>
+        <p className="text-muted">Espace client et administration Sites Artisans.</p>
         <form className="stack-form" onSubmit={onSubmit}>
           <label>
             E-mail
@@ -62,7 +68,7 @@ export default function EspaceClientConnexion() {
             />
           </label>
           {error && <p className="form-error">{error}</p>}
-          <button type="submit" className="btn btn-primary" disabled={busy}>
+          <button type="submit" className="btn btn-primary" disabled={busy || loading}>
             {busy ? "Connexion…" : "Se connecter"}
           </button>
         </form>
@@ -74,4 +80,4 @@ export default function EspaceClientConnexion() {
   );
 }
 
-export const meta = () => [{ title: "Connexion — Espace client" }];
+export const meta = () => [{ title: "Connexion — Sites Artisans" }];

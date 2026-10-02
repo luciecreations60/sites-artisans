@@ -1,6 +1,12 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link, useParams } from "react-router";
+import { ChangeRequestsList } from "~/components/portal/ChangeRequestsList";
+import { ChecklistPanel } from "~/components/portal/ChecklistPanel";
+import { MaintenanceCard } from "~/components/portal/MaintenanceCard";
+import { ErrorState, LoadingState, PortalSection } from "~/components/portal/PortalUi";
+import { ProjectTimeline } from "~/components/portal/ProjectTimeline";
 import { useAuth } from "~/lib/auth";
+import { formatDateFr, offerLabel } from "~/lib/portal";
 import { getSupabase } from "~/lib/supabase";
 import {
   DOCUMENT_KIND_LABELS,
@@ -39,10 +45,26 @@ export default function EspaceClientProjet() {
     (async () => {
       const [p, e, d, c, r, q] = await Promise.all([
         sb.from("projects").select("*").eq("id", projectId).maybeSingle(),
-        sb.from("project_events").select("*").eq("project_id", projectId).order("created_at", { ascending: false }),
-        sb.from("documents").select("*").eq("project_id", projectId).order("created_at", { ascending: false }),
-        sb.from("checklist_items").select("*").eq("project_id", projectId).order("sort_order"),
-        sb.from("change_requests").select("*").eq("project_id", projectId).order("created_at", { ascending: false }),
+        sb
+          .from("project_events")
+          .select("*")
+          .eq("project_id", projectId)
+          .order("created_at", { ascending: true }),
+        sb
+          .from("documents")
+          .select("*")
+          .eq("project_id", projectId)
+          .order("created_at", { ascending: false }),
+        sb
+          .from("checklist_items")
+          .select("*")
+          .eq("project_id", projectId)
+          .order("sort_order"),
+        sb
+          .from("change_requests")
+          .select("*")
+          .eq("project_id", projectId)
+          .order("created_at", { ascending: false }),
         sb.from("maintenance_quotas").select("*").eq("project_id", projectId).maybeSingle(),
       ]);
       if (!active) return;
@@ -59,11 +81,6 @@ export default function EspaceClientProjet() {
       active = false;
     };
   }, [authLoading, user, projectId]);
-
-  const remainingHours = useMemo(() => {
-    if (!quota) return null;
-    return Math.max(0, Number(quota.hours_included) - Number(quota.hours_used));
-  }, [quota]);
 
   async function openDocument(doc: DocumentRow) {
     const sb = getSupabase();
@@ -112,7 +129,7 @@ export default function EspaceClientProjet() {
     return (
       <section className="section">
         <div className="container">
-          <p className="text-muted">Chargement…</p>
+          <LoadingState />
         </div>
       </section>
     );
@@ -134,122 +151,99 @@ export default function EspaceClientProjet() {
     return (
       <section className="section">
         <div className="container">
-          {error ? <p className="form-error">{error}</p> : <p className="text-muted">Projet introuvable.</p>}
-          <Link to="/espace-client">Retour au tableau de bord</Link>
+          {error ? <ErrorState message={error} /> : <LoadingState label="Projet introuvable." />}
+          <p style={{ marginTop: "1rem" }}>
+            <Link to="/espace-client">Retour à mes projets</Link>
+          </p>
         </div>
       </section>
     );
   }
 
+  const pending = checklist.filter((c) => !c.done);
+
   return (
     <section className="section">
-      <div className="container">
+      <div className="container portal-project-page">
         <p>
           <Link to="/espace-client">← Mes projets</Link>
         </p>
-        <h1>{project.title}</h1>
-        <p className="text-muted">
-          {PROJECT_STATUS_LABELS[project.status]}
-          {project.domain ? ` · ${project.domain}` : ""}
-        </p>
-        {error && <p className="form-error">{error}</p>}
-
-        <div className="portal-grid">
-          <div>
-            <h2>Avancement</h2>
-            {events.length === 0 ? (
-              <p className="text-muted">Aucune étape enregistrée pour l’instant.</p>
-            ) : (
-              <ol className="timeline">
-                {events.map((ev) => (
-                  <li key={ev.id}>
-                    <strong>{ev.label}</strong>
-                    {ev.detail ? <p className="text-muted">{ev.detail}</p> : null}
-                    <time className="text-muted" dateTime={ev.created_at}>
-                      {new Date(ev.created_at).toLocaleDateString("fr-FR")}
-                    </time>
-                  </li>
-                ))}
-              </ol>
-            )}
-
-            <h2>Checklist</h2>
-            {checklist.length === 0 ? (
-              <p className="text-muted">Rien à préparer de votre côté pour le moment.</p>
-            ) : (
-              <ul className="checklist">
-                {checklist.map((item) => (
-                  <li key={item.id} data-done={item.done ? "1" : "0"}>
-                    {item.done ? "✓ " : "○ "}
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {quota && (
-              <>
-                <h2>Maintenance</h2>
-                <p>
-                  {remainingHours} h restantes ce mois-ci ({quota.hours_used} / {quota.hours_included}{" "}
-                  utilisées).
-                </p>
-              </>
-            )}
-          </div>
-
-          <div>
-            <h2>Documents</h2>
-            <p className="text-muted" style={{ fontSize: "0.9375rem" }}>
-              Factures Indy déposées manuellement.
+        <header className="portal-project-hero">
+          <h1>{project.title}</h1>
+          <p className="text-muted">
+            {PROJECT_STATUS_LABELS[project.status]}
+            {project.offer_tier ? ` · ${offerLabel(project.offer_tier)}` : ""}
+            {project.domain ? ` · ${project.domain}` : ""}
+          </p>
+          {pending.length > 0 && (
+            <p className="portal-action-needed">
+              Action requise : {pending.length} élément{pending.length > 1 ? "s" : ""} à fournir
             </p>
-            {docs.length === 0 ? (
-              <p className="text-muted">Aucun document pour l’instant.</p>
-            ) : (
-              <ul className="doc-list">
-                {docs.map((doc) => (
-                  <li key={doc.id}>
-                    <button type="button" className="linkish" onClick={() => void openDocument(doc)}>
-                      {DOCUMENT_KIND_LABELS[doc.kind]} — {doc.title}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+          )}
+        </header>
 
-            <h2>Demande de modification</h2>
-            <form className="stack-form" onSubmit={submitRequest}>
-              <label>
-                Titre
-                <input required value={title} onChange={(e) => setTitle(e.target.value)} />
-              </label>
-              <label>
-                Détail
-                <textarea
-                  required
-                  rows={4}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </label>
-              <button type="submit" className="btn btn-primary" disabled={sending}>
-                {sending ? "Envoi…" : "Envoyer"}
-              </button>
-              {sentOk && <p className="text-muted">Demande enregistrée.</p>}
-            </form>
+        {error && <ErrorState message={error} />}
 
-            {requests.length > 0 && (
-              <ul className="request-list">
-                {requests.map((req) => (
-                  <li key={req.id}>
-                    <strong>{req.title}</strong> · {req.status}
-                    <p className="text-muted">{req.description}</p>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
+        <PortalSection title="Avancement">
+          <ProjectTimeline status={project.status} events={events} />
+        </PortalSection>
+
+        <PortalSection title="Checklist / éléments à fournir">
+          <ChecklistPanel items={checklist} />
+        </PortalSection>
+
+        <PortalSection title="Documents">
+          <p className="text-muted" style={{ fontSize: "0.9375rem", marginTop: 0 }}>
+            Factures et documents déposés manuellement.
+          </p>
+          {docs.length === 0 ? (
+            <p className="text-muted">Aucun document pour l’instant.</p>
+          ) : (
+            <ul className="portal-doc-list">
+              {docs.map((doc) => (
+                <li key={doc.id}>
+                  <button type="button" className="linkish" onClick={() => void openDocument(doc)}>
+                    {DOCUMENT_KIND_LABELS[doc.kind]} — {doc.title}
+                  </button>
+                  <span className="text-muted">{formatDateFr(doc.created_at)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </PortalSection>
+
+        <PortalSection title="Mes demandes">
+          <ChangeRequestsList requests={requests} />
+          <h3 className="portal-subhead">Nouvelle demande</h3>
+          <form className="stack-form" onSubmit={submitRequest}>
+            <label>
+              Titre
+              <input required value={title} onChange={(e) => setTitle(e.target.value)} />
+            </label>
+            <label>
+              Description
+              <textarea
+                required
+                rows={4}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </label>
+            <button type="submit" className="btn btn-primary" disabled={sending}>
+              {sending ? "Envoi…" : "Envoyer la demande"}
+            </button>
+            {sentOk && <p className="portal-success">Demande enregistrée.</p>}
+          </form>
+        </PortalSection>
+
+        {quota && (
+          <PortalSection title="Maintenance">
+            <MaintenanceCard
+              hoursIncluded={Number(quota.hours_included)}
+              hoursUsed={Number(quota.hours_used)}
+            />
+          </PortalSection>
+        )}
       </div>
     </section>
   );

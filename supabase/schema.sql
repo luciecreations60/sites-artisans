@@ -19,6 +19,7 @@ create table if not exists public.profiles (
   full_name text,
   company_name text,
   phone text,
+  email text,
   created_at timestamptz not null default now()
 );
 
@@ -32,6 +33,7 @@ create table if not exists public.projects (
     check (status in ('brief', 'design', 'contenu', 'recette', 'en_ligne', 'maintenance')),
   domain text,
   notes text,
+  target_date date,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -42,7 +44,8 @@ create table if not exists public.project_events (
   label text not null,
   detail text,
   created_by uuid references public.profiles (id),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  visible_to_client boolean not null default true
 );
 
 create table if not exists public.documents (
@@ -70,7 +73,7 @@ create table if not exists public.change_requests (
   title text not null,
   description text not null,
   status text not null default 'ouvert'
-    check (status in ('ouvert', 'en_cours', 'termine', 'refuse')),
+    check (status in ('ouvert', 'en_cours', 'besoin_info', 'termine', 'refuse')),
   created_by uuid references public.profiles (id),
   created_at timestamptz not null default now()
 );
@@ -89,12 +92,14 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.profiles (id, full_name)
+  insert into public.profiles (id, full_name, email)
   values (
     new.id,
-    coalesce(new.raw_user_meta_data->>'full_name', new.email)
+    coalesce(nullif(new.raw_user_meta_data->>'full_name', ''), null),
+    new.email
   )
-  on conflict (id) do nothing;
+  on conflict (id) do update
+    set email = excluded.email;
   return new;
 end;
 $$;
@@ -103,6 +108,46 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+create or replace function public.handle_user_email_update()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  update public.profiles
+  set email = new.email
+  where id = new.id;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_email_updated on auth.users;
+create trigger on_auth_user_email_updated
+  after update of email on auth.users
+  for each row
+  when (old.email is distinct from new.email)
+  execute function public.handle_user_email_update();
+
+create or replace function public.profiles_guard_role()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if new.role is distinct from old.role and not public.is_admin() then
+    raise exception 'Modification du rôle non autorisée';
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists profiles_guard_role on public.profiles;
+create trigger profiles_guard_role
+  before update on public.profiles
+  for each row execute function public.profiles_guard_role();
 
 create or replace function public.is_admin()
 returns boolean
@@ -139,8 +184,10 @@ alter table public.change_requests enable row level security;
 alter table public.maintenance_quotas enable row level security;
 
 drop policy if exists profiles_self on public.profiles;
+drop policy if exists profiles_select on public.profiles;
 drop policy if exists profiles_self_update on public.profiles;
 drop policy if exists profiles_admin_all on public.profiles;
+drop policy if exists profiles_admin_write on public.profiles;
 drop policy if exists projects_client_select on public.projects;
 drop policy if exists projects_admin_write on public.projects;
 drop policy if exists events_select on public.project_events;
@@ -150,17 +197,25 @@ drop policy if exists documents_admin_write on public.documents;
 drop policy if exists checklist_select on public.checklist_items;
 drop policy if exists checklist_admin_write on public.checklist_items;
 drop policy if exists change_requests_client on public.change_requests;
+drop policy if exists change_requests_client_insert on public.change_requests;
+drop policy if exists change_requests_admin_update on public.change_requests;
 drop policy if exists quotas_select on public.maintenance_quotas;
 drop policy if exists quotas_admin_write on public.maintenance_quotas;
 
-create policy profiles_self on public.profiles
+create policy profiles_select on public.profiles
   for select using (id = auth.uid() or public.is_admin());
 
+-- Client can update own profile but cannot escalate role
 create policy profiles_self_update on public.profiles
-  for update using (id = auth.uid() or public.is_admin());
+  for update
+  using (id = auth.uid())
+  with check (
+    id = auth.uid()
+    and role = (select p.role from public.profiles p where p.id = auth.uid())
+  );
 
-create policy profiles_admin_all on public.profiles
-  for all using (public.is_admin());
+create policy profiles_admin_write on public.profiles
+  for all using (public.is_admin()) with check (public.is_admin());
 
 create policy projects_client_select on public.projects
   for select using (client_id = auth.uid() or public.is_admin());
@@ -169,7 +224,10 @@ create policy projects_admin_write on public.projects
   for all using (public.is_admin()) with check (public.is_admin());
 
 create policy events_select on public.project_events
-  for select using (public.is_admin() or public.owns_project(project_id));
+  for select using (
+    public.is_admin()
+    or (public.owns_project(project_id) and visible_to_client = true)
+  );
 
 create policy events_admin_write on public.project_events
   for all using (public.is_admin()) with check (public.is_admin());
@@ -203,6 +261,21 @@ create policy quotas_select on public.maintenance_quotas
 
 create policy quotas_admin_write on public.maintenance_quotas
   for all using (public.is_admin()) with check (public.is_admin());
+
+create or replace function public.set_updated_at()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+drop trigger if exists projects_set_updated_at on public.projects;
+create trigger projects_set_updated_at
+  before update on public.projects
+  for each row execute function public.set_updated_at();
 
 -- Storage policies (bucket privé project-docs)
 -- Créer le bucket dans le dashboard si besoin :
