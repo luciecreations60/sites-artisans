@@ -247,7 +247,8 @@ ul {
 }
 
 .text-muted {
-  color: var(--muted);
+  /* Mélange avec l’encre pour un contraste plus lisible sur fond clair ou sombre */
+  color: color-mix(in srgb, var(--muted) 78%, var(--ink));
 }
 
 .text-center {
@@ -807,6 +808,37 @@ ul {
   align-items: center;
   gap: 0.5rem 1rem;
   justify-content: space-between;
+}
+
+.demo-chrome__left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1rem;
+}
+
+.demo-tier-switch {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.15rem;
+  border-radius: 999px;
+  background: #ffffff18;
+}
+
+.demo-tier-switch a {
+  color: #f7f1e7cc;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+}
+
+.demo-tier-switch a.is-active {
+  background: #fff;
+  color: var(--dark);
 }
 
 .demo-nav {
@@ -1392,20 +1424,25 @@ ul {
 /* ——— Pro shell ——— */
 .r-shell,
 .r-shell[data-trade] {
-  --ink: #ece5d8;
+  /* Palette sombre fixe : la personnalisation ne doit pas rendre le texte illisible */
+  --ink: #f4efe6;
   --paper: #12151a;
-  --muted: #9aa3b0;
-  --accent: var(--trade-accent, #8fa3b8);
-  --accent-deep: var(--trade-accent, #6e8299);
-  --accent-soft: color-mix(in srgb, var(--accent) 22%, transparent);
-  --surface: #1a1f27;
-  --line: rgba(236, 229, 216, 0.14);
-  --paper2: #1a1f27;
+  --muted: #c5ced8;
+  --accent: var(--trade-accent, #9eb6c9);
+  --accent-deep: color-mix(in srgb, var(--accent) 75%, #000);
+  --accent-soft: color-mix(in srgb, var(--accent) 28%, transparent);
+  --surface: #1c222c;
+  --line: rgba(244, 239, 230, 0.28);
+  --paper2: #252b36;
+  --r-ink: #f4efe6;
+  --r-bg: #12151a;
+  --r-muted: #c5ced8;
+  --r-line: rgba(244, 239, 230, 0.28);
   --font-display: "Archivo", system-ui, sans-serif;
   --font-body: "Spectral", Georgia, serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
-  background: var(--paper);
-  color: var(--ink);
+  background: #12151a !important;
+  color: #f4efe6 !important;
   font-family: var(--font-body);
   min-height: 100vh;
 }
@@ -1417,6 +1454,16 @@ ul {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  color: #f7f2ea;
+}
+
+.r-shell p,
+.r-shell li {
+  color: #ebe4d8;
+}
+
+.r-shell .text-muted {
+  color: #c5ced8 !important;
 }
 
 .r-shell .btn {
@@ -1443,7 +1490,7 @@ ul {
 }
 
 .r-shell .demo-nav a {
-  color: var(--r-muted);
+  color: #b8c2ce;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
@@ -1458,6 +1505,37 @@ ul {
   background: #0c0e12;
 }
 
+.r-shell .card {
+  background: #1c222c;
+  border: 1px solid rgba(244, 239, 230, 0.22);
+  color: #f4efe6;
+}
+
+.r-shell .form-field label {
+  color: #f0ebe3;
+  font-weight: 600;
+}
+
+.r-shell .form-field input,
+.r-shell .form-field textarea,
+.r-shell .form-field select {
+  background: #252b36;
+  color: #f4efe6;
+  border: 1.5px solid rgba(244, 239, 230, 0.4);
+  border-radius: 8px;
+}
+
+.r-shell .form-field input::placeholder,
+.r-shell .form-field textarea::placeholder {
+  color: #9aa6b4;
+}
+
+.r-shell .estimator-result {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
 .r-topbar {
   padding: 1.25rem 0 0.5rem;
   font-family: var(--font-mono);
@@ -1470,7 +1548,7 @@ ul {
 .r-hero {
   padding-block: clamp(3rem, 8vw, 5rem);
   background:
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(192, 154, 94, 0.12), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent),
     var(--r-bg);
 }
 

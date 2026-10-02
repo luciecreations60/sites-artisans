@@ -2,6 +2,7 @@ import { Link, Outlet, useLoaderData, useLocation } from "react-router";
 import { DemoChrome } from "~/components/DemoChrome";
 import { TradeTheme } from "~/components/TradeTheme";
 import { requireTrade } from "~/data/trades";
+import { applyTierMedia } from "~/lib/demoMedia";
 import { companyName } from "~/lib/personalize";
 import { useAppliedTrade } from "~/lib/useAppliedTrade";
 
@@ -19,13 +20,13 @@ const nav = [
 
 export default function DemoAvanceLayout() {
   const { trade: base } = useLoaderData<typeof loader>();
-  const trade = useAppliedTrade(base);
+  const trade = applyTierMedia(useAppliedTrade(base), "avance");
   const location = useLocation();
   const basePath = `/demos/${trade.slug}`;
 
   return (
     <TradeTheme trade={trade} className="sg-shell">
-      <DemoChrome tradeLabel={trade.label} tier="avance" />
+      <DemoChrome tradeLabel={trade.label} tradeSlug={trade.slug} tier="avance" />
       <div className="container">
         <div className="sg-topbar">
           <p className="sg-topbar__brand" style={{ margin: 0 }}>

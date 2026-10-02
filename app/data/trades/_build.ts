@@ -38,6 +38,8 @@ function img(slug: TradeSlug, name: string, alt: string): TradeImage {
 }
 
 export function buildTrade(seed: Seed): TradeData {
+  // Chemins par défaut = offre Avancé (hub démos). Les pages démo
+  // rappellent applyTierMedia() pour Essentiel / Avancé / Pro.
   const projects: TradeProject[] = seed.projectTitles.map((title, i) => {
     const id = `p${i + 1}`;
     const project: TradeProject = {
@@ -45,12 +47,12 @@ export function buildTrade(seed: Seed): TradeData {
       title,
       location: seed.defaultCity,
       summary: seed.projectSummaries[i],
-      image: img(seed.slug, id, title),
+      image: img(seed.slug, `avance_${i + 3}`, title),
       tags: seed.projectTags[i],
     };
     if (seed.hasBeforeAfter && i === 0) {
-      project.before = img(seed.slug, "avant", `Avant — ${title}`);
-      project.after = img(seed.slug, "apres", `Après — ${title}`);
+      project.before = img(seed.slug, "pro_2", `Avant — ${title}`);
+      project.after = img(seed.slug, "pro_3", `Après — ${title}`);
     }
     return project;
   });
@@ -69,9 +71,9 @@ export function buildTrade(seed: Seed): TradeData {
     defaultPhone: "06 12 34 56 78",
     defaultEmail: "contact@atelier-demo.fr",
     palette: seed.palette,
-    hero: img(seed.slug, "hero", `${seed.label} — ${seed.specialty}`),
-    atelier: img(seed.slug, "atelier", `Atelier ${seed.label.toLowerCase()}`),
-    portrait: img(seed.slug, "atelier", `Portrait artisan ${seed.label.toLowerCase()}`),
+    hero: img(seed.slug, "avance_1", `${seed.label} — ${seed.specialty}`),
+    atelier: img(seed.slug, "avance_2", `Atelier ${seed.label.toLowerCase()}`),
+    portrait: img(seed.slug, "avance_2", `Portrait artisan ${seed.label.toLowerCase()}`),
     about: seed.about,
     services: seed.services,
     projects,

@@ -50,11 +50,11 @@ export const peintre = buildTrade({
   ],
   projectTitles: [
     "Appartement T4 rénové",
-    "Façade pierre Bordeaux",
+    "Façade claire ravalée",
     "Salon papier panoramique",
     "Bureaux open space",
     "Maison neuve finitions",
-    "Escalier et paliers",
+    "Murs bleus pièce à vivre",
   ],
   projectSummaries: [
     "Peintures mates pièces de vie, satinée cuisine et satinée salle de bain.",
@@ -62,7 +62,7 @@ export const peintre = buildTrade({
     "Papier intissé grand format, raccord invisible au plafond.",
     "Peinture lessivable blanc cassé, bandes de couleur sur cloisons.",
     "Prise en charge complète après plâtrier : plafonds et murs livrés prêts à meubler.",
-    "Sous-couche accrochage sur anciennes peintures glycéro, laque blanche.",
+    "Application soignée au rouleau, deux couches, protection des plinthes.",
   ],
   projectTags: [
     ["intérieur", "rénovation", "appartement"],
@@ -70,7 +70,7 @@ export const peintre = buildTrade({
     ["papier peint", "décoration", "salon"],
     ["bureaux", "professionnel", "peinture"],
     ["neuf", "finitions", "maison"],
-    ["boiseries", "escalier", "laque"],
+    ["murs", "rouleau", "couleur"],
   ],
   testimonials: [
     {

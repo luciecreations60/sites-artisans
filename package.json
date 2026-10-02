@@ -9,7 +9,8 @@
     "build:pages": "node scripts/build-pages.mjs",
     "typecheck": "react-router typegen && tsc",
     "preview": "vite preview --outDir build/client",
-    "photos": "node scripts/download-photos.mjs"
+    "photos": "node scripts/download-photos.mjs",
+    "photos:bienetre": "node scripts/fill-bienetre-photos.mjs"
   },
   "dependencies": {
     "@react-router/node": "^8.4.0",

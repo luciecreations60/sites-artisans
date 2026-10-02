@@ -2,6 +2,7 @@ import { Link, useLoaderData } from "react-router";
 import { DemoChrome } from "~/components/DemoChrome";
 import { TradeTheme } from "~/components/TradeTheme";
 import { requireTrade } from "~/data/trades";
+import { applyTierMedia } from "~/lib/demoMedia";
 import { artisanName, companyName } from "~/lib/personalize";
 import { formatPhone } from "~/lib/format";
 import { useAppliedTrade } from "~/lib/useAppliedTrade";
@@ -12,11 +13,11 @@ export function loader({ params }: { params: { trade?: string } }) {
 
 export default function DemoEssentiel() {
   const { trade: base } = useLoaderData<typeof loader>();
-  const trade = useAppliedTrade(base);
+  const trade = applyTierMedia(useAppliedTrade(base), "essentiel");
 
   return (
     <TradeTheme trade={trade} className="e-shell">
-      <DemoChrome tradeLabel={trade.label} tier="essentiel" />
+      <DemoChrome tradeLabel={trade.label} tradeSlug={trade.slug} tier="essentiel" />
       <div className="container">
         <div className="e-topbar">
           <div>

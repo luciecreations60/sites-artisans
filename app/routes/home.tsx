@@ -52,12 +52,12 @@ export default function Home() {
           <div className="marketing-hero__media" aria-hidden>
             <img
               className="marketing-hero__photo-main"
-              src={publicUrl("img/menuisier/hero.jpg")}
+              src={publicUrl("img/plombier/essentiel_1.jpg")}
               alt=""
             />
             <img
               className="marketing-hero__photo-secondary"
-              src={publicUrl("img/menuisier/atelier.jpg")}
+              src={publicUrl("img/plombier/essentiel_2.jpg")}
               alt=""
             />
             <div className="marketing-hero__float">

@@ -17,7 +17,7 @@ type Props = {
 
 export function Personalizer({ compact, variant = "default" }: Props) {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
-  const [tradeSlug, setTradeSlug] = useState("menuisier");
+  const [tradeSlug, setTradeSlug] = useState("plombier");
   const [mounted, setMounted] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -48,7 +48,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
   const previewName = profile.company.trim() || "Votre entreprise";
   const previewMeta =
     [profile.firstName, profile.city].filter(Boolean).join(" · ") || "Prénom · Ville";
-  const trade = trades[tradeSlug as keyof typeof trades] ?? trades.menuisier;
+  const trade = trades[tradeSlug as keyof typeof trades] ?? trades.plombier;
 
   const stylePickers = (
     <>
