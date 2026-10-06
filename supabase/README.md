@@ -13,10 +13,18 @@
 6. **CRM Phase 3** (e-mails + campagnes) — après la Phase 2 :
    exécutez `supabase/migrations/20261006_crm_prospect_emails_phase3.sql`
    puis déployez les Edge Functions et configurez les secrets SMTP — voir [EMAIL.md](./EMAIL.md)
-7. **Storage** : vérifiez le bucket privé `project-docs`.
-8. **Authentication → Users** : créez votre compte admin, puis dans Table Editor `profiles` passez `role` à `admin` et renseignez `full_name` (ex. `Lucie`).
-9. Créez un utilisateur client de test ; créez une ligne `projects` avec `client_id` = son uuid.
-10. Dans le dépôt :
+7. **CRM Phase 4** (conversion Prospect → client / projet / invitation) — après la Phase 3 :
+   exécutez `supabase/migrations/20261007_crm_convert_prospect_phase4.sql`
+   puis déployez `convert-prospect-to-client` et `resend-client-invite` — voir [EMAIL.md](./EMAIL.md) (section invitation)
+8. **Storage** : vérifiez le bucket privé `project-docs`.
+9. **Authentication → Users** : créez votre compte admin, puis dans Table Editor `profiles` passez `role` à `admin` et renseignez `full_name` (ex. `Lucie`).
+10. **Auth → URL configuration** : ajoutez dans *Redirect URLs* l’URL publique d’activation, par ex.  
+    `https://luciecreations60.github.io/sites-artisans/espace-client/activation`  
+    et en local `http://localhost:5173/espace-client/activation`.  
+    Définissez le secret Edge `SITE_PUBLIC_URL` = origine publique **sans** slash final  
+    (ex. `https://luciecreations60.github.io/sites-artisans`).
+11. Créez un utilisateur client de test ; créez une ligne `projects` avec `client_id` = son uuid.
+12. Dans le dépôt :
 
 ```bash
 cp .env.example .env
@@ -24,13 +32,33 @@ cp .env.example .env
 
 Renseignez `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` (Settings → API).
 
-11. `npm run dev`
+13. `npm run dev`
    - Client : `/espace-client/connexion` → `/espace-client`
+   - Activation invitation : `/espace-client/activation` (lien e-mail / generateLink)
    - Admin : même login → `/admin`
-   - CRM : `/admin/prospects` (admin uniquement)
+   - CRM : `/admin/prospects` (admin uniquement) — *Transformer en client* sur la fiche
    - Campagnes e-mail : `/admin/prospects/campagnes`
    - Démo prospect publique : `/demo/{public_slug}` (RPC uniquement)
    - Aperçu admin : `/demo/{public_slug}?preview=1` (session admin requise)
+
+### Conversion Prospect → client (Phase 4)
+
+- Edge `convert-prospect-to-client` : claim atomique → Auth/Profile → Project → statut `gagne` → cancel e-mails non envoyés.
+- Invitation **uniquement** via `auth.admin.generateLink({ type: "invite" })` puis EmailProvider transactionnel (ou lien ponctuel Admin). Pas de `inviteUserByEmail`. Le lien n’est **jamais** stocké en base.
+- Renvoi : Edge `resend-client-invite` (nouveau lien, sans recréer Auth/Profile/Project).
+- GitHub Pages : le build copie `index.html` → `404.html` ([scripts/prepare-gh-pages.mjs](../scripts/prepare-gh-pages.mjs)) pour que l’URL directe `/espace-client/activation` charge la SPA.
+
+#### Validation manuelle Phase 4 (A–G)
+
+| | Scénario | Attendu |
+|---|----------|---------|
+| A | Nouveau client | Auth + Profile + Project + invitation → activation → `/espace-client` |
+| B | Client existant (même e-mail) | Nouveau Project, **pas** d’invitation |
+| C | Double clic conversion | Un Auth, un Profile, un Project ; 2ᵉ appel « déjà converti » ou « en cours » |
+| D | Retry après Auth créé | Reprend sans doublon |
+| E | Retry après Project créé | Retrouve le Project, termine `converted_at` |
+| F | E-mail `queued` | Dès le claim / `converted_at`, aucun envoi prospection |
+| G | Lien invitation en navigation privée | Pas de 404 GH Pages ; MDP → espace client |
 
 ## Upload facture Indy (manuel)
 

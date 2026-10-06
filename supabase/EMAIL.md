@@ -48,9 +48,14 @@ supabase secrets set SMTP_FROM_EMAIL=contact@mondomaine.fr
 supabase secrets set SMTP_FROM_NAME="Sites Artisans"
 supabase secrets set SMTP_REPLY_TO=contact@mondomaine.fr
 supabase secrets set EMAIL_QUEUE_CRON_SECRET=une-chaine-longue-aleatoire
+supabase secrets set SITE_PUBLIC_URL=https://luciecreations60.github.io/sites-artisans
 ```
 
 Port **465** obligatoire sur Edge Supabase (25/587 bloqués).
+
+`SITE_PUBLIC_URL` : origine publique de l’app **sans** slash final. Utilisée pour
+`redirectTo` des invitations client (`…/espace-client/activation`). Doit être
+autorisée dans Supabase Auth → Redirect URLs.
 
 ## Deploy functions
 
@@ -58,6 +63,8 @@ Port **465** obligatoire sur Edge Supabase (25/587 bloqués).
 supabase functions deploy send-prospect-email
 supabase functions deploy process-email-queue
 supabase functions deploy test-email-provider
+supabase functions deploy convert-prospect-to-client
+supabase functions deploy resend-client-invite
 ```
 
 ## Capacités provider
@@ -67,3 +74,19 @@ OVH SMTP : `supportsIndividualSend` + `supportsQueuedSend` = true ; `supportsBul
 ## Migration
 
 Exécuter `supabase/migrations/20261006_crm_prospect_emails_phase3.sql` après Phase 2.
+
+Phase 4 : `supabase/migrations/20261007_crm_convert_prospect_phase4.sql`.
+
+## Invitation espace client (Phase 4 — hors prospection)
+
+L’invitation portail réutilise le **transport** EmailProvider (SMTP), mais :
+
+- n’écrit **pas** dans `prospect_emails` ;
+- n’apparaît pas dans une campagne ;
+- n’incrémente pas les compteurs / limites prospection (`max_emails_per_day` / heure) ;
+- ne crée pas de relance commerciale ni d’interaction « contact » CRM ;
+- ne modifie pas le last contact ni le statut commercial (la conversion le fait à part).
+
+Si SMTP n’est pas configuré, l’Admin reçoit le lien `invite_link` une seule fois dans la réponse UI (jamais persisté, jamais loggé).
+
+Pendant une conversion (`conversion_lock_*` actif) ou après `converted_at`, `deliver.ts` refuse / annule les e-mails de prospection restants.

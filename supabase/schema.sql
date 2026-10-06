@@ -450,7 +450,8 @@ insert into public.prospect_interaction_types (code, label, sort_order, is_syste
   ('follow_up', 'Relance', 80, false, true),
   ('demo', 'Démo', 90, false, true),
   ('quote', 'Devis', 100, false, true),
-  ('other', 'Autre', 110, false, false)
+  ('other', 'Autre', 110, false, false),
+  ('conversion', 'Conversion client', 120, true, false)
 on conflict (code) do update set
   label = excluded.label,
   sort_order = excluded.sort_order,

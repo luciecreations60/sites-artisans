@@ -2702,6 +2702,55 @@ button.linkish {
   margin-bottom: 1rem;
 }
 
+.crm-convert-banner {
+  margin-bottom: 1rem;
+}
+
+.crm-convert-banner .portal-section {
+  border-color: color-mix(in srgb, var(--accent, #2f6f4e) 35%, var(--border, #ddd));
+  background: color-mix(in srgb, var(--accent, #2f6f4e) 8%, transparent);
+}
+
+.crm-convert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.crm-convert-form {
+  margin-top: 1rem;
+}
+
+.crm-invite-link {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.crm-invite-link label {
+  flex: 1 1 16rem;
+}
+
+.crm-invite-link input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.crm-source-links {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border, #ddd);
+  border-radius: 8px;
+}
+
+.crm-source-links ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+}
+
 .crm-demo-list {
   list-style: none;
   margin: 0;

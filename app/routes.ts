@@ -19,6 +19,7 @@ export default [
     layout("./routes/espace-client.layout.tsx", [
       route("espace-client", "./routes/espace-client.tsx"),
       route("espace-client/connexion", "./routes/espace-client.connexion.tsx"),
+      route("espace-client/activation", "./routes/espace-client.activation.tsx"),
       route("espace-client/projet/:projectId", "./routes/espace-client.projet.tsx"),
       layout("./routes/admin.layout.tsx", [
         route("admin", "./routes/admin.tsx"),

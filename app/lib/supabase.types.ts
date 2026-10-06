@@ -39,6 +39,8 @@ export type Project = {
   domain: string | null;
   notes: string | null;
   target_date: string | null;
+  source_prospect_id: string | null;
+  source_demo_id: string | null;
   created_at: string;
   updated_at: string;
 };

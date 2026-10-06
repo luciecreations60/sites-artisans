@@ -262,6 +262,28 @@ export default function AdminProjetDetail() {
         </p>
       </header>
 
+      {(project.source_prospect_id || project.source_demo_id) && (
+        <div className="crm-source-links">
+          <strong>Origine CRM</strong>
+          <ul>
+            {project.source_prospect_id && (
+              <li>
+                <Link to={`/admin/prospects/${project.source_prospect_id}`}>
+                  Prospect source
+                </Link>
+              </li>
+            )}
+            {project.source_demo_id && project.source_prospect_id && (
+              <li>
+                <Link to={`/admin/prospects/${project.source_prospect_id}#demos`}>
+                  Démo source
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
+
       {error && <ErrorState message={error} />}
       {ok && <p className="portal-success">{ok}</p>}
 

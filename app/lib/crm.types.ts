@@ -54,6 +54,11 @@ export type Prospect = {
   created_at: string;
   updated_at: string;
   archived_at: string | null;
+  converted_profile_id: string | null;
+  converted_at: string | null;
+  converted_by: string | null;
+  conversion_lock_at: string | null;
+  conversion_lock_token: string | null;
 };
 
 export type ProspectTask = {

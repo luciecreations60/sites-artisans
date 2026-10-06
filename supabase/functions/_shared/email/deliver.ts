@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "npm:@supabase/supabase-js@2";
+import { isConversionLockActive } from "../conversion.ts";
 import { getEmailProvider, getSmtpFromDefaults } from "./factory.ts";
 
 function isValidEmail(email: string): boolean {
@@ -131,6 +132,37 @@ export async function deliverProspectEmail(
         status: 409,
       };
     }
+  }
+
+  // Phase 4 : bloquer dès conversion terminée OU claim de conversion actif
+  if (prospect.converted_at) {
+    const cancelled = await statusId(service, "cancelled");
+    if (cancelled) {
+      await service
+        .from("prospect_emails")
+        .update({
+          email_status_id: cancelled,
+          failure_reason: "Prospect devenu client",
+          failed_at: new Date().toISOString(),
+        })
+        .eq("id", emailId);
+    }
+    return { ok: false, error: "Prospect déjà converti en client.", status: 403 };
+  }
+
+  if (isConversionLockActive(prospect.conversion_lock_at)) {
+    const cancelled = await statusId(service, "cancelled");
+    if (cancelled) {
+      await service
+        .from("prospect_emails")
+        .update({
+          email_status_id: cancelled,
+          failure_reason: "Conversion client en cours",
+          failed_at: new Date().toISOString(),
+        })
+        .eq("id", emailId);
+    }
+    return { ok: false, error: "Conversion client en cours.", status: 409 };
   }
 
   if (prospect.do_not_contact) {

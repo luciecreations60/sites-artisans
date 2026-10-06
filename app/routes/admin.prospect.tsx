@@ -12,6 +12,7 @@ import { useAuth } from "~/lib/auth";
 import { formatDateFr } from "~/lib/portal";
 import { getSupabase } from "~/lib/supabase";
 import { useCrmRefs } from "~/lib/useCrmRefs";
+import { ProspectConvertPanel } from "~/components/portal/ProspectConvertPanel";
 import { ProspectDemosPanel } from "~/components/portal/ProspectDemosPanel";
 import { ProspectEmailsPanel } from "~/components/portal/ProspectEmailsPanel";
 import { ErrorState, LoadingState, PortalSection } from "~/components/portal/PortalUi";
@@ -373,9 +374,9 @@ export default function AdminProspectDetail() {
         <a href="#emails" className="btn btn-ghost">
           Préparer un e-mail
         </a>
-        <button type="button" className="btn btn-ghost" disabled title="Phase 4">
-          Transformer en client
-        </button>
+        <a href="#conversion" className="btn btn-ghost">
+          {prospect.converted_at ? "Voir la conversion" : "Transformer en client"}
+        </a>
       </div>
 
       {error && <ErrorState message={error} />}
@@ -742,6 +743,8 @@ export default function AdminProspectDetail() {
           )}
         </>
       )}
+
+      <ProspectConvertPanel prospect={prospect} onConverted={() => void reload()} />
 
       <div id="emails">
         <ProspectEmailsPanel prospect={prospect} onChanged={() => void reload()} />
