@@ -1,12 +1,16 @@
-import { Link, Outlet, useLoaderData, useLocation } from "react-router";
+import { Link, Outlet, useLoaderData, useLocation, Navigate } from "react-router";
 import { DemoChrome } from "~/components/DemoChrome";
 import { TradeTheme } from "~/components/TradeTheme";
-import { requireTrade } from "~/data/trades";
+import type { TradeData } from "~/data/types";
+import { applyTierMedia } from "~/lib/demoMedia";
 import { companyName } from "~/lib/personalize";
+import { useProspectDemo } from "~/lib/ProspectDemoContext";
+import { demoTradeLoader, useResolveDemoTrade } from "~/lib/resolveDemoTrade";
 import { useAppliedTrade } from "~/lib/useAppliedTrade";
+import { useDemoBasePath, useDemoSearch } from "~/lib/useDemoPaths";
 
 export function loader({ params }: { params: { trade?: string } }) {
-  return { trade: requireTrade(params.trade ?? "") };
+  return demoTradeLoader(params);
 }
 
 const nav = [
@@ -18,14 +22,21 @@ const nav = [
 ];
 
 export default function DemoAvanceLayout() {
-  const { trade: base } = useLoaderData<typeof loader>();
-  const trade = useAppliedTrade(base);
+  const data = useLoaderData() as { trade: TradeData | null } | undefined;
+  const base = useResolveDemoTrade(data?.trade ?? null);
+  const trade = applyTierMedia(useAppliedTrade(base), "avance");
   const location = useLocation();
-  const basePath = `/demos/${trade.slug}`;
+  const basePath = useDemoBasePath(trade.slug);
+  const q = useDemoSearch();
+  const prospect = useProspectDemo();
+
+  if (prospect && !prospect.enabledTiers.includes("avance")) {
+    return <Navigate to={`${basePath}${q}`} replace />;
+  }
 
   return (
     <TradeTheme trade={trade} className="sg-shell">
-      <DemoChrome tradeLabel={trade.label} tier="avance" />
+      <DemoChrome tradeLabel={trade.label} tradeSlug={trade.slug} tier="avance" />
       <div className="container">
         <div className="sg-topbar">
           <p className="sg-topbar__brand" style={{ margin: 0 }}>
@@ -37,8 +48,10 @@ export default function DemoAvanceLayout() {
         </div>
         <nav className="demo-nav" aria-label="Navigation démo">
           {nav.map((item) => {
-            const href = `${basePath}/${item.path}`;
-            const active = location.pathname === href || location.pathname === `${href}/`;
+            const href = `${basePath}/${item.path}${q}`;
+            const active =
+              location.pathname === `${basePath}/${item.path}` ||
+              location.pathname === `${basePath}/${item.path}/`;
             return (
               <Link key={item.path} to={href} className={active ? "active" : undefined}>
                 {item.label}

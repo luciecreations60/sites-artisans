@@ -1,16 +1,15 @@
 export type TradeSlug =
-  | "menuisier"
   | "plombier"
   | "electricien"
   | "couvreur"
   | "peintre"
   | "paysagiste"
-  | "macon"
   | "garage"
   | "boulanger"
   | "coiffure"
   | "bienetre"
-  | "autre";
+  | "cordonnier"
+  | "serrurier";
 
 export type OfferTier = "essentiel" | "avance" | "pro";
 
@@ -31,9 +30,9 @@ export type TradeProject = {
   location: string;
   summary: string;
   image: TradeImage;
+  tags: string[];
   before?: TradeImage;
   after?: TradeImage;
-  tags: string[];
 };
 
 export type TradeTestimonial = {

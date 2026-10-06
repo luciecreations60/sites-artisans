@@ -2,6 +2,7 @@ import { Link, useOutletContext } from "react-router";
 import { BeforeAfter } from "~/components/BeforeAfter";
 import type { TradeData } from "~/data/types";
 import { artisanName, companyName } from "~/lib/personalize";
+import { useDemoHref } from "~/lib/useDemoPaths";
 
 export default function DemoProHome() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
@@ -9,12 +10,20 @@ export default function DemoProHome() {
   const hasBa = featured?.before && featured?.after;
   const words = trade.tagline.split(" ");
   const mid = Math.ceil(words.length / 2);
+  const contactHref = useDemoHref(trade.slug, "/pro/contact");
+  const devisHref = useDemoHref(trade.slug, "/pro/devis");
+  const projectHref = useDemoHref(
+    trade.slug,
+    `/pro/realisations/${featured?.id ?? "p1"}`,
+  );
 
   return (
     <main>
       <section className="r-hero">
         <div className="container hero-fade">
-          <p className="r-label">{companyName(trade)} · {trade.label}</p>
+          <p className="r-label">
+            {companyName(trade)} · {trade.label}
+          </p>
           <h1>
             {words.slice(0, mid).join(" ")}{" "}
             <span>{words.slice(mid).join(" ")}</span>
@@ -23,10 +32,10 @@ export default function DemoProHome() {
             {trade.specialty}
           </p>
           <div className="hero-actions">
-            <Link to={`/demos/${trade.slug}/pro/contact`} className="btn btn-primary">
+            <Link to={contactHref} className="btn btn-primary">
               Prendre rendez-vous
             </Link>
-            <Link to={`/demos/${trade.slug}/pro/devis`} className="btn btn-ghost">
+            <Link to={devisHref} className="btn btn-ghost">
               Estimation en ligne
             </Link>
           </div>
@@ -44,18 +53,15 @@ export default function DemoProHome() {
       <section className="section" style={{ background: "var(--r-bg2)" }}>
         <div className="container grid grid-2" style={{ alignItems: "center" }}>
           <img
-            src={trade.hero.src}
-            alt={trade.hero.alt}
+            src={trade.atelier.src}
+            alt={trade.atelier.alt}
             style={{ borderRadius: 0, objectFit: "cover", minHeight: "320px", width: "100%" }}
           />
           <div>
             <p className="r-label">L’atelier</p>
             <h2 style={{ textTransform: "none", fontWeight: 700 }}>{artisanName(trade)}</h2>
             <p style={{ color: "var(--r-muted)" }}>{trade.about}</p>
-            <Link
-              to={`/demos/${trade.slug}/pro/realisations/${featured?.id ?? "p1"}`}
-              className="btn btn-ghost"
-            >
+            <Link to={projectHref} className="btn btn-ghost">
               Voir le projet en détail
             </Link>
           </div>

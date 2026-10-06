@@ -1,0 +1,259 @@
+{
+  "updatedAt": "2026-10-02T17:42:49.445Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "bienetre/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "bytes": 185177,
+      "sha256": "44fa76b057d9d8a1a241f5d06f0a6a8dcd5e9b229c3570039c3c4fa5fe5f5dc2",
+      "unsplashUrl": "https://unsplash.com/photos/oAvwAKFiU7Q",
+      "photographer": "Jakub Klucký",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "bytes": 5709464,
+      "sha256": "4f327b85f575cc2621b4086d1ce90e905a252b4cdcbef262c7828c78ddfb6e76",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/essentiel/03-realisation-pierres-chaudes.jpg",
+      "offer": "essentiel",
+      "role": "realisation-pierres-chaudes",
+      "bytes": 3383538,
+      "sha256": "ea39b51404f2dab6dbc5c9bc0bedfdcd6c0f25cd7c36d528f9329352dcb5c658",
+      "unsplashUrl": "https://unsplash.com/photos/1600334129128-685c5582fd35",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/essentiel/04-realisation-soin-visage.jpg",
+      "offer": "essentiel",
+      "role": "realisation-soin-visage",
+      "bytes": 161181,
+      "sha256": "451adb0207facc1feed6adee165304109b64979cb42bb6253d93f605e2f789e9",
+      "unsplashUrl": "https://unsplash.com/photos/tHogec0-_KE",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/essentiel/05-realisation-forfait-mariee.jpg",
+      "offer": "essentiel",
+      "role": "realisation-forfait-mariee",
+      "bytes": 553530,
+      "sha256": "fe7a9c35524019aec339c15e4861dd463b14eed55c134d1586e39a086b440128",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "bytes": 375897,
+      "sha256": "6f7ed471b0e3e1deb1c2cddeaab5bb20dcea0662dc4a81afbbad97ced8d64178",
+      "unsplashUrl": "https://unsplash.com/photos/JGIfuL-nzCE",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "bytes": 4446630,
+      "sha256": "43ca6a768b8b0aa2bde3b1b5f2d8bf94187a588bfecb657197dcb8dd9db72d92",
+      "unsplashUrl": "https://unsplash.com/photos/BJ7i-96glwM",
+      "photographer": "Anna Keibalo",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/avance/03-realisation-pierres-chaudes.jpg",
+      "offer": "avance",
+      "role": "realisation-pierres-chaudes",
+      "bytes": 200505,
+      "sha256": "fa27ba2f2158dad78072ba65b7fcaa2475ae6ebebd0e73e711adec6a53334383",
+      "unsplashUrl": "https://unsplash.com/photos/1544161515-4ab6ce6db874",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/avance/04-realisation-soin-visage.jpg",
+      "offer": "avance",
+      "role": "realisation-soin-visage",
+      "bytes": 289605,
+      "sha256": "eb8697cc8bd79906d80eb14effef3348cba2a635a9632ac9b287e7ed23b41239",
+      "unsplashUrl": "https://unsplash.com/photos/1570172619644-dfd03ed5d881",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/avance/05-realisation-forfait-mariee.jpg",
+      "offer": "avance",
+      "role": "realisation-forfait-mariee",
+      "bytes": 956212,
+      "sha256": "40cda79f0748736c527460fc4d76227bb94b06877ddad3618d096597ca481ab7",
+      "unsplashUrl": "https://unsplash.com/photos/1512496015851-a90fb38ba796",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/avance/06-realisation-reflexologie.jpg",
+      "offer": "avance",
+      "role": "realisation-reflexologie",
+      "bytes": 2238160,
+      "sha256": "e5122ed53093ddd70b10f2856317dffa5563be0d301dfc31df46ab6000ce7dbf",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/avance/07-realisation-gommage.jpg",
+      "offer": "avance",
+      "role": "realisation-gommage",
+      "bytes": 4230011,
+      "sha256": "6a961d3f0aeb0596970a1b3905492efc44f007adbae63f785d578d9af5789197",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/avance/08-realisation-atelier-entreprise.jpg",
+      "offer": "avance",
+      "role": "realisation-atelier-entreprise",
+      "bytes": 2871266,
+      "sha256": "d4d1b34247ba238b827e9aa6b059a2b0e2a6e3a11c70e13abfaf1a87839d4c10",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "bytes": 282714,
+      "sha256": "6e90ff09b407724f9b9207d02a3c10bcbf1e60a662d0bfa29ecf7a2ca0374506",
+      "unsplashUrl": "https://unsplash.com/photos/If_OWC3KAds",
+      "photographer": "iKshana Productions",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "bytes": 187349,
+      "sha256": "9a90c7dd21f96797c481aa3fdbb9c2e712e6db9effaa6e2f9571c8d71723820d",
+      "unsplashUrl": "https://unsplash.com/photos/kygrWmp-GdE",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/03-before-pierres-chaudes.jpg",
+      "offer": "pro",
+      "role": "before-pierres-chaudes",
+      "bytes": 194838,
+      "sha256": "89e426e88cf1fd97dc2ed5c9698c073f0721b91fdc23dfcde753fcc3281c3461",
+      "unsplashUrl": "https://unsplash.com/photos/9qYFu1NzpS8",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/04-after-pierres-chaudes.jpg",
+      "offer": "pro",
+      "role": "after-pierres-chaudes",
+      "bytes": 222216,
+      "sha256": "38bc2721a2248dc7fa175b7dde00cc7bcf667d416fb6fa6d1ba88a5ec3670ff6",
+      "unsplashUrl": "https://unsplash.com/photos/1540555700478-4be289fbecef",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/05-realisation-pierres-chaudes.jpg",
+      "offer": "pro",
+      "role": "realisation-pierres-chaudes",
+      "bytes": 277569,
+      "sha256": "83787da70a55fa1ce7642c91e399a8290d6f6287d927c1a19b1a57b05201eff6",
+      "unsplashUrl": "https://unsplash.com/photos/7yeqemd-p90",
+      "note": "Massage dos — alternative (évite doublon pierres HQ Essentiel)",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/06-realisation-soin-visage.jpg",
+      "offer": "pro",
+      "role": "realisation-soin-visage",
+      "bytes": 1871365,
+      "sha256": "91a736be7fdfe0bfcd4858d6fd645cecf0b6f32046763ce0cc7cb99f560e7ca2",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/pro/07-realisation-forfait-mariee.jpg",
+      "offer": "pro",
+      "role": "realisation-forfait-mariee",
+      "bytes": 246522,
+      "sha256": "59c4099ddfca21c7241a6676b1f19afb3764a0f54b6d45ef5364e53bccf5db8c",
+      "unsplashUrl": "https://unsplash.com/photos/1487412947147-5cebf100ffc2",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/08-realisation-reflexologie.jpg",
+      "offer": "pro",
+      "role": "realisation-reflexologie",
+      "bytes": 182328,
+      "sha256": "101e823f1fa73cef395dadf4b9c7ecb201f0bd0c08ab6ee5bc8d5c2accc78267",
+      "unsplashUrl": "https://unsplash.com/photos/N1hQ-rLyJHI",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/09-realisation-gommage.jpg",
+      "offer": "pro",
+      "role": "realisation-gommage",
+      "bytes": 242317,
+      "sha256": "a71f5a0bfadb2be7fd0d91b2da565851640485fda172ee74b8ced2226a3719d5",
+      "unsplashUrl": "https://unsplash.com/photos/4pDlorrrOOM",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/10-realisation-atelier-entreprise.jpg",
+      "offer": "pro",
+      "role": "realisation-atelier-entreprise",
+      "bytes": 1012599,
+      "sha256": "f50f5cebb632bedfc16ce811eb624a0227017967991aac55174b87b3f173ed52",
+      "unsplashUrl": "https://unsplash.com/photos/1506126613408-eca07ce68773",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/11-service-massage-relaxant.jpg",
+      "offer": "pro",
+      "role": "service-massage-relaxant",
+      "bytes": 351650,
+      "sha256": "344ec06aaff179ac242ca785a0e431c5e1653d6b8f4f2d5c0e4110cc2cf48104",
+      "unsplashUrl": "https://unsplash.com/photos/3aGV2ViCzrM",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/12-service-soin-visage.jpg",
+      "offer": "pro",
+      "role": "service-soin-visage",
+      "bytes": 185251,
+      "sha256": "6373a967569feb7e2625fa7227d147e8e9357caf79470ed7d8927ab1961d8fad",
+      "unsplashUrl": "https://unsplash.com/photos/1616394584738-fc6e612e71b9",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/13-service-epilation.jpg",
+      "offer": "pro",
+      "role": "service-epilation",
+      "bytes": 9102094,
+      "sha256": "67ea4ed1f993a23824035b0ca63678098c9296bc18f0ae37d16f1ee302ee8700",
+      "origin": "local-kept"
+    },
+    {
+      "file": "bienetre/pro/14-service-manucure.jpg",
+      "offer": "pro",
+      "role": "service-manucure",
+      "bytes": 578585,
+      "sha256": "29ba65a28d2ec917f08e48a0e18c59e98e9ddbbab73e88e9d12e013ead4ffc85",
+      "unsplashUrl": "https://unsplash.com/photos/cuQZGL7w6h0",
+      "origin": "Unsplash"
+    },
+    {
+      "file": "bienetre/pro/15-service-rituel-duo.jpg",
+      "offer": "pro",
+      "role": "service-rituel-duo",
+      "bytes": 250678,
+      "sha256": "f0e2d94b8828966e7495e20c71467f2c2d83f2080895633d42d4a37cbaea3b4b",
+      "unsplashUrl": "https://unsplash.com/photos/VWELT4w5jj8",
+      "note": "Massage cabine — idéal duo couple à remplacer si dispo",
+      "origin": "Unsplash"
+    }
+  ]
+}

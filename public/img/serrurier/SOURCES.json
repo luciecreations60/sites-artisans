@@ -1,0 +1,257 @@
+{
+  "updatedAt": "2026-10-02T19:24:30.284Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "serrurier/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 83102
+    },
+    {
+      "file": "serrurier/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 112303
+    },
+    {
+      "file": "serrurier/avance/03-realisation-ouverture-porte-claquee.jpg",
+      "offer": "avance",
+      "role": "realisation-ouverture-porte-claquee",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 243462
+    },
+    {
+      "file": "serrurier/avance/04-realisation-cylindre-haute-securite.jpg",
+      "offer": "avance",
+      "role": "realisation-cylindre-haute-securite",
+      "origin": "local-kept",
+      "previousFile": "pro_2.jpg",
+      "bytes": 94558
+    },
+    {
+      "file": "serrurier/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1558618666-fcd25c85cd64",
+      "unsplashUrl": "https://unsplash.com/photos/1558618666-fcd25c85cd64",
+      "bytes": 245585
+    },
+    {
+      "file": "serrurier/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "serrurier/essentiel/03-realisation-ouverture-porte-claquee.jpg",
+      "offer": "essentiel",
+      "role": "realisation-ouverture-porte-claquee",
+      "origin": "Unsplash",
+      "unsplashId": "1522771739844-6a9f6d5f14af",
+      "unsplashUrl": "https://unsplash.com/photos/1522771739844-6a9f6d5f14af",
+      "bytes": 196215
+    },
+    {
+      "file": "serrurier/essentiel/04-realisation-cylindre-haute-securite.jpg",
+      "offer": "essentiel",
+      "role": "realisation-cylindre-haute-securite",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "serrurier/essentiel/05-realisation-doubles-de-cles-famille.jpg",
+      "offer": "essentiel",
+      "role": "realisation-doubles-de-cles-famille",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "serrurier/avance/05-realisation-doubles-de-cles-famille.jpg",
+      "offer": "avance",
+      "role": "realisation-doubles-de-cles-famille",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "serrurier/avance/06-realisation-serrure-5-points-neuve.jpg",
+      "offer": "avance",
+      "role": "realisation-serrure-5-points-neuve",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "serrurier/avance/07-realisation-porte-d-entree-renforcee.jpg",
+      "offer": "avance",
+      "role": "realisation-porte-d-entree-renforcee",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "serrurier/avance/08-realisation-depannage-cle-cassee.jpg",
+      "offer": "avance",
+      "role": "realisation-depannage-cle-cassee",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "serrurier/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "serrurier/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "serrurier/pro/03-before-ouverture-porte-claquee.jpg",
+      "offer": "pro",
+      "role": "before-ouverture-porte-claquee",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "serrurier/pro/04-after-ouverture-porte-claquee.jpg",
+      "offer": "pro",
+      "role": "after-ouverture-porte-claquee",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "serrurier/pro/05-realisation-ouverture-porte-claquee.jpg",
+      "offer": "pro",
+      "role": "realisation-ouverture-porte-claquee",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "serrurier/pro/06-realisation-cylindre-haute-securite.jpg",
+      "offer": "pro",
+      "role": "realisation-cylindre-haute-securite",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "serrurier/pro/07-realisation-doubles-de-cles-famille.jpg",
+      "offer": "pro",
+      "role": "realisation-doubles-de-cles-famille",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "serrurier/pro/08-realisation-serrure-5-points-neuve.jpg",
+      "offer": "pro",
+      "role": "realisation-serrure-5-points-neuve",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    },
+    {
+      "file": "serrurier/pro/09-realisation-porte-d-entree-renforcee.jpg",
+      "offer": "pro",
+      "role": "realisation-porte-d-entree-renforcee",
+      "origin": "Unsplash",
+      "unsplashId": "1620626011761-996317b8d101",
+      "unsplashUrl": "https://unsplash.com/photos/1620626011761-996317b8d101",
+      "bytes": 154473
+    },
+    {
+      "file": "serrurier/pro/10-realisation-depannage-cle-cassee.jpg",
+      "offer": "pro",
+      "role": "realisation-depannage-cle-cassee",
+      "origin": "Unsplash",
+      "unsplashId": "1541888946425-d81bb19240f5",
+      "unsplashUrl": "https://unsplash.com/photos/1541888946425-d81bb19240f5",
+      "bytes": 571363
+    },
+    {
+      "file": "serrurier/pro/11-service-ouverture-de-porte.jpg",
+      "offer": "pro",
+      "role": "service-ouverture-de-porte",
+      "origin": "Unsplash",
+      "unsplashId": "1570129477492-45c003edd2be",
+      "unsplashUrl": "https://unsplash.com/photos/1570129477492-45c003edd2be",
+      "bytes": 568750
+    },
+    {
+      "file": "serrurier/pro/12-service-changement-de-cylindre.jpg",
+      "offer": "pro",
+      "role": "service-changement-de-cylindre",
+      "origin": "Unsplash",
+      "unsplashId": "1449844908441-8829872d2607",
+      "unsplashUrl": "https://unsplash.com/photos/1449844908441-8829872d2607",
+      "bytes": 454606
+    },
+    {
+      "file": "serrurier/pro/13-service-double-de-cles.jpg",
+      "offer": "pro",
+      "role": "service-double-de-cles",
+      "origin": "Unsplash",
+      "unsplashId": "1504307651254-35680f356dfd",
+      "unsplashUrl": "https://unsplash.com/photos/1504307651254-35680f356dfd",
+      "bytes": 486564
+    },
+    {
+      "file": "serrurier/pro/14-service-serrure-multipoints.jpg",
+      "offer": "pro",
+      "role": "service-serrure-multipoints",
+      "origin": "Unsplash",
+      "unsplashId": "1605276374104-dee2a0ed3cd6",
+      "unsplashUrl": "https://unsplash.com/photos/1605276374104-dee2a0ed3cd6",
+      "bytes": 483175
+    },
+    {
+      "file": "serrurier/pro/15-service-blindage-et-securisation.jpg",
+      "offer": "pro",
+      "role": "service-blindage-et-securisation",
+      "origin": "Unsplash",
+      "unsplashId": "1562259949-e8e7689d7828",
+      "unsplashUrl": "https://unsplash.com/photos/1562259949-e8e7689d7828",
+      "bytes": 318746
+    }
+  ]
+}

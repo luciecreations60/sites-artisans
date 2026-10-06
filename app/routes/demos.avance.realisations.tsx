@@ -19,7 +19,10 @@ export default function DemoAvanceRealisations() {
     <main className="section">
       <div className="container">
         <h1>Réalisations</h1>
-        <p className="text-muted">Filtrez par type de chantier (démonstration).</p>
+        <p className="text-muted">
+          {trade.projects.length} chantiers présentés — les pastilles filtrent par thème (ce ne sont pas des photos
+          supplémentaires).
+        </p>
         <div style={{ margin: "1rem 0" }}>
           <button
             type="button"

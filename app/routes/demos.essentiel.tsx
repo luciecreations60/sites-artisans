@@ -1,22 +1,35 @@
-import { Link, useLoaderData } from "react-router";
+import { Link, Navigate, useLoaderData } from "react-router";
 import { DemoChrome } from "~/components/DemoChrome";
 import { TradeTheme } from "~/components/TradeTheme";
-import { requireTrade } from "~/data/trades";
+import type { TradeData } from "~/data/types";
+import { applyTierMedia } from "~/lib/demoMedia";
 import { artisanName, companyName } from "~/lib/personalize";
 import { formatPhone } from "~/lib/format";
+import { useProspectDemo } from "~/lib/ProspectDemoContext";
+import { demoTradeLoader, useResolveDemoTrade } from "~/lib/resolveDemoTrade";
 import { useAppliedTrade } from "~/lib/useAppliedTrade";
+import { useDemoBasePath, useDemoHref, useDemoSearch } from "~/lib/useDemoPaths";
 
 export function loader({ params }: { params: { trade?: string } }) {
-  return { trade: requireTrade(params.trade ?? "") };
+  return demoTradeLoader(params);
 }
 
 export default function DemoEssentiel() {
-  const { trade: base } = useLoaderData<typeof loader>();
-  const trade = useAppliedTrade(base);
+  const data = useLoaderData() as { trade: TradeData | null } | undefined;
+  const base = useResolveDemoTrade(data?.trade ?? null);
+  const trade = applyTierMedia(useAppliedTrade(base), "essentiel");
+  const avanceContactHref = useDemoHref(trade.slug, "/avance/contact");
+  const prospect = useProspectDemo();
+  const basePath = useDemoBasePath(trade.slug);
+  const q = useDemoSearch();
+
+  if (prospect && !prospect.enabledTiers.includes("essentiel")) {
+    return <Navigate to={`${basePath}${q}`} replace />;
+  }
 
   return (
     <TradeTheme trade={trade} className="e-shell">
-      <DemoChrome tradeLabel={trade.label} tier="essentiel" />
+      <DemoChrome tradeLabel={trade.label} tradeSlug={trade.slug} tier="essentiel" />
       <div className="container">
         <div className="e-topbar">
           <div>
@@ -141,7 +154,7 @@ export default function DemoEssentiel() {
               {" · "}
               <a href={`mailto:${trade.defaultEmail}`}>{trade.defaultEmail}</a>
             </p>
-            <Link to={`/demos/${trade.slug}/avance/contact`} className="btn btn-primary">
+            <Link to={avanceContactHref} className="btn btn-primary">
               Demander un devis (démo Avancé)
             </Link>
           </div>

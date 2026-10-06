@@ -1,0 +1,254 @@
+{
+  "updatedAt": "2026-10-02T19:23:52.627Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "couvreur/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 293625
+    },
+    {
+      "file": "couvreur/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 249516
+    },
+    {
+      "file": "couvreur/avance/03-realisation-toiture-tuiles-mecaniques.jpg",
+      "offer": "avance",
+      "role": "realisation-toiture-tuiles-mecaniques",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 243462
+    },
+    {
+      "file": "couvreur/avance/04-realisation-ardoises-naturelles-bretonne.jpg",
+      "offer": "avance",
+      "role": "realisation-ardoises-naturelles-bretonne",
+      "origin": "local-kept",
+      "previousFile": "avance_6.jpg",
+      "bytes": 275463
+    },
+    {
+      "file": "couvreur/avance/05-realisation-lucarne-et-chatiere.jpg",
+      "offer": "avance",
+      "role": "realisation-lucarne-et-chatiere",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 296420
+    },
+    {
+      "file": "couvreur/avance/06-realisation-gouttieres-zinc-neuf.jpg",
+      "offer": "avance",
+      "role": "realisation-gouttieres-zinc-neuf",
+      "origin": "local-kept",
+      "previousFile": "avance_8.jpg",
+      "bytes": 243353
+    },
+    {
+      "file": "couvreur/avance/07-realisation-reparation-apres-tempete.jpg",
+      "offer": "avance",
+      "role": "realisation-reparation-apres-tempete",
+      "origin": "local-kept",
+      "previousFile": "pro_2.jpg",
+      "bytes": 94558
+    },
+    {
+      "file": "couvreur/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1504307651254-35680f356dfd",
+      "unsplashUrl": "https://unsplash.com/photos/1504307651254-35680f356dfd",
+      "bytes": 486564
+    },
+    {
+      "file": "couvreur/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1541888946425-d81bb19240f5",
+      "unsplashUrl": "https://unsplash.com/photos/1541888946425-d81bb19240f5",
+      "bytes": 571363
+    },
+    {
+      "file": "couvreur/essentiel/03-realisation-toiture-tuiles-mecaniques.jpg",
+      "offer": "essentiel",
+      "role": "realisation-toiture-tuiles-mecaniques",
+      "origin": "Unsplash",
+      "unsplashId": "1570129477492-45c003edd2be",
+      "unsplashUrl": "https://unsplash.com/photos/1570129477492-45c003edd2be",
+      "bytes": 568750
+    },
+    {
+      "file": "couvreur/essentiel/04-realisation-ardoises-naturelles-bretonne.jpg",
+      "offer": "essentiel",
+      "role": "realisation-ardoises-naturelles-bretonne",
+      "origin": "Unsplash",
+      "unsplashId": "1449844908441-8829872d2607",
+      "unsplashUrl": "https://unsplash.com/photos/1449844908441-8829872d2607",
+      "bytes": 454606
+    },
+    {
+      "file": "couvreur/essentiel/05-realisation-lucarne-et-chatiere.jpg",
+      "offer": "essentiel",
+      "role": "realisation-lucarne-et-chatiere",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "couvreur/avance/08-realisation-charpente-renfort-fermette.jpg",
+      "offer": "avance",
+      "role": "realisation-charpente-renfort-fermette",
+      "origin": "Unsplash",
+      "unsplashId": "1605276374104-dee2a0ed3cd6",
+      "unsplashUrl": "https://unsplash.com/photos/1605276374104-dee2a0ed3cd6",
+      "bytes": 483175
+    },
+    {
+      "file": "couvreur/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "couvreur/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "couvreur/pro/03-before-toiture-tuiles-mecaniques.jpg",
+      "offer": "pro",
+      "role": "before-toiture-tuiles-mecaniques",
+      "origin": "Unsplash",
+      "unsplashId": "1460317442991-0ec209397118",
+      "unsplashUrl": "https://unsplash.com/photos/1460317442991-0ec209397118",
+      "bytes": 290573
+    },
+    {
+      "file": "couvreur/pro/04-after-toiture-tuiles-mecaniques.jpg",
+      "offer": "pro",
+      "role": "after-toiture-tuiles-mecaniques",
+      "origin": "Unsplash",
+      "unsplashId": "1448630360428-65456885c650",
+      "unsplashUrl": "https://unsplash.com/photos/1448630360428-65456885c650",
+      "bytes": 304125
+    },
+    {
+      "file": "couvreur/pro/05-realisation-toiture-tuiles-mecaniques.jpg",
+      "offer": "pro",
+      "role": "realisation-toiture-tuiles-mecaniques",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "couvreur/pro/06-realisation-ardoises-naturelles-bretonne.jpg",
+      "offer": "pro",
+      "role": "realisation-ardoises-naturelles-bretonne",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "couvreur/pro/07-realisation-lucarne-et-chatiere.jpg",
+      "offer": "pro",
+      "role": "realisation-lucarne-et-chatiere",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "couvreur/pro/08-realisation-gouttieres-zinc-neuf.jpg",
+      "offer": "pro",
+      "role": "realisation-gouttieres-zinc-neuf",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "couvreur/pro/09-realisation-reparation-apres-tempete.jpg",
+      "offer": "pro",
+      "role": "realisation-reparation-apres-tempete",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "couvreur/pro/10-realisation-charpente-renfort-fermette.jpg",
+      "offer": "pro",
+      "role": "realisation-charpente-renfort-fermette",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "couvreur/pro/11-service-reparation-de-toiture.jpg",
+      "offer": "pro",
+      "role": "service-reparation-de-toiture",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "couvreur/pro/12-service-refection-complete-toiture.jpg",
+      "offer": "pro",
+      "role": "service-refection-complete-toiture",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "couvreur/pro/13-service-zinguerie-et-gouttieres.jpg",
+      "offer": "pro",
+      "role": "service-zinguerie-et-gouttieres",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "couvreur/pro/14-service-isolation-combles-par-l-exterieur.jpg",
+      "offer": "pro",
+      "role": "service-isolation-combles-par-l-exterieur",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "couvreur/pro/15-service-demoussage-et-hydrofuge.jpg",
+      "offer": "pro",
+      "role": "service-demoussage-et-hydrofuge",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    }
+  ]
+}

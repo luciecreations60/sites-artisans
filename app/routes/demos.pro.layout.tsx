@@ -1,12 +1,16 @@
-import { Link, Outlet, useLoaderData, useLocation } from "react-router";
+import { Link, Outlet, useLoaderData, useLocation, Navigate } from "react-router";
 import { DemoChrome } from "~/components/DemoChrome";
 import { TradeTheme } from "~/components/TradeTheme";
-import { requireTrade } from "~/data/trades";
+import type { TradeData } from "~/data/types";
+import { applyTierMedia } from "~/lib/demoMedia";
 import { companyName } from "~/lib/personalize";
+import { useProspectDemo } from "~/lib/ProspectDemoContext";
+import { demoTradeLoader, useResolveDemoTrade } from "~/lib/resolveDemoTrade";
 import { useAppliedTrade } from "~/lib/useAppliedTrade";
+import { useDemoBasePath, useDemoSearch } from "~/lib/useDemoPaths";
 
 export function loader({ params }: { params: { trade?: string } }) {
-  return { trade: requireTrade(params.trade ?? "") };
+  return demoTradeLoader(params);
 }
 
 const nav = [
@@ -18,23 +22,31 @@ const nav = [
 ];
 
 export default function DemoProLayout() {
-  const { trade: base } = useLoaderData<typeof loader>();
-  const trade = useAppliedTrade(base);
+  const data = useLoaderData() as { trade: TradeData | null } | undefined;
+  const base = useResolveDemoTrade(data?.trade ?? null);
+  const trade = applyTierMedia(useAppliedTrade(base), "pro");
   const location = useLocation();
-  const basePath = `/demos/${trade.slug}`;
+  const basePath = useDemoBasePath(trade.slug);
+  const q = useDemoSearch();
+  const prospect = useProspectDemo();
+
+  if (prospect && !prospect.enabledTiers.includes("pro")) {
+    return <Navigate to={`${basePath}${q}`} replace />;
+  }
 
   return (
     <TradeTheme trade={trade} className="r-shell">
-      <DemoChrome tradeLabel={trade.label} tier="pro" />
+      <DemoChrome tradeLabel={trade.label} tradeSlug={trade.slug} tier="pro" />
       <div className="container">
         <div className="r-topbar">{companyName(trade)}</div>
         <nav className="demo-nav" aria-label="Navigation démo Pro">
           {nav.map((item) => {
-            const href = `${basePath}/${item.path}`;
+            const href = `${basePath}/${item.path}${q}`;
             const active =
               item.path === "pro"
-                ? location.pathname === href || location.pathname === `${href}/`
-                : location.pathname.startsWith(href);
+                ? location.pathname === `${basePath}/pro` ||
+                  location.pathname === `${basePath}/pro/`
+                : location.pathname.startsWith(`${basePath}/${item.path}`);
             return (
               <Link key={item.path} to={href} className={active ? "active" : undefined}>
                 {item.label}

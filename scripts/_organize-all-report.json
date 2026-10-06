@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "boulanger",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "coiffure",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "cordonnier",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "couvreur",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "electricien",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "garage",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "paysagiste",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "peintre",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "plombier",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  },
+  {
+    "slug": "serrurier",
+    "filled": 28,
+    "total": 28,
+    "missing": []
+  }
+]

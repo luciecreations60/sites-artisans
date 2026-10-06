@@ -1,45 +1,42 @@
 import type { TradeData, TradeSlug } from "./types";
-import { menuisier } from "./trades/menuisier";
 import { plombier } from "./trades/plombier";
 import { electricien } from "./trades/electricien";
 import { couvreur } from "./trades/couvreur";
 import { peintre } from "./trades/peintre";
 import { paysagiste } from "./trades/paysagiste";
-import { macon } from "./trades/macon";
 import { garage } from "./trades/garage";
 import { boulanger } from "./trades/boulanger";
 import { coiffure } from "./trades/coiffure";
 import { bienetre } from "./trades/bienetre";
-import { autre } from "./trades/autre";
+import { cordonnier } from "./trades/cordonnier";
+import { serrurier } from "./trades/serrurier";
 
 export const TRADE_SLUGS: TradeSlug[] = [
-  "menuisier",
   "plombier",
   "electricien",
   "couvreur",
   "peintre",
   "paysagiste",
-  "macon",
   "garage",
   "boulanger",
   "coiffure",
   "bienetre",
-  "autre",
+  "cordonnier",
+  "serrurier",
 ];
 
 export const trades: Record<TradeSlug, TradeData> = {
-  menuisier,
   plombier,
   electricien,
   couvreur,
   peintre,
   paysagiste,
-  macon,
   garage,
   boulanger,
   coiffure,
   bienetre,
-  autre,
+  cordonnier,
+  serrurier,
 };
 
 export function getTrade(slug: string): TradeData | undefined {

@@ -1,0 +1,253 @@
+{
+  "updatedAt": "2026-10-02T19:23:56.563Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "electricien/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 122385
+    },
+    {
+      "file": "electricien/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 132792
+    },
+    {
+      "file": "electricien/avance/03-realisation-tableau-neuf-maison-ancienne.jpg",
+      "offer": "avance",
+      "role": "realisation-tableau-neuf-maison-ancienne",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 113626
+    },
+    {
+      "file": "electricien/avance/04-realisation-cuisine-tout-electrique.jpg",
+      "offer": "avance",
+      "role": "realisation-cuisine-tout-electrique",
+      "origin": "local-kept",
+      "previousFile": "avance_6.jpg",
+      "bytes": 233147
+    },
+    {
+      "file": "electricien/avance/05-realisation-borne-recharge-vehicule.jpg",
+      "offer": "avance",
+      "role": "realisation-borne-recharge-vehicule",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 146171
+    },
+    {
+      "file": "electricien/avance/06-realisation-eclairage-baies-et-terrasse.jpg",
+      "offer": "avance",
+      "role": "realisation-eclairage-baies-et-terrasse",
+      "origin": "local-kept",
+      "previousFile": "avance_8.jpg",
+      "bytes": 114260
+    },
+    {
+      "file": "electricien/avance/07-realisation-appartement-renove-t3.jpg",
+      "offer": "avance",
+      "role": "realisation-appartement-renove-t3",
+      "origin": "local-kept",
+      "previousFile": "pro_2.jpg",
+      "bytes": 94558
+    },
+    {
+      "file": "electricien/avance/08-realisation-bureaux-open-space-cables.jpg",
+      "offer": "avance",
+      "role": "realisation-bureaux-open-space-cables",
+      "origin": "local-kept",
+      "previousFile": "pro_3.jpg",
+      "bytes": 165748
+    },
+    {
+      "file": "electricien/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1621905251189-08b45d6a269e",
+      "unsplashUrl": "https://unsplash.com/photos/1621905251189-08b45d6a269e",
+      "bytes": 246536
+    },
+    {
+      "file": "electricien/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "electricien/essentiel/03-realisation-tableau-neuf-maison-ancienne.jpg",
+      "offer": "essentiel",
+      "role": "realisation-tableau-neuf-maison-ancienne",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "electricien/essentiel/04-realisation-cuisine-tout-electrique.jpg",
+      "offer": "essentiel",
+      "role": "realisation-cuisine-tout-electrique",
+      "origin": "Unsplash",
+      "unsplashId": "1617788138017-80ad40651399",
+      "unsplashUrl": "https://unsplash.com/photos/1617788138017-80ad40651399",
+      "bytes": 205416
+    },
+    {
+      "file": "electricien/essentiel/05-realisation-borne-recharge-vehicule.jpg",
+      "offer": "essentiel",
+      "role": "realisation-borne-recharge-vehicule",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "electricien/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "electricien/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "electricien/pro/03-before-tableau-neuf-maison-ancienne.jpg",
+      "offer": "pro",
+      "role": "before-tableau-neuf-maison-ancienne",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "electricien/pro/04-after-tableau-neuf-maison-ancienne.jpg",
+      "offer": "pro",
+      "role": "after-tableau-neuf-maison-ancienne",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "electricien/pro/05-realisation-tableau-neuf-maison-ancienne.jpg",
+      "offer": "pro",
+      "role": "realisation-tableau-neuf-maison-ancienne",
+      "origin": "Unsplash",
+      "unsplashId": "1497366811353-6870744d04b2",
+      "unsplashUrl": "https://unsplash.com/photos/1497366811353-6870744d04b2",
+      "bytes": 274842
+    },
+    {
+      "file": "electricien/pro/06-realisation-cuisine-tout-electrique.jpg",
+      "offer": "pro",
+      "role": "realisation-cuisine-tout-electrique",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "electricien/pro/07-realisation-borne-recharge-vehicule.jpg",
+      "offer": "pro",
+      "role": "realisation-borne-recharge-vehicule",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "electricien/pro/08-realisation-eclairage-baies-et-terrasse.jpg",
+      "offer": "pro",
+      "role": "realisation-eclairage-baies-et-terrasse",
+      "origin": "Unsplash",
+      "unsplashId": "1519389950473-47ba0277781c",
+      "unsplashUrl": "https://unsplash.com/photos/1519389950473-47ba0277781c",
+      "bytes": 339920
+    },
+    {
+      "file": "electricien/pro/09-realisation-appartement-renove-t3.jpg",
+      "offer": "pro",
+      "role": "realisation-appartement-renove-t3",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "electricien/pro/10-realisation-bureaux-open-space-cables.jpg",
+      "offer": "pro",
+      "role": "realisation-bureaux-open-space-cables",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "electricien/pro/11-service-mise-aux-normes-tableau-electrique.jpg",
+      "offer": "pro",
+      "role": "service-mise-aux-normes-tableau-electrique",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "electricien/pro/12-service-renovation-electrique-maison.jpg",
+      "offer": "pro",
+      "role": "service-renovation-electrique-maison",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "electricien/pro/13-service-bornes-de-recharge-vehicule.jpg",
+      "offer": "pro",
+      "role": "service-bornes-de-recharge-vehicule",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "electricien/pro/14-service-eclairage-interieur-et-exterieur.jpg",
+      "offer": "pro",
+      "role": "service-eclairage-interieur-et-exterieur",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    },
+    {
+      "file": "electricien/pro/15-service-domotique-et-volets-connectes.jpg",
+      "offer": "pro",
+      "role": "service-domotique-et-volets-connectes",
+      "origin": "Unsplash",
+      "unsplashId": "1620626011761-996317b8d101",
+      "unsplashUrl": "https://unsplash.com/photos/1620626011761-996317b8d101",
+      "bytes": 154473
+    }
+  ]
+}

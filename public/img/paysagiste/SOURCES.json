@@ -1,0 +1,253 @@
+{
+  "updatedAt": "2026-10-02T19:24:16.009Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "paysagiste/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 236879
+    },
+    {
+      "file": "paysagiste/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 206363
+    },
+    {
+      "file": "paysagiste/avance/03-realisation-jardin-mediterraneen.jpg",
+      "offer": "avance",
+      "role": "realisation-jardin-mediterraneen",
+      "origin": "local-kept",
+      "previousFile": "avance_4.jpg",
+      "bytes": 233147
+    },
+    {
+      "file": "paysagiste/avance/04-realisation-terrasse-ombragee.jpg",
+      "offer": "avance",
+      "role": "realisation-terrasse-ombragee",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 243462
+    },
+    {
+      "file": "paysagiste/avance/05-realisation-haie-brise-vue.jpg",
+      "offer": "avance",
+      "role": "realisation-haie-brise-vue",
+      "origin": "local-kept",
+      "previousFile": "avance_6.jpg",
+      "bytes": 140498
+    },
+    {
+      "file": "paysagiste/avance/06-realisation-massif-fleuri-printemps.jpg",
+      "offer": "avance",
+      "role": "realisation-massif-fleuri-printemps",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 280365
+    },
+    {
+      "file": "paysagiste/avance/07-realisation-potager-sureleve.jpg",
+      "offer": "avance",
+      "role": "realisation-potager-sureleve",
+      "origin": "local-kept",
+      "previousFile": "avance_8.jpg",
+      "bytes": 143384
+    },
+    {
+      "file": "paysagiste/avance/08-realisation-cour-minerale-et-graminees.jpg",
+      "offer": "avance",
+      "role": "realisation-cour-minerale-et-graminees",
+      "origin": "local-kept",
+      "previousFile": "pro_2.jpg",
+      "bytes": 94558
+    },
+    {
+      "file": "paysagiste/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1416879595882-3373a0480b5b",
+      "unsplashUrl": "https://unsplash.com/photos/1416879595882-3373a0480b5b",
+      "bytes": 373119
+    },
+    {
+      "file": "paysagiste/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1558904541-efa843a96f01",
+      "unsplashUrl": "https://unsplash.com/photos/1558904541-efa843a96f01",
+      "bytes": 434979
+    },
+    {
+      "file": "paysagiste/essentiel/03-realisation-jardin-mediterraneen.jpg",
+      "offer": "essentiel",
+      "role": "realisation-jardin-mediterraneen",
+      "origin": "Unsplash",
+      "unsplashId": "1490750967868-88aa4486c946",
+      "unsplashUrl": "https://unsplash.com/photos/1490750967868-88aa4486c946",
+      "bytes": 253585
+    },
+    {
+      "file": "paysagiste/essentiel/04-realisation-terrasse-ombragee.jpg",
+      "offer": "essentiel",
+      "role": "realisation-terrasse-ombragee",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "paysagiste/essentiel/05-realisation-haie-brise-vue.jpg",
+      "offer": "essentiel",
+      "role": "realisation-haie-brise-vue",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "paysagiste/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1523348837708-15d4a09cfac2",
+      "unsplashUrl": "https://unsplash.com/photos/1523348837708-15d4a09cfac2",
+      "bytes": 501768
+    },
+    {
+      "file": "paysagiste/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1500382017468-9049fed747ef",
+      "unsplashUrl": "https://unsplash.com/photos/1500382017468-9049fed747ef",
+      "bytes": 279435
+    },
+    {
+      "file": "paysagiste/pro/03-before-jardin-mediterraneen.jpg",
+      "offer": "pro",
+      "role": "before-jardin-mediterraneen",
+      "origin": "Unsplash",
+      "unsplashId": "1558618666-fcd25c85cd64",
+      "unsplashUrl": "https://unsplash.com/photos/1558618666-fcd25c85cd64",
+      "bytes": 245585
+    },
+    {
+      "file": "paysagiste/pro/04-after-jardin-mediterraneen.jpg",
+      "offer": "pro",
+      "role": "after-jardin-mediterraneen",
+      "origin": "Unsplash",
+      "unsplashId": "1464226184884-fa280b87c399",
+      "unsplashUrl": "https://unsplash.com/photos/1464226184884-fa280b87c399",
+      "bytes": 513159
+    },
+    {
+      "file": "paysagiste/pro/05-realisation-jardin-mediterraneen.jpg",
+      "offer": "pro",
+      "role": "realisation-jardin-mediterraneen",
+      "origin": "Unsplash",
+      "unsplashId": "1501004318641-b39e6451bec6",
+      "unsplashUrl": "https://unsplash.com/photos/1501004318641-b39e6451bec6",
+      "bytes": 107888
+    },
+    {
+      "file": "paysagiste/pro/06-realisation-terrasse-ombragee.jpg",
+      "offer": "pro",
+      "role": "realisation-terrasse-ombragee",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "paysagiste/pro/07-realisation-haie-brise-vue.jpg",
+      "offer": "pro",
+      "role": "realisation-haie-brise-vue",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "paysagiste/pro/08-realisation-massif-fleuri-printemps.jpg",
+      "offer": "pro",
+      "role": "realisation-massif-fleuri-printemps",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "paysagiste/pro/09-realisation-potager-sureleve.jpg",
+      "offer": "pro",
+      "role": "realisation-potager-sureleve",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "paysagiste/pro/10-realisation-cour-minerale-et-graminees.jpg",
+      "offer": "pro",
+      "role": "realisation-cour-minerale-et-graminees",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "paysagiste/pro/11-service-creation-de-jardin.jpg",
+      "offer": "pro",
+      "role": "service-creation-de-jardin",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "paysagiste/pro/12-service-entretien-mensuel.jpg",
+      "offer": "pro",
+      "role": "service-entretien-mensuel",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "paysagiste/pro/13-service-terrasse-et-dallage.jpg",
+      "offer": "pro",
+      "role": "service-terrasse-et-dallage",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "paysagiste/pro/14-service-clotures-et-portails.jpg",
+      "offer": "pro",
+      "role": "service-clotures-et-portails",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "paysagiste/pro/15-service-arrosage-automatique.jpg",
+      "offer": "pro",
+      "role": "service-arrosage-automatique",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    }
+  ]
+}

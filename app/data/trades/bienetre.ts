@@ -65,12 +65,12 @@ export const bienetre = buildTrade({
     "Séance 20 min chaise pour équipe de dix, sur site ou en institut.",
   ],
   projectTags: [
-    ["massage", "relaxation", "pierres chaudes"],
-    ["visage", "anti-âge", "soin"],
-    ["mariage", "beauté", "forfait"],
-    ["réflexologie", "bien-être", "pieds"],
-    ["corps", "gommage", "spa"],
-    ["entreprise", "stress", "événement"],
+    ["pierres chaudes"],
+    ["anti-âge"],
+    ["mariage"],
+    ["réflexologie"],
+    ["gommage"],
+    ["entreprise"],
   ],
   testimonials: [
     {

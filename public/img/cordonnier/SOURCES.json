@@ -1,0 +1,256 @@
+{
+  "updatedAt": "2026-10-02T19:23:46.192Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "cordonnier/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 90517
+    },
+    {
+      "file": "cordonnier/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 162968
+    },
+    {
+      "file": "cordonnier/avance/03-realisation-bottes-cuir-resemelees.jpg",
+      "offer": "avance",
+      "role": "realisation-bottes-cuir-resemelees",
+      "origin": "local-kept",
+      "previousFile": "avance_3.jpg",
+      "bytes": 150669
+    },
+    {
+      "file": "cordonnier/avance/04-realisation-escarpins-talons-neufs.jpg",
+      "offer": "avance",
+      "role": "realisation-escarpins-talons-neufs",
+      "origin": "local-kept",
+      "previousFile": "avance_6.jpg",
+      "bytes": 111571
+    },
+    {
+      "file": "cordonnier/avance/05-realisation-sneakers-blanches-restaurees.jpg",
+      "offer": "avance",
+      "role": "realisation-sneakers-blanches-restaurees",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 234609
+    },
+    {
+      "file": "cordonnier/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1608256246200-53e635b5b65f",
+      "unsplashUrl": "https://unsplash.com/photos/1608256246200-53e635b5b65f",
+      "bytes": 325392
+    },
+    {
+      "file": "cordonnier/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1549298916-b41d501d3772",
+      "unsplashUrl": "https://unsplash.com/photos/1549298916-b41d501d3772",
+      "bytes": 489348
+    },
+    {
+      "file": "cordonnier/essentiel/03-realisation-bottes-cuir-resemelees.jpg",
+      "offer": "essentiel",
+      "role": "realisation-bottes-cuir-resemelees",
+      "origin": "Unsplash",
+      "unsplashId": "1543163521-1bf539c55dd2",
+      "unsplashUrl": "https://unsplash.com/photos/1543163521-1bf539c55dd2",
+      "bytes": 181778
+    },
+    {
+      "file": "cordonnier/essentiel/04-realisation-escarpins-talons-neufs.jpg",
+      "offer": "essentiel",
+      "role": "realisation-escarpins-talons-neufs",
+      "origin": "Unsplash",
+      "unsplashId": "1460353581641-37baddab0fa2",
+      "unsplashUrl": "https://unsplash.com/photos/1460353581641-37baddab0fa2",
+      "bytes": 303919
+    },
+    {
+      "file": "cordonnier/essentiel/05-realisation-sneakers-blanches-restaurees.jpg",
+      "offer": "essentiel",
+      "role": "realisation-sneakers-blanches-restaurees",
+      "origin": "Unsplash",
+      "unsplashId": "1542291026-7eec264c27ff",
+      "unsplashUrl": "https://unsplash.com/photos/1542291026-7eec264c27ff",
+      "bytes": 222486
+    },
+    {
+      "file": "cordonnier/avance/06-realisation-basket-running-semi-reparee.jpg",
+      "offer": "avance",
+      "role": "realisation-basket-running-semi-reparee",
+      "origin": "Unsplash",
+      "unsplashId": "1606107557195-0e29a4b5b4aa",
+      "unsplashUrl": "https://unsplash.com/photos/1606107557195-0e29a4b5b4aa",
+      "bytes": 140161
+    },
+    {
+      "file": "cordonnier/avance/07-realisation-chaussures-ville-polishees.jpg",
+      "offer": "avance",
+      "role": "realisation-chaussures-ville-polishees",
+      "origin": "Unsplash",
+      "unsplashId": "1542272604-787c3835535d",
+      "unsplashUrl": "https://unsplash.com/photos/1542272604-787c3835535d",
+      "bytes": 254934
+    },
+    {
+      "file": "cordonnier/avance/08-realisation-paire-cuir-teinte-et-nourrie.jpg",
+      "offer": "avance",
+      "role": "realisation-paire-cuir-teinte-et-nourrie",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "cordonnier/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "cordonnier/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "cordonnier/pro/03-before-bottes-cuir-resemelees.jpg",
+      "offer": "pro",
+      "role": "before-bottes-cuir-resemelees",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "cordonnier/pro/04-after-bottes-cuir-resemelees.jpg",
+      "offer": "pro",
+      "role": "after-bottes-cuir-resemelees",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "cordonnier/pro/05-realisation-bottes-cuir-resemelees.jpg",
+      "offer": "pro",
+      "role": "realisation-bottes-cuir-resemelees",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "cordonnier/pro/06-realisation-escarpins-talons-neufs.jpg",
+      "offer": "pro",
+      "role": "realisation-escarpins-talons-neufs",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "cordonnier/pro/07-realisation-sneakers-blanches-restaurees.jpg",
+      "offer": "pro",
+      "role": "realisation-sneakers-blanches-restaurees",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "cordonnier/pro/08-realisation-basket-running-semi-reparee.jpg",
+      "offer": "pro",
+      "role": "realisation-basket-running-semi-reparee",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "cordonnier/pro/09-realisation-chaussures-ville-polishees.jpg",
+      "offer": "pro",
+      "role": "realisation-chaussures-ville-polishees",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "cordonnier/pro/10-realisation-paire-cuir-teinte-et-nourrie.jpg",
+      "offer": "pro",
+      "role": "realisation-paire-cuir-teinte-et-nourrie",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "cordonnier/pro/11-service-resemelage-cuir-ou-crepe.jpg",
+      "offer": "pro",
+      "role": "service-resemelage-cuir-ou-crepe",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "cordonnier/pro/12-service-talons-et-embouts.jpg",
+      "offer": "pro",
+      "role": "service-talons-et-embouts",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "cordonnier/pro/13-service-entretien-et-teinture-cuir.jpg",
+      "offer": "pro",
+      "role": "service-entretien-et-teinture-cuir",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "cordonnier/pro/14-service-sneakers-et-semelles-sport.jpg",
+      "offer": "pro",
+      "role": "service-sneakers-et-semelles-sport",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    },
+    {
+      "file": "cordonnier/pro/15-service-fermetures-et-coutures.jpg",
+      "offer": "pro",
+      "role": "service-fermetures-et-coutures",
+      "origin": "Unsplash",
+      "unsplashId": "1620626011761-996317b8d101",
+      "unsplashUrl": "https://unsplash.com/photos/1620626011761-996317b8d101",
+      "bytes": 154473
+    }
+  ]
+}

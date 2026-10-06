@@ -6,4 +6,10 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+  server: {
+    // OneDrive + dépôts Unsplash dans public/img provoquent EBUSY sur le watcher Windows
+    watch: {
+      ignored: ["**/public/img/**"],
+    },
+  },
 });

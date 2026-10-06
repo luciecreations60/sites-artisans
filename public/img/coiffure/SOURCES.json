@@ -1,0 +1,257 @@
+{
+  "updatedAt": "2026-10-02T19:23:38.216Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "coiffure/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 149569
+    },
+    {
+      "file": "coiffure/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 376758
+    },
+    {
+      "file": "coiffure/avance/03-realisation-balayage-naturel.jpg",
+      "offer": "avance",
+      "role": "realisation-balayage-naturel",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 189335
+    },
+    {
+      "file": "coiffure/avance/04-realisation-degrade-barbe-sculptee.jpg",
+      "offer": "avance",
+      "role": "realisation-degrade-barbe-sculptee",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 89414
+    },
+    {
+      "file": "coiffure/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1560066984-138dadb4c035",
+      "unsplashUrl": "https://unsplash.com/photos/1560066984-138dadb4c035",
+      "bytes": 339165
+    },
+    {
+      "file": "coiffure/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1522337360788-8b13dee7a37e",
+      "unsplashUrl": "https://unsplash.com/photos/1522337360788-8b13dee7a37e",
+      "bytes": 180630
+    },
+    {
+      "file": "coiffure/essentiel/03-realisation-balayage-naturel.jpg",
+      "offer": "essentiel",
+      "role": "realisation-balayage-naturel",
+      "origin": "Unsplash",
+      "unsplashId": "1562322140-8baeececf3df",
+      "unsplashUrl": "https://unsplash.com/photos/1562322140-8baeececf3df",
+      "bytes": 265324
+    },
+    {
+      "file": "coiffure/essentiel/04-realisation-degrade-barbe-sculptee.jpg",
+      "offer": "essentiel",
+      "role": "realisation-degrade-barbe-sculptee",
+      "origin": "Unsplash",
+      "unsplashId": "1599351431202-1e0f0137899a",
+      "unsplashUrl": "https://unsplash.com/photos/1599351431202-1e0f0137899a",
+      "bytes": 849321
+    },
+    {
+      "file": "coiffure/essentiel/05-realisation-coupe-pixie-structuree.jpg",
+      "offer": "essentiel",
+      "role": "realisation-coupe-pixie-structuree",
+      "origin": "Unsplash",
+      "unsplashId": "1522335789203-aabd1fc54bc9",
+      "unsplashUrl": "https://unsplash.com/photos/1522335789203-aabd1fc54bc9",
+      "bytes": 216756
+    },
+    {
+      "file": "coiffure/avance/05-realisation-coupe-pixie-structuree.jpg",
+      "offer": "avance",
+      "role": "realisation-coupe-pixie-structuree",
+      "origin": "Unsplash",
+      "unsplashId": "1522337660859-02fbefca4702",
+      "unsplashUrl": "https://unsplash.com/photos/1522337660859-02fbefca4702",
+      "bytes": 157633
+    },
+    {
+      "file": "coiffure/avance/06-realisation-chignon-mariage.jpg",
+      "offer": "avance",
+      "role": "realisation-chignon-mariage",
+      "origin": "Unsplash",
+      "unsplashId": "1522338140262-f46f5913618a",
+      "unsplashUrl": "https://unsplash.com/photos/1522338140262-f46f5913618a",
+      "bytes": 214924
+    },
+    {
+      "file": "coiffure/avance/07-realisation-coloration-vegetale.jpg",
+      "offer": "avance",
+      "role": "realisation-coloration-vegetale",
+      "origin": "Unsplash",
+      "unsplashId": "1633360971020-656d89f9e98e",
+      "unsplashUrl": "https://unsplash.com/photos/1633360971020-656d89f9e98e",
+      "bytes": 578685
+    },
+    {
+      "file": "coiffure/avance/08-realisation-transformation-coupe-longue.jpg",
+      "offer": "avance",
+      "role": "realisation-transformation-coupe-longue",
+      "origin": "Unsplash",
+      "unsplashId": "1516975080664-ed2fc6a32937",
+      "unsplashUrl": "https://unsplash.com/photos/1516975080664-ed2fc6a32937",
+      "bytes": 202348
+    },
+    {
+      "file": "coiffure/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1487412720507-e7ab37603c6f",
+      "unsplashUrl": "https://unsplash.com/photos/1487412720507-e7ab37603c6f",
+      "bytes": 242382
+    },
+    {
+      "file": "coiffure/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1487412947147-5cebf100ffc2",
+      "unsplashUrl": "https://unsplash.com/photos/1487412947147-5cebf100ffc2",
+      "bytes": 246522
+    },
+    {
+      "file": "coiffure/pro/03-before-balayage-naturel.jpg",
+      "offer": "pro",
+      "role": "before-balayage-naturel",
+      "origin": "Unsplash",
+      "unsplashId": "1512496015851-a90fb38ba796",
+      "unsplashUrl": "https://unsplash.com/photos/1512496015851-a90fb38ba796",
+      "bytes": 956212
+    },
+    {
+      "file": "coiffure/pro/04-after-balayage-naturel.jpg",
+      "offer": "pro",
+      "role": "after-balayage-naturel",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "coiffure/pro/05-realisation-balayage-naturel.jpg",
+      "offer": "pro",
+      "role": "realisation-balayage-naturel",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "coiffure/pro/06-realisation-degrade-barbe-sculptee.jpg",
+      "offer": "pro",
+      "role": "realisation-degrade-barbe-sculptee",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "coiffure/pro/07-realisation-coupe-pixie-structuree.jpg",
+      "offer": "pro",
+      "role": "realisation-coupe-pixie-structuree",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "coiffure/pro/08-realisation-chignon-mariage.jpg",
+      "offer": "pro",
+      "role": "realisation-chignon-mariage",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "coiffure/pro/09-realisation-coloration-vegetale.jpg",
+      "offer": "pro",
+      "role": "realisation-coloration-vegetale",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "coiffure/pro/10-realisation-transformation-coupe-longue.jpg",
+      "offer": "pro",
+      "role": "realisation-transformation-coupe-longue",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "coiffure/pro/11-service-coupe-femme.jpg",
+      "offer": "pro",
+      "role": "service-coupe-femme",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "coiffure/pro/12-service-coupe-homme-et-barbe.jpg",
+      "offer": "pro",
+      "role": "service-coupe-homme-et-barbe",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "coiffure/pro/13-service-couleur-et-meches.jpg",
+      "offer": "pro",
+      "role": "service-couleur-et-meches",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "coiffure/pro/14-service-coiffure-evenement.jpg",
+      "offer": "pro",
+      "role": "service-coiffure-evenement",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "coiffure/pro/15-service-forfait-enfant.jpg",
+      "offer": "pro",
+      "role": "service-forfait-enfant",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    }
+  ]
+}

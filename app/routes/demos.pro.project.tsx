@@ -1,17 +1,20 @@
 import { Link, useOutletContext, useParams } from "react-router";
 import { BeforeAfter } from "~/components/BeforeAfter";
 import type { TradeData } from "~/data/types";
+import { useDemoHref } from "~/lib/useDemoPaths";
 
 export default function DemoProProject() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
   const { projectId } = useParams();
   const project = trade.projects.find((p) => p.id === projectId);
+  const portfolioHref = useDemoHref(trade.slug, "/pro/realisations");
+  const devisHref = useDemoHref(trade.slug, "/pro/devis");
 
   if (!project) {
     return (
       <main className="section container">
         <h1>Projet introuvable</h1>
-        <Link to={`/demos/${trade.slug}/pro/realisations`}>Retour au portfolio</Link>
+        <Link to={portfolioHref}>Retour au portfolio</Link>
       </main>
     );
   }
@@ -20,7 +23,7 @@ export default function DemoProProject() {
     <main className="section">
       <div className="container">
         <p>
-          <Link to={`/demos/${trade.slug}/pro/realisations`}>← Réalisations</Link>
+          <Link to={portfolioHref}>← Réalisations</Link>
         </p>
         <h1>{project.title}</h1>
         <p className="text-muted">
@@ -32,11 +35,16 @@ export default function DemoProProject() {
           <img
             src={project.image.src}
             alt={project.image.alt}
-            style={{ borderRadius: "var(--radius)", width: "100%", maxHeight: "480px", objectFit: "cover" }}
+            style={{
+              borderRadius: "var(--radius)",
+              width: "100%",
+              maxHeight: "480px",
+              objectFit: "cover",
+            }}
           />
         )}
         <p style={{ marginTop: "1.5rem", maxWidth: "65ch" }}>{project.summary}</p>
-        <Link to={`/demos/${trade.slug}/pro/devis`} className="btn btn-primary">
+        <Link to={devisHref} className="btn btn-primary">
           Projet similaire ? Demander un devis
         </Link>
       </div>

@@ -14,6 +14,9 @@ export type Profile = {
   specialty: string;
   themeId: string;
   fontId: string;
+  /** Optionnel — démos prospect (tagline / about). */
+  tagline?: string;
+  intro?: string;
 };
 
 export const emptyProfile = (): Profile => ({
@@ -69,6 +72,8 @@ export function applyProfile(trade: TradeData, profile: Profile | null): TradeDa
     defaultPhone: pick(profile.phone, trade.defaultPhone),
     defaultEmail: pick(profile.email, trade.defaultEmail),
     specialty: pick(profile.specialty, trade.specialty),
+    tagline: pick(profile.tagline, trade.tagline),
+    about: pick(profile.intro, trade.about),
     palette: theme
       ? {
           ink: theme.ink,

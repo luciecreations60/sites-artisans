@@ -43,10 +43,13 @@ Photos démo (Unsplash) :
 npm run photos
 ```
 
+Nommage dans `public/img/{métier}/` : `essentiel_1…5`, `avance_1…8`, `pro_1…9`.  
+Guide de remplacement : `public/img/GUIDE.md` (et un `GUIDE.md` dans chaque métier).
+
 ## Contenu
 
 - Site commercial : offres Essentiel / Avancé / Pro, comparatif, contact, pages légales
-- **12 métiers** × 3 démos + personnalisation (profil, couleurs, polices)
+- **11 métiers** × 3 démos + personnalisation (profil, couleurs, polices)
 - Espace client Supabase (auth, projets, documents / factures PDF)
 
 ## Espace client (Supabase)

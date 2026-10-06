@@ -59,7 +59,7 @@ export const paysagiste = buildTrade({
   projectSummaries: [
     "Oliviers, lavandes et gravier stabilisé, arrosage localisé.",
     "Pergola bioclimatique, dalles grès et éclairage basse tension.",
-    "Claustras bois et laurier cerise pour intimité vis-à-vis.",
+    "Clôture, haie dense ou claustra bois bien visibles (pas seulement des outils).",
     "Bulbes et vivaces pour floraison de mars à octobre.",
     "Bacs en Douglas, compost intégré, irrigation goutte-à-goutte.",
     "Pavés et plantes sèches, zéro entretien intensif.",
