@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { ErrorState, LoadingState } from "~/components/portal/PortalUi";
 import { changeStatusLabel, formatDateFr, isOpenChangeStatus } from "~/lib/portal";
 import { getSupabase } from "~/lib/supabase";
-import type { ChangeRequest, Profile, Project } from "~/lib/supabase.types";
+import type { ChangeRequest, ChangeRequestStatus, Profile, Project } from "~/lib/supabase.types";
 
 export const meta = () => [{ title: "Demandes — Administration" }];
 
@@ -12,11 +12,20 @@ type Row = ChangeRequest & {
   client?: Profile;
 };
 
+const STATUS_OPTIONS: { value: ChangeRequestStatus; label: string }[] = [
+  { value: "ouvert", label: "Ouverte" },
+  { value: "en_cours", label: "En cours" },
+  { value: "besoin_info", label: "Besoin d’information" },
+  { value: "termine", label: "Terminée" },
+  { value: "refuse", label: "Refusée" },
+];
+
 export default function AdminDemandes() {
   const [rows, setRows] = useState<Row[]>([]);
   const [onlyOpen, setOnlyOpen] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   useEffect(() => {
     const sb = getSupabase();
@@ -60,6 +69,21 @@ export default function AdminDemandes() {
     [rows, onlyOpen],
   );
 
+  async function updateStatus(req: Row, status: ChangeRequestStatus) {
+    if (req.status === status) return;
+    const sb = getSupabase();
+    if (!sb) return;
+    setUpdatingId(req.id);
+    setError(null);
+    const { error: err } = await sb.from("change_requests").update({ status }).eq("id", req.id);
+    setUpdatingId(null);
+    if (err) {
+      setError(err.message);
+      return;
+    }
+    setRows((prev) => prev.map((r) => (r.id === req.id ? { ...r, status } : r)));
+  }
+
   return (
     <div className="admin-page">
       <header className="admin-page__header">
@@ -100,6 +124,22 @@ export default function AdminDemandes() {
               Statut : <strong>{changeStatusLabel(req.status)}</strong>
             </p>
             <blockquote className="portal-request-card__body">{req.description}</blockquote>
+            <label className="portal-request-card__admin">
+              Changer le statut
+              <select
+                value={req.status}
+                disabled={updatingId === req.id}
+                onChange={(e) =>
+                  void updateStatus(req, e.target.value as ChangeRequestStatus)
+                }
+              >
+                {STATUS_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
           </li>
         ))}
       </ul>

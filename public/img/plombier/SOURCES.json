@@ -1,0 +1,254 @@
+{
+  "updatedAt": "2026-10-02T19:24:28.096Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "plombier/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 233697
+    },
+    {
+      "file": "plombier/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 87735
+    },
+    {
+      "file": "plombier/avance/03-realisation-renovation-salle-de-bain.jpg",
+      "offer": "avance",
+      "role": "realisation-renovation-salle-de-bain",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 171229
+    },
+    {
+      "file": "plombier/avance/04-realisation-douche-et-robinetterie-neuves.jpg",
+      "offer": "avance",
+      "role": "realisation-douche-et-robinetterie-neuves",
+      "origin": "local-kept",
+      "previousFile": "avance_6.jpg",
+      "bytes": 133384
+    },
+    {
+      "file": "plombier/avance/05-realisation-douche-a-l-italienne.jpg",
+      "offer": "avance",
+      "role": "realisation-douche-a-l-italienne",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 209372
+    },
+    {
+      "file": "plombier/avance/06-realisation-remise-en-etat-point-d-eau.jpg",
+      "offer": "avance",
+      "role": "realisation-remise-en-etat-point-d-eau",
+      "origin": "local-kept",
+      "previousFile": "avance_8.jpg",
+      "bytes": 132792
+    },
+    {
+      "file": "plombier/avance/07-realisation-salle-d-eau-pmr.jpg",
+      "offer": "avance",
+      "role": "realisation-salle-d-eau-pmr",
+      "origin": "local-kept",
+      "previousFile": "pro_2.jpg",
+      "bytes": 94558
+    },
+    {
+      "file": "plombier/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "plombier/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "plombier/essentiel/03-realisation-renovation-salle-de-bain.jpg",
+      "offer": "essentiel",
+      "role": "realisation-renovation-salle-de-bain",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    },
+    {
+      "file": "plombier/essentiel/04-realisation-douche-et-robinetterie-neuves.jpg",
+      "offer": "essentiel",
+      "role": "realisation-douche-et-robinetterie-neuves",
+      "origin": "Unsplash",
+      "unsplashId": "1620626011761-996317b8d101",
+      "unsplashUrl": "https://unsplash.com/photos/1620626011761-996317b8d101",
+      "bytes": 154473
+    },
+    {
+      "file": "plombier/essentiel/05-realisation-douche-a-l-italienne.jpg",
+      "offer": "essentiel",
+      "role": "realisation-douche-a-l-italienne",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "plombier/avance/08-realisation-cuisine-equipee-raccordee.jpg",
+      "offer": "avance",
+      "role": "realisation-cuisine-equipee-raccordee",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "plombier/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "plombier/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "plombier/pro/03-before-renovation-salle-de-bain.jpg",
+      "offer": "pro",
+      "role": "before-renovation-salle-de-bain",
+      "origin": "Unsplash",
+      "unsplashId": "1574629810360-7efbbe195018",
+      "unsplashUrl": "https://unsplash.com/photos/1574629810360-7efbbe195018",
+      "bytes": 377212
+    },
+    {
+      "file": "plombier/pro/04-after-renovation-salle-de-bain.jpg",
+      "offer": "pro",
+      "role": "after-renovation-salle-de-bain",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "plombier/pro/05-realisation-renovation-salle-de-bain.jpg",
+      "offer": "pro",
+      "role": "realisation-renovation-salle-de-bain",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "plombier/pro/06-realisation-douche-et-robinetterie-neuves.jpg",
+      "offer": "pro",
+      "role": "realisation-douche-et-robinetterie-neuves",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "plombier/pro/07-realisation-douche-a-l-italienne.jpg",
+      "offer": "pro",
+      "role": "realisation-douche-a-l-italienne",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "plombier/pro/08-realisation-remise-en-etat-point-d-eau.jpg",
+      "offer": "pro",
+      "role": "realisation-remise-en-etat-point-d-eau",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "plombier/pro/09-realisation-salle-d-eau-pmr.jpg",
+      "offer": "pro",
+      "role": "realisation-salle-d-eau-pmr",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "plombier/pro/10-realisation-cuisine-equipee-raccordee.jpg",
+      "offer": "pro",
+      "role": "realisation-cuisine-equipee-raccordee",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "plombier/pro/11-service-depannage-fuite-et-debouchage.jpg",
+      "offer": "pro",
+      "role": "service-depannage-fuite-et-debouchage",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "plombier/pro/12-service-salle-de-bain-complete.jpg",
+      "offer": "pro",
+      "role": "service-salle-de-bain-complete",
+      "origin": "Unsplash",
+      "unsplashId": "1541888946425-d81bb19240f5",
+      "unsplashUrl": "https://unsplash.com/photos/1541888946425-d81bb19240f5",
+      "bytes": 571363
+    },
+    {
+      "file": "plombier/pro/13-service-chauffe-eau-et-ballon-thermodynamiqu.jpg",
+      "offer": "pro",
+      "role": "service-chauffe-eau-et-ballon-thermodynamiqu",
+      "origin": "Unsplash",
+      "unsplashId": "1570129477492-45c003edd2be",
+      "unsplashUrl": "https://unsplash.com/photos/1570129477492-45c003edd2be",
+      "bytes": 568750
+    },
+    {
+      "file": "plombier/pro/14-service-chaudiere-gaz-ou-pompe-a-chaleur.jpg",
+      "offer": "pro",
+      "role": "service-chaudiere-gaz-ou-pompe-a-chaleur",
+      "origin": "Unsplash",
+      "unsplashId": "1449844908441-8829872d2607",
+      "unsplashUrl": "https://unsplash.com/photos/1449844908441-8829872d2607",
+      "bytes": 454606
+    },
+    {
+      "file": "plombier/pro/15-service-raccordements-cuisine.jpg",
+      "offer": "pro",
+      "role": "service-raccordements-cuisine",
+      "origin": "Unsplash",
+      "unsplashId": "1504307651254-35680f356dfd",
+      "unsplashUrl": "https://unsplash.com/photos/1504307651254-35680f356dfd",
+      "bytes": 486564
+    }
+  ]
+}

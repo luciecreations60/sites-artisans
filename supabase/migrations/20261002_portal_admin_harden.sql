@@ -73,7 +73,11 @@ security definer
 set search_path = public
 as $$
 begin
-  if new.role is distinct from old.role and not public.is_admin() then
+  -- Bloque seulement les users authentifiés non-admin (le SQL Editor / service_role
+  -- n'ont souvent pas de auth.uid() : ils doivent pouvoir promouvoir un admin).
+  if new.role is distinct from old.role
+     and auth.uid() is not null
+     and not public.is_admin() then
     raise exception 'Modification du rôle non autorisée';
   end if;
   return new;

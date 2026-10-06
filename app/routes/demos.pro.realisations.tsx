@@ -1,8 +1,11 @@
 import { Link, useOutletContext } from "react-router";
 import type { TradeData } from "~/data/types";
+import { useDemoBasePath, useDemoSearch } from "~/lib/useDemoPaths";
 
 export default function DemoProRealisations() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
+  const basePath = useDemoBasePath(trade.slug);
+  const q = useDemoSearch();
 
   return (
     <main className="section">
@@ -13,7 +16,7 @@ export default function DemoProRealisations() {
           {trade.projects.map((p) => (
             <Link
               key={p.id}
-              to={`/demos/${trade.slug}/pro/realisations/${p.id}`}
+              to={`${basePath}/pro/realisations/${p.id}${q}`}
               className="card card--interactive"
               style={{ textDecoration: "none", color: "inherit" }}
             >

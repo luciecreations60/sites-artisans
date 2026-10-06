@@ -1,0 +1,259 @@
+{
+  "updatedAt": "2026-10-02T19:24:08.607Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "garage/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 114773
+    },
+    {
+      "file": "garage/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 61142
+    },
+    {
+      "file": "garage/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1492144534655-ae79c964c9d7",
+      "unsplashUrl": "https://unsplash.com/photos/1492144534655-ae79c964c9d7",
+      "bytes": 105254
+    },
+    {
+      "file": "garage/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1503376780353-7e6692767b70",
+      "unsplashUrl": "https://unsplash.com/photos/1503376780353-7e6692767b70",
+      "bytes": 236500
+    },
+    {
+      "file": "garage/essentiel/03-realisation-revision-complete-citadine.jpg",
+      "offer": "essentiel",
+      "role": "realisation-revision-complete-citadine",
+      "origin": "Unsplash",
+      "unsplashId": "1494976388531-d1058494cdd8",
+      "unsplashUrl": "https://unsplash.com/photos/1494976388531-d1058494cdd8",
+      "bytes": 215455
+    },
+    {
+      "file": "garage/essentiel/04-realisation-freins-avant-suv.jpg",
+      "offer": "essentiel",
+      "role": "realisation-freins-avant-suv",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "garage/essentiel/05-realisation-distribution-diesel.jpg",
+      "offer": "essentiel",
+      "role": "realisation-distribution-diesel",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "garage/avance/03-realisation-revision-complete-citadine.jpg",
+      "offer": "avance",
+      "role": "realisation-revision-complete-citadine",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "garage/avance/04-realisation-freins-avant-suv.jpg",
+      "offer": "avance",
+      "role": "realisation-freins-avant-suv",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "garage/avance/05-realisation-distribution-diesel.jpg",
+      "offer": "avance",
+      "role": "realisation-distribution-diesel",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "garage/avance/06-realisation-climatisation-rechargee.jpg",
+      "offer": "avance",
+      "role": "realisation-climatisation-rechargee",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "garage/avance/07-realisation-preparation-controle-technique.jpg",
+      "offer": "avance",
+      "role": "realisation-preparation-controle-technique",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "garage/avance/08-realisation-embrayage-utilitaire.jpg",
+      "offer": "avance",
+      "role": "realisation-embrayage-utilitaire",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "garage/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "garage/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "garage/pro/03-before-revision-complete-citadine.jpg",
+      "offer": "pro",
+      "role": "before-revision-complete-citadine",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "garage/pro/04-after-revision-complete-citadine.jpg",
+      "offer": "pro",
+      "role": "after-revision-complete-citadine",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "garage/pro/05-realisation-revision-complete-citadine.jpg",
+      "offer": "pro",
+      "role": "realisation-revision-complete-citadine",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "garage/pro/06-realisation-freins-avant-suv.jpg",
+      "offer": "pro",
+      "role": "realisation-freins-avant-suv",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "garage/pro/07-realisation-distribution-diesel.jpg",
+      "offer": "pro",
+      "role": "realisation-distribution-diesel",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    },
+    {
+      "file": "garage/pro/08-realisation-climatisation-rechargee.jpg",
+      "offer": "pro",
+      "role": "realisation-climatisation-rechargee",
+      "origin": "Unsplash",
+      "unsplashId": "1620626011761-996317b8d101",
+      "unsplashUrl": "https://unsplash.com/photos/1620626011761-996317b8d101",
+      "bytes": 154473
+    },
+    {
+      "file": "garage/pro/09-realisation-preparation-controle-technique.jpg",
+      "offer": "pro",
+      "role": "realisation-preparation-controle-technique",
+      "origin": "Unsplash",
+      "unsplashId": "1541888946425-d81bb19240f5",
+      "unsplashUrl": "https://unsplash.com/photos/1541888946425-d81bb19240f5",
+      "bytes": 571363
+    },
+    {
+      "file": "garage/pro/10-realisation-embrayage-utilitaire.jpg",
+      "offer": "pro",
+      "role": "realisation-embrayage-utilitaire",
+      "origin": "Unsplash",
+      "unsplashId": "1570129477492-45c003edd2be",
+      "unsplashUrl": "https://unsplash.com/photos/1570129477492-45c003edd2be",
+      "bytes": 568750
+    },
+    {
+      "file": "garage/pro/11-service-revision-et-vidange.jpg",
+      "offer": "pro",
+      "role": "service-revision-et-vidange",
+      "origin": "Unsplash",
+      "unsplashId": "1449844908441-8829872d2607",
+      "unsplashUrl": "https://unsplash.com/photos/1449844908441-8829872d2607",
+      "bytes": 454606
+    },
+    {
+      "file": "garage/pro/12-service-freinage.jpg",
+      "offer": "pro",
+      "role": "service-freinage",
+      "origin": "Unsplash",
+      "unsplashId": "1504307651254-35680f356dfd",
+      "unsplashUrl": "https://unsplash.com/photos/1504307651254-35680f356dfd",
+      "bytes": 486564
+    },
+    {
+      "file": "garage/pro/13-service-distribution-et-embrayage.jpg",
+      "offer": "pro",
+      "role": "service-distribution-et-embrayage",
+      "origin": "Unsplash",
+      "unsplashId": "1605276374104-dee2a0ed3cd6",
+      "unsplashUrl": "https://unsplash.com/photos/1605276374104-dee2a0ed3cd6",
+      "bytes": 483175
+    },
+    {
+      "file": "garage/pro/14-service-diagnostic-electronique.jpg",
+      "offer": "pro",
+      "role": "service-diagnostic-electronique",
+      "origin": "Unsplash",
+      "unsplashId": "1562259949-e8e7689d7828",
+      "unsplashUrl": "https://unsplash.com/photos/1562259949-e8e7689d7828",
+      "bytes": 318746
+    },
+    {
+      "file": "garage/pro/15-service-pneumatiques.jpg",
+      "offer": "pro",
+      "role": "service-pneumatiques",
+      "origin": "Unsplash",
+      "unsplashId": "1513364776144-60967b0f800f",
+      "unsplashUrl": "https://unsplash.com/photos/1513364776144-60967b0f800f",
+      "bytes": 234010
+    }
+  ]
+}

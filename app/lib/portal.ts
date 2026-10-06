@@ -51,7 +51,7 @@ export const CHANGE_STATUS_LABELS: Record<ChangeRequestStatus, string> = {
   en_cours: "En cours",
   besoin_info: "Besoin d’information",
   termine: "Terminée",
-  refuse: "Refusée / hors périmètre",
+  refuse: "Refusée",
 };
 
 export function changeStatusLabel(status: ChangeRequestStatus | string): string {

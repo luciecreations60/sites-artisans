@@ -1,9 +1,12 @@
 import { Link, useOutletContext } from "react-router";
 import type { TradeData } from "~/data/types";
 import { artisanName } from "~/lib/personalize";
+import { useDemoHref } from "~/lib/useDemoPaths";
 
 export default function DemoAvanceHome() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
+  const devisHref = useDemoHref(trade.slug, "/avance/devis");
+  const realisationsHref = useDemoHref(trade.slug, "/avance/realisations");
 
   return (
     <main className="container">
@@ -17,10 +20,10 @@ export default function DemoAvanceHome() {
             <strong>{artisanName(trade)}</strong> — {trade.defaultCity}
           </p>
           <div className="hero-actions">
-            <Link to={`/demos/${trade.slug}/avance/devis`} className="btn btn-primary">
+            <Link to={devisHref} className="btn btn-primary">
               Demander un devis
             </Link>
-            <Link to={`/demos/${trade.slug}/avance/realisations`} className="btn btn-ghost">
+            <Link to={realisationsHref} className="btn btn-ghost">
               Voir les réalisations
             </Link>
           </div>

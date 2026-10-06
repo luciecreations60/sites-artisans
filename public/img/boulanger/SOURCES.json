@@ -1,0 +1,257 @@
+{
+  "updatedAt": "2026-10-02T19:23:33.817Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "boulanger/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 193291
+    },
+    {
+      "file": "boulanger/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 325886
+    },
+    {
+      "file": "boulanger/avance/03-realisation-miche-levain-48-h.jpg",
+      "offer": "avance",
+      "role": "realisation-miche-levain-48-h",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 127182
+    },
+    {
+      "file": "boulanger/avance/04-realisation-buffet-petit-dejeuner-entreprise.jpg",
+      "offer": "avance",
+      "role": "realisation-buffet-petit-dejeuner-entreprise",
+      "origin": "local-kept",
+      "previousFile": "avance_8.jpg",
+      "bytes": 188958
+    },
+    {
+      "file": "boulanger/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1509440159596-0249088772ff",
+      "unsplashUrl": "https://unsplash.com/photos/1509440159596-0249088772ff",
+      "bytes": 618094
+    },
+    {
+      "file": "boulanger/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1555507036-ab1f4038808a",
+      "unsplashUrl": "https://unsplash.com/photos/1555507036-ab1f4038808a",
+      "bytes": 338482
+    },
+    {
+      "file": "boulanger/essentiel/03-realisation-miche-levain-48-h.jpg",
+      "offer": "essentiel",
+      "role": "realisation-miche-levain-48-h",
+      "origin": "Unsplash",
+      "unsplashId": "1578985545062-69928b1d9587",
+      "unsplashUrl": "https://unsplash.com/photos/1578985545062-69928b1d9587",
+      "bytes": 349050
+    },
+    {
+      "file": "boulanger/essentiel/04-realisation-buffet-petit-dejeuner-entreprise.jpg",
+      "offer": "essentiel",
+      "role": "realisation-buffet-petit-dejeuner-entreprise",
+      "origin": "Unsplash",
+      "unsplashId": "1464349095431-e9a21285b5f3",
+      "unsplashUrl": "https://unsplash.com/photos/1464349095431-e9a21285b5f3",
+      "bytes": 223743
+    },
+    {
+      "file": "boulanger/essentiel/05-realisation-gateau-mariage-piece-montee.jpg",
+      "offer": "essentiel",
+      "role": "realisation-gateau-mariage-piece-montee",
+      "origin": "Unsplash",
+      "unsplashId": "1549931319-a545dcf3bc73",
+      "unsplashUrl": "https://unsplash.com/photos/1549931319-a545dcf3bc73",
+      "bytes": 400284
+    },
+    {
+      "file": "boulanger/avance/05-realisation-gateau-mariage-piece-montee.jpg",
+      "offer": "avance",
+      "role": "realisation-gateau-mariage-piece-montee",
+      "origin": "Unsplash",
+      "unsplashId": "1558961363-fa8fdf82db35",
+      "unsplashUrl": "https://unsplash.com/photos/1558961363-fa8fdf82db35",
+      "bytes": 471691
+    },
+    {
+      "file": "boulanger/avance/06-realisation-farandole-viennoiseries.jpg",
+      "offer": "avance",
+      "role": "realisation-farandole-viennoiseries",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "boulanger/avance/07-realisation-pain-sans-gluten-du-jeudi.jpg",
+      "offer": "avance",
+      "role": "realisation-pain-sans-gluten-du-jeudi",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "boulanger/avance/08-realisation-buche-de-noel-artisanale.jpg",
+      "offer": "avance",
+      "role": "realisation-buche-de-noel-artisanale",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "boulanger/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "boulanger/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "boulanger/pro/03-before-miche-levain-48-h.jpg",
+      "offer": "pro",
+      "role": "before-miche-levain-48-h",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "boulanger/pro/04-after-miche-levain-48-h.jpg",
+      "offer": "pro",
+      "role": "after-miche-levain-48-h",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "boulanger/pro/05-realisation-miche-levain-48-h.jpg",
+      "offer": "pro",
+      "role": "realisation-miche-levain-48-h",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "boulanger/pro/06-realisation-buffet-petit-dejeuner-entreprise.jpg",
+      "offer": "pro",
+      "role": "realisation-buffet-petit-dejeuner-entreprise",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "boulanger/pro/07-realisation-gateau-mariage-piece-montee.jpg",
+      "offer": "pro",
+      "role": "realisation-gateau-mariage-piece-montee",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "boulanger/pro/08-realisation-farandole-viennoiseries.jpg",
+      "offer": "pro",
+      "role": "realisation-farandole-viennoiseries",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "boulanger/pro/09-realisation-pain-sans-gluten-du-jeudi.jpg",
+      "offer": "pro",
+      "role": "realisation-pain-sans-gluten-du-jeudi",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "boulanger/pro/10-realisation-buche-de-noel-artisanale.jpg",
+      "offer": "pro",
+      "role": "realisation-buche-de-noel-artisanale",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "boulanger/pro/11-service-pain-au-levain.jpg",
+      "offer": "pro",
+      "role": "service-pain-au-levain",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "boulanger/pro/12-service-viennoiseries.jpg",
+      "offer": "pro",
+      "role": "service-viennoiseries",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    },
+    {
+      "file": "boulanger/pro/13-service-patisseries-individuelles.jpg",
+      "offer": "pro",
+      "role": "service-patisseries-individuelles",
+      "origin": "Unsplash",
+      "unsplashId": "1620626011761-996317b8d101",
+      "unsplashUrl": "https://unsplash.com/photos/1620626011761-996317b8d101",
+      "bytes": 154473
+    },
+    {
+      "file": "boulanger/pro/14-service-gateaux-sur-commande.jpg",
+      "offer": "pro",
+      "role": "service-gateaux-sur-commande",
+      "origin": "Unsplash",
+      "unsplashId": "1541888946425-d81bb19240f5",
+      "unsplashUrl": "https://unsplash.com/photos/1541888946425-d81bb19240f5",
+      "bytes": 571363
+    },
+    {
+      "file": "boulanger/pro/15-service-snacking-sale.jpg",
+      "offer": "pro",
+      "role": "service-snacking-sale",
+      "origin": "Unsplash",
+      "unsplashId": "1570129477492-45c003edd2be",
+      "unsplashUrl": "https://unsplash.com/photos/1570129477492-45c003edd2be",
+      "bytes": 568750
+    }
+  ]
+}

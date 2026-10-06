@@ -41,7 +41,7 @@ export function ChangeRequestsList({
                 <option value="en_cours">En cours</option>
                 <option value="besoin_info">Besoin d’information</option>
                 <option value="termine">Terminée</option>
-                <option value="refuse">Refusée / hors périmètre</option>
+                <option value="refuse">Refusée</option>
               </select>
             </label>
           ) : null}

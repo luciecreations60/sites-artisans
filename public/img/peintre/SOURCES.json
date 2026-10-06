@@ -1,0 +1,253 @@
+{
+  "updatedAt": "2026-10-02T19:24:21.350Z",
+  "duplicateCheck": {
+    "files": 28,
+    "uniqueHashes": 28
+  },
+  "images": [
+    {
+      "file": "peintre/avance/01-hero.jpg",
+      "offer": "avance",
+      "role": "hero",
+      "origin": "local-kept",
+      "previousFile": "avance_1.jpg",
+      "bytes": 132248
+    },
+    {
+      "file": "peintre/avance/02-about.jpg",
+      "offer": "avance",
+      "role": "about",
+      "origin": "local-kept",
+      "previousFile": "avance_2.jpg",
+      "bytes": 158982
+    },
+    {
+      "file": "peintre/avance/03-realisation-appartement-t4-renove.jpg",
+      "offer": "avance",
+      "role": "realisation-appartement-t4-renove",
+      "origin": "local-kept",
+      "previousFile": "avance_3.jpg",
+      "bytes": 165748
+    },
+    {
+      "file": "peintre/avance/04-realisation-facade-claire-ravalee.jpg",
+      "offer": "avance",
+      "role": "realisation-facade-claire-ravalee",
+      "origin": "local-kept",
+      "previousFile": "avance_4.jpg",
+      "bytes": 243462
+    },
+    {
+      "file": "peintre/avance/05-realisation-salon-papier-panoramique.jpg",
+      "offer": "avance",
+      "role": "realisation-salon-papier-panoramique",
+      "origin": "local-kept",
+      "previousFile": "avance_5.jpg",
+      "bytes": 132837
+    },
+    {
+      "file": "peintre/avance/06-realisation-bureaux-open-space.jpg",
+      "offer": "avance",
+      "role": "realisation-bureaux-open-space",
+      "origin": "local-kept",
+      "previousFile": "avance_6.jpg",
+      "bytes": 114260
+    },
+    {
+      "file": "peintre/avance/07-realisation-maison-neuve-finitions.jpg",
+      "offer": "avance",
+      "role": "realisation-maison-neuve-finitions",
+      "origin": "local-kept",
+      "previousFile": "avance_7.jpg",
+      "bytes": 140834
+    },
+    {
+      "file": "peintre/avance/08-realisation-murs-bleus-piece-a-vivre.jpg",
+      "offer": "avance",
+      "role": "realisation-murs-bleus-piece-a-vivre",
+      "origin": "local-kept",
+      "previousFile": "pro_2.jpg",
+      "bytes": 94558
+    },
+    {
+      "file": "peintre/essentiel/01-hero.jpg",
+      "offer": "essentiel",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1562259949-e8e7689d7828",
+      "unsplashUrl": "https://unsplash.com/photos/1562259949-e8e7689d7828",
+      "bytes": 318746
+    },
+    {
+      "file": "peintre/essentiel/02-about.jpg",
+      "offer": "essentiel",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1513364776144-60967b0f800f",
+      "unsplashUrl": "https://unsplash.com/photos/1513364776144-60967b0f800f",
+      "bytes": 234010
+    },
+    {
+      "file": "peintre/essentiel/03-realisation-appartement-t4-renove.jpg",
+      "offer": "essentiel",
+      "role": "realisation-appartement-t4-renove",
+      "origin": "Unsplash",
+      "unsplashId": "1618221195710-dd6b41faaea6",
+      "unsplashUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+      "bytes": 316503
+    },
+    {
+      "file": "peintre/essentiel/04-realisation-facade-claire-ravalee.jpg",
+      "offer": "essentiel",
+      "role": "realisation-facade-claire-ravalee",
+      "origin": "Unsplash",
+      "unsplashId": "1564013799919-ab600027ffc6",
+      "unsplashUrl": "https://unsplash.com/photos/1564013799919-ab600027ffc6",
+      "bytes": 485403
+    },
+    {
+      "file": "peintre/essentiel/05-realisation-salon-papier-panoramique.jpg",
+      "offer": "essentiel",
+      "role": "realisation-salon-papier-panoramique",
+      "origin": "Unsplash",
+      "unsplashId": "1616486338812-3dadae4b4ace",
+      "unsplashUrl": "https://unsplash.com/photos/1616486338812-3dadae4b4ace",
+      "bytes": 243946
+    },
+    {
+      "file": "peintre/pro/01-hero.jpg",
+      "offer": "pro",
+      "role": "hero",
+      "origin": "Unsplash",
+      "unsplashId": "1497366216548-37526070297c",
+      "unsplashUrl": "https://unsplash.com/photos/1497366216548-37526070297c",
+      "bytes": 206245
+    },
+    {
+      "file": "peintre/pro/02-about.jpg",
+      "offer": "pro",
+      "role": "about",
+      "origin": "Unsplash",
+      "unsplashId": "1524758631624-e2822e304c36",
+      "unsplashUrl": "https://unsplash.com/photos/1524758631624-e2822e304c36",
+      "bytes": 253069
+    },
+    {
+      "file": "peintre/pro/03-before-appartement-t4-renove.jpg",
+      "offer": "pro",
+      "role": "before-appartement-t4-renove",
+      "origin": "Unsplash",
+      "unsplashId": "1503387762-592deb58ef4e",
+      "unsplashUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+      "bytes": 165948
+    },
+    {
+      "file": "peintre/pro/04-after-appartement-t4-renove.jpg",
+      "offer": "pro",
+      "role": "after-appartement-t4-renove",
+      "origin": "Unsplash",
+      "unsplashId": "1493809842364-78817add7ffb",
+      "unsplashUrl": "https://unsplash.com/photos/1493809842364-78817add7ffb",
+      "bytes": 287385
+    },
+    {
+      "file": "peintre/pro/05-realisation-appartement-t4-renove.jpg",
+      "offer": "pro",
+      "role": "realisation-appartement-t4-renove",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154526-990dced4db0d",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154526-990dced4db0d",
+      "bytes": 779506
+    },
+    {
+      "file": "peintre/pro/06-realisation-facade-claire-ravalee.jpg",
+      "offer": "pro",
+      "role": "realisation-facade-claire-ravalee",
+      "origin": "Unsplash",
+      "unsplashId": "1513694203232-719a280e022f",
+      "unsplashUrl": "https://unsplash.com/photos/1513694203232-719a280e022f",
+      "bytes": 181858
+    },
+    {
+      "file": "peintre/pro/07-realisation-salon-papier-panoramique.jpg",
+      "offer": "pro",
+      "role": "realisation-salon-papier-panoramique",
+      "origin": "Unsplash",
+      "unsplashId": "1600585154340-be6161a56a0c",
+      "unsplashUrl": "https://unsplash.com/photos/1600585154340-be6161a56a0c",
+      "bytes": 441642
+    },
+    {
+      "file": "peintre/pro/08-realisation-bureaux-open-space.jpg",
+      "offer": "pro",
+      "role": "realisation-bureaux-open-space",
+      "origin": "Unsplash",
+      "unsplashId": "1512917774080-9991f1c4c750",
+      "unsplashUrl": "https://unsplash.com/photos/1512917774080-9991f1c4c750",
+      "bytes": 301452
+    },
+    {
+      "file": "peintre/pro/09-realisation-maison-neuve-finitions.jpg",
+      "offer": "pro",
+      "role": "realisation-maison-neuve-finitions",
+      "origin": "Unsplash",
+      "unsplashId": "1497215728101-856f4ea42174",
+      "unsplashUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+      "bytes": 291180
+    },
+    {
+      "file": "peintre/pro/10-realisation-murs-bleus-piece-a-vivre.jpg",
+      "offer": "pro",
+      "role": "realisation-murs-bleus-piece-a-vivre",
+      "origin": "Unsplash",
+      "unsplashId": "1497366754035-f200968a6e72",
+      "unsplashUrl": "https://unsplash.com/photos/1497366754035-f200968a6e72",
+      "bytes": 266442
+    },
+    {
+      "file": "peintre/pro/11-service-peinture-interieure.jpg",
+      "offer": "pro",
+      "role": "service-peinture-interieure",
+      "origin": "Unsplash",
+      "unsplashId": "1556909114-f6e7ad7d3136",
+      "unsplashUrl": "https://unsplash.com/photos/1556909114-f6e7ad7d3136",
+      "bytes": 233308
+    },
+    {
+      "file": "peintre/pro/12-service-ravalement-de-facade.jpg",
+      "offer": "pro",
+      "role": "service-ravalement-de-facade",
+      "origin": "Unsplash",
+      "unsplashId": "1600607687939-ce8a6c25118c",
+      "unsplashUrl": "https://unsplash.com/photos/1600607687939-ce8a6c25118c",
+      "bytes": 328818
+    },
+    {
+      "file": "peintre/pro/13-service-pose-de-papier-peint.jpg",
+      "offer": "pro",
+      "role": "service-pose-de-papier-peint",
+      "origin": "Unsplash",
+      "unsplashId": "1584622650111-993a426fbf0a",
+      "unsplashUrl": "https://unsplash.com/photos/1584622650111-993a426fbf0a",
+      "bytes": 246353
+    },
+    {
+      "file": "peintre/pro/14-service-laque-boiseries.jpg",
+      "offer": "pro",
+      "role": "service-laque-boiseries",
+      "origin": "Unsplash",
+      "unsplashId": "1507652313519-d4e9174996dd",
+      "unsplashUrl": "https://unsplash.com/photos/1507652313519-d4e9174996dd",
+      "bytes": 432482
+    },
+    {
+      "file": "peintre/pro/15-service-enduit-decoratif.jpg",
+      "offer": "pro",
+      "role": "service-enduit-decoratif",
+      "origin": "Unsplash",
+      "unsplashId": "1552321554-5fefe8c9ef14",
+      "unsplashUrl": "https://unsplash.com/photos/1552321554-5fefe8c9ef14",
+      "bytes": 497117
+    }
+  ]
+}

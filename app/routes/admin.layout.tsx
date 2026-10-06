@@ -6,6 +6,7 @@ import { LoadingState } from "~/components/portal/PortalUi";
 
 const nav = [
   { to: "/admin", label: "Tableau de bord", end: true },
+  { to: "/admin/prospects", label: "Prospects" },
   { to: "/admin/clients", label: "Clients" },
   { to: "/admin/projets", label: "Projets" },
   { to: "/admin/demandes", label: "Demandes" },
@@ -40,9 +41,27 @@ export default function AdminLayout() {
 
   return (
     <div className="admin-shell">
+      <header className="admin-topbar">
+        <div className="container admin-topbar__inner">
+          <Link to="/admin" className="admin-brand">
+            <span className="brand-mark" aria-hidden />
+            Sites Artisans
+            <span className="admin-brand__tag">Admin</span>
+          </Link>
+          <div className="admin-topbar__actions">
+            <Link to="/" className="admin-topbar__link">
+              Site public
+            </Link>
+            <button type="button" className="btn btn-ghost" onClick={() => void signOut()}>
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </header>
+
       <div className="container admin-shell__inner">
         <aside className="admin-nav" aria-label="Administration">
-          <p className="admin-nav__eyebrow">Administration</p>
+          <p className="admin-nav__eyebrow">Navigation</p>
           <nav>
             {nav.map((item) => (
               <NavLink
@@ -57,12 +76,6 @@ export default function AdminLayout() {
               </NavLink>
             ))}
           </nav>
-          <div className="admin-nav__footer">
-            <Link to="/">Site public</Link>
-            <button type="button" className="btn btn-ghost" onClick={() => void signOut()}>
-              Déconnexion
-            </button>
-          </div>
         </aside>
         <div className="admin-main">
           <Outlet />
