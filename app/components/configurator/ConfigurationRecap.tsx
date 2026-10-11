@@ -11,7 +11,7 @@ import {
 } from "~/lib/catalog/pricing";
 import { quoteIsPartial } from "~/lib/configurator/recommend";
 import type { ConfiguratorState } from "~/lib/configurator/types";
-import { demoHrefForConfig } from "~/lib/templates/demoModules";
+import { demoHrefFromConfig, UX_LABELS } from "~/lib/configurator/bridge";
 
 type Props = {
   state: ConfiguratorState;
@@ -206,11 +206,8 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
 
       <div className="cfg-recap-actions cfg-recap-actions--print-hide">
         {state.tradeSlug ? (
-          <Link
-            to={demoHrefForConfig(state.tradeSlug, planId)}
-            className="btn btn-primary"
-          >
-            Voir la démonstration
+          <Link to={demoHrefFromConfig(state.tradeSlug, planId)} className="btn btn-primary">
+            {UX_LABELS.viewFullscreen}
           </Link>
         ) : null}
         <Link to="/configurateur/demande" className="btn btn-outline">

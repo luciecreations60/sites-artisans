@@ -27,4 +27,6 @@ export type ConfiguratorBootParams = {
   trade?: string | null;
   formule?: string | null;
   parcours?: string | null;
+  /** Étape cible (ex. retour depuis une démo). */
+  etape?: string | null;
 };

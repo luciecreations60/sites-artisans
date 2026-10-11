@@ -1,10 +1,16 @@
 import { useLocation, Link } from "react-router";
 import { useState } from "react";
-import type { OfferTier } from "~/data/types";
+import type { OfferTier, TradeSlug } from "~/data/types";
 import { tierLabels } from "~/data/offers";
 import { Personalizer } from "~/components/Personalizer";
 import { switchDemoTier } from "~/lib/demoMedia";
 import { useProspectDemo } from "~/lib/ProspectDemoContext";
+import {
+  configuratorHrefFromDemo,
+  persistDemoEntry,
+  UX_LABELS,
+} from "~/lib/configurator/bridge";
+import { TRADE_SLUGS } from "~/data/trades";
 
 type Props = {
   tradeLabel: string;
@@ -13,6 +19,10 @@ type Props = {
 };
 
 const ALL_TIERS: OfferTier[] = ["essentiel", "avance", "pro"];
+
+function isTradeSlug(value: string): value is TradeSlug {
+  return (TRADE_SLUGS as string[]).includes(value);
+}
 
 export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
   const [showPersonalizer, setShowPersonalizer] = useState(false);
@@ -24,6 +34,12 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
   const tiers = prospect ? prospect.enabledTiers : ALL_TIERS;
   const previewQ = prospect?.isPreview ? "?preview=1" : "";
 
+  const onPersonalize = () => {
+    if (isTradeSlug(tradeSlug)) {
+      persistDemoEntry(tradeSlug, tier);
+    }
+  };
+
   return (
     <div className="demo-chrome">
       {prospect?.isPreview && (
@@ -34,7 +50,7 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
       <div className="container demo-chrome__inner">
         <div className="demo-chrome__left">
           <p style={{ margin: 0 }}>
-            Démo {tierLabels[tier]} — {tradeLabel}
+            {UX_LABELS.gallery} · {tierLabels[tier]} — {tradeLabel}
             {prospect ? (
               <>
                 {" "}
@@ -43,11 +59,11 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
             ) : (
               <>
                 {" "}
-                · <Link to="/demos">Toutes les démos</Link>
+                · <Link to="/demos">{UX_LABELS.gallery}</Link>
               </>
             )}
           </p>
-          <div className="demo-tier-switch" role="navigation" aria-label="Changer d’offre démo">
+          <div className="demo-tier-switch" role="navigation" aria-label={UX_LABELS.comparePlans}>
             {tiers.map((t) => (
               <Link
                 key={t}
@@ -56,6 +72,11 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
                 }
                 className={t === tier ? "is-active" : undefined}
                 aria-current={t === tier ? "page" : undefined}
+                onClick={() => {
+                  if (!prospect && isTradeSlug(tradeSlug)) {
+                    persistDemoEntry(tradeSlug, t);
+                  }
+                }}
               >
                 {tierLabels[t]}
               </Link>
@@ -67,9 +88,9 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
             "Démonstration personnalisée"
           ) : (
             <>
-              Démonstration — contenu fictif ·{" "}
+              Contenu illustratif ·{" "}
               <Link
-                to={`/configurateur?metier=${tradeSlug}&formule=${tier}&parcours=formula`}
+                to={configuratorHrefFromDemo(tradeSlug, tier)}
                 className="btn btn-ghost"
                 style={{
                   padding: "0.2rem 0.5rem",
@@ -77,8 +98,23 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
                   color: "#fff",
                   borderColor: "#ffffff55",
                 }}
+                onClick={onPersonalize}
               >
-                Personnaliser ce site
+                {UX_LABELS.personalizeModel}
+              </Link>
+              {" · "}
+              <Link
+                to={configuratorHrefFromDemo(tradeSlug, tier, { step: 5 })}
+                className="btn btn-ghost"
+                style={{
+                  padding: "0.2rem 0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "#fff",
+                  borderColor: "#ffffff55",
+                }}
+                onClick={onPersonalize}
+              >
+                {UX_LABELS.backToConfig}
               </Link>
               {" · "}
               <button
@@ -92,7 +128,7 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
                 }}
                 onClick={() => setShowPersonalizer((v) => !v)}
               >
-                {showPersonalizer ? "Masquer" : "Ajuster le profil"}
+                {showPersonalizer ? "Masquer" : UX_LABELS.adjustPreview}
               </button>
             </>
           )}

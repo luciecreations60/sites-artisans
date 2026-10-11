@@ -122,6 +122,10 @@ export function mergeBootParams(
     };
     if (next.step < 3) next = { ...next, step: 3 };
   }
+  const etapeNum = params.etape != null ? Number(params.etape) : NaN;
+  if ([1, 2, 3, 4, 5].includes(etapeNum)) {
+    next = { ...next, step: etapeNum as ConfiguratorStep };
+  }
   return next;
 }
 

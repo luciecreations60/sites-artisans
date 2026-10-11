@@ -3,10 +3,10 @@ import { NavLink } from "react-router";
 
 const links = [
   { to: "/", label: "Accueil", end: true },
-  { to: "/configurateur", label: "Configurateur" },
+  { to: "/configurateur", label: "Personnaliser mon site" },
   { to: "/offres", label: "Offres" },
-  { to: "/demos", label: "Démos" },
-  { to: "/comparatif", label: "Comparatif" },
+  { to: "/demos", label: "Exemples de sites" },
+  { to: "/comparatif", label: "Comparer les formules" },
   { to: "/espace-client", label: "Espace client" },
   { to: "/contact", label: "Contact" },
 ];

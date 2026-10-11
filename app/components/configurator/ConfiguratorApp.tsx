@@ -16,7 +16,7 @@ import {
   saveConfiguratorState,
 } from "~/lib/configurator/storage";
 import type { ConfiguratorState, ConfiguratorStep } from "~/lib/configurator/types";
-import { demoHrefForConfig } from "~/lib/templates/demoModules";
+import { demoHrefFromConfig, UX_LABELS } from "~/lib/configurator/bridge";
 import { ensureClientLocalId } from "~/lib/commercial/buildPayload";
 import { ConfigurationRecap } from "./ConfigurationRecap";
 import { SitePreview } from "./SitePreview";
@@ -63,6 +63,7 @@ export function ConfiguratorApp() {
       trade: searchParams.get("metier") ?? searchParams.get("trade"),
       formule: searchParams.get("formule") ?? searchParams.get("offre"),
       parcours: searchParams.get("parcours"),
+      etape: searchParams.get("etape"),
     });
     setState(loaded);
     setMounted(true);
@@ -530,15 +531,15 @@ export function ConfiguratorApp() {
                     Demander à être contacté
                   </Link>
                   <Link to="/comparatif" className="btn btn-ghost">
-                    Comparer les formules
+                    {UX_LABELS.comparePlans}
                   </Link>
                   {state.tradeSlug && state.planId ? (
                     <Link
-                      to={demoHrefForConfig(state.tradeSlug, state.planId)}
+                      to={demoHrefFromConfig(state.tradeSlug, state.planId)}
                       className="btn btn-ghost"
                       onClick={() => saveConfiguratorState(state)}
                     >
-                      Voir la démonstration
+                      {UX_LABELS.viewFullscreen}
                     </Link>
                   ) : null}
                 </div>

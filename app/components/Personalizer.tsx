@@ -5,10 +5,16 @@ import {
   clearProfile,
   emptyProfile,
   loadProfile,
-  saveProfile,
   type Profile,
 } from "~/lib/personalize";
+import {
+  configuratorHrefFromDemo,
+  syncProfileIntoConfigurator,
+  UX_LABELS,
+} from "~/lib/configurator/bridge";
+import { loadConfiguratorState } from "~/lib/configurator/storage";
 import { TRADE_SLUGS, trades } from "~/data/trades";
+import type { TradeSlug } from "~/data/types";
 
 type Props = {
   compact?: boolean;
@@ -17,13 +23,15 @@ type Props = {
 
 export function Personalizer({ compact, variant = "default" }: Props) {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
-  const [tradeSlug, setTradeSlug] = useState("plombier");
+  const [tradeSlug, setTradeSlug] = useState<TradeSlug>("plombier");
   const [mounted, setMounted] = useState(false);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     const loaded = loadProfile();
     setProfile(loaded ?? emptyProfile());
+    const cfg = loadConfiguratorState();
+    if (cfg.tradeSlug) setTradeSlug(cfg.tradeSlug);
     setMounted(true);
   }, []);
 
@@ -35,7 +43,10 @@ export function Personalizer({ compact, variant = "default" }: Props) {
   };
 
   const onSave = () => {
-    saveProfile(profile);
+    // Source unique : configurateur + sa-profile (pas de second parcours commercial)
+    syncProfileIntoConfigurator(profile, {
+      tradeSlug: variant === "immersive" ? tradeSlug : undefined,
+    });
     setSaved(true);
   };
 
@@ -106,7 +117,12 @@ export function Personalizer({ compact, variant = "default" }: Props) {
                 <select
                   id="sa-trade"
                   value={tradeSlug}
-                  onChange={(e) => setTradeSlug(e.target.value)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    if ((TRADE_SLUGS as string[]).includes(v)) {
+                      setTradeSlug(v as TradeSlug);
+                    }
+                  }}
                 >
                   {TRADE_SLUGS.map((slug) => (
                     <option key={slug} value={slug}>
@@ -156,8 +172,20 @@ export function Personalizer({ compact, variant = "default" }: Props) {
               {stylePickers}
             </div>
             <div className="hero-actions" style={{ marginTop: "1.25rem" }}>
-              <button type="button" className="btn btn-primary" onClick={onSave}>
-                Créer mon aperçu personnalisé
+              <Link
+                to={configuratorHrefFromDemo(tradeSlug, "essentiel")}
+                className="btn btn-primary"
+                onClick={onSave}
+              >
+                {UX_LABELS.personalizeMine}
+              </Link>
+              <button
+                type="button"
+                className="btn btn-ghost"
+                onClick={onSave}
+                style={{ color: "#f0f4f2", borderColor: "rgba(255,255,255,.18)" }}
+              >
+                Enregistrer l’aperçu
               </button>
               <button
                 type="button"
@@ -177,7 +205,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
                   fontSize: "0.875rem",
                 }}
               >
-                Profil enregistré — ouvrez une démo ci-contre.
+                Choix enregistrés — ouvrez un exemple ou personnalisez votre site.
               </p>
             )}
           </div>
@@ -195,13 +223,13 @@ export function Personalizer({ compact, variant = "default" }: Props) {
           </div>
           <div className="aw-demo-buttons">
             <Link className="aw-demo-link" to={`/demos/${tradeSlug}/essentiel`} onClick={onSave}>
-              Voir Essentiel <span>Niveau 1</span>
+              Voir Essentiel <span>Exemple</span>
             </Link>
             <Link className="aw-demo-link" to={`/demos/${tradeSlug}/avance`} onClick={onSave}>
-              Voir Avancé <span>Niveau 2</span>
+              Voir Avancé <span>Exemple</span>
             </Link>
             <Link className="aw-demo-link" to={`/demos/${tradeSlug}/pro`} onClick={onSave}>
-              Voir Pro <span>Niveau 3</span>
+              Voir Pro <span>Exemple</span>
             </Link>
           </div>
         </aside>
@@ -212,8 +240,9 @@ export function Personalizer({ compact, variant = "default" }: Props) {
   return (
     <div className="personalizer personalizer--light">
       <p style={{ margin: "0 0 0.75rem", fontSize: "0.9375rem" }}>
-        <strong>Personnaliser les démos</strong> — Ces infos s’affichent dans les démos à la
-        place des exemples.
+        <strong>{UX_LABELS.adjustPreview}</strong> — mêmes infos que le configurateur
+        (entreprise, ville, couleurs). Pour modules et tarif, utilisez «{" "}
+        {UX_LABELS.personalizeMine} ».
       </p>
       <div className="personalizer__grid">
         <div>

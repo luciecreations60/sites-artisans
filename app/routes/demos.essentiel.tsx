@@ -22,7 +22,7 @@ export default function DemoEssentiel() {
   const base = useResolveDemoTrade(data?.trade ?? null);
   const trade = applyTierMedia(useAppliedTrade(base), "essentiel");
   const avanceContactHref = useDemoHref(trade.slug, "/avance/contact");
-  const configurateurHref = `/configurateur?metier=${trade.slug}&formule=essentiel&parcours=formula`;
+  const configurateurHref = `/configurateur?metier=${trade.slug}&formule=essentiel&parcours=formula&etape=5`;
   const prospect = useProspectDemo();
   const basePath = useDemoBasePath(trade.slug);
   const q = useDemoSearch();
@@ -185,7 +185,7 @@ export default function DemoEssentiel() {
                 Voir la demande de devis (Avancé)
               </Link>
               <Link to={configurateurHref} className="btn btn-ghost">
-                Revenir au configurateur
+                Revenir à ma configuration
               </Link>
             </div>
           </div>
