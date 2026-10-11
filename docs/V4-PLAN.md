@@ -1,8 +1,10 @@
 # Sites Artisans — Plan V4
 
-Document de pilotage pour la V4. Lot 1 livré sur la branche `feature/v4-sites-artisans`.
+Document de pilotage pour la V4. Lots 1 et 2 sur la branche `feature/v4-sites-artisans`.
 
-## Architecture actuelle (V3 → V4 lot 1)
+Détail catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md).
+
+## Architecture actuelle (V3 → V4)
 
 ### Stack
 
@@ -20,16 +22,15 @@ Document de pilotage pour la V4. Lot 1 livré sur la branche `feature/v4-sites-a
 | Démos métier | `/demos/:trade/...` | Thèmes / médias par métier (`app/data/trades/*`) |
 | Démos prospect | `/demo/:slug/...` | Contexte `ProspectDemoContext` |
 | Espace client | `/espace-client/*` | Auth Supabase, projets, maintenance |
-| Admin / CRM | `/admin/*` | Prospects, campagnes, clients, documents |
+| Admin / CRM | `/admin/*` | Prospects, campagnes, clients, documents, **Catalogue & tarifs** |
 
-### Sources de vérité commerciales (lot 1)
+### Sources de vérité commerciales
 
-- Prix de création et notes : `app/data/offers.ts`
-  - `offerPlans[].setupPrice` : 490 / 790 / 1 190 €
-  - `formatSetupPrice`, `commercialNotes`
-  - `PRICING_CONFIGURATOR_LIVE` + `homeValuePropLine()` pour basculer la phrase d’accueil
-- Format monétaire : `app/lib/format.ts` (`formatEuro`)
-- **Ne pas** modifier migrations SQL ni documents historiques Supabase
+- Catalogue : `app/data/catalog/*` + migration `20261011_catalog_offers_features.sql` (non appliquée en prod)
+- Marketing : `app/data/offers.ts` dérive les prix depuis `STATIC_PLANS` (49000 / 79000 / 119000 centimes)
+- Moteur : `app/lib/catalog/pricing.ts` ; accès données : `app/lib/catalog/api.ts`
+- `PRICING_CONFIGURATOR_LIVE` + `homeValuePropLine()` pour la phrase d’accueil
+- **Ne pas** modifier les migrations antérieures ni les documents historiques Supabase
 
 ### Composants réutilisables clés
 
@@ -50,21 +51,23 @@ Document de pilotage pour la V4. Lot 1 livré sur la branche `feature/v4-sites-a
 
 ## Lots prévus
 
-### 1. Fondations et accueil — **en cours / lot actuel**
+### 1. Fondations et accueil — **terminé**
 
 - Branche `feature/v4-sites-artisans`
 - Nouvelle hiérarchie d’accueil + parcours en 4 étapes
 - Cohérence tarifaire (création vs hébergement vs maintenance)
-- Corrections responsive
+- Corrections responsive + images hero
 - Préparation flag formulation configurateur
 
-### 2. Catalogue de prix et fonctionnalités
+### 2. Catalogue de prix et fonctionnalités — **terminé (code)**
 
-- Affinage des inclusions par formule
-- Options métier documentées
-- Taxes / libellés HT-TTC (sans moteur de devis encore)
+- Catalogue statique + migration SQL additive (non exécutée en prod)
+- Admin `/admin/catalogue` avec comportement honnête si tables absentes
+- Moteur de calcul pur + tests `npm run test`
+- Recommandations des 11 métiers
+- Voir `docs/V4-CATALOGUE.md`
 
-### 3. Configurateur immersif
+### 3. Configurateur immersif — **suivant**
 
 - Deux entrées (A formule / B composition → recommandation)
 - Un seul moteur de calcul

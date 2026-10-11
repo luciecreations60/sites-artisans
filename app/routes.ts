@@ -34,6 +34,7 @@ export default [
         route("admin/demandes", "./routes/admin.demandes.tsx"),
         route("admin/documents", "./routes/admin.documents.tsx"),
         route("admin/maintenance", "./routes/admin.maintenance.tsx"),
+        route("admin/catalogue", "./routes/admin.catalogue.tsx"),
       ]),
     ]),
   ]),

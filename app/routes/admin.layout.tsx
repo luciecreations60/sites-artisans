@@ -12,6 +12,7 @@ const nav = [
   { to: "/admin/demandes", label: "Demandes" },
   { to: "/admin/documents", label: "Documents" },
   { to: "/admin/maintenance", label: "Maintenance" },
+  { to: "/admin/catalogue", label: "Catalogue & tarifs" },
 ];
 
 export default function AdminLayout() {

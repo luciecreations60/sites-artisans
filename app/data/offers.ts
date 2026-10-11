@@ -1,5 +1,7 @@
+import { STATIC_PLANS } from "~/data/catalog/staticCatalog";
 import type { OfferTier } from "~/data/types";
 import { formatEuro } from "~/lib/format";
+import { centsToEuroLabel } from "~/lib/catalog/pricing";
 
 /**
  * Passer à `true` lorsque le configurateur tarifaire est opérationnel.
@@ -31,12 +33,18 @@ export type OfferPlan = {
   tagline: string;
   /** Prix de création de référence (euros). Susceptible d’ajustement. */
   setupPrice: number;
+  /** Centimes — source catalogue. */
+  setupPriceCents: number;
   highlights: string[];
 };
 
 /** Libellé d’affichage du prix de création (ex. « 490 € »). */
 export function formatSetupPrice(amount: number): string {
   return formatEuro(amount);
+}
+
+export function formatSetupPriceCents(cents: number): string {
+  return centsToEuroLabel(cents);
 }
 
 /**
@@ -53,47 +61,39 @@ export const commercialNotes = {
     "Les outils métier externes (agenda, paiement, etc.) restent à votre charge auprès de leurs éditeurs.",
 } as const;
 
-export const offerPlans: OfferPlan[] = [
-  {
-    tier: "essentiel",
-    name: "Essentiel",
-    tagline: "Une page claire pour être trouvé et contacté",
-    setupPrice: 490,
-    highlights: [
-      "Une page unique soignée",
-      "Coordonnées et formulaire de contact",
-      "Présentation de vos services",
-      "Quelques réalisations",
-      "Adapté mobile",
-    ],
-  },
-  {
-    tier: "avance",
-    name: "Avancé",
-    tagline: "Un site multipage pour présenter votre savoir-faire",
-    setupPrice: 790,
-    highlights: [
-      "Plusieurs pages (accueil, services, réalisations…)",
-      "Filtrage des projets par type",
-      "Demande de devis guidée",
-      "Zone d’intervention visible",
-      "Mises à jour simples via votre espace (bientôt)",
-    ],
-  },
-  {
-    tier: "pro",
-    name: "Pro",
-    tagline: "Une vitrine premium avec outils pour vos clients",
-    setupPrice: 1190,
-    highlights: [
-      "Design immersif et pages détaillées",
-      "Fiches projet avec photos avant / après",
-      "Estimateur indicatif en ligne",
-      "Formulaire pour demander un rendez-vous",
-      "Accompagnement contenu au lancement",
-    ],
-  },
-];
+const HIGHLIGHTS: Record<OfferTier, string[]> = {
+  essentiel: [
+    "Une page unique soignée",
+    "Coordonnées et formulaire de contact",
+    "Présentation de vos services",
+    "Quelques réalisations",
+    "Adapté mobile",
+  ],
+  avance: [
+    "Plusieurs pages (accueil, services, réalisations…)",
+    "Filtrage des projets par type",
+    "Demande de devis guidée",
+    "Zone d’intervention visible",
+    "Mises à jour simples via votre espace (bientôt)",
+  ],
+  pro: [
+    "Design immersif et pages détaillées",
+    "Fiches projet avec photos avant / après",
+    "Estimateur indicatif en ligne",
+    "Formulaire pour demander un rendez-vous",
+    "Accompagnement contenu au lancement",
+  ],
+};
+
+/** Adaptateur marketing → catalogue (prix uniques via STATIC_PLANS). */
+export const offerPlans: OfferPlan[] = STATIC_PLANS.map((plan) => ({
+  tier: plan.id,
+  name: plan.name,
+  tagline: plan.description,
+  setupPrice: plan.setupPriceCents / 100,
+  setupPriceCents: plan.setupPriceCents,
+  highlights: HIGHLIGHTS[plan.id],
+}));
 
 export const comparisonFeatures: OfferFeature[] = [
   { label: "Nombre de pages", essentiel: "1 page", avance: "5 pages environ", pro: "8 pages et plus" },

@@ -3304,4 +3304,138 @@ button.linkish {
   color: var(--accent-deep);
 }
 
+/* ——— Admin catalogue ——— */
+.catalog-banner {
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--line);
+}
+
+.catalog-banner--warn {
+  background: #fff6e8;
+  border-color: #e8c48a;
+}
+
+.catalog-banner--warn p {
+  margin: 0.5rem 0 0;
+}
+
+.catalog-banner--ok {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  font-weight: 600;
+}
+
+.catalog-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.catalog-tabs__btn {
+  border: 1px solid var(--line);
+  background: var(--paper2);
+  border-radius: var(--radius-pill);
+  padding: 0.55rem 1rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.catalog-tabs__btn.is-active {
+  background: var(--dark);
+  color: #f7f1e7;
+  border-color: var(--dark);
+}
+
+.catalog-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+}
+
+.catalog-panel input,
+.catalog-panel select,
+.catalog-panel textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.catalog-toolbar {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 720px) {
+  .catalog-toolbar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.catalog-cards,
+.catalog-feature-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.catalog-card {
+  border: 1px solid var(--line);
+  background: var(--paper2);
+  border-radius: 16px;
+  padding: 1.15rem 1.2rem;
+}
+
+.catalog-card h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.catalog-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.catalog-pill {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.catalog-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .catalog-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.catalog-check {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.55rem !important;
+}
+
 
