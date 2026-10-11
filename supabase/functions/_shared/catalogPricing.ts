@@ -87,11 +87,18 @@ function qtyOf(map: Record<string, number> | undefined, id: string): number {
   return Math.min(MAX_QTY, n);
 }
 
+function hasSaPrice(f: PublicFeature): boolean {
+  return (
+    (f.setup_price_cents != null && f.setup_price_cents > 0) ||
+    (f.recurring_price_cents != null && f.recurring_price_cents > 0)
+  );
+}
+
 function orderable(f: PublicFeature): boolean {
   if (!f.is_available || f.status !== "published") return false;
-  if (["unavailable", "not_developed", "study", "optional_unpriced"].includes(f.commercial_kind)) {
-    return false;
-  }
+  if (["unavailable", "not_developed", "study"].includes(f.commercial_kind)) return false;
+  if (hasSaPrice(f)) return true;
+  if (f.commercial_kind === "optional_unpriced") return false;
   if (f.billing_type === "external") {
     return f.commercial_kind === "optional_priced" || f.commercial_kind === "included";
   }
@@ -189,9 +196,28 @@ export function calculateServerQuote(
       continue;
     }
 
+    if (feature.commercial_kind === "not_developed") {
+      skipped.push({
+        featureId,
+        label: feature.name,
+        kind: "skipped",
+        amountCents: null,
+        reason: "Non développée",
+      });
+      continue;
+    }
+
+    // Ne pas ignorer setup_price quand external_provider_id est renseigné
+    // et billing_type = setup (ex. booking_external à 40 €).
+    const isExternalBilling = feature.billing_type === "external";
+    const provider = feature.external_provider_id
+      ? providers.find((p) => p.id === feature.external_provider_id)
+      : undefined;
+
     if (
-      feature.commercial_kind === "optional_unpriced" ||
-      feature.commercial_kind === "not_developed"
+      feature.commercial_kind === "optional_unpriced" &&
+      !hasSaPrice(feature) &&
+      !isExternalBilling
     ) {
       skipped.push({
         featureId,
@@ -203,24 +229,25 @@ export function calculateServerQuote(
       continue;
     }
 
-    if (feature.billing_type === "external" || feature.external_provider_id) {
-      const provider = providers.find((p) => p.id === feature.external_provider_id);
+    if (isExternalBilling || provider) {
       externalNotes.push(
         provider
           ? `${feature.name} — ${provider.name}`
           : `${feature.name} — prestataire externe`,
       );
-      optionLines.push({
-        featureId,
-        label: feature.name,
-        kind: "external",
-        amountCents: null,
-        reason: "Frais externes",
-      });
-      continue;
     }
 
     if (!orderable(feature)) {
+      if (isExternalBilling && !hasSaPrice(feature)) {
+        optionLines.push({
+          featureId,
+          label: feature.name,
+          kind: "external",
+          amountCents: null,
+          reason: "Frais externes",
+        });
+        continue;
+      }
       skipped.push({
         featureId,
         label: feature.name,
@@ -232,19 +259,25 @@ export function calculateServerQuote(
     }
 
     const qty = qtyOf(selection.optionQuantities, featureId);
+    let priced = false;
     if (feature.setup_price_cents != null && feature.setup_price_cents > 0) {
       const total = feature.setup_price_cents * qty;
       creationExtra += total;
+      priced = true;
       optionLines.push({
         featureId,
         label: qty > 1 ? `${feature.name} × ${qty}` : feature.name,
         kind: "option_setup",
         amountCents: total,
+        reason: provider
+          ? "Mise en place Sites Artisans (abonnement prestataire à part)"
+          : undefined,
       });
     }
     if (feature.recurring_price_cents != null && feature.recurring_price_cents > 0) {
       const total = feature.recurring_price_cents * qty;
       recurringSubtotal += total;
+      priced = true;
       optionLines.push({
         featureId,
         label: qty > 1 ? `${feature.name} × ${qty}` : feature.name,
@@ -253,14 +286,24 @@ export function calculateServerQuote(
         reason: "Récurrent",
       });
     }
-    if (feature.setup_price_cents == null && feature.recurring_price_cents == null) {
-      skipped.push({
-        featureId,
-        label: feature.name,
-        kind: "skipped",
-        amountCents: null,
-        reason: "Aucun tarif défini",
-      });
+    if (!priced) {
+      if (isExternalBilling) {
+        optionLines.push({
+          featureId,
+          label: feature.name,
+          kind: "external",
+          amountCents: null,
+          reason: "Frais externes",
+        });
+      } else {
+        skipped.push({
+          featureId,
+          label: feature.name,
+          kind: "skipped",
+          amountCents: null,
+          reason: "Aucun tarif défini",
+        });
+      }
     }
   }
 

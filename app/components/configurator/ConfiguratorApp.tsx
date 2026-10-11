@@ -6,7 +6,12 @@ import { STATIC_FEATURES, toPublicFeature } from "~/data/catalog/staticCatalog";
 import type { CatalogFeaturePublic, PublicCatalog } from "~/data/catalog/types";
 import type { OfferTier, TradeSlug } from "~/data/types";
 import { loadPublicCatalog } from "~/lib/catalog/api";
+import { classifyOption } from "~/lib/catalog/optionAvailability";
 import { centsToEuroLabel } from "~/lib/catalog/pricing";
+import {
+  sanitizeDesiredFeatureIds,
+  sanitizeFeatureQuantities,
+} from "~/lib/catalog/sanitizeSelection";
 import { recommendPlans } from "~/lib/configurator/recommend";
 import {
   clearConfiguratorState,
@@ -94,13 +99,49 @@ export function ConfiguratorApp() {
     saveConfiguratorState(withId);
   }, [state, mounted]);
 
+  // Purge localStorage des options incompatibles (quote_form unavailable, etc.)
+  useEffect(() => {
+    if (!catalog || !state.planId) return;
+    const nextIds = sanitizeDesiredFeatureIds(
+      catalog,
+      state.planId,
+      state.desiredFeatureIds,
+    );
+    const nextQty = sanitizeFeatureQuantities(nextIds, state.featureQuantities);
+    const idsChanged =
+      nextIds.length !== state.desiredFeatureIds.length ||
+      nextIds.some((id, i) => id !== state.desiredFeatureIds[i]);
+    const qtyChanged =
+      Object.keys(nextQty).length !== Object.keys(state.featureQuantities ?? {}).length ||
+      Object.entries(nextQty).some(([k, v]) => state.featureQuantities?.[k] !== v);
+    if (idsChanged || qtyChanged) {
+      setState((prev) => ({
+        ...prev,
+        desiredFeatureIds: nextIds,
+        featureQuantities: nextQty,
+      }));
+    }
+  }, [catalog, state.planId, state.desiredFeatureIds, state.featureQuantities]);
+
   const recommendation = useMemo(() => {
     if (!catalog) return null;
     return recommendPlans(catalog, state.desiredFeatureIds, state.planId);
   }, [catalog, state.desiredFeatureIds, state.planId]);
 
   const update = (patch: Partial<ConfiguratorState>) => {
-    setState((prev) => ({ ...prev, ...patch }));
+    setState((prev) => {
+      let next = { ...prev, ...patch };
+      if (catalog && (patch.planId !== undefined || patch.desiredFeatureIds)) {
+        const planId = next.planId;
+        const ids = sanitizeDesiredFeatureIds(catalog, planId, next.desiredFeatureIds);
+        next = {
+          ...next,
+          desiredFeatureIds: ids,
+          featureQuantities: sanitizeFeatureQuantities(ids, next.featureQuantities),
+        };
+      }
+      return next;
+    });
   };
 
   const go = (step: ConfiguratorStep) => update({ step });
@@ -130,15 +171,59 @@ export function ConfiguratorApp() {
   };
 
   const toggleFeature = (id: string) => {
+    if (!catalog || !state.planId) {
+      setState((prev) => {
+        const has = prev.desiredFeatureIds.includes(id);
+        return {
+          ...prev,
+          desiredFeatureIds: has
+            ? prev.desiredFeatureIds.filter((x) => x !== id)
+            : [...prev.desiredFeatureIds, id],
+        };
+      });
+      return;
+    }
+    const av = classifyOption(catalog, state.planId, id);
+    if (!av.selectable && av.kind !== "included") return;
     setState((prev) => {
       const has = prev.desiredFeatureIds.includes(id);
+      const desiredFeatureIds = has
+        ? prev.desiredFeatureIds.filter((x) => x !== id)
+        : [...prev.desiredFeatureIds, id];
       return {
         ...prev,
-        desiredFeatureIds: has
-          ? prev.desiredFeatureIds.filter((x) => x !== id)
-          : [...prev.desiredFeatureIds, id],
+        desiredFeatureIds,
+        featureQuantities: sanitizeFeatureQuantities(desiredFeatureIds, prev.featureQuantities),
       };
     });
+  };
+
+  const featurePriceLabel = (
+    feature: CatalogFeaturePublic,
+    included: boolean,
+  ): string => {
+    if (included) return "Incluse dans la formule";
+    if (!state.planId) {
+      if (feature.setupPriceCents != null) return `+${centsToEuroLabel(feature.setupPriceCents)}`;
+      if (feature.billingType === "external") return "Prestataire externe";
+      return "Tarif selon formule";
+    }
+    const av = classifyOption(catalog!, state.planId, feature.id);
+    if (av.kind === "included") return "Incluse dans la formule";
+    if (av.kind === "incompatible") return "Indisponible pour cette formule";
+    if (av.kind === "study") return "Sur étude";
+    if (av.kind === "not_developed") return "Bientôt disponible";
+    if (av.kind === "unpriced" || av.kind === "unavailable") {
+      return av.reason ?? "Non commercialisable";
+    }
+    if (feature.setupPriceCents != null) {
+      const base = `+${centsToEuroLabel(feature.setupPriceCents)}`;
+      return feature.externalProviderId
+        ? `${base} (mise en place — abonnement prestataire à part)`
+        : base;
+    }
+    if (feature.billingType === "external") return "Prestataire externe";
+    return "Option";
   };
 
   const onReset = () => {
@@ -423,28 +508,17 @@ export function ConfiguratorApp() {
                     if (!feature) return null;
                     const checked = state.desiredFeatureIds.includes(id);
                     const included = includedForPlan.has(id);
-                    const priceLabel =
-                      included
-                        ? "Incluse dans la formule"
-                        : feature.commercialKind === "study" || feature.billingType === "study"
-                          ? "Sur étude"
-                          : feature.setupPriceCents != null
-                            ? `+${centsToEuroLabel(feature.setupPriceCents)}`
-                            : feature.billingType === "external"
-                              ? "Prestataire externe"
-                              : feature.status !== "published" || !feature.isAvailable
-                                ? "Non commercialisable pour le moment"
-                                : "Tarif à définir";
+                    const av = state.planId
+                      ? classifyOption(catalog, state.planId, id)
+                      : null;
                     const disabled =
                       !included &&
-                      (feature.status !== "published" ||
-                        !feature.isAvailable ||
-                        feature.commercialKind === "unavailable" ||
-                        feature.commercialKind === "not_developed");
+                      (av ? !av.selectable : false);
+                    const priceLabel = featurePriceLabel(feature, included);
                     return (
                       <label
                         key={id}
-                        className={`cfg-feature${checked || included ? " is-on" : ""}${disabled && !included ? " is-disabled" : ""}`}
+                        className={`cfg-feature${checked || included ? " is-on" : ""}${disabled ? " is-disabled" : ""}`}
                       >
                         <input
                           type="checkbox"
@@ -473,24 +547,20 @@ export function ConfiguratorApp() {
                         {items.map((feature) => {
                           const included = includedForPlan.has(feature.id);
                           const checked = state.desiredFeatureIds.includes(feature.id);
-                          const priceLabel = included
-                            ? "Incluse"
-                            : feature.commercialKind === "study"
-                              ? "Sur étude"
-                              : feature.setupPriceCents != null
-                                ? `+${centsToEuroLabel(feature.setupPriceCents)}`
-                                : feature.billingType === "external"
-                                  ? "Prestataire externe"
-                                  : "Tarif à définir";
+                          const av = state.planId
+                            ? classifyOption(catalog, state.planId, feature.id)
+                            : null;
+                          const disabled = !included && (av ? !av.selectable : false);
+                          const priceLabel = featurePriceLabel(feature, included);
                           return (
                             <label
                               key={feature.id}
-                              className={`cfg-feature${checked || included ? " is-on" : ""}`}
+                              className={`cfg-feature${checked || included ? " is-on" : ""}${disabled ? " is-disabled" : ""}`}
                             >
                               <input
                                 type="checkbox"
                                 checked={checked || included}
-                                disabled={included}
+                                disabled={included || disabled}
                                 onChange={() => toggleFeature(feature.id)}
                               />
                               <span>
@@ -509,56 +579,46 @@ export function ConfiguratorApp() {
             )}
 
             {state.step === 5 && (
-              <section aria-labelledby="cfg-step5">
+              <section aria-labelledby="cfg-step5" className="cfg-step5">
                 <h2 id="cfg-step5" className="visually-hidden">
                   Votre futur site et son prix
                 </h2>
+                {catalogStatus !== "ready" && (
+                  <p className="cfg-price__warn" role="status">
+                    {catalogStatus === "migration_pending"
+                      ? "Catalogue de secours (STATIC) — les prix Supabase DEV ne s’appliquent pas tant que le catalogue n’est pas « ready »."
+                      : catalogMessage || "Catalogue non chargé depuis Supabase."}
+                  </p>
+                )}
                 {recommendation?.message && <p className="cfg-reco">{recommendation.message}</p>}
                 <ConfigurationRecap
                   state={state}
                   catalog={catalog}
                   catalogStatus={catalogStatus}
+                  hideActions
                   onPrint={() => {
                     saveConfiguratorState(state);
                     window.open("/configurateur/simulation", "_blank", "noopener,noreferrer");
                   }}
                 />
-                <div className="cfg-recap-actions" style={{ marginTop: "1rem" }}>
-                  <button type="button" className="btn btn-outline" onClick={() => go(4)}>
-                    Modifier mes choix
-                  </button>
-                  <Link to="/configurateur/demande" className="btn btn-primary">
-                    Demander à être contacté
-                  </Link>
-                  <Link to="/comparatif" className="btn btn-ghost">
-                    {UX_LABELS.comparePlans}
-                  </Link>
-                  {state.tradeSlug && state.planId ? (
-                    <Link
-                      to={demoHrefFromConfig(state.tradeSlug, state.planId)}
-                      className="btn btn-ghost"
-                      onClick={() => saveConfiguratorState(state)}
-                    >
-                      {UX_LABELS.viewFullscreen}
-                    </Link>
-                  ) : null}
-                </div>
               </section>
             )}
 
-            <div className="cfg-nav">
+            <div className={`cfg-nav${state.step === 5 ? " cfg-nav--sticky" : ""}`}>
               <button
                 type="button"
                 className="btn btn-ghost"
                 disabled={state.step === 1}
                 onClick={() => go((state.step - 1) as ConfiguratorStep)}
               >
-                Précédent
+                {state.step === 5 ? "Modifier mes choix" : "Précédent"}
               </button>
               <div className="cfg-nav__right">
-                <button type="button" className="btn btn-ghost" onClick={onReset}>
-                  {confirmReset ? "Confirmer recommencer" : "Recommencer"}
-                </button>
+                {state.step < 5 && (
+                  <button type="button" className="btn btn-ghost" onClick={onReset}>
+                    {confirmReset ? "Confirmer recommencer" : "Recommencer"}
+                  </button>
+                )}
                 {state.step < 5 ? (
                   <button
                     type="button"
@@ -569,9 +629,30 @@ export function ConfiguratorApp() {
                     Continuer
                   </button>
                 ) : (
-                  <Link to="/configurateur/demande" className="btn btn-primary">
-                    Être recontacté
-                  </Link>
+                  <>
+                    {state.tradeSlug && state.planId ? (
+                      <Link
+                        to={demoHrefFromConfig(state.tradeSlug, state.planId)}
+                        className="btn btn-ghost"
+                        onClick={() => saveConfiguratorState(state)}
+                      >
+                        {UX_LABELS.viewFullscreen}
+                      </Link>
+                    ) : null}
+                    <button
+                      type="button"
+                      className="btn btn-ghost"
+                      onClick={() => {
+                        saveConfiguratorState(state);
+                        window.open("/configurateur/simulation", "_blank", "noopener,noreferrer");
+                      }}
+                    >
+                      Imprimer
+                    </button>
+                    <Link to="/configurateur/demande" className="btn btn-primary">
+                      Demander à être contacté
+                    </Link>
+                  </>
                 )}
               </div>
             </div>
@@ -587,21 +668,25 @@ export function ConfiguratorApp() {
               {previewOpen ? "Masquer l’aperçu" : "Voir l’aperçu du site"}
             </button>
             <div className={`cfg-side__sticky${previewOpen ? " is-open" : ""}`}>
-              <SitePreview
-                tradeSlug={state.tradeSlug}
-                planId={state.planId}
-                profile={state.profile}
-                selectedFeatureIds={[
-                  ...includedForPlan,
-                  ...state.desiredFeatureIds,
-                ]}
-              />
+              {state.step < 5 && (
+                <SitePreview
+                  tradeSlug={state.tradeSlug}
+                  planId={state.planId}
+                  profile={state.profile}
+                  selectedFeatureIds={[
+                    ...includedForPlan,
+                    ...state.desiredFeatureIds,
+                  ]}
+                />
+              )}
               <PricePanel
                 catalog={catalog}
                 planId={state.planId}
                 desiredFeatureIds={state.desiredFeatureIds}
+                featureQuantities={state.featureQuantities}
                 catalogStatus={catalogStatus}
                 catalogMessage={catalogMessage}
+                compact={state.step === 5}
               />
             </div>
           </aside>

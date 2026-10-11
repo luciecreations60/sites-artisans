@@ -9,6 +9,7 @@ import {
   catalogAllowsContractualQuote,
   centsToEuroLabel,
 } from "~/lib/catalog/pricing";
+import { classifyOption } from "~/lib/catalog/optionAvailability";
 import { quoteIsPartial } from "~/lib/configurator/recommend";
 import type { ConfiguratorState } from "~/lib/configurator/types";
 import { demoHrefFromConfig, UX_LABELS } from "~/lib/configurator/bridge";
@@ -18,10 +19,18 @@ type Props = {
   catalog: PublicCatalog;
   catalogStatus: "ready" | "migration_pending" | "error";
   onPrint?: () => void;
+  /** Masque le bloc d’actions (si la barre sticky du shell les porte). */
+  hideActions?: boolean;
 };
 
-/** Récapitulatif détaillé « Votre futur site, en détail ». */
-export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: Props) {
+/** Récapitulatif étape 5 — une composition, un total, un groupe d’actions. */
+export function ConfigurationRecap({
+  state,
+  catalog,
+  catalogStatus,
+  onPrint,
+  hideActions = false,
+}: Props) {
   const trade = state.tradeSlug ? trades[state.tradeSlug] : null;
   const planId = state.planId as OfferTier | null;
   if (!planId) {
@@ -43,45 +52,47 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
   const { partial, reasons } = quoteIsPartial(catalog, planId, state.desiredFeatureIds);
   const featureById = new Map(catalog.features.map((f) => [f.id, f]));
   const contractual = catalogAllowsContractualQuote(catalog) && catalogStatus === "ready";
+  const themeLabel = themePresets.find((t) => t.id === state.profile.themeId)?.label ?? "—";
+  const fontLabel = fontPresets.find((f) => f.id === state.profile.fontId)?.label ?? "—";
 
   return (
     <article className="cfg-detail-recap" id="simulation-print">
       <header className="cfg-detail-recap__head">
-        <h2>Votre futur site, en détail</h2>
-        <p className="text-muted">
+        <p className="cfg-detail-recap__eyebrow">Récapitulatif</p>
+        <h2>Votre futur site</h2>
+        <p className="cfg-detail-recap__lead">
+          {state.profile.company || "Votre entreprise"}
+          {trade ? ` · ${trade.label}` : ""}
+          {state.profile.city ? ` · ${state.profile.city}` : ""}
+        </p>
+        <p className="text-muted cfg-detail-recap__legal">
           Simulation commerciale — ce n’est pas un devis signé
           {contractual ? "" : " · catalogue de secours (non contractuel)"}.
         </p>
       </header>
 
-      <section className="cfg-detail-block">
-        <h3>Entreprise</h3>
-        <dl className="cfg-recap">
-          <div>
-            <dt>Nom</dt>
-            <dd>{state.profile.company || "—"}</dd>
-          </div>
-          <div>
-            <dt>Métier</dt>
-            <dd>{trade?.label ?? state.tradeSlug ?? "—"}</dd>
-          </div>
-          <div>
-            <dt>Ville</dt>
-            <dd>{state.profile.city || "—"}</dd>
-          </div>
-          <div>
-            <dt>Spécialité</dt>
-            <dd>{state.profile.specialty || trade?.specialty || "—"}</dd>
-          </div>
-        </dl>
-      </section>
+      <div className="cfg-detail-hero-price" aria-live="polite">
+        <p className="cfg-detail-hero-price__label">
+          {partial ? "Sous-total création chiffré" : "Prix de création (simulation)"}
+        </p>
+        <p className="cfg-detail-hero-price__amount">
+          {centsToEuroLabel(quote.creationSubtotalCents)}
+        </p>
+        {partial && (
+          <p className="cfg-price__partial" role="status">
+            Tarif partiel — {reasons.join(". ")}. Aucun montant définitif n’est annoncé.
+          </p>
+        )}
+      </div>
 
       <section className="cfg-detail-block">
-        <h3>Site</h3>
-        <dl className="cfg-recap">
+        <h3>Formule & identité</h3>
+        <dl className="cfg-recap cfg-recap--compact">
           <div>
             <dt>Formule</dt>
-            <dd>{plan?.name ?? planId}</dd>
+            <dd>
+              {plan?.name ?? planId} — {centsToEuroLabel(quote.planSetupCents)}
+            </dd>
           </div>
           <div>
             <dt>Structure</dt>
@@ -94,23 +105,25 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
             </dd>
           </div>
           <div>
-            <dt>Personnalisation</dt>
+            <dt>Style</dt>
             <dd>
-              {themePresets.find((t) => t.id === state.profile.themeId)?.label ?? "—"} ·{" "}
-              {fontPresets.find((f) => f.id === state.profile.fontId)?.label ?? "—"}
+              {themeLabel} · {fontLabel}
             </dd>
           </div>
           <div>
-            <dt>Inclus dans la formule</dt>
-            <dd>
-              {quote.includedFeatureIds
-                .map((id) => featureById.get(id)?.name ?? id)
-                .slice(0, 12)
-                .join(", ") || "—"}
-              {quote.includedFeatureIds.length > 12 ? "…" : ""}
-            </dd>
+            <dt>Spécialité</dt>
+            <dd>{state.profile.specialty || trade?.specialty || "—"}</dd>
           </div>
         </dl>
+      </section>
+
+      <section className="cfg-detail-block">
+        <h3>Inclus dans la formule</h3>
+        <p className="cfg-detail-chips">
+          {quote.includedFeatureIds
+            .map((id) => featureById.get(id)?.name ?? id)
+            .join(" · ") || "—"}
+        </p>
       </section>
 
       <section className="cfg-detail-block">
@@ -124,11 +137,15 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
               const line = quote.optionLines.find((l) => l.featureId === id);
               const skipped = quote.skipped.find((s) => s.featureId === id);
               const qty = state.featureQuantities?.[id];
+              const av = classifyOption(catalog, planId, id);
               return (
                 <li key={id}>
                   <span>
                     {feature?.name ?? id}
                     {qty && qty > 1 ? ` × ${qty}` : ""}
+                    {line?.reason ? (
+                      <small className="cfg-detail-lines__hint">{line.reason}</small>
+                    ) : null}
                   </span>
                   <strong>
                     {line?.kind === "option_setup" && line.amountCents != null
@@ -137,8 +154,8 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
                         ? "Prestataire externe"
                         : skipped?.kind === "study"
                           ? "Sur étude"
-                          : included.has(id)
-                            ? "Incluse"
+                          : av.kind === "incompatible"
+                            ? "Indisponible"
                             : "À préciser"}
                   </strong>
                 </li>
@@ -149,13 +166,13 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
       </section>
 
       <section className="cfg-detail-block cfg-detail-block--costs">
-        <h3>Coûts</h3>
+        <h3>Répartition des coûts</h3>
         <div className="cfg-cost-split">
           <div>
-            <h4>Payé à Sites Artisans</h4>
+            <h4>Sites Artisans</h4>
             <ul className="cfg-detail-lines">
               <li>
-                <span>Création — formule {plan?.name}</span>
+                <span>Création — {plan?.name}</span>
                 <strong>{centsToEuroLabel(quote.planSetupCents)}</strong>
               </li>
               {quote.optionLines
@@ -167,24 +184,19 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
                   </li>
                 ))}
               <li className="cfg-detail-lines__total">
-                <span>Total création (simulation)</span>
+                <span>Total création</span>
                 <strong>{centsToEuroLabel(quote.creationSubtotalCents)}</strong>
               </li>
             </ul>
             {quote.recurringSubtotalCents > 0 && (
               <p className="cfg-price__aside">
-                Maintenance / récurrents (facultatif) :{" "}
-                {centsToEuroLabel(quote.recurringSubtotalCents)} — distinct de la création.
-              </p>
-            )}
-            {partial && (
-              <p className="cfg-price__partial" role="status">
-                Tarif partiel — {reasons.join(". ")}. Aucun montant définitif n’est annoncé.
+                Récurrents SA (facultatif) : {centsToEuroLabel(quote.recurringSubtotalCents)} — hors
+                création.
               </p>
             )}
           </div>
           <div>
-            <h4>Payé à vos fournisseurs</h4>
+            <h4>Vos fournisseurs</h4>
             <ul className="cfg-detail-lines">
               <li>
                 <span>Hébergement & nom de domaine</span>
@@ -193,7 +205,7 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
               {quote.externalNotes.map((note) => (
                 <li key={note}>
                   <span>{note}</span>
-                  <em>Non chiffré ici</em>
+                  <em>Abonnement à part</em>
                 </li>
               ))}
             </ul>
@@ -204,21 +216,23 @@ export function ConfigurationRecap({ state, catalog, catalogStatus, onPrint }: P
         </div>
       </section>
 
-      <div className="cfg-recap-actions cfg-recap-actions--print-hide">
-        {state.tradeSlug ? (
-          <Link to={demoHrefFromConfig(state.tradeSlug, planId)} className="btn btn-primary">
-            {UX_LABELS.viewFullscreen}
+      {!hideActions && (
+        <div className="cfg-recap-actions cfg-recap-actions--print-hide">
+          <Link to="/configurateur/demande" className="btn btn-primary">
+            Demander à être contacté
           </Link>
-        ) : null}
-        <Link to="/configurateur/demande" className="btn btn-outline">
-          Demander à être contacté
-        </Link>
-        {onPrint ? (
-          <button type="button" className="btn btn-ghost" onClick={onPrint}>
-            Imprimer / exporter la simulation
-          </button>
-        ) : null}
-      </div>
+          {state.tradeSlug ? (
+            <Link to={demoHrefFromConfig(state.tradeSlug, planId)} className="btn btn-outline">
+              {UX_LABELS.viewFullscreen}
+            </Link>
+          ) : null}
+          {onPrint ? (
+            <button type="button" className="btn btn-ghost" onClick={onPrint}>
+              Imprimer la simulation
+            </button>
+          ) : null}
+        </div>
+      )}
     </article>
   );
 }

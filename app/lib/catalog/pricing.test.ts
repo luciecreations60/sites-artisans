@@ -269,3 +269,112 @@ describe("commercialisabilité", () => {
     assert.equal(isFeatureOrderable(study), false);
   });
 });
+
+describe("booking_external — cause 490 € vs 530 €", () => {
+  it("STATIC : setup null → Essentiel + booking reste 490 €", () => {
+    const catalog = getStaticPublicCatalog();
+    const booking = catalog.features.find((f) => f.id === "booking_external");
+    assert.ok(booking);
+    assert.equal(booking.setupPriceCents, null);
+    assert.equal(booking.billingType, "external");
+    const quote = calculateQuote(catalog, {
+      planId: "essentiel",
+      optionFeatureIds: ["booking_external"],
+    });
+    assert.equal(quote.creationSubtotalCents, 49000);
+    assert.ok(quote.optionLines.some((l) => l.featureId === "booking_external" && l.kind === "external"));
+    assert.ok(quote.externalNotes.length >= 1);
+  });
+
+  it("forme Supabase DEV : setup 40 € + provider → 530 € création, abonnement à part", () => {
+    const base = getStaticPublicCatalog();
+    const catalog = {
+      ...base,
+      source: "supabase" as const,
+      migrationPending: false,
+      features: base.features.map((f) =>
+        f.id === "booking_external"
+          ? {
+              ...f,
+              setupPriceCents: 4000,
+              recurringPriceCents: null,
+              billingType: "setup" as const,
+              commercialKind: "optional_priced" as const,
+              isAvailable: true,
+              status: "published" as const,
+              devStatus: "ready" as const,
+              externalProviderId: "calendly",
+            }
+          : f,
+      ),
+    };
+    const quote = calculateQuote(catalog, {
+      planId: "essentiel",
+      optionFeatureIds: ["booking_external"],
+    });
+    assert.equal(quote.creationSubtotalCents, 53000);
+    assert.ok(
+      quote.optionLines.some(
+        (l) => l.featureId === "booking_external" && l.kind === "option_setup" && l.amountCents === 4000,
+      ),
+    );
+    assert.ok(quote.externalNotes.length >= 1);
+    assert.equal(quote.recurringSubtotalCents, 0);
+  });
+
+  it("quote_form unavailable sur Essentiel → ignoré (pas de +150 €)", () => {
+    const base = getStaticPublicCatalog();
+    const catalog = {
+      ...base,
+      features: base.features.map((f) =>
+        f.id === "quote_form"
+          ? {
+              ...f,
+              setupPriceCents: 15000,
+              billingType: "setup" as const,
+              commercialKind: "optional_priced" as const,
+              isAvailable: true,
+              status: "published" as const,
+              devStatus: "ready" as const,
+            }
+          : f,
+      ),
+    };
+    const quote = calculateQuote(catalog, {
+      planId: "essentiel",
+      optionFeatureIds: ["quote_form"],
+    });
+    assert.equal(quote.creationSubtotalCents, 49000);
+    assert.ok(
+      quote.skipped.some(
+        (s) => s.featureId === "quote_form" && s.reason?.includes("Indisponible"),
+      ),
+    );
+  });
+
+  it("catalog_services included sans lien formule → non facturé", () => {
+    const base = getStaticPublicCatalog();
+    const catalog = {
+      ...base,
+      planFeatures: base.planFeatures.filter((l) => l.featureId !== "catalog_services"),
+      features: base.features.map((f) =>
+        f.id === "catalog_services"
+          ? {
+              ...f,
+              setupPriceCents: null,
+              billingType: "none" as const,
+              commercialKind: "included" as const,
+              isAvailable: true,
+              status: "published" as const,
+            }
+          : f,
+      ),
+    };
+    const quote = calculateQuote(catalog, {
+      planId: "essentiel",
+      optionFeatureIds: ["catalog_services"],
+    });
+    assert.equal(quote.creationSubtotalCents, 49000);
+    assert.ok(quote.skipped.some((s) => s.featureId === "catalog_services"));
+  });
+});

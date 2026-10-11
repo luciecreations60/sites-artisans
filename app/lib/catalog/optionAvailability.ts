@@ -1,15 +1,27 @@
 import type { OfferTier } from "~/data/types";
 import type { CatalogFeaturePublic, PlanFeatureInclusion, PublicCatalog } from "~/data/catalog/types";
 
+function hasSaPrice(feature: CatalogFeaturePublic): boolean {
+  return (
+    (feature.setupPriceCents != null && feature.setupPriceCents > 0) ||
+    (feature.recurringPriceCents != null && feature.recurringPriceCents > 0)
+  );
+}
+
 function isOrderable(feature: CatalogFeaturePublic): boolean {
   if (!feature.isAvailable) return false;
   if (feature.status !== "published") return false;
   if (feature.commercialKind === "unavailable") return false;
   if (feature.commercialKind === "not_developed") return false;
   if (feature.commercialKind === "study") return false;
+  if (hasSaPrice(feature)) return true;
   if (feature.commercialKind === "optional_unpriced") return false;
   if (feature.billingType === "external") {
-    return feature.commercialKind === "optional_priced" || feature.commercialKind === "included";
+    return (
+      feature.commercialKind === "optional_priced" ||
+      feature.commercialKind === "included" ||
+      feature.commercialKind === "optional_unpriced"
+    );
   }
   if (feature.commercialKind === "optional_priced") {
     return feature.setupPriceCents != null || feature.recurringPriceCents != null;
@@ -71,7 +83,18 @@ export function classifyOption(
       kind: "incompatible",
       selectable: false,
       planInclusion,
-      reason: `Incompatible avec la formule ${planId}`,
+      reason: `Indisponible avec la formule ${planId}`,
+    };
+  }
+
+  // commercial_kind=included sans association formule → pas « inclus », pas facturable
+  if (feature.commercialKind === "included" && planInclusion == null && !hasSaPrice(feature)) {
+    return {
+      featureId,
+      kind: "unavailable",
+      selectable: false,
+      planInclusion,
+      reason: "Aucune règle de formule — à associer en admin catalogue",
     };
   }
 
@@ -105,6 +128,32 @@ export function classifyOption(
     };
   }
 
+  // Tarif SA présent → sélectionnable même si commercial_kind pas encore aligné
+  if (hasSaPrice(feature)) {
+    return {
+      featureId,
+      kind: "optional_priced",
+      selectable: true,
+      planInclusion: planInclusion ?? "optional",
+    };
+  }
+
+  // Externe sans frais SA : sélectionnable (note abonnement), hors total création
+  if (
+    feature.billingType === "external" &&
+    (planInclusion === "optional" || planInclusion == null) &&
+    feature.isAvailable &&
+    feature.status === "published"
+  ) {
+    return {
+      featureId,
+      kind: "optional_priced",
+      selectable: true,
+      planInclusion: planInclusion ?? "optional",
+      reason: "Lien / prestataire externe (abonnement hors création SA)",
+    };
+  }
+
   if (feature.commercialKind === "optional_unpriced") {
     return {
       featureId,
@@ -115,7 +164,7 @@ export function classifyOption(
     };
   }
 
-  if (isOrderable(feature) || feature.billingType === "external") {
+  if (isOrderable(feature)) {
     return {
       featureId,
       kind: "optional_priced",

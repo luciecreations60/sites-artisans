@@ -67,16 +67,30 @@ function planLinks(links: CatalogPlanFeature[], planId: OfferTier) {
   return links.filter((l) => l.planId === planId);
 }
 
+/** Tarif Sites Artisans présent au catalogue (centimes > 0). */
+export function hasSitesArtisansPrice(feature: CatalogFeaturePublic): boolean {
+  return (
+    (feature.setupPriceCents != null && feature.setupPriceCents > 0) ||
+    (feature.recurringPriceCents != null && feature.recurringPriceCents > 0)
+  );
+}
+
 export function isFeatureOrderable(feature: CatalogFeaturePublic): boolean {
   if (!feature.isAvailable) return false;
   if (feature.status !== "published") return false;
   if (feature.commercialKind === "unavailable") return false;
   if (feature.commercialKind === "not_developed") return false;
   if (feature.commercialKind === "study") return false;
+  // Prix catalogue = source de vérité (même si commercial_kind n’a pas encore été mis à jour)
+  if (hasSitesArtisansPrice(feature)) return true;
   if (feature.commercialKind === "optional_unpriced") return false;
-  // Lien / module externe : commercialisable sans prix Sites Artisans (coût fournisseur à part)
+  // Externe sans frais SA : sélectionnable (lien), hors total création
   if (feature.billingType === "external") {
-    return feature.commercialKind === "optional_priced" || feature.commercialKind === "included";
+    return (
+      feature.commercialKind === "optional_priced" ||
+      feature.commercialKind === "included" ||
+      feature.commercialKind === "optional_unpriced"
+    );
   }
   if (feature.commercialKind === "optional_priced") {
     return feature.setupPriceCents != null || feature.recurringPriceCents != null;
@@ -183,21 +197,50 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
       continue;
     }
 
-    if (feature.commercialKind === "optional_unpriced" || feature.commercialKind === "not_developed") {
+    if (feature.commercialKind === "not_developed") {
       skipped.push({
         featureId,
         label: feature.name,
         kind: "skipped",
         amountCents: null,
-        reason:
-          feature.commercialKind === "not_developed"
-            ? "Non encore développée"
-            : "Prix non défini — non commandable à 0 €",
+        reason: "Non encore développée",
       });
       continue;
     }
 
-    if (feature.billingType === "external" || feature.externalProviderId) {
+    if (
+      feature.commercialKind === "optional_unpriced" &&
+      hasSitesArtisansPrice(feature)
+    ) {
+      warnings.push(
+        `${feature.id}: tarif catalogue présent alors que commercial_kind=optional_unpriced — montant appliqué (corriger le kind en admin)`,
+      );
+    }
+
+    // billing_type=external = frais fournisseur hors création.
+    // Un external_provider_id avec billing_type=setup reste une option SA tarifée
+    // (ex. booking_external à 40 €) + note d’abonnement prestataire.
+    const isExternalBilling = feature.billingType === "external";
+    const provider = feature.externalProviderId
+      ? catalog.externalProviders.find((p) => p.id === feature.externalProviderId)
+      : undefined;
+
+    if (
+      feature.commercialKind === "optional_unpriced" &&
+      !hasSitesArtisansPrice(feature) &&
+      !isExternalBilling
+    ) {
+      skipped.push({
+        featureId,
+        label: feature.name,
+        kind: "skipped",
+        amountCents: null,
+        reason: "Prix non défini — non commandable à 0 €",
+      });
+      continue;
+    }
+
+    if (isExternalBilling || provider) {
       if (!feature.isAvailable || feature.status !== "published") {
         skipped.push({
           featureId,
@@ -208,29 +251,33 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
         });
         continue;
       }
-      const provider = catalog.externalProviders.find((p) => p.id === feature.externalProviderId);
       externalNotes.push(
         provider
-          ? `${feature.name} — ${provider.name} (${provider.vendorCostNote ?? "coût fournisseur à part"})`
-          : `${feature.name} — prestataire externe (coût à part)`,
+          ? `${feature.name} — ${provider.name} (${provider.vendorCostNote ?? "abonnement / coût fournisseur à part"})`
+          : `${feature.name} — prestataire externe (abonnement / coût à part)`,
       );
-      optionLines.push({
-        featureId,
-        label: feature.name,
-        kind: "external",
-        amountCents: null,
-        reason: "Frais prestataire externe — hors prix de création",
-      });
-      continue;
     }
 
     if (!isFeatureOrderable(feature) || feature.commercialKind === "unavailable") {
+      if (isExternalBilling && !hasSitesArtisansPrice(feature)) {
+        optionLines.push({
+          featureId,
+          label: feature.name,
+          kind: "external",
+          amountCents: null,
+          reason: "Configuration / lien externe — hors prix de création Sites Artisans",
+        });
+        continue;
+      }
       skipped.push({
         featureId,
         label: feature.name,
         kind: "skipped",
         amountCents: null,
-        reason: "Fonctionnalité indisponible ou non commercialisable",
+        reason:
+          feature.commercialKind === "included" && !hasSitesArtisansPrice(feature)
+            ? "Aucune règle de formule explicite — à associer en admin (non facturé)"
+            : "Fonctionnalité indisponible ou non commercialisable",
       });
       continue;
     }
@@ -247,18 +294,25 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
       continue;
     }
 
+    let pricedSa = false;
+
     if (feature.setupPriceCents != null) {
       if (feature.setupPriceCents <= 0) {
         warnings.push(`${feature.id}: prix setup invalide (≤ 0) ignoré`);
       } else {
         const lineTotal = feature.setupPriceCents * qty;
         creationExtra += lineTotal;
+        pricedSa = true;
         optionLines.push({
           featureId,
           label: qty > 1 ? `${feature.name} × ${qty}` : feature.name,
           kind: "option_setup",
           amountCents: lineTotal,
-          reason: qty > 1 ? `Prix unitaire ${feature.setupPriceCents} centimes × ${qty}` : undefined,
+          reason: provider
+            ? "Mise en place Sites Artisans (abonnement prestataire à part)"
+            : qty > 1
+              ? `Prix unitaire ${feature.setupPriceCents} centimes × ${qty}`
+              : undefined,
         });
       }
     }
@@ -269,6 +323,7 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
       } else {
         const lineRecurring = feature.recurringPriceCents * qty;
         recurringSubtotal += lineRecurring;
+        pricedSa = true;
         optionLines.push({
           featureId,
           label: qty > 1 ? `${feature.name} × ${qty}` : feature.name,
@@ -282,14 +337,24 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
       }
     }
 
-    if (feature.setupPriceCents == null && feature.recurringPriceCents == null) {
-      skipped.push({
-        featureId,
-        label: feature.name,
-        kind: "skipped",
-        amountCents: null,
-        reason: "Aucun tarif défini",
-      });
+    if (!pricedSa) {
+      if (isExternalBilling) {
+        optionLines.push({
+          featureId,
+          label: feature.name,
+          kind: "external",
+          amountCents: null,
+          reason: "Frais prestataire externe — hors prix de création",
+        });
+      } else {
+        skipped.push({
+          featureId,
+          label: feature.name,
+          kind: "skipped",
+          amountCents: null,
+          reason: "Aucun tarif défini",
+        });
+      }
     }
   }
 

@@ -4646,9 +4646,93 @@ button.linkish {
   gap: 1.5rem;
 }
 
+.cfg-detail-recap__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .cfg-detail-recap__head h2 {
   margin: 0 0 0.35rem;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.65rem, 3.2vw, 2.25rem);
+  font-family: var(--font-display);
+}
+
+.cfg-detail-recap__lead {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.cfg-detail-recap__legal {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+}
+
+.cfg-detail-hero-price {
+  padding: 1.15rem 1.25rem;
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--paper2)), var(--paper));
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+}
+
+.cfg-detail-hero-price__label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.cfg-detail-hero-price__amount {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.cfg-detail-chips {
+  margin: 0;
+  line-height: 1.55;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.cfg-recap--compact {
+  margin-top: 0;
+}
+
+.cfg-detail-lines__hint {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.cfg-price--compact .cfg-price__amount {
+  font-size: 1.65rem;
+}
+
+.cfg-nav--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  margin-top: 1.5rem;
+  padding: 0.85rem 0;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+}
+
+.cfg-step5 .cfg-price__warn {
+  margin-bottom: 1rem;
 }
 
 .cfg-detail-block h3 {
