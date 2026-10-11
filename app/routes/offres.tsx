@@ -13,7 +13,7 @@ export default function Offres() {
       <div className="container">
         <p className="eyebrow">Les formules</p>
         <h1>Trois offres, une même exigence.</h1>
-        <p className="lead section-lead">
+        <p className="lead">
           Prix de création de référence pour les artisans et petites entreprises. Chaque projet
           est ajusté après un premier échange — sans abonnement mensuel obligatoire.
         </p>

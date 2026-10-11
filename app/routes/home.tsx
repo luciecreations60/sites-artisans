@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { Personalizer } from "~/components/Personalizer";
 import {
@@ -7,6 +8,12 @@ import {
   offerPlans,
 } from "~/data/offers";
 import { publicUrl } from "~/lib/publicUrl";
+
+/** Visuels métier existants (chemins réels sous public/img/). */
+const HERO_IMAGES = {
+  main: publicUrl("img/plombier/essentiel/01-hero.jpg"),
+  secondary: publicUrl("img/plombier/essentiel/02-about.jpg"),
+} as const;
 
 export const meta = () => [
   { title: "Sites Artisans — Sites simples pour artisans" },
@@ -62,6 +69,9 @@ const trustPoints = [
 
 export default function Home() {
   const valueProp = homeValuePropLine();
+  const [mainBroken, setMainBroken] = useState(false);
+  const [secondaryBroken, setSecondaryBroken] = useState(false);
+  const bothBroken = mainBroken && secondaryBroken;
 
   return (
     <>
@@ -89,16 +99,28 @@ export default function Home() {
             </div>
           </div>
           <div className="marketing-hero__media" aria-hidden>
-            <img
-              className="marketing-hero__photo-main"
-              src={publicUrl("img/plombier/essentiel_1.jpg")}
-              alt=""
-            />
-            <img
-              className="marketing-hero__photo-secondary"
-              src={publicUrl("img/plombier/essentiel_2.jpg")}
-              alt=""
-            />
+            {bothBroken ? (
+              <div className="marketing-hero__fallback">Exemple de vitrine artisan</div>
+            ) : (
+              <>
+                <img
+                  className={`marketing-hero__photo-main${mainBroken ? " is-broken" : ""}`}
+                  src={HERO_IMAGES.main}
+                  alt=""
+                  width={720}
+                  height={900}
+                  onError={() => setMainBroken(true)}
+                />
+                <img
+                  className={`marketing-hero__photo-secondary${secondaryBroken ? " is-broken" : ""}`}
+                  src={HERO_IMAGES.secondary}
+                  alt=""
+                  width={480}
+                  height={384}
+                  onError={() => setSecondaryBroken(true)}
+                />
+              </>
+            )}
           </div>
         </div>
       </section>
