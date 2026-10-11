@@ -1,5 +1,6 @@
 node_modules/
 build/
+generated-sites/
 .react-router/
 dist/
 .astro/
