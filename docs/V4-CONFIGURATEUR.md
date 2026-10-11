@@ -85,8 +85,18 @@ Fallback statique si indisponible, avec message honnête.
 
 `PRICING_CONFIGURATOR_LIVE = true` → phrase d’accueil définitive activée.
 
+## Lien vers les démos (lot 4)
+
+Étape 5 — bouton **Voir la démonstration** :
+
+- URL : `/demos/{tradeSlug}/{planId}`
+- Persistance : `saveConfiguratorState` synchronise aussi `sa-profile`
+- Modules démo : `resolveDemoModules` lit `sa-configurator-v1`
+
+Détail templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md).
+
 ## Limites / lots suivants
 
-- Lot 4 : différenciation visuelle poussée Essentiel / Avancé / Pro
+- Lot 4 : différenciation Essentiel / Avancé / Pro — **livré** (voir V4-DEMOS)
 - Lot 5 : devis serveur, CRM, PDF, pas de paiement ici
 - Pas de validation contractuelle navigateur

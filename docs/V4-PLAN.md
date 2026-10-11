@@ -1,8 +1,10 @@
 # Sites Artisans — Plan V4
 
-Document de pilotage pour la V4. Lots 1 et 2 sur la branche `feature/v4-sites-artisans`.
+Document de pilotage pour la V4. Lots 1–4 sur la branche `feature/v4-sites-artisans`.
 
-Détail catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md).
+- Catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md)
+- Configurateur : [`docs/V4-CONFIGURATEUR.md`](./V4-CONFIGURATEUR.md)
+- Démos / templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md)
 
 ## Architecture actuelle (V3 → V4)
 
@@ -75,10 +77,12 @@ Détail catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md).
 - Sauvegarde locale versionnée + sync Profile
 - Voir `docs/V4-CONFIGURATEUR.md`
 
-### 4. Démonstrations différenciées
+### 4. Démonstrations différenciées — **terminé (code)**
 
-- Renforcer l’écart Essentiel / Avancé / Pro
-- Brancher le résultat du configurateur vers la bonne démo
+- Templates mutualisés Essentiel / Avancé / Pro (pas 33 sites)
+- Modules `BeforeAfter`, `Estimator`, `resolveDemoModules`
+- Lien configurateur étape 5 → démo correspondante
+- Voir `docs/V4-DEMOS.md`
 
 ### 5. Devis et espace client
 

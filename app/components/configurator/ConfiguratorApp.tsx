@@ -17,6 +17,7 @@ import {
   saveConfiguratorState,
 } from "~/lib/configurator/storage";
 import type { ConfiguratorState, ConfiguratorStep } from "~/lib/configurator/types";
+import { demoHrefForConfig } from "~/lib/templates/demoModules";
 import { SitePreview } from "./SitePreview";
 import { PricePanel } from "./PricePanel";
 
@@ -536,6 +537,15 @@ export function ConfiguratorApp() {
                 {recommendation?.message && <p className="cfg-reco">{recommendation.message}</p>}
 
                 <div className="cfg-recap-actions">
+                  {state.tradeSlug && state.planId ? (
+                    <Link
+                      to={demoHrefForConfig(state.tradeSlug, state.planId)}
+                      className="btn btn-primary"
+                      onClick={() => saveConfiguratorState(state)}
+                    >
+                      Voir la démonstration
+                    </Link>
+                  ) : null}
                   <button type="button" className="btn btn-outline" onClick={() => go(4)}>
                     Modifier ma configuration
                   </button>
@@ -544,7 +554,7 @@ export function ConfiguratorApp() {
                   </Link>
                   <Link
                     to={contactHref}
-                    className="btn btn-primary"
+                    className="btn btn-ghost"
                     onClick={() => {
                       try {
                         sessionStorage.setItem(

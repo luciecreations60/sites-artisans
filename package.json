@@ -2,13 +2,13 @@
   "name": "sites-artisans",
   "private": true,
   "type": "module",
-  "version": "4.0.0-lot3",
+  "version": "4.0.0-lot4",
   "scripts": {
     "dev": "react-router dev",
     "build": "react-router build",
     "build:pages": "node scripts/build-pages.mjs",
     "typecheck": "react-router typegen && tsc",
-    "test": "node --experimental-strip-types --test app/lib/catalog/pricing.test.ts app/lib/configurator/recommend.test.ts",
+    "test": "node --experimental-strip-types --test app/lib/catalog/pricing.test.ts app/lib/configurator/recommend.test.ts app/lib/templates/demoModules.test.ts",
     "preview": "vite preview --outDir build/client",
     "photos": "node scripts/download-photos.mjs",
     "photos:bienetre": "node scripts/fill-bienetre-photos.mjs"
