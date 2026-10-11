@@ -1,12 +1,13 @@
 # Sites Artisans — Plan V4
 
-Document de pilotage pour la V4. Lots 1–6 sur la branche `feature/v4-sites-artisans`.
+Document de pilotage pour la V4. Lots 1–7 sur la branche `feature/v4-sites-artisans`.
 
 - Catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md)
 - Configurateur : [`docs/V4-CONFIGURATEUR.md`](./V4-CONFIGURATEUR.md)
 - Démos / templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md)
 - Devis & CRM : [`docs/V4-DEVIS-CRM.md`](./V4-DEVIS-CRM.md)
 - Production : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md)
+- Recette / lancement : [`docs/V4-RECETTE-LANCEMENT.md`](./V4-RECETTE-LANCEMENT.md)
 
 ## Architecture actuelle (V3 → V4)
 
@@ -102,11 +103,13 @@ Document de pilotage pour la V4. Lots 1–6 sur la branche `feature/v4-sites-art
 - Migration production préparée, non exécutée
 - Voir `docs/V4-PRODUCTION.md`
 
-### 7. Tests et préparation au lancement
+### 7. Recette et préparation au lancement — **en cours (code local)**
 
-- Parcours critique, accessibilité, build Pages
-- Ouverture publique (cible indiquée 2027 sur le site)
-- Branchement production ↔ CRM live après déploiement lot 5
+- Raccord `/admin/production` ↔ projets CRM (honnête si migration absente)
+- Générateur shells e/sg/r + parité 33 combos + échappement HTML
+- Espace client : devis émis / config (si RLS + tables)
+- Recette : [`docs/V4-RECETTE-LANCEMENT.md`](./V4-RECETTE-LANCEMENT.md)
+- **V4 non prête au lancement** tant que migrations, Edge Function et campagne navigateur ne sont pas validées
 
 ---
 

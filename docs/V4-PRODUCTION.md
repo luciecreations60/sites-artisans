@@ -30,7 +30,9 @@ Affiche client, entreprise, métier, formule, checklist contenus, génération, 
 
 Statuts : À préparer → Contenus incomplets → Prêt à générer → À vérifier → Validation client → Prêt à livrer → Livré.
 
-Données locales (fixtures TEST) si le backend lot 5 n’est pas déployé. **Aucune fausse réussite** de livraison.
+**Lot 7 :** charge les projets CRM (`site_configurations` + devis `issued`+`accepted`) via `crmLoader.ts`, fusionne avec fixtures TEST et contenus locaux. Production livrable bloquée sans devis accepté. Export JSON + `npm run generate:site -- --job-file=…`.
+
+Si le backend lot 5 n’est pas déployé : message honnête + fixtures TEST uniquement. **Aucune fausse réussite** de livraison.
 
 ## Réutilisation CRM
 
@@ -101,7 +103,11 @@ npm run generate:site -- --fixture=essentiel
 npm run generate:site -- --fixture=avance
 npm run generate:site -- --fixture=pro
 npm run generate:site -- --fixture=essentiel --out=generated-sites/mon-test
+npm run generate:site -- --job-file=./crm_xxx.json --out=generated-sites/client
 ```
+
+Shells : Essentiel `e-shell`, Avancé `sg-shell`, Pro `r-shell` (template `v4-templates-2`).  
+Version livrée : poser `DELIVERED.flag` dans le dossier pour empêcher l’écrasement silencieux.
 
 ## Export & prévisualisation
 
@@ -129,17 +135,17 @@ npm run generate:site -- --fixture=essentiel --out=generated-sites/mon-test
 
 Enregistrer version publiée, domaine, hébergeur, date de contrôle. Correction de texte = modifier contenus + régénérer. Évolution payante = nouveau devis / avenant.
 
-## Limites v1 (lot 6)
+## Limites (lots 6–7)
 
-- Génération **locale opérationnelle** via CLI + fixtures
-- Liaison live Supabase projets/devis : désactivée tant que lot 5 non déployé
-- Pas de déploiement automatisé
-- Pas d’intégration Gemini obligatoire
-- Aperçu production = fichiers générés (pas une miniature configurateur)
+- Génération **locale opérationnelle** (fixtures + `--job-file`)
+- Liaison CRM live : code prêt, **bloquée** tant que migrations / Edge non installées
+- HTML généré ≠ composants React démo (shells alignés, pas pixel-perfect)
+- Pas de déploiement automatisé ni d’hébergement de prévisualisation sécurisée
+- Campagne navigateur / RLS distante : voir [`V4-RECETTE-LANCEMENT.md`](./V4-RECETTE-LANCEMENT.md)
 
-## Préparation lot 7
+## Suite post-lot 7
 
-- Parcours critique bout-en-bout, accessibilité, lancement
-- Brancher fiches production sur projets CRM réels
-- Partage aperçu via espace client
-- Éventuelle CI de génération sécurisée
+- Appliquer migrations + Edge, recette bout-en-bout
+- Campagne responsive / a11y
+- Partage aperçu client sécurisé
+- CI de génération optionnelle
