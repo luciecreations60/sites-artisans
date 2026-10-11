@@ -11,13 +11,14 @@ import { recommendPlans } from "~/lib/configurator/recommend";
 import {
   clearConfiguratorState,
   emptyConfiguratorState,
-  formatConfigSummary,
   loadConfiguratorState,
   mergeBootParams,
   saveConfiguratorState,
 } from "~/lib/configurator/storage";
 import type { ConfiguratorState, ConfiguratorStep } from "~/lib/configurator/types";
 import { demoHrefForConfig } from "~/lib/templates/demoModules";
+import { ensureClientLocalId } from "~/lib/commercial/buildPayload";
+import { ConfigurationRecap } from "./ConfigurationRecap";
 import { SitePreview } from "./SitePreview";
 import { PricePanel } from "./PricePanel";
 
@@ -82,7 +83,14 @@ export function ConfiguratorApp() {
 
   useEffect(() => {
     if (!mounted) return;
-    saveConfiguratorState(state);
+    const withId = state.clientLocalId
+      ? state
+      : { ...state, clientLocalId: ensureClientLocalId(state) };
+    if (!state.clientLocalId && withId.clientLocalId) {
+      setState(withId);
+      return;
+    }
+    saveConfiguratorState(withId);
   }, [state, mounted]);
 
   const recommendation = useMemo(() => {
@@ -171,8 +179,6 @@ export function ConfiguratorApp() {
           .map((l) => l.featureId)
       : [],
   );
-
-  const contactHref = `/contact?from=configurateur`;
 
   return (
     <div className="cfg-shell">
@@ -503,76 +509,39 @@ export function ConfiguratorApp() {
 
             {state.step === 5 && (
               <section aria-labelledby="cfg-step5">
-                <h2 id="cfg-step5">Votre futur site et son prix</h2>
-                <dl className="cfg-recap">
-                  <div>
-                    <dt>Métier</dt>
-                    <dd>{trade?.label ?? "—"}</dd>
-                  </div>
-                  <div>
-                    <dt>Entreprise</dt>
-                    <dd>{state.profile.company || "—"}</dd>
-                  </div>
-                  <div>
-                    <dt>Ville</dt>
-                    <dd>{state.profile.city || "—"}</dd>
-                  </div>
-                  <div>
-                    <dt>Formule</dt>
-                    <dd>
-                      {state.planId
-                        ? catalog.plans.find((p) => p.id === state.planId)?.name
-                        : "À préciser"}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Identité visuelle</dt>
-                    <dd>
-                      {themePresets.find((t) => t.id === state.profile.themeId)?.label ?? "—"} ·{" "}
-                      {fontPresets.find((f) => f.id === state.profile.fontId)?.label ?? "—"}
-                    </dd>
-                  </div>
-                </dl>
-
+                <h2 id="cfg-step5" className="visually-hidden">
+                  Votre futur site et son prix
+                </h2>
                 {recommendation?.message && <p className="cfg-reco">{recommendation.message}</p>}
-
-                <div className="cfg-recap-actions">
+                <ConfigurationRecap
+                  state={state}
+                  catalog={catalog}
+                  catalogStatus={catalogStatus}
+                  onPrint={() => {
+                    saveConfiguratorState(state);
+                    window.open("/configurateur/simulation", "_blank", "noopener,noreferrer");
+                  }}
+                />
+                <div className="cfg-recap-actions" style={{ marginTop: "1rem" }}>
+                  <button type="button" className="btn btn-outline" onClick={() => go(4)}>
+                    Modifier mes choix
+                  </button>
+                  <Link to="/configurateur/demande" className="btn btn-primary">
+                    Demander à être contacté
+                  </Link>
+                  <Link to="/comparatif" className="btn btn-ghost">
+                    Comparer les formules
+                  </Link>
                   {state.tradeSlug && state.planId ? (
                     <Link
                       to={demoHrefForConfig(state.tradeSlug, state.planId)}
-                      className="btn btn-primary"
+                      className="btn btn-ghost"
                       onClick={() => saveConfiguratorState(state)}
                     >
                       Voir la démonstration
                     </Link>
                   ) : null}
-                  <button type="button" className="btn btn-outline" onClick={() => go(4)}>
-                    Modifier ma configuration
-                  </button>
-                  <Link to="/comparatif" className="btn btn-ghost">
-                    Comparer les formules
-                  </Link>
-                  <Link
-                    to={contactHref}
-                    className="btn btn-ghost"
-                    onClick={() => {
-                      try {
-                        sessionStorage.setItem(
-                          "sa-contact-config-summary",
-                          formatConfigSummary(state),
-                        );
-                      } catch {
-                        /* ignore */
-                      }
-                    }}
-                  >
-                    Discuter de mon projet
-                  </Link>
                 </div>
-                <p className="text-muted" style={{ marginTop: "1rem" }}>
-                  Hébergement et nom de domaine restent à votre charge. La maintenance est
-                  facultative. Cette simulation n’est pas un devis contractuel.
-                </p>
               </section>
             )}
 
@@ -599,7 +568,7 @@ export function ConfiguratorApp() {
                     Continuer
                   </button>
                 ) : (
-                  <Link to={contactHref} className="btn btn-primary">
+                  <Link to="/configurateur/demande" className="btn btn-primary">
                     Être recontacté
                   </Link>
                 )}
