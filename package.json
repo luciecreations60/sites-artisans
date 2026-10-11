@@ -2,7 +2,7 @@
   "name": "sites-artisans",
   "private": true,
   "type": "module",
-  "version": "3.0.0",
+  "version": "4.0.0-lot1",
   "scripts": {
     "dev": "react-router dev",
     "build": "react-router build",

@@ -262,7 +262,7 @@ export default function AdminProspectDetail() {
     await reload();
   }
 
-  async function saveDnc(e: FormEvent) {
+  async function saveDnc(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!prospectId || !user) return;
     const sb = getSupabase();
