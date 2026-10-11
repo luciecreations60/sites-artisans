@@ -37,9 +37,17 @@ export default function Offres() {
                   <li key={h}>{h}</li>
                 ))}
               </ul>
-              <Link to="/demos" className="btn btn-primary">
-                Essayer en démo
-              </Link>
+              <div className="hero-actions" style={{ marginTop: "auto" }}>
+                <Link
+                  to={`/configurateur?formule=${plan.tier}&parcours=formula`}
+                  className="btn btn-primary"
+                >
+                  Personnaliser {plan.name}
+                </Link>
+                <Link to={`/demos?offre=${plan.tier}`} className="btn btn-ghost">
+                  Essayer en démo
+                </Link>
+              </div>
             </article>
           ))}
         </div>

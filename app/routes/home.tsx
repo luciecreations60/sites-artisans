@@ -90,9 +90,9 @@ export default function Home() {
             </p>
             <p className="hero-value-prop">{valueProp}</p>
             <div className="hero-actions">
-              <a href="#personnaliser" className="btn btn-primary">
+              <Link to="/configurateur" className="btn btn-primary">
                 Personnaliser mon futur site
-              </a>
+              </Link>
               <Link to="/offres" className="btn btn-outline">
                 Découvrir les offres
               </Link>
@@ -149,9 +149,18 @@ export default function Home() {
           <p className="eyebrow eyebrow--light">Essayez avec votre propre entreprise</p>
           <h2>Et si vous pouviez déjà vous voir dans votre futur site ?</h2>
           <p className="lead">
-            Renseignez quelques informations. Les démonstrations s’adaptent à votre métier, à
-            votre nom, à votre ville — et à vos goûts de couleurs et de polices.
+            Pour composer votre formule et voir votre tarif évoluer, ouvrez le{" "}
+            <Link to="/configurateur" style={{ color: "var(--eyebrow-light)" }}>
+              configurateur
+            </Link>
+            . Ci-dessous, personnalisez aussi les démonstrations avec votre métier, votre nom et
+            vos couleurs.
           </p>
+          <div className="hero-actions" style={{ marginBottom: "1.25rem" }}>
+            <Link to="/configurateur" className="btn btn-primary">
+              Ouvrir le configurateur
+            </Link>
+          </div>
           <Personalizer variant="immersive" />
         </div>
       </section>
@@ -247,8 +256,11 @@ export default function Home() {
                     <li key={h}>{h}</li>
                   ))}
                 </ul>
-                <Link to={`/demos?offre=${plan.tier}`} className="btn btn-ghost">
-                  Voir une démo
+                <Link
+                  to={`/configurateur?formule=${plan.tier}&parcours=formula`}
+                  className="btn btn-ghost"
+                >
+                  Personnaliser
                 </Link>
               </article>
             ))}

@@ -68,6 +68,19 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
           ) : (
             <>
               Démonstration — contenu fictif ·{" "}
+              <Link
+                to={`/configurateur?metier=${tradeSlug}&formule=${tier}&parcours=formula`}
+                className="btn btn-ghost"
+                style={{
+                  padding: "0.2rem 0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "#fff",
+                  borderColor: "#ffffff55",
+                }}
+              >
+                Personnaliser ce site
+              </Link>
+              {" · "}
               <button
                 type="button"
                 className="btn btn-ghost"
@@ -79,7 +92,7 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
                 }}
                 onClick={() => setShowPersonalizer((v) => !v)}
               >
-                {showPersonalizer ? "Masquer" : "Personnaliser"}
+                {showPersonalizer ? "Masquer" : "Ajuster le profil"}
               </button>
             </>
           )}

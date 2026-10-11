@@ -67,12 +67,13 @@ Détail catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md).
 - Recommandations des 11 métiers
 - Voir `docs/V4-CATALOGUE.md`
 
-### 3. Configurateur immersif — **suivant**
+### 3. Configurateur immersif — **terminé (code)**
 
-- Deux entrées (A formule / B composition → recommandation)
-- Un seul moteur de calcul
-- Total évolutif + récap
-- Réutilisation du profil `Personalizer` (pas de second système)
+- Route `/configurateur` — assistant 5 étapes
+- Deux entrées (formule / composition) + recommandation
+- Aperçu live + panneau tarif (`calculateQuote`)
+- Sauvegarde locale versionnée + sync Profile
+- Voir `docs/V4-CONFIGURATEUR.md`
 
 ### 4. Démonstrations différenciées
 

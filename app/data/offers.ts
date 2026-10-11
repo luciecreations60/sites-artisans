@@ -7,7 +7,7 @@ import { centsToEuroLabel } from "~/lib/catalog/pricing";
  * Passer à `true` lorsque le configurateur tarifaire est opérationnel.
  * Active la formulation définitive sur l’accueil (tarif immédiat).
  */
-export const PRICING_CONFIGURATOR_LIVE = false;
+export const PRICING_CONFIGURATOR_LIVE = true;
 
 export const HOME_VALUE_PROP = {
   interim:

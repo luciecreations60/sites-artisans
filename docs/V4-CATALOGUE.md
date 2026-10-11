@@ -76,7 +76,8 @@ Règles :
 
 ### Personnalisation
 
-Aucun second système : `Personalizer` / `Profile` restent la référence (lot 3).
+Aucun second système : `Personalizer` / `Profile` restent la référence.
+Le configurateur (lot 3) lit le catalogue public via `loadPublicCatalog()` et calcule via `calculateQuote`.
 
 ## Tests
 

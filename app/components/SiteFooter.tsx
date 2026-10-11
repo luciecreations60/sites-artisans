@@ -20,6 +20,7 @@ export function SiteFooter() {
         <div>
           <h4>Explorer</h4>
           <div className="footer-links">
+            <Link to="/configurateur">Configurateur</Link>
             <Link to="/offres">Les offres</Link>
             <Link to="/demos">Démonstrations</Link>
             <Link to="/comparatif">Comparatif</Link>
