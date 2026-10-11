@@ -12,6 +12,8 @@ export default [
     route("offres", "./routes/offres.tsx"),
     route("comparatif", "./routes/comparatif.tsx"),
     route("configurateur", "./routes/configurateur.tsx"),
+    route("configurateur/demande", "./routes/configurateur.demande.tsx"),
+    route("configurateur/simulation", "./routes/configurateur.simulation.tsx"),
     route("demos", "./routes/demos.tsx"),
     route("contact", "./routes/contact.tsx"),
     route("mentions-legales", "./routes/mentions-legales.tsx"),

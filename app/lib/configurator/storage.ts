@@ -20,6 +20,8 @@ export function emptyConfiguratorState(): ConfiguratorState {
     path: null,
     planId: null,
     desiredFeatureIds: [],
+    featureQuantities: {},
+    clientLocalId: undefined,
     profile: emptyProfile(),
     updatedAt: new Date().toISOString(),
   };
@@ -61,6 +63,18 @@ export function loadConfiguratorState(): ConfiguratorState {
       desiredFeatureIds: Array.isArray(parsed.desiredFeatureIds)
         ? parsed.desiredFeatureIds.filter((id): id is string => typeof id === "string")
         : [],
+      featureQuantities:
+        parsed.featureQuantities && typeof parsed.featureQuantities === "object"
+          ? Object.fromEntries(
+              Object.entries(parsed.featureQuantities).filter(
+                ([, v]) => typeof v === "number" && Number.isFinite(v) && v > 0,
+              ),
+            )
+          : {},
+      clientLocalId:
+        typeof parsed.clientLocalId === "string" && parsed.clientLocalId.length > 0
+          ? parsed.clientLocalId
+          : undefined,
       profile: { ...emptyProfile(), ...profile, ...(parsed.profile ?? {}) },
       updatedAt: typeof parsed.updatedAt === "string" ? parsed.updatedAt : base.updatedAt,
     };

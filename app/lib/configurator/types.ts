@@ -15,6 +15,10 @@ export type ConfiguratorState = {
   path: ConfiguratorPath | null;
   planId: OfferTier | null;
   desiredFeatureIds: string[];
+  /** Quantités d’options facturées à l’unité (pages, heures…). */
+  featureQuantities?: Record<string, number>;
+  /** Identifiant local stable pour suivi / lot 6. */
+  clientLocalId?: string;
   profile: Profile;
   updatedAt: string;
 };
