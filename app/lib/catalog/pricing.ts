@@ -15,8 +15,15 @@ export type PricingSelection = {
   planId: OfferTier;
   /** Identifiants d’options demandées en plus de la formule. */
   optionFeatureIds?: string[];
+  /**
+   * Quantités par feature (pages supplémentaires, heures de formation…).
+   * Ignorée si absente ou ≤ 0 ; plafonnée côté moteur.
+   */
+  optionQuantities?: Record<string, number>;
   tax?: TaxMode;
 };
+
+const MAX_OPTION_QTY = 99;
 
 export type PricedLine = {
   featureId: string;
@@ -77,9 +84,17 @@ export function isFeatureOrderable(feature: CatalogFeaturePublic): boolean {
   return false;
 }
 
+function normalizeQty(raw: number | undefined): number {
+  if (raw == null || !Number.isFinite(raw)) return 1;
+  const n = Math.floor(raw);
+  if (n < 1) return 1;
+  return Math.min(MAX_OPTION_QTY, n);
+}
+
 /**
- * Moteur de calcul pur (simulation navigateur).
- * Les devis définitifs devront être revalidés côté serveur (lot ultérieur).
+ * Moteur de calcul pur.
+ * Navigateur = simulation. Devis contractuel = même logique sur catalogue
+ * vérifié serveur (source supabase), jamais sur un total client.
  */
 export function calculateQuote(catalog: PublicCatalog, selection: PricingSelection): PricingResult {
   const plan = catalog.plans.find((p) => p.id === selection.planId && p.isActive);
@@ -220,16 +235,30 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
       continue;
     }
 
+    const qty = normalizeQty(selection.optionQuantities?.[featureId]);
+    if (qty > 1 && feature.setupPriceCents == null && feature.recurringPriceCents == null) {
+      skipped.push({
+        featureId,
+        label: feature.name,
+        kind: "skipped",
+        amountCents: null,
+        reason: "Quantité demandée sans unité tarifaire — chiffrage incomplet",
+      });
+      continue;
+    }
+
     if (feature.setupPriceCents != null) {
       if (feature.setupPriceCents <= 0) {
         warnings.push(`${feature.id}: prix setup invalide (≤ 0) ignoré`);
       } else {
-        creationExtra += feature.setupPriceCents;
+        const lineTotal = feature.setupPriceCents * qty;
+        creationExtra += lineTotal;
         optionLines.push({
           featureId,
-          label: feature.name,
+          label: qty > 1 ? `${feature.name} × ${qty}` : feature.name,
           kind: "option_setup",
-          amountCents: feature.setupPriceCents,
+          amountCents: lineTotal,
+          reason: qty > 1 ? `Prix unitaire ${feature.setupPriceCents} centimes × ${qty}` : undefined,
         });
       }
     }
@@ -238,13 +267,17 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
       if (feature.recurringPriceCents <= 0) {
         warnings.push(`${feature.id}: prix récurrent invalide (≤ 0) ignoré`);
       } else {
-        recurringSubtotal += feature.recurringPriceCents;
+        const lineRecurring = feature.recurringPriceCents * qty;
+        recurringSubtotal += lineRecurring;
         optionLines.push({
           featureId,
-          label: feature.name,
+          label: qty > 1 ? `${feature.name} × ${qty}` : feature.name,
           kind: "option_recurring",
-          amountCents: feature.recurringPriceCents,
-          reason: "Récurrent — séparé du prix de création",
+          amountCents: lineRecurring,
+          reason:
+            qty > 1
+              ? `Récurrent unitaire ${feature.recurringPriceCents} centimes × ${qty}`
+              : "Récurrent — séparé du prix de création",
         });
       }
     }
@@ -269,9 +302,15 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
     creationTtcCents = creationSubtotalCents + creationVatCents;
   }
 
-  warnings.push(
-    "Simulation navigateur — les devis définitifs devront être revalidés côté serveur.",
-  );
+  if (catalog.source !== "supabase") {
+    warnings.push(
+      "Catalogue de secours — simulation uniquement, pas de devis contractuel.",
+    );
+  } else {
+    warnings.push(
+      "Simulation — un devis contractuel nécessite une revalidation serveur.",
+    );
+  }
   warnings.push("Hébergement et nom de domaine non inclus dans le prix de création.");
 
   return {
@@ -309,4 +348,24 @@ export function centsToEuroLabel(cents: number): string {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(cents / 100);
+}
+
+/** Un devis contractuel ne peut s’appuyer que sur un catalogue Supabase publié. */
+export function catalogAllowsContractualQuote(catalog: PublicCatalog): boolean {
+  return catalog.source === "supabase" && catalog.migrationPending === false;
+}
+
+export function quoteHasBlockingIssues(result: PricingResult): boolean {
+  return (
+    result.studyRequired.length > 0 ||
+    result.incompatibilities.length > 0 ||
+    result.missingDependencies.length > 0 ||
+    result.skipped.some(
+      (s) =>
+        s.kind === "study" ||
+        s.reason?.includes("Prix non défini") ||
+        s.reason?.includes("Aucun tarif") ||
+        s.reason?.includes("chiffrage incomplet"),
+    )
+  );
 }

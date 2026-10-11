@@ -15,6 +15,7 @@ import type {
   CatalogExternalProvider,
   PublicCatalog,
 } from "~/data/catalog/types";
+import type { OfferTier } from "~/data/types";
 import { getSupabase, isSupabaseConfigured } from "~/lib/supabase";
 
 const TABLE_PLANS = "catalog_plans";
@@ -156,6 +157,36 @@ export async function loadPublicCatalog(): Promise<CatalogLoadState> {
   };
 
   return { status: "ready", catalog };
+}
+
+/**
+ * Catalogue vérifié pour un devis / recalcul contractuel.
+ * Aucun fallback statique — refuse explicitement si Supabase n’est pas prêt.
+ */
+export async function loadVerifiedCatalog(): Promise<
+  | { ok: true; catalog: PublicCatalog }
+  | { ok: false; reason: "migration_pending" | "error" | "unavailable"; message: string }
+> {
+  const loaded = await loadPublicCatalog();
+  if (loaded.status === "ready" && loaded.catalog.source === "supabase") {
+    return { ok: true, catalog: loaded.catalog };
+  }
+  if (loaded.status === "migration_pending") {
+    return {
+      ok: false,
+      reason: "migration_pending",
+      message:
+        "Catalogue Supabase non initialisé — impossible d’émettre un devis contractuel.",
+    };
+  }
+  return {
+    ok: false,
+    reason: loaded.status === "error" ? "error" : "unavailable",
+    message:
+      loaded.status === "error"
+        ? loaded.message
+        : "Catalogue non vérifié — devis contractuel refusé.",
+  };
 }
 
 /**
@@ -410,4 +441,38 @@ export async function replaceTradeRecommendations(
 /** Liste locale des features (tests / admin hors ligne). */
 export function listStaticFeaturesAdmin(): CatalogFeature[] {
   return STATIC_FEATURES;
+}
+
+/** Met à jour l’inclusion formule ↔ fonctionnalité (admin). Ne touche pas aux prix. */
+export async function updatePlanFeatureInclusion(payload: {
+  planId: OfferTier;
+  featureId: string;
+  inclusion: CatalogPlanFeature["inclusion"];
+  variantLabel?: string | null;
+}): Promise<{ ok: true } | { ok: false; reason: "migration_pending" | "error"; message: string }> {
+  const sb = getSupabase();
+  if (!sb) {
+    return {
+      ok: false,
+      reason: "migration_pending",
+      message: "Catalogue à initialiser dans Supabase",
+    };
+  }
+  const { error } = await sb.from("catalog_plan_features").upsert({
+    plan_id: payload.planId,
+    feature_id: payload.featureId,
+    inclusion: payload.inclusion,
+    variant_label: payload.variantLabel ?? null,
+  });
+  if (error) {
+    if (isMissingRelationError(error.message)) {
+      return {
+        ok: false,
+        reason: "migration_pending",
+        message: "Catalogue à initialiser dans Supabase",
+      };
+    }
+    return { ok: false, reason: "error", message: error.message };
+  }
+  return { ok: true };
 }

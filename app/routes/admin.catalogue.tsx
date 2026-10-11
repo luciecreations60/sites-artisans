@@ -1,18 +1,21 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { TRADE_SLUGS, trades } from "~/data/trades";
 import type { CatalogFeature, CatalogPlan } from "~/data/catalog/types";
+import type { CatalogPlanFeature } from "~/data/catalog/types";
 import {
   loadAdminCatalog,
   replaceTradeRecommendations,
   updateFeatureAdmin,
+  updatePlanFeatureInclusion,
   updatePlanSetupPrice,
 } from "~/lib/catalog/api";
+import { PLAN_INCLUSION_ARBITRATION } from "~/lib/catalog/optionAvailability";
 import { centsToEuroLabel } from "~/lib/catalog/pricing";
 import { ErrorState, LoadingState } from "~/components/portal/PortalUi";
 
 export const meta = () => [{ title: "Catalogue & tarifs — Administration" }];
 
-type Tab = "plans" | "features" | "trades";
+type Tab = "plans" | "features" | "trades" | "inclusions";
 
 export default function AdminCatalogue() {
   const [tab, setTab] = useState<Tab>("plans");
@@ -25,6 +28,7 @@ export default function AdminCatalogue() {
   const [tradeFeatures, setTradeFeatures] = useState<
     { tradeSlug: string; featureId: string; sortOrder: number; note: string | null }[]
   >([]);
+  const [planFeatures, setPlanFeatures] = useState<CatalogPlanFeature[]>([]);
   const [featureQuery, setFeatureQuery] = useState("");
   const [featureCategory, setFeatureCategory] = useState<string>("all");
   const [selectedTrade, setSelectedTrade] = useState(TRADE_SLUGS[0]);
@@ -42,6 +46,7 @@ export default function AdminCatalogue() {
     setPlans(res.catalog.plans);
     setFeatures(res.catalog.featuresAdmin);
     setTradeFeatures(res.catalog.tradeFeatures);
+    setPlanFeatures(res.catalog.planFeatures);
     setLoading(false);
   }
 
@@ -221,6 +226,7 @@ export default function AdminCatalogue() {
             ["plans", "Formules"],
             ["features", "Fonctionnalités"],
             ["trades", "Métiers"],
+            ["inclusions", "Inclusions"],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -466,6 +472,69 @@ export default function AdminCatalogue() {
               {migrationPending ? "Enregistrement indisponible" : "Enregistrer les recommandations"}
             </button>
           </form>
+        </div>
+      )}
+
+      {tab === "inclusions" && (
+        <div className="catalog-panel">
+          <p className="text-muted">
+            Inclusion par formule (<code>included</code> / <code>optional</code> /{" "}
+            <code>unavailable</code>). Ne modifie pas les prix. Les propositions ci-dessous ne sont{" "}
+            <strong>pas</strong> appliquées automatiquement.
+          </p>
+          <div className="catalog-card">
+            <h2>Arbitrages proposés (Lot 5)</h2>
+            <ul>
+              {PLAN_INCLUSION_ARBITRATION.map((row) => (
+                <li key={`${row.planId}-${row.featureId}`}>
+                  <strong>
+                    {row.planId} · {row.featureId}
+                  </strong>{" "}
+                  → {row.proposal} — {row.note}
+                  <button
+                    type="button"
+                    className="btn btn-ghost"
+                    style={{ marginLeft: "0.5rem" }}
+                    disabled={migrationPending || saving}
+                    onClick={() => {
+                      void (async () => {
+                        setSaving(true);
+                        setError(null);
+                        setOk(null);
+                        const res = await updatePlanFeatureInclusion({
+                          planId: row.planId,
+                          featureId: row.featureId,
+                          inclusion: row.proposal,
+                        });
+                        setSaving(false);
+                        if (!res.ok) setError(res.message);
+                        else {
+                          setOk(`Inclusion ${row.planId}/${row.featureId} → ${row.proposal}`);
+                          await reload();
+                        }
+                      })();
+                    }}
+                  >
+                    Appliquer
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="catalog-card">
+            <h2>Matrice actuelle (extrait)</h2>
+            <p className="text-muted">{planFeatures.length} associations chargées.</p>
+            <ul style={{ maxHeight: "16rem", overflow: "auto" }}>
+              {planFeatures
+                .filter((l) => l.inclusion === "unavailable")
+                .slice(0, 40)
+                .map((l) => (
+                  <li key={`${l.planId}-${l.featureId}`}>
+                    {l.planId} · {l.featureId} · unavailable
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import type { OfferTier } from "../../data/types";
+import type { CatalogPlanFeature } from "../../data/catalog/types";
 import { STATIC_PLAN_FEATURES } from "../../data/catalog/staticCatalog";
 import { CONFIG_STORAGE_KEY, CONFIG_STORAGE_VERSION } from "../configurator/types";
 
@@ -34,18 +35,22 @@ const IMPLEMENTED: DemoModuleId[] = [
   "about_company",
 ];
 
-function inclusionFor(tier: OfferTier, featureId: string): string | null {
+function inclusionFor(
+  tier: OfferTier,
+  featureId: string,
+  planFeatures: CatalogPlanFeature[] = STATIC_PLAN_FEATURES,
+): string | null {
   return (
-    STATIC_PLAN_FEATURES.find((l) => l.planId === tier && l.featureId === featureId)?.inclusion ??
-    null
+    planFeatures.find((l) => l.planId === tier && l.featureId === featureId)?.inclusion ?? null
   );
 }
 
-function includedForTier(tier: OfferTier): Set<string> {
+function includedForTier(
+  tier: OfferTier,
+  planFeatures: CatalogPlanFeature[] = STATIC_PLAN_FEATURES,
+): Set<string> {
   return new Set(
-    STATIC_PLAN_FEATURES.filter((l) => l.planId === tier && l.inclusion === "included").map(
-      (l) => l.featureId,
-    ),
+    planFeatures.filter((l) => l.planId === tier && l.inclusion === "included").map((l) => l.featureId),
   );
 }
 
@@ -93,9 +98,15 @@ function readConfiguratorSelection(): { desired: string[]; hasPlan: boolean } {
  */
 export function resolveDemoModules(
   tier: OfferTier,
-  options?: { desiredFeatureIds?: string[]; hasConfigurator?: boolean },
+  options?: {
+    desiredFeatureIds?: string[];
+    hasConfigurator?: boolean;
+    /** Si fourni (ex. catalogue Supabase), remplace STATIC_PLAN_FEATURES. */
+    planFeatures?: CatalogPlanFeature[];
+  },
 ): DemoModules {
-  const included = includedForTier(tier);
+  const planFeatures = options?.planFeatures ?? STATIC_PLAN_FEATURES;
+  const included = includedForTier(tier, planFeatures);
   const fromStorage =
     options?.desiredFeatureIds !== undefined ? null : readConfiguratorSelection();
   const desired = options?.desiredFeatureIds ?? fromStorage?.desired ?? [];
@@ -109,7 +120,7 @@ export function resolveDemoModules(
   const unavailable: string[] = [];
 
   for (const id of IMPLEMENTED) {
-    const status = inclusionFor(tier, id);
+    const status = inclusionFor(tier, id, planFeatures);
     if (included.has(id)) {
       modules[id] = true;
       continue;
@@ -141,7 +152,7 @@ export function resolveDemoModules(
   for (const id of desired) {
     if ((IMPLEMENTED as string[]).includes(id)) continue;
     if (included.has(id)) continue;
-    if (inclusionFor(tier, id) === "unavailable") {
+    if (inclusionFor(tier, id, planFeatures) === "unavailable") {
       unavailable.push(`${id} (indisponible en ${tier})`);
       continue;
     }

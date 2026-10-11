@@ -72,7 +72,9 @@ Règles :
 - Récurrents séparés du sous-total création
 - Externes en notes (hors création)
 - TVA optionnelle via `tax.vatRateBps` (aucun taux figé)
-- Simulation navigateur — devis définitifs à revalider côté serveur (lot ultérieur)
+- Simulation navigateur — devis contractuels via Edge Function + `loadVerifiedCatalog()` (lot 5)
+- Quantités d’options : `optionQuantities` / `feature_quantities`
+- Inclusions plan×feature éditables en admin (onglet Inclusions) — pas d’auto-conversion unavailable→optional
 
 ### Personnalisation
 
@@ -98,9 +100,17 @@ Les tests RLS en base réelle ne sont **pas** exécutés ici (migration non appl
 4. Valider les prix d’options avant publication commerciale
 5. Lot 3 : configurateur immersif + recommandation automatique de formule
 
-## Hors lot 2
+## Cohérence STATIC vs Supabase (lot 5)
 
-- Configurateur visuel
-- Recommandation automatique de formule
-- Devis persistés / validation serveur des montants
-- Connexions API prestataires
+| Usage | Autorisé |
+|-------|----------|
+| Marketing / secours public | STATIC fallback OK |
+| Simulation configurateur | STATIC ou Supabase (libellé honnête) |
+| Devis contractuel / émission | Supabase uniquement (`source === "supabase"`) |
+
+Voir aussi `docs/V4-DEVIS-CRM.md`.
+
+## Hors lot 2 (historique)
+
+- Configurateur / devis serveur → traités lots 3–5
+- Connexions API prestataires (toujours hors scope)

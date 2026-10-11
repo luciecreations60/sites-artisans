@@ -1,6 +1,10 @@
 import type { PublicCatalog } from "~/data/catalog/types";
 import type { OfferTier } from "~/data/types";
-import { calculateQuote, centsToEuroLabel } from "~/lib/catalog/pricing";
+import {
+  calculateQuote,
+  catalogAllowsContractualQuote,
+  centsToEuroLabel,
+} from "~/lib/catalog/pricing";
 import { quoteIsPartial } from "~/lib/configurator/recommend";
 import { commercialNotes } from "~/data/offers";
 
@@ -40,15 +44,17 @@ export function PricePanel({
   const quote = calculateQuote(catalog, { planId, optionFeatureIds: extras });
   const { partial, reasons } = quoteIsPartial(catalog, planId, desiredFeatureIds);
   const featureById = new Map(catalog.features.map((f) => [f.id, f]));
+  const verified = catalogAllowsContractualQuote(catalog) && catalogStatus === "ready";
 
   return (
     <aside className="cfg-price" aria-live="polite">
       <h2>Votre site</h2>
-      {catalogStatus !== "ready" && (
+      {!verified && (
         <p className="cfg-price__warn" role="status">
           {catalogStatus === "migration_pending"
-            ? "Catalogue de secours — les tarifs de référence locaux sont utilisés."
-            : catalogMessage || "Catalogue temporairement indisponible."}
+            ? "Catalogue de secours — simulation uniquement, pas de devis contractuel."
+            : catalogMessage ||
+              "Catalogue non vérifié — les montants restent indicatifs."}
         </p>
       )}
       <ul className="cfg-price__lines">
@@ -126,7 +132,9 @@ export function PricePanel({
       )}
       <p className="cfg-price__footnote">{commercialNotes.hosting}</p>
       <p className="cfg-price__footnote">
-        Simulation indicative — un devis ferme sera confirmé après échange.
+        {verified
+          ? "Simulation indicative — un devis ferme nécessite une validation après échange."
+          : "Simulation sur catalogue de secours — aucun devis contractuel ne peut être validé ainsi."}
       </p>
     </aside>
   );
