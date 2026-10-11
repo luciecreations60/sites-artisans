@@ -1,38 +1,91 @@
 import { useEffect, useState } from "react";
 import { ProductionBoard } from "~/components/production/ProductionBoard";
-import { loadProductionJobs } from "~/lib/production/localStore";
+import { loadCrmProductionJobs } from "~/lib/production/crmLoader";
+import {
+  createTestAvanceJob,
+  createTestProJob,
+  createTestProductionJob,
+} from "~/lib/production/fixtures";
+import {
+  getProductionJob,
+  loadProductionJobs,
+  upsertProductionJob,
+} from "~/lib/production/localStore";
 import type { ProductionJob } from "~/lib/production/types";
 import { getSupabase } from "~/lib/supabase";
 
 export const meta = () => [{ title: "Production des sites — Administration" }];
 
+function testFixtures(): ProductionJob[] {
+  return [createTestProductionJob(), createTestAvanceJob(), createTestProJob()];
+}
+
 export default function AdminProduction() {
   const [jobs, setJobs] = useState<ProductionJob[]>([]);
   const [backendMessage, setBackendMessage] = useState(
-    "Vérification du backend commercial…",
+    "Chargement de l’atelier de production…",
   );
 
   useEffect(() => {
-    setJobs(loadProductionJobs());
-    const sb = getSupabase();
-    if (!sb) {
-      setBackendMessage(
-        "Supabase non configuré — atelier en mode fixtures locales TEST. Aucune fausse réussite de livraison.",
+    let active = true;
+    (async () => {
+      const localExtras = loadProductionJobs().filter(
+        (j) => !j.isTestFixture && j.id.startsWith("crm_") === false,
       );
-      return;
-    }
-    void (async () => {
-      const { error } = await sb.from("site_configurations").select("id").limit(1);
-      if (error) {
+      const fixtures = testFixtures();
+      const sb = getSupabase();
+      const crm = await loadCrmProductionJobs(sb as Parameters<typeof loadCrmProductionJobs>[0]);
+
+      if (!active) return;
+
+      // Fusion : jobs CRM (avec contenus locaux éventuels) + fixtures TEST + brouillons locaux
+      const mergedCrm = crm.jobs.map((job) => {
+        const saved = getProductionJob(job.id);
+        if (!saved) return job;
+        return {
+          ...job,
+          content: saved.content,
+          meetingNotes: saved.meetingNotes,
+          proposals: saved.proposals,
+          generations: saved.generations,
+          validationInternal: saved.validationInternal,
+          validationClient: saved.validationClient,
+          hosting: saved.hosting.domain ? saved.hosting : job.hosting,
+          prepStatus: saved.prepStatus,
+          lastGenerationAt: saved.lastGenerationAt,
+        };
+      });
+
+      // Persiste les jobs CRM pour la fiche détail
+      for (const job of mergedCrm) {
+        upsertProductionJob(job);
+      }
+
+      const all = [...mergedCrm, ...fixtures, ...localExtras];
+      // dédoublonnage par id
+      const byId = new Map<string, ProductionJob>();
+      for (const j of all) byId.set(j.id, j);
+      setJobs([...byId.values()]);
+
+      if (crm.status === "unavailable") {
+        setBackendMessage(crm.message);
+      } else if (crm.status === "migration_pending") {
+        setBackendMessage(crm.message);
+      } else if (crm.status === "error") {
+        setBackendMessage(`Erreur CRM : ${crm.message}. Fixtures TEST affichées.`);
+      } else if (mergedCrm.length === 0) {
         setBackendMessage(
-          "Tables commerciales lot 5 absentes ou inaccessibles — génération livrable désactivée. Fixtures TEST disponibles pour le moteur local.",
+          "Backend commercial détecté — aucun projet lié pour l’instant. Fixtures TEST disponibles pour le moteur local.",
         );
       } else {
         setBackendMessage(
-          "Backend commercial détecté. Les projets réels apparaîtront ici lorsqu’un devis accepté sera lié ; en attendant, les fixtures TEST restent listées.",
+          `${mergedCrm.length} projet(s) CRM + fixtures TEST. Production livrable uniquement si devis accepté.`,
         );
       }
     })();
+    return () => {
+      active = false;
+    };
   }, []);
 
   return (
@@ -41,8 +94,8 @@ export default function AdminProduction() {
         <p className="eyebrow">Atelier</p>
         <h1>Production des sites</h1>
         <p className="lead">
-          Préparez les sites clients à partir des configurations validées — sans second CRM ni
-          ressaisie des données commerciales.
+          Projets CRM et fixtures TEST — sans second dossier client. Les devis émis restent
+          immuables.
         </p>
         <ProductionBoard jobs={jobs} backendMessage={backendMessage} />
       </div>

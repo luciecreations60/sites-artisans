@@ -31,6 +31,25 @@ export type GenerateResult =
       details?: string[];
     };
 
+/**
+ * Ne jamais écraser silencieusement une version marquée livrée.
+ * Si le dossier contient DELIVERED.flag et protectDelivered, écrit dans un sous-dossier horodaté.
+ */
+export function resolveVersionedOutputDir(
+  outputDir: string,
+  opts: { clean: boolean; protectDelivered: boolean },
+): string {
+  const deliveredFlag = join(outputDir, "DELIVERED.flag");
+  if (opts.protectDelivered && existsSync(deliveredFlag)) {
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    return join(outputDir, `v-${stamp}`);
+  }
+  if (opts.clean && existsSync(outputDir) && !existsSync(deliveredFlag)) {
+    rmSync(outputDir, { recursive: true, force: true });
+  }
+  return outputDir;
+}
+
 export function fixtureJob(name: string): ProductionJob {
   if (name === "avance") return createTestAvanceJob();
   if (name === "pro") return createTestProJob();
@@ -44,7 +63,7 @@ export function fixtureJob(name: string): ProductionJob {
 export function generateSiteFromJob(
   job: ProductionJob,
   outputDir: string,
-  opts?: { quoteAccepted?: boolean; clean?: boolean },
+  opts?: { quoteAccepted?: boolean; clean?: boolean; protectDelivered?: boolean },
 ): GenerateResult {
   const elig = evaluateProductionEligibility(job, {
     quoteAccepted: opts?.quoteAccepted ?? Boolean(job.config.acceptedQuoteReference),
@@ -71,20 +90,21 @@ export function generateSiteFromJob(
   }
 
   try {
-    if (opts?.clean && existsSync(outputDir)) {
-      rmSync(outputDir, { recursive: true, force: true });
-    }
-    mkdirSync(outputDir, { recursive: true });
+    const targetDir = resolveVersionedOutputDir(outputDir, {
+      clean: opts?.clean ?? false,
+      protectDelivered: opts?.protectDelivered ?? true,
+    });
+    mkdirSync(targetDir, { recursive: true });
     const written: string[] = [];
     for (const [name, content] of Object.entries(files)) {
-      const path = join(outputDir, name);
+      const path = join(targetDir, name);
       writeFileSync(path, content, "utf8");
       written.push(name);
     }
 
     const honest = assertHonestGenerationResult({
       attempted: true,
-      outputExists: existsSync(join(outputDir, "index.html")),
+      outputExists: existsSync(join(targetDir, "index.html")),
       errorMessage: null,
     });
     if (!honest.success) {
@@ -93,7 +113,7 @@ export function generateSiteFromJob(
 
     return {
       ok: true,
-      outputDir,
+      outputDir: targetDir,
       config,
       filesWritten: written,
       warnings: validation.warnings,

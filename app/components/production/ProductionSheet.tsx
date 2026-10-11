@@ -377,8 +377,8 @@ export function ProductionSheet({ job, onSave }: Props) {
             </ul>
             {draft.isTestFixture ? (
               <p>
-                Fixture TEST : utilisez la commande locale{" "}
-                <code>npm run generate:site -- --fixture=essentiel</code> (voir documentation).
+                Fixture TEST :{" "}
+                <code>npm run generate:site -- --fixture={draft.planId}</code>
               </p>
             ) : null}
           </div>
@@ -401,6 +401,14 @@ export function ProductionSheet({ job, onSave }: Props) {
             <p className="text-muted" style={{ fontSize: "0.875rem" }}>
               Aucun déploiement automatique. Le client possède son hébergement.
             </p>
+            <button
+              type="button"
+              className="btn btn-outline"
+              style={{ marginTop: "0.75rem" }}
+              onClick={() => downloadJobJson(draft)}
+            >
+              Exporter la fiche JSON (CLI --job-file)
+            </button>
           </div>
         ) : (
           <div>
@@ -413,8 +421,16 @@ export function ProductionSheet({ job, onSave }: Props) {
                 fontSize: "0.85rem",
               }}
             >
-              {`npm run generate:site -- --job=${draft.id} --out=generated-sites/${draft.id}`}
+              {`npm run generate:site -- --job-file=./${draft.id}.json --out=generated-sites/${draft.id}`}
             </pre>
+            <button
+              type="button"
+              className="btn btn-outline"
+              style={{ marginTop: "0.75rem" }}
+              onClick={() => downloadJobJson(draft)}
+            >
+              Exporter la fiche JSON (CLI --job-file)
+            </button>
           </div>
         )}
 
@@ -445,6 +461,16 @@ export function ProductionSheet({ job, onSave }: Props) {
       </section>
     </div>
   );
+}
+
+function downloadJobJson(job: ProductionJob) {
+  const blob = new Blob([JSON.stringify(job, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${job.id}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function ProposalRow({

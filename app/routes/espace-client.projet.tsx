@@ -18,6 +18,7 @@ import {
   type Project,
   type ProjectEvent,
 } from "~/lib/supabase.types";
+import type { QuoteRow, SiteConfigurationRow } from "~/lib/commercial/types";
 
 export const meta = () => [{ title: "Projet — Espace client" }];
 
@@ -30,6 +31,9 @@ export default function EspaceClientProjet() {
   const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
   const [requests, setRequests] = useState<ChangeRequest[]>([]);
   const [quota, setQuota] = useState<MaintenanceQuota | null>(null);
+  const [quotes, setQuotes] = useState<QuoteRow[]>([]);
+  const [configuration, setConfiguration] = useState<SiteConfigurationRow | null>(null);
+  const [commercialPending, setCommercialPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -75,6 +79,35 @@ export default function EspaceClientProjet() {
       setChecklist((c.data as ChecklistItem[]) ?? []);
       setRequests((r.data as ChangeRequest[]) ?? []);
       setQuota((q.data as MaintenanceQuota | null) ?? null);
+
+      // Lot 5/7 — devis émis + config (RLS) ; silence si migration absente
+      const [quotesRes, cfgRes] = await Promise.all([
+        sb
+          .from("quotes")
+          .select(
+            "id, reference, kind, status, plan_id, trade_slug, creation_ht_cents, issued_at, locked, project_id, configuration_id",
+          )
+          .eq("project_id", projectId)
+          .eq("kind", "issued")
+          .order("issued_at", { ascending: false }),
+        sb
+          .from("site_configurations")
+          .select(
+            "id, trade_slug, plan_id, company_name, city, specialty, theme_id, desired_feature_ids, status",
+          )
+          .eq("project_id", projectId)
+          .maybeSingle(),
+      ]);
+      if (!active) return;
+      if (quotesRes.error || cfgRes.error) {
+        const msg = quotesRes.error?.message || cfgRes.error?.message || "";
+        if (/does not exist|relation|42P01|permission denied/i.test(msg)) {
+          setCommercialPending(true);
+        }
+      } else {
+        setQuotes((quotesRes.data as QuoteRow[]) ?? []);
+        setConfiguration((cfgRes.data as SiteConfigurationRow | null) ?? null);
+      }
     })();
 
     return () => {
@@ -186,6 +219,57 @@ export default function EspaceClientProjet() {
 
         <PortalSection title="Avancement">
           <ProjectTimeline status={project.status} events={events} />
+        </PortalSection>
+
+        <PortalSection title="Configuration & devis">
+          {commercialPending ? (
+            <p className="text-muted">
+              Module commercial non disponible (migration lot 5 non appliquée ou droits en
+              attente). Aucune donnée inventée.
+            </p>
+          ) : (
+            <>
+              {configuration ? (
+                <ul style={{ marginTop: 0 }}>
+                  <li>
+                    Entreprise : {configuration.company_name || "—"}
+                    {configuration.city ? ` · ${configuration.city}` : ""}
+                  </li>
+                  <li>
+                    Formule : {configuration.plan_id || "—"} · Métier :{" "}
+                    {configuration.trade_slug || "—"}
+                  </li>
+                  <li>
+                    Options :{" "}
+                    {(configuration.desired_feature_ids ?? []).join(", ") || "aucune"}
+                  </li>
+                </ul>
+              ) : (
+                <p className="text-muted">Aucune configuration liée pour l’instant.</p>
+              )}
+              {quotes.length === 0 ? (
+                <p className="text-muted">Aucun devis émis accessible.</p>
+              ) : (
+                <ul className="portal-doc-list">
+                  {quotes.map((quote) => (
+                    <li key={quote.id}>
+                      <span>
+                        Devis {quote.reference || quote.id.slice(0, 8)} — {quote.status}
+                        {quote.locked ? " (verrouillé)" : ""}
+                      </span>
+                      <span className="text-muted">
+                        {quote.issued_at ? formatDateFr(quote.issued_at) : ""}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <p className="text-muted" style={{ fontSize: "0.875rem" }}>
+                Aperçu du site de production : disponible après génération et partage sécurisé
+                (pas d’URL publique non protégée). État actuel : non publié ici.
+              </p>
+            </>
+          )}
         </PortalSection>
 
         <PortalSection title="Checklist / éléments à fournir">

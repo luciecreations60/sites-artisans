@@ -1,7 +1,7 @@
 import type { OfferTier, TradeSlug } from "../../data/types.ts";
 import type { ProductionJob, SiteContent } from "./types.ts";
 
-export const TEMPLATE_VERSION = "v4-templates-1";
+export const TEMPLATE_VERSION = "v4-templates-2";
 export const BUILD_CONFIG_VERSION = 1 as const;
 
 /** Format de configuration typé et versionné pour la génération. */
