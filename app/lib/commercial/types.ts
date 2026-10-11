@@ -94,6 +94,7 @@ export type CommercialRequestRow = {
   client_claimed_creation_cents: number | null;
   price_differs_from_client: boolean;
   status: string;
+  anonymized_at?: string | null;
   created_at: string;
 };
 

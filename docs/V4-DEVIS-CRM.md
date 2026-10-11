@@ -18,11 +18,25 @@ Parcours commercial entre configurateur, recalcul sécurisé, CRM et devis.
 |-------|------|
 | `site_configurations` | Snapshot métier / formule / options / profil / pricing |
 | `commercial_requests` | Intake public (tracking, montants serveur) |
-| `quotes` | simulation / draft / issued (+ `locked`) |
+| `quotes` | simulation / draft / issued (`issued` ⇒ `locked`) |
+| `quote_status_events` | Historique des transitions de statut |
 | `business_settings` | Régime TVA, identité légale émetteur |
-| `commercial_request_rate_limits` | Anti-spam |
+| `commercial_request_rate_limits` | Anti-spam (RPC atomique) |
 
 Migration : `supabase/migrations/20261012_v4_commercial_quotes.sql` (additive, **non exécutée** automatiquement).
+
+### Verrouillage devis
+
+- Contrainte SQL : `kind = issued` ⇒ `locked = true`
+- Trigger `enforce_quote_immutability` : montants / snapshots immuables ; **statut** mutable via transitions autorisées ; **déverrouillage interdit**
+- Référence unique : `next_quote_reference()` + index unique partiel
+- Suppression d’un devis émis : interdite
+
+### Suppression / RGPD prospects
+
+- `commercial_requests.prospect_id` : `ON DELETE SET NULL` (pas de CASCADE)
+- RPC `anonymize_commercial_request` : efface PII, conserve montants / tracking
+- Devis émis : `client_snapshot` conservé ; dissociation `prospect_id` autorisée
 
 ## Calcul sécurisé
 

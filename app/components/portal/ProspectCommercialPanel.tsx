@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { centsToEuroLabel } from "~/lib/catalog/pricing";
 import {
+  anonymizeCommercialRequest,
   issueQuote,
   loadProspectCommercial,
   promoteQuoteToDraft,
+  updateQuoteCommercialStatus,
 } from "~/lib/commercial/quoteAdmin";
+import {
+  quoteStatusTransitionAllowed,
+  type QuoteCommercialStatus,
+} from "~/lib/commercial/quoteStatus";
 import type { CommercialRequestRow, QuoteRow, SiteConfigurationRow } from "~/lib/commercial/types";
 import { demoPreviewHref } from "~/lib/commercial/buildPayload";
 import { formatDateFr } from "~/lib/portal";
@@ -195,18 +201,75 @@ export function ProspectCommercialPanel({ prospectId }: Props) {
                         </button>
                       ) : null}
                       {q.kind === "issued" ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost"
-                          onClick={() => window.print()}
-                        >
-                          Imprimer le devis
-                        </button>
+                        <>
+                          <button
+                            type="button"
+                            className="btn btn-ghost"
+                            onClick={() => window.print()}
+                          >
+                            Imprimer le devis
+                          </button>
+                          {(
+                            ["accepted", "refused", "cancelled", "superseded"] as QuoteCommercialStatus[]
+                          )
+                            .filter((s) => quoteStatusTransitionAllowed(q.status, s))
+                            .map((s) => (
+                              <button
+                                key={s}
+                                type="button"
+                                className="btn btn-ghost"
+                                disabled={busy}
+                                onClick={async () => {
+                                  setBusy(true);
+                                  setError(null);
+                                  const res = await updateQuoteCommercialStatus(q.id, s);
+                                  setBusy(false);
+                                  if (!res.ok) setError(res.error);
+                                  else {
+                                    setOk(`Statut devis → ${s}`);
+                                    await reload();
+                                  }
+                                }}
+                              >
+                                Marquer {s}
+                              </button>
+                            ))}
+                        </>
                       ) : null}
                     </div>
                   </li>
                 ))}
               </ul>
+            )}
+
+            {!req.anonymized_at ? (
+              <button
+                type="button"
+                className="btn btn-ghost"
+                disabled={busy}
+                style={{ marginTop: "0.75rem" }}
+                onClick={async () => {
+                  if (
+                    !confirm(
+                      "Anonymiser cette demande (RGPD) ? Les montants et le suivi sont conservés ; les données personnelles sont effacées.",
+                    )
+                  ) {
+                    return;
+                  }
+                  setBusy(true);
+                  const res = await anonymizeCommercialRequest(req.id);
+                  setBusy(false);
+                  if (!res.ok) setError(res.error);
+                  else {
+                    setOk("Demande anonymisée.");
+                    await reload();
+                  }
+                }}
+              >
+                Anonymiser (RGPD)
+              </button>
+            ) : (
+              <p className="text-muted">Demande anonymisée le {formatDateFr(req.anonymized_at)}</p>
             )}
           </article>
         );

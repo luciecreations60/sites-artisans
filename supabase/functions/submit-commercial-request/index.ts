@@ -139,40 +139,31 @@ Deno.serve(async (req) => {
     }
   }
 
-  // Rate limit
+  // Rate limit atomique (RPC SECURITY DEFINER — pas d’accès table depuis le client)
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     req.headers.get("cf-connecting-ip") ||
     "unknown";
   const bucket = await sha256Hex(`cr:${ip}:${contactEmail}`);
-  const { data: rl } = await service
-    .from("commercial_request_rate_limits")
-    .select("*")
-    .eq("bucket_key", bucket)
-    .maybeSingle();
-  const now = Date.now();
-  if (rl) {
-    const started = new Date(rl.window_started_at).getTime();
-    if (now - started < RATE_WINDOW_MS && rl.hit_count >= RATE_LIMIT) {
+  const { data: allowed, error: rlErr } = await service.rpc("claim_commercial_rate_limit", {
+    p_bucket_key: bucket,
+    p_limit: RATE_LIMIT,
+    p_window_seconds: Math.floor(RATE_WINDOW_MS / 1000),
+  });
+  if (rlErr) {
+    if (rlErr.message.toLowerCase().includes("does not exist")) {
       return jsonResponse(
-        { error: "Trop de demandes. Réessayez plus tard." },
-        429,
+        {
+          error: "Migration commerciale non appliquée (rate limit).",
+          code: "migration_pending",
+        },
+        503,
       );
     }
-    if (now - started >= RATE_WINDOW_MS) {
-      await service
-        .from("commercial_request_rate_limits")
-        .upsert({ bucket_key: bucket, hit_count: 1, window_started_at: new Date().toISOString() });
-    } else {
-      await service
-        .from("commercial_request_rate_limits")
-        .update({ hit_count: rl.hit_count + 1 })
-        .eq("bucket_key", bucket);
-    }
-  } else {
-    await service
-      .from("commercial_request_rate_limits")
-      .insert({ bucket_key: bucket, hit_count: 1, window_started_at: new Date().toISOString() });
+    return jsonResponse({ error: "Limitation temporaire indisponible" }, 503);
+  }
+  if (allowed !== true) {
+    return jsonResponse({ error: "Trop de demandes. Réessayez plus tard." }, 429);
   }
 
   // Catalogue vérifié Supabase uniquement
@@ -436,10 +427,28 @@ Deno.serve(async (req) => {
       ip_hash: bucket,
       user_agent: truncate(req.headers.get("user-agent") ?? "", 240),
     })
-    .select("id")
+    .select("id, tracking_code")
     .single();
 
   if (reqErr || !requestRow) {
+    // Course d’idempotence : même client_request_id
+    if (clientRequestId && reqErr?.message?.toLowerCase().includes("duplicate")) {
+      const { data: existing } = await service
+        .from("commercial_requests")
+        .select("id, tracking_code, prospect_id, configuration_id")
+        .eq("client_request_id", clientRequestId)
+        .maybeSingle();
+      if (existing) {
+        return jsonResponse({
+          ok: true,
+          already_received: true,
+          tracking_code: existing.tracking_code,
+          request_id: existing.id,
+          prospect_id: existing.prospect_id,
+          configuration_id: existing.configuration_id,
+        });
+      }
+    }
     return jsonResponse({ error: reqErr?.message ?? "Demande non enregistrée" }, 500);
   }
 
