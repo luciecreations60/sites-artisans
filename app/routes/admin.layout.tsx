@@ -9,6 +9,7 @@ const nav = [
   { to: "/admin/prospects", label: "Prospects" },
   { to: "/admin/clients", label: "Clients" },
   { to: "/admin/projets", label: "Projets" },
+  { to: "/admin/production", label: "Production des sites" },
   { to: "/admin/demandes", label: "Demandes" },
   { to: "/admin/documents", label: "Documents" },
   { to: "/admin/maintenance", label: "Maintenance" },

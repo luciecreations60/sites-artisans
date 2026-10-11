@@ -34,6 +34,8 @@ export default [
         route("admin/clients", "./routes/admin.clients.tsx"),
         route("admin/projets", "./routes/admin.projets.tsx"),
         route("admin/projets/:projectId", "./routes/admin.projet.tsx"),
+        route("admin/production", "./routes/admin.production.tsx"),
+        route("admin/production/:jobId", "./routes/admin.production.job.tsx"),
         route("admin/demandes", "./routes/admin.demandes.tsx"),
         route("admin/documents", "./routes/admin.documents.tsx"),
         route("admin/maintenance", "./routes/admin.maintenance.tsx"),
