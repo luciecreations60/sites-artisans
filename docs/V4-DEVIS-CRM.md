@@ -23,6 +23,8 @@ Parcours commercial entre configurateur, recalcul sécurisé, CRM et devis.
 | `business_settings` | Régime TVA, identité légale émetteur |
 | `commercial_request_rate_limits` | Anti-spam (RPC atomique) |
 
+Production lot 6 : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md) — atelier admin + générateur local ; ne modifie jamais un devis verrouillé.
+
 Migration : `supabase/migrations/20261012_v4_commercial_quotes.sql` (additive, **non exécutée** automatiquement).
 
 ### Verrouillage devis

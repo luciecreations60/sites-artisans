@@ -1,9 +1,9 @@
-import type { ProductionJob } from "./types";
+import type { ProductionJob } from "./types.ts";
 import {
   createTestAvanceJob,
   createTestProJob,
   createTestProductionJob,
-} from "./fixtures";
+} from "./fixtures.ts";
 
 const KEY = "sa-production-jobs-v1";
 

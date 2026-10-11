@@ -1,11 +1,12 @@
 # Sites Artisans — Plan V4
 
-Document de pilotage pour la V4. Lots 1–5 sur la branche `feature/v4-sites-artisans`.
+Document de pilotage pour la V4. Lots 1–6 sur la branche `feature/v4-sites-artisans`.
 
 - Catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md)
 - Configurateur : [`docs/V4-CONFIGURATEUR.md`](./V4-CONFIGURATEUR.md)
 - Démos / templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md)
 - Devis & CRM : [`docs/V4-DEVIS-CRM.md`](./V4-DEVIS-CRM.md)
+- Production : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md)
 
 ## Architecture actuelle (V3 → V4)
 
@@ -25,7 +26,7 @@ Document de pilotage pour la V4. Lots 1–5 sur la branche `feature/v4-sites-art
 | Démos métier | `/demos/:trade/...` | Thèmes / médias par métier (`app/data/trades/*`) |
 | Démos prospect | `/demo/:slug/...` | Contexte `ProspectDemoContext` |
 | Espace client | `/espace-client/*` | Auth Supabase, projets, maintenance |
-| Admin / CRM | `/admin/*` | Prospects, campagnes, clients, documents, **Catalogue & tarifs** |
+| Admin / CRM | `/admin/*` | Prospects, projets, **Production des sites**, documents, catalogue |
 
 ### Sources de vérité commerciales
 
@@ -93,15 +94,19 @@ Document de pilotage pour la V4. Lots 1–5 sur la branche `feature/v4-sites-art
 - Panneau CRM Configurateur V4 + émission devis verrouillée
 - Voir `docs/V4-DEVIS-CRM.md` — migration à appliquer manuellement
 
-### 6. Génération automatisée de sites clients
+### 6. Production des sites — **terminé (code local)**
 
-- Pipeline à partir du profil + formule validée
-- Hors scope lot 1
+- Parcours démo ↔ configurateur unifié
+- Atelier `/admin/production` + comptes rendus
+- Générateur CLI local (`npm run generate:site`) — fixtures TEST opérationnelles
+- Migration production préparée, non exécutée
+- Voir `docs/V4-PRODUCTION.md`
 
 ### 7. Tests et préparation au lancement
 
 - Parcours critique, accessibilité, build Pages
 - Ouverture publique (cible indiquée 2027 sur le site)
+- Branchement production ↔ CRM live après déploiement lot 5
 
 ---
 

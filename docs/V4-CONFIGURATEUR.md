@@ -85,15 +85,17 @@ Fallback statique si indisponible, avec message honnête.
 
 `PRICING_CONFIGURATOR_LIVE = true` → phrase d’accueil définitive activée.
 
-## Lien vers les démos (lot 4)
+## Lien vers les démos (lots 4 + 6)
 
-Étape 5 — bouton **Voir la démonstration** :
+Étape 5 — bouton **Voir le site en grand** :
 
 - URL : `/demos/{tradeSlug}/{planId}`
 - Persistance : `saveConfiguratorState` synchronise aussi `sa-profile`
 - Modules démo : `resolveDemoModules` lit `sa-configurator-v1`
+- Retour démo → configurateur : `configuratorHrefFromDemo` + `etape` (pont `bridge.ts`)
+- Libellés UX : « Personnaliser mon site », « Exemples de sites », « Revenir à ma configuration »
 
-Détail templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md).
+Détail templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md). Production : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md).
 
 ## Demande commerciale (lot 5)
 

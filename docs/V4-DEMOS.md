@@ -47,11 +47,14 @@ Les couleurs `Profile.themeId` influencent `--trade-*` ; Pro conserve une toile 
 
 Options incompatibles lors d’un changement de formule → listées dans `DemoModulesNote`, non simulées.
 
-## Configurateur → démo
+## Configurateur ↔ exemples (lot 6)
 
-Étape 5 : bouton **Voir la démonstration** → `/demos/{métier}/{formule}`.
+- Galerie : `/demos` — « Exemples de sites » + « Personnaliser ce modèle »
+- Chrome démo : conserve métier/formule/profil au changement de formule (`persistDemoEntry`)
+- Retour : « Revenir à ma configuration » → `/configurateur?…&etape=5`
+- Personalizer immersive enregistre dans `sa-configurator-v1` (plus seulement `sa-profile`)
 
-`saveConfiguratorState` synchronise aussi `sa-profile` (nom, ville, thème, polices).
+Étape 5 configurateur : **Voir le site en grand** → `/demos/{métier}/{formule}`.
 
 Les démos lisent les modules via `localStorage` `sa-configurator-v1`.
 
@@ -67,13 +70,11 @@ Les démos lisent les modules via `localStorage` `sa-configurator-v1`.
 - Paires `project.before` / `project.after` quand présentes
 - Sinon `BeforeAfterPlaceholder` (pas de fausse transformation)
 
-## Production client Essentiel (procédure minimale)
+## Production client Essentiel
 
-1. Choisir métier + formule dans le configurateur (ou Personalizer)
-2. Renseigner entreprise, ville, spécialité, thème, polices
-3. Remplacer images métier (`hero`, `atelier`, `projects`) et textes (`services`, `about`, `tagline`)
-4. Activer uniquement les options catalogue réellement livrées
-5. Publier — pas de refonte template
+Voir la procédure complète : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md).
+
+Résumé : fiche `/admin/production` → contenus → `npm run generate:site` → validation humaine → hébergement client.
 
 ## Ajouter un métier
 

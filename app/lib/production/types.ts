@@ -1,4 +1,4 @@
-import type { OfferTier, TradeSlug } from "../../data/types";
+import type { OfferTier, TradeSlug } from "../../data/types.ts";
 
 /** Statuts atelier production (distincts du pipeline CRM projects.status). */
 export type ProductionPrepStatus =
