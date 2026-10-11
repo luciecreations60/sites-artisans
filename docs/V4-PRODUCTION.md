@@ -42,7 +42,8 @@ Entrées attendues (quand lot 5 opérationnel) :
 - `projects` (lien client)
 - `quotes` accepté (`kind=issued`, `status=accepted`) — **snapshot immuable**
 
-Migration préparée (non exécutée) : `supabase/migrations/20261012_v4_site_production.sql`.
+Migration préparée (non exécutée) : `supabase/migrations/20261012140100_v4_site_production.sql`
+(après `20261012140000_v4_commercial_quotes.sql`).
 
 ## Comptes rendus de rendez-vous
 

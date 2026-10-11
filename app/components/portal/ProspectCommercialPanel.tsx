@@ -47,7 +47,7 @@ export function ProspectCommercialPanel({ prospectId }: Props) {
       <PortalSection title="Configurateur V4">
         <p className="text-muted">{error}</p>
         <p className="text-muted">
-          Appliquez la migration <code>20261012_v4_commercial_quotes.sql</code> puis rechargez.
+          Appliquez la migration <code>20261012140000_v4_commercial_quotes.sql</code> puis rechargez.
         </p>
       </PortalSection>
     );

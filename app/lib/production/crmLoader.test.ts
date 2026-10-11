@@ -94,6 +94,22 @@ describe("raccord CRM → production", () => {
     assert.ok(crmProductionBlockers(job).some((r) => /devis/i.test(r)));
   });
 
+  it("bloque un devis issued non verrouillé ou seulement envoyé", () => {
+    const unlocked = mapCrmToProductionJob({
+      project,
+      configuration,
+      acceptedQuote: { ...acceptedQuote, locked: false, status: "accepted" },
+    });
+    assert.equal(unlocked.config.acceptedQuoteId, null);
+
+    const sent = mapCrmToProductionJob({
+      project,
+      configuration,
+      acceptedQuote: { ...acceptedQuote, status: "sent", locked: true },
+    });
+    assert.equal(sent.config.acceptedQuoteId, null);
+  });
+
   it("bloque sans configuration", () => {
     const job = mapCrmToProductionJob({
       project,

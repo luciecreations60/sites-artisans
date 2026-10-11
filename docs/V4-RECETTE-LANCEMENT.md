@@ -12,11 +12,11 @@ Date de rédaction : 2026-10-12
 **Ne pas exécuter automatiquement depuis ce dépôt.**
 
 1. Vérifier CRM portal existant (`is_admin`, `prospects`, `projects`, `owns_project`).
-2. Si besoin : `20261011_catalog_offers_features.sql` — **attention** upsert catalogue (ne pas réappliquer à la légère sur DEV déjà tarifé).
-3. `20261012_v4_commercial_quotes.sql` (version avec rate-limit 0→+1, `enforce_quote_insert`, `admin_next_quote_reference`).
+2. Si besoin : `20261011_catalog_offers_features.sql` — **ne pas réappliquer** sur un catalogue DEV déjà tarifé (upsert écrasant).
+3. `20261012140000_v4_commercial_quotes.sql` (rate-limit 0→+1, triggers SECURITY DEFINER, `admin_next_quote_reference`).
 4. Renseigner `business_settings` (raison sociale, adresse, ville, régime TVA).
 5. Déployer Edge Function `submit-commercial-request` (voir §2).
-6. `20261012_v4_site_production.sql`.
+6. `20261012140100_v4_site_production.sql` (FK config/devis, validation issued+accepted+locked).
 7. Tests post-apply listés §3.
 
 ### Guide Edge Function `submit-commercial-request`

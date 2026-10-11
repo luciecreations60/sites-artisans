@@ -64,11 +64,11 @@ export function mapCrmToProductionJob(input: {
     "Entreprise";
 
   const quoteAccepted =
-    acceptedQuote?.kind === "issued" && acceptedQuote.status === "accepted";
+    acceptedQuote?.kind === "issued" &&
+    acceptedQuote.status === "accepted" &&
+    acceptedQuote.locked === true;
 
-  const prepStatus: ProductionPrepStatus = quoteAccepted
-    ? "to_prepare"
-    : "to_prepare";
+  const prepStatus: ProductionPrepStatus = "to_prepare";
 
   const profile = (configuration?.profile_snapshot ?? {}) as Record<string, unknown>;
 
@@ -123,7 +123,9 @@ export function crmProductionBlockers(job: ProductionJob): string[] {
   if (!job.projectId?.trim()) reasons.push("Projet absent");
   if (!job.configurationId?.trim()) reasons.push("Configuration absente");
   if (!job.config.acceptedQuoteId || !job.config.acceptedQuoteReference) {
-    reasons.push("Devis accepté requis (émis + statut accepted)");
+    reasons.push(
+      "Devis accepté requis (kind=issued, status=accepted, locked=true — données serveur)",
+    );
   }
   if (!job.config.companyName?.trim()) reasons.push("Nom d’entreprise manquant");
   if (!job.config.tradeSlug || !job.config.planId) {
@@ -209,9 +211,11 @@ export async function loadCrmProductionJobs(
       in: (c: string, v: string[]) => Promise<QueryResult<SiteConfigurationRow[]>>;
     };
     const quotesQ = db.from("quotes").select("*") as unknown as {
-      eq: (c: string, v: string) => {
-        eq: (c: string, v: string) => {
-          in: (c: string, v: string[]) => Promise<QueryResult<QuoteRow[]>>;
+      eq: (c: string, v: string | boolean) => {
+        eq: (c: string, v: string | boolean) => {
+          eq: (c: string, v: string | boolean) => {
+            in: (c: string, v: string[]) => Promise<QueryResult<QuoteRow[]>>;
+          };
         };
       };
     };
@@ -221,7 +225,11 @@ export async function loadCrmProductionJobs(
 
     const [configsRes, quotesRes, profilesRes] = await Promise.all([
       configsQ.in("project_id", projectIds),
-      quotesQ.eq("kind", "issued").eq("status", "accepted").in("project_id", projectIds),
+      quotesQ
+        .eq("kind", "issued")
+        .eq("status", "accepted")
+        .eq("locked", true)
+        .in("project_id", projectIds),
       profilesQ.eq("role", "client"),
     ]);
 

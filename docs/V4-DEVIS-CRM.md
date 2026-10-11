@@ -25,7 +25,7 @@ Parcours commercial entre configurateur, recalcul sécurisé, CRM et devis.
 
 Production lot 6 : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md) — atelier admin + générateur local ; ne modifie jamais un devis verrouillé.
 
-Migration : `supabase/migrations/20261012_v4_commercial_quotes.sql` (additive, **non exécutée** automatiquement).
+Migration : `supabase/migrations/20261012140000_v4_commercial_quotes.sql` (additive, **non exécutée** automatiquement).
 
 ### Verrouillage devis
 
@@ -101,11 +101,11 @@ Lien `project_id` après conversion.
 Ordre détaillé + checklist de recette : [`docs/V4-RECETTE-LANCEMENT.md`](./V4-RECETTE-LANCEMENT.md).
 
 1. Appliquer `20261011_catalog_offers_features.sql` si besoin (**ne pas** ré-upsert le catalogue tarifé sans validation)  
-2. Appliquer `20261012_v4_commercial_quotes.sql` (version sécurisée : rate-limit, insert issued, `admin_next_quote_reference`)  
+2. Appliquer `20261012140000_v4_commercial_quotes.sql` (rate-limit, insert issued, `admin_next_quote_reference`, triggers SECURITY DEFINER)  
 3. Déployer Edge Function `submit-commercial-request`  
 4. Renseigner `business_settings` (légal + TVA)  
 5. Tester une demande depuis `/configurateur/demande`  
-6. (Lot 6/7) Appliquer `20261012_v4_site_production.sql`  
+6. Appliquer `20261012140100_v4_site_production.sql` (FK config/devis, validation accepted+locked)  
 
 ## Limitations
 

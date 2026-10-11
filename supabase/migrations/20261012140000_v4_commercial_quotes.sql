@@ -1,16 +1,35 @@
 -- V4 Lot 5 — Configurations, demandes commerciales, devis (additive)
--- Prérequis déjà appliqués : CRM prospects (20261004+), portal (is_admin, owns_project, set_updated_at),
+-- Timestamp Supabase CLI : 20261012140000
+-- Prérequis : CRM prospects (20261004+), portal (is_admin, owns_project, set_updated_at),
 --   idéalement catalogue 20261011 (sinon l’Edge Function renverra migration_pending).
--- Ne modifie PAS les migrations antérieures ni les tarifs catalogue.
--- À appliquer manuellement ; non exécutée automatiquement en production.
+-- Ne modifie PAS les migrations antérieures ni les tarifs / données catalogue.
+-- À appliquer manuellement ; non exécutée automatiquement.
 
 -- ═══════════════════════════════════════════════════════════════════════════
--- Dépendances attendues (uuid PK)
---   public.prospects(id uuid)
---   public.projects(id uuid)
---   public.prospect_sources(code text unique)
---   public.is_admin(), public.owns_project(uuid), public.set_updated_at()
+-- Prérequis durs (échec explicite si absents)
 -- ═══════════════════════════════════════════════════════════════════════════
+do $$
+begin
+  if to_regprocedure('public.is_admin()') is null then
+    raise exception
+      'Prérequis manquant : public.is_admin() returns boolean (signature sans argument). Appliquer le schéma portal avant cette migration.';
+  end if;
+  if to_regprocedure('public.owns_project(uuid)') is null then
+    raise exception 'Prérequis manquant : public.owns_project(uuid)';
+  end if;
+  if to_regprocedure('public.set_updated_at()') is null then
+    raise exception 'Prérequis manquant : public.set_updated_at()';
+  end if;
+  if to_regclass('public.prospects') is null then
+    raise exception 'Prérequis manquant : public.prospects';
+  end if;
+  if to_regclass('public.projects') is null then
+    raise exception 'Prérequis manquant : public.projects';
+  end if;
+  if to_regclass('public.prospect_sources') is null then
+    raise exception 'Prérequis manquant : public.prospect_sources';
+  end if;
+end $$;
 
 -- Source CRM
 insert into public.prospect_sources (code, label, sort_order) values
@@ -357,6 +376,8 @@ grant execute on function public.admin_next_quote_reference() to service_role;
 create or replace function public.assert_issued_quote_contract(p_row public.quotes)
 returns void
 language plpgsql
+security definer
+set search_path = public
 as $$
 begin
   if p_row.kind <> 'issued' then
@@ -396,9 +417,13 @@ end;
 $$;
 
 -- INSERT : sécurise les devis issued ; laisse simulation/draft libres
+-- SECURITY DEFINER : peut appeler next_quote_reference() sans GRANT authenticated
+-- (authenticated n’a pas EXECUTE sur next_quote_reference — uniquement service_role / ce definer).
 create or replace function public.enforce_quote_insert()
 returns trigger
 language plpgsql
+security definer
+set search_path = public
 as $$
 begin
   if NEW.kind = 'issued' then
@@ -424,9 +449,12 @@ end;
 $$;
 
 -- Garde-fou devis : immuabilité contractuelle + transitions de statut (UPDATE/DELETE)
+-- SECURITY DEFINER : génération de référence via next_quote_reference sans exposer la RPC aux non-admins.
 create or replace function public.enforce_quote_immutability()
 returns trigger
 language plpgsql
+security definer
+set search_path = public
 as $$
 declare
   v_actor uuid := auth.uid();
@@ -620,3 +648,13 @@ comment on table public.quotes is 'V4 Lot 5 — issued implique locked ; statuts
 comment on table public.quote_status_events is 'V4 Lot 5 — historique des statuts commerciaux des devis';
 comment on function public.claim_commercial_rate_limit(text, integer, integer) is 'Anti-spam atomique pour Edge Function (service_role)';
 comment on function public.anonymize_commercial_request(uuid) is 'RGPD — efface PII demande sans détruire l’historique tarifaire';
+comment on function public.next_quote_reference() is 'Interne / triggers SECURITY DEFINER / service_role — pas d’EXECUTE authenticated';
+comment on function public.admin_next_quote_reference() is 'RPC CRM admin (is_admin) pour pré-attribuer une référence';
+
+-- Droits : les triggers ne doivent pas être invoqués comme RPC par les clients
+revoke all on function public.enforce_quote_insert() from public;
+revoke all on function public.enforce_quote_insert() from anon, authenticated;
+revoke all on function public.enforce_quote_immutability() from public;
+revoke all on function public.enforce_quote_immutability() from anon, authenticated;
+revoke all on function public.assert_issued_quote_contract(public.quotes) from public;
+revoke all on function public.assert_issued_quote_contract(public.quotes) from anon, authenticated;
