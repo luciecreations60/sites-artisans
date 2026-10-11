@@ -29,8 +29,10 @@ Migration : `supabase/migrations/20261012_v4_commercial_quotes.sql` (additive, *
 
 - Contrainte SQL : `kind = issued` ⇒ `locked = true`
 - Trigger `enforce_quote_immutability` : montants / snapshots immuables ; **statut** mutable via transitions autorisées ; **déverrouillage interdit**
-- Référence unique : `next_quote_reference()` + index unique partiel
+- Référence unique : `next_quote_reference()` (interne / service_role / triggers) + `admin_next_quote_reference()` (admin seul)
+- INSERT `issued` : trigger `enforce_quote_insert` (locked, référence, issued_at, contrat valide)
 - Suppression d’un devis émis : interdite
+- Rate-limit : compteur à 0 puis +1 — limite 8 ⇒ 8 ok, 9ᵉ refusé
 
 ### Suppression / RGPD prospects
 

@@ -145,6 +145,8 @@ alter table public.commercial_request_rate_limits enable row level security;
 -- Aucune policy : anon/authenticated ne lisent ni n’écrivent.
 -- service_role bypasse RLS. RPC claim_commercial_rate_limit pour atomicité.
 
+-- Compteur : insert à 0 puis +1 à chaque appel accepté.
+-- Limite 8 ⇒ 8 premiers true, 9ᵉ false (pas de double-comptage au 1er appel).
 create or replace function public.claim_commercial_rate_limit(
   p_bucket_key text,
   p_limit integer default 8,
@@ -167,7 +169,7 @@ begin
   end if;
 
   insert into public.commercial_request_rate_limits (bucket_key, hit_count, window_started_at)
-  values (p_bucket_key, 1, v_now)
+  values (p_bucket_key, 0, v_now)
   on conflict (bucket_key) do nothing;
 
   select * into v_row
@@ -312,6 +314,7 @@ as $$
 $$;
 
 -- Génération de référence unique D-YYYYMMDD-NNNNNN
+-- Interne / service_role / triggers uniquement — pas d’EXECUTE pour authenticated.
 create or replace function public.next_quote_reference()
 returns text
 language plpgsql
@@ -327,10 +330,100 @@ end;
 $$;
 
 revoke all on function public.next_quote_reference() from public;
-grant execute on function public.next_quote_reference() to authenticated;
+revoke all on function public.next_quote_reference() from anon, authenticated;
 grant execute on function public.next_quote_reference() to service_role;
 
--- Garde-fou devis : immuabilité contractuelle + transitions de statut
+-- Wrapper admin pour l’émission de devis depuis le CRM (authenticated + is_admin)
+create or replace function public.admin_next_quote_reference()
+returns text
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if not public.is_admin() then
+    raise exception 'Réservé aux administrateurs — émission de devis uniquement';
+  end if;
+  return public.next_quote_reference();
+end;
+$$;
+
+revoke all on function public.admin_next_quote_reference() from public;
+revoke all on function public.admin_next_quote_reference() from anon;
+grant execute on function public.admin_next_quote_reference() to authenticated;
+grant execute on function public.admin_next_quote_reference() to service_role;
+
+-- Validation contractuelle d’un devis émis (insert ou update d’émission)
+create or replace function public.assert_issued_quote_contract(p_row public.quotes)
+returns void
+language plpgsql
+as $$
+begin
+  if p_row.kind <> 'issued' then
+    return;
+  end if;
+  if coalesce(p_row.locked, false) is not true then
+    raise exception 'Devis émis — verrouillage obligatoire';
+  end if;
+  if p_row.reference is null or length(trim(p_row.reference)) = 0 then
+    raise exception 'Devis émis — référence obligatoire';
+  end if;
+  if p_row.issued_at is null then
+    raise exception 'Devis émis — date d’émission obligatoire';
+  end if;
+  if coalesce(p_row.pricing_complete, false) is not true then
+    raise exception 'Devis émis — chiffrage incomplet interdit';
+  end if;
+  if coalesce(p_row.tax_regime, 'unknown') = 'unknown' then
+    raise exception 'Devis émis — régime fiscal non configuré';
+  end if;
+  if p_row.issuer_snapshot is null
+     or coalesce(p_row.issuer_snapshot->>'legal_name', '') = ''
+     or coalesce(p_row.issuer_snapshot->>'address_line', '') = ''
+     or coalesce(p_row.issuer_snapshot->>'city', '') = ''
+  then
+    raise exception 'Devis émis — informations légales émetteur incomplètes';
+  end if;
+  if p_row.tax_regime = 'liable'
+     and (
+       p_row.vat_rate_bps is null
+       or coalesce(p_row.issuer_snapshot->>'vat_number', '') = ''
+     )
+  then
+    raise exception 'Devis émis — TVA assujettie : taux et n° TVA requis';
+  end if;
+end;
+$$;
+
+-- INSERT : sécurise les devis issued ; laisse simulation/draft libres
+create or replace function public.enforce_quote_insert()
+returns trigger
+language plpgsql
+as $$
+begin
+  if NEW.kind = 'issued' then
+    NEW.locked := true;
+    if NEW.issued_at is null then
+      NEW.issued_at := now();
+    end if;
+    if NEW.reference is null or length(trim(NEW.reference)) = 0 then
+      NEW.reference := public.next_quote_reference();
+    end if;
+    if NEW.status = 'open' then
+      NEW.status := 'sent';
+    end if;
+    perform public.assert_issued_quote_contract(NEW);
+  else
+    -- Brouillons / simulations : pas de verrouillage « issued »
+    if NEW.locked then
+      NEW.locked := false;
+    end if;
+  end if;
+  return NEW;
+end;
+$$;
+
+-- Garde-fou devis : immuabilité contractuelle + transitions de statut (UPDATE/DELETE)
 create or replace function public.enforce_quote_immutability()
 returns trigger
 language plpgsql
@@ -347,7 +440,7 @@ begin
     return OLD;
   end if;
 
-  -- Émission : forcer locked, référence, issued_at, statut sent
+  -- Émission : forcer locked, référence, issued_at, statut sent + validation contrat
   if NEW.kind = 'issued' then
     NEW.locked := true;
     if NEW.issued_at is null then
@@ -359,6 +452,7 @@ begin
     if NEW.status = 'open' then
       NEW.status := 'sent';
     end if;
+    perform public.assert_issued_quote_contract(NEW);
   end if;
 
   -- Interdiction de déverrouiller ou de rétrograder le type
@@ -441,6 +535,10 @@ $$;
 
 drop trigger if exists quotes_lock_guard on public.quotes;
 drop trigger if exists quotes_immutability_guard on public.quotes;
+drop trigger if exists quotes_insert_guard on public.quotes;
+create trigger quotes_insert_guard
+  before insert on public.quotes
+  for each row execute function public.enforce_quote_insert();
 create trigger quotes_immutability_guard
   before update or delete on public.quotes
   for each row execute function public.enforce_quote_immutability();

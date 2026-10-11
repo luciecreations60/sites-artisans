@@ -29,7 +29,7 @@ export async function promoteQuoteToDraft(
 
 /**
  * Émet un devis contractuel (verrouille le snapshot).
- * La référence unique est générée côté SQL (next_quote_reference) si absente.
+ * La référence unique est générée côté SQL (admin_next_quote_reference) si absente.
  * Refuse si les données légales émetteur sont insuffisantes ou si le chiffrage est incomplet.
  */
 export async function issueQuote(
@@ -75,13 +75,13 @@ export async function issueQuote(
     };
   }
 
-  const { data: refData, error: refErr } = await sb.rpc("next_quote_reference");
+  const { data: refData, error: refErr } = await sb.rpc("admin_next_quote_reference");
   if (refErr) {
     return {
       ok: false,
       error:
         refErr.message.includes("does not exist")
-          ? "Migration commerciale non appliquée (next_quote_reference)."
+          ? "Migration commerciale non appliquée (admin_next_quote_reference)."
           : refErr.message,
     };
   }
