@@ -95,8 +95,16 @@ Fallback statique si indisponible, avec message honnête.
 
 Détail templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md).
 
+## Demande commerciale (lot 5)
+
+- Étape 5 : récapitulatif détaillé + lien `/configurateur/demande`
+- Simulation imprimable : `/configurateur/simulation`
+- Envoi : Edge Function `submit-commercial-request` (recalcul serveur)
+- Détail : [`docs/V4-DEVIS-CRM.md`](./V4-DEVIS-CRM.md)
+
 ## Limites / lots suivants
 
-- Lot 4 : différenciation Essentiel / Avancé / Pro — **livré** (voir V4-DEMOS)
-- Lot 5 : devis serveur, CRM, PDF, pas de paiement ici
-- Pas de validation contractuelle navigateur
+- Lot 4 : différenciation Essentiel / Avancé / Pro — **livré**
+- Lot 5 : devis / CRM — **livré (code)** ; migrations + Edge Function à déployer manuellement
+- Lot 6 : génération de sites à partir de `site_configurations`
+- Pas de validation contractuelle purement navigateur

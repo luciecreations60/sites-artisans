@@ -12,6 +12,7 @@ import { useAuth } from "~/lib/auth";
 import { formatDateFr } from "~/lib/portal";
 import { getSupabase } from "~/lib/supabase";
 import { useCrmRefs } from "~/lib/useCrmRefs";
+import { ProspectCommercialPanel } from "~/components/portal/ProspectCommercialPanel";
 import { ProspectConvertPanel } from "~/components/portal/ProspectConvertPanel";
 import { ProspectDemosPanel } from "~/components/portal/ProspectDemosPanel";
 import { ProspectEmailsPanel } from "~/components/portal/ProspectEmailsPanel";
@@ -743,6 +744,8 @@ export default function AdminProspectDetail() {
           )}
         </>
       )}
+
+      <ProspectCommercialPanel prospectId={prospect.id} />
 
       <ProspectConvertPanel prospect={prospect} onConverted={() => void reload()} />
 

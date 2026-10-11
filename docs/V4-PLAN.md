@@ -1,10 +1,11 @@
 # Sites Artisans — Plan V4
 
-Document de pilotage pour la V4. Lots 1–4 sur la branche `feature/v4-sites-artisans`.
+Document de pilotage pour la V4. Lots 1–5 sur la branche `feature/v4-sites-artisans`.
 
 - Catalogue : [`docs/V4-CATALOGUE.md`](./V4-CATALOGUE.md)
 - Configurateur : [`docs/V4-CONFIGURATEUR.md`](./V4-CONFIGURATEUR.md)
 - Démos / templates : [`docs/V4-DEMOS.md`](./V4-DEMOS.md)
+- Devis & CRM : [`docs/V4-DEVIS-CRM.md`](./V4-DEVIS-CRM.md)
 
 ## Architecture actuelle (V3 → V4)
 
@@ -84,11 +85,13 @@ Document de pilotage pour la V4. Lots 1–4 sur la branche `feature/v4-sites-art
 - Lien configurateur étape 5 → démo correspondante
 - Voir `docs/V4-DEMOS.md`
 
-### 5. Devis et espace client
+### 5. Devis et espace client — **terminé (code)**
 
-- Devis détaillé final
-- Continuité prospect → client sans ressaisie
-- Pas d’écrasement des devis historiques
+- Récapitulatif + demande commerciale `/configurateur/demande`
+- Edge Function `submit-commercial-request` (recalcul serveur)
+- Tables `site_configurations`, `commercial_requests`, `quotes`, `business_settings`
+- Panneau CRM Configurateur V4 + émission devis verrouillée
+- Voir `docs/V4-DEVIS-CRM.md` — migration à appliquer manuellement
 
 ### 6. Génération automatisée de sites clients
 
