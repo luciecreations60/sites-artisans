@@ -1,9 +1,12 @@
 import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
+import { DemoModulesNote } from "~/components/DemoModulesNote";
 import type { TradeData } from "~/data/types";
+import { useDemoModules } from "~/lib/templates/useDemoModules";
 
 export default function DemoAvanceRealisations() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
+  const modules = useDemoModules("avance");
   const allTags = useMemo(() => {
     const set = new Set<string>();
     trade.projects.forEach((p) => p.tags.forEach((t) => set.add(t)));
@@ -11,44 +14,53 @@ export default function DemoAvanceRealisations() {
   }, [trade.projects]);
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
-  const filtered = activeTag
-    ? trade.projects.filter((p) => p.tags.includes(activeTag))
-    : trade.projects;
+  const filtered =
+    modules.gallery_filtered && activeTag
+      ? trade.projects.filter((p) => p.tags.includes(activeTag))
+      : trade.projects;
 
   return (
     <main className="section">
+      <DemoModulesNote modules={modules} />
       <div className="container">
         <h1>Réalisations</h1>
         <p className="text-muted">
-          {trade.projects.length} chantiers présentés — les pastilles filtrent par thème (ce ne sont pas des photos
-          supplémentaires).
+          Exemples illustratifs — {trade.projects.length} projets de démonstration. Les photos
+          seront remplacées par celles du client en production.
         </p>
-        <div style={{ margin: "1rem 0" }}>
-          <button
-            type="button"
-            className={`tag${activeTag === null ? " is-active" : ""}`}
-            onClick={() => setActiveTag(null)}
-          >
-            Tout
-          </button>
-          {allTags.map((tag) => (
+        {modules.gallery_filtered ? (
+          <div style={{ margin: "1rem 0" }} role="group" aria-label="Filtrer par thème">
             <button
-              key={tag}
               type="button"
-              className={`tag${activeTag === tag ? " is-active" : ""}`}
-              onClick={() => setActiveTag(tag)}
+              className={`tag${activeTag === null ? " is-active" : ""}`}
+              onClick={() => setActiveTag(null)}
             >
-              {tag}
+              Tout
             </button>
-          ))}
-        </div>
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                className={`tag${activeTag === tag ? " is-active" : ""}`}
+                onClick={() => setActiveTag(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        ) : null}
         <div className="grid grid-3">
           {filtered.map((p) => (
             <article key={p.id}>
               <img
                 src={p.image.src}
                 alt={p.image.alt}
-                style={{ borderRadius: "var(--radius)", aspectRatio: "4/3", objectFit: "cover", width: "100%" }}
+                loading="lazy"
+                className="media-rounded"
+                style={{ aspectRatio: "4/3", width: "100%" }}
+                onError={(e) => {
+                  e.currentTarget.style.visibility = "hidden";
+                }}
               />
               <h2 style={{ fontSize: "1.1rem", marginTop: "0.5rem" }}>{p.title}</h2>
               <p className="text-muted" style={{ margin: 0, fontSize: "0.9375rem" }}>

@@ -1,0 +1,117 @@
+# Sites Artisans — Devis & CRM (Lot 5)
+
+Parcours commercial entre configurateur, recalcul sécurisé, CRM et devis.
+
+## Parcours
+
+1. Configuration locale (`sa-configurator-v1` + `sa-profile`) — aucun compte requis  
+2. Récapitulatif détaillé (étape 5 + `/configurateur/simulation`)  
+3. Formulaire `/configurateur/demande`  
+4. Edge Function `submit-commercial-request` : recalcul serveur + prospect + config + simulation  
+5. CRM fiche prospect → panneau **Configurateur V4**  
+6. Brouillon → émission devis (snapshot verrouillé)  
+7. Conversion prospect → client (existant) + projet pour lot 6  
+
+## Modèle
+
+| Table | Rôle |
+|-------|------|
+| `site_configurations` | Snapshot métier / formule / options / profil / pricing |
+| `commercial_requests` | Intake public (tracking, montants serveur) |
+| `quotes` | simulation / draft / issued (`issued` ⇒ `locked`) |
+| `quote_status_events` | Historique des transitions de statut |
+| `business_settings` | Régime TVA, identité légale émetteur |
+| `commercial_request_rate_limits` | Anti-spam (RPC atomique) |
+
+Production lot 6 : [`docs/V4-PRODUCTION.md`](./V4-PRODUCTION.md) — atelier admin + générateur local ; ne modifie jamais un devis verrouillé.
+
+Migration : `supabase/migrations/20261012140000_v4_commercial_quotes.sql` (additive, **non exécutée** automatiquement).
+
+### Verrouillage devis
+
+- Contrainte SQL : `kind = issued` ⇒ `locked = true`
+- Trigger `enforce_quote_immutability` : montants / snapshots immuables ; **statut** mutable via transitions autorisées ; **déverrouillage interdit**
+- Référence unique : `next_quote_reference()` (interne / service_role / triggers) + `admin_next_quote_reference()` (admin seul)
+- INSERT `issued` : trigger `enforce_quote_insert` (locked, référence, issued_at, contrat valide)
+- Suppression d’un devis émis : interdite
+- Rate-limit : compteur à 0 puis +1 — limite 8 ⇒ 8 ok, 9ᵉ refusé
+
+### Suppression / RGPD prospects
+
+- `commercial_requests.prospect_id` : `ON DELETE SET NULL` (pas de CASCADE)
+- RPC `anonymize_commercial_request` : efface PII, conserve montants / tracking
+- Devis émis : `client_snapshot` conservé ; dissociation `prospect_id` autorisée
+
+## Calcul sécurisé
+
+- Navigateur : `calculateQuote` = simulation  
+- Serveur : `_shared/catalogPricing.ts` sur catalogue Supabase uniquement  
+- Total navigateur ignoré (`client_claimed_creation_cents` informatif)  
+- Quantités : `feature_quantities` (plafond 99)  
+- `loadVerifiedCatalog()` côté app refuse le fallback pour usage contractuel  
+
+## TVA
+
+`business_settings.tax_regime` :
+
+- `unknown` — pas d’émission de devis officiel  
+- `franchise` — pas de TVA calculée  
+- `liable` — `vat_rate_bps` + `vat_number` requis  
+
+Aucun taux 20 % figé dans le code.
+
+## Documents
+
+- Simulation : page imprimable `/configurateur/simulation` (mention non contractuelle)  
+- Devis émis : snapshot JSON + impression navigateur  
+- Pas de bibliothèque PDF lourde ; uploads `documents.kind = devis` restent possibles  
+
+## Sécurité / RLS
+
+- Tables commerciales : admin (`is_admin`)  
+- Client : SELECT devis `issued` liés à un projet `owns_project`  
+- Intake : Edge Function `service_role` uniquement  
+- Pas d’insertion anonyme directe depuis le navigateur  
+- Rate limit par hash IP+e-mail  
+- Idempotence `client_request_id`  
+
+## Catalogue vs STATIC
+
+| Surface | Source |
+|---------|--------|
+| Marketing offres | STATIC (référence) |
+| Configurateur | Supabase si prêt, sinon fallback simulation |
+| Démos modules | STATIC inclusions (+ options configurateur) |
+| Devis contractuel | Supabase obligatoire |
+
+Arbitrages `unavailable` → `optional` : admin Catalogue → onglet **Inclusions** (appliqués manuellement).
+
+## Données lot 6
+
+`site_configurations` doit contenir au minimum :
+
+- `trade_slug`, `plan_id`, `desired_feature_ids`, `feature_quantities`  
+- `theme_id`, `font_id`, `profile_snapshot`  
+- `pricing_snapshot` / `catalog_fingerprint`  
+
+Lien `project_id` après conversion.
+
+## Installation manuelle
+
+Ordre détaillé + checklist de recette : [`docs/V4-RECETTE-LANCEMENT.md`](./V4-RECETTE-LANCEMENT.md).
+
+1. Appliquer `20261011_catalog_offers_features.sql` si besoin (**ne pas** ré-upsert le catalogue tarifé sans validation)  
+2. Appliquer `20261012140000_v4_commercial_quotes.sql` (rate-limit, insert issued, `admin_next_quote_reference`, triggers SECURITY DEFINER)  
+3. Déployer Edge Function `submit-commercial-request`  
+4. Renseigner `business_settings` (légal + TVA)  
+5. Tester une demande depuis `/configurateur/demande`  
+6. Appliquer `20261012140100_v4_site_production.sql` (FK config/devis, validation accepted+locked)  
+
+## Limitations
+
+- E-mail de confirmation prospect : non envoyé automatiquement  
+- PDF natif : impression navigateur  
+- Fusion prospects : e-mail exact uniquement ; ambiguïté → nouvelle fiche + note admin  
+- Sans migration : formulaire affiche l’échec sans fausse confirmation  
+- Tests RLS / Edge live : **bloqués** tant que non installés manuellement  
+

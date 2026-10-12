@@ -1,7 +1,19 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { Personalizer } from "~/components/Personalizer";
-import { offerPlans } from "~/data/offers";
+import {
+  commercialNotes,
+  formatSetupPrice,
+  homeValuePropLine,
+  offerPlans,
+} from "~/data/offers";
 import { publicUrl } from "~/lib/publicUrl";
+
+/** Visuels métier existants (chemins réels sous public/img/). */
+const HERO_IMAGES = {
+  main: publicUrl("img/plombier/essentiel/01-hero.jpg"),
+  secondary: publicUrl("img/plombier/essentiel/02-about.jpg"),
+} as const;
 
 export const meta = () => [
   { title: "Sites Artisans — Sites simples pour artisans" },
@@ -25,7 +37,42 @@ const solutions = [
   { title: "Pensé pour le contact", text: "Appel, message ou devis : vos clients savent quoi faire." },
 ];
 
+const journey = [
+  {
+    title: "Personnalisez votre futur site",
+    text: "Choisissez votre métier, votre identité visuelle et vos besoins. La simulation est personnalisable et pourra être modifiée.",
+  },
+  {
+    title: "Échangeons sur votre projet",
+    text: "Nous validons ensemble les derniers détails et les prestations sélectionnées.",
+  },
+  {
+    title: "Suivez la création",
+    text: "Votre site est adapté, puis vous pouvez le consulter et demander les ajustements prévus dans votre formule.",
+  },
+  {
+    title: "Votre site est en ligne",
+    text: "Je vous accompagne dans sa publication sur l’hébergement que vous avez choisi.",
+  },
+];
+
+const trustPoints = [
+  {
+    title: "Vous n’avez pas besoin d’être à l’aise avec l’informatique.",
+    text: "Vous décrivez votre activité ; je m’occupe de la technique, de la structure du site et des réglages. Les échanges restent en français clair, sans jargon.",
+  },
+  {
+    title: "Vous parlez toujours à la même personne.",
+    text: "Du premier contact à la mise en ligne, c’est moi qui suis votre dossier. Vous savez à qui écrire, et vos demandes ne se perdent pas dans un standard.",
+  },
+];
+
 export default function Home() {
+  const valueProp = homeValuePropLine();
+  const [mainBroken, setMainBroken] = useState(false);
+  const [secondaryBroken, setSecondaryBroken] = useState(false);
+  const bothBroken = mainBroken && secondaryBroken;
+
   return (
     <>
       <section className="marketing-hero">
@@ -33,37 +80,66 @@ export default function Home() {
         <div className="container marketing-hero__grid hero-fade">
           <div className="marketing-hero__copy">
             <p className="eyebrow">Création de sites — artisans & petites entreprises</p>
-            <h1>
-              Votre savoir-faire mérite un site qui <em>travaille</em> pour vous.
-            </h1>
-            <p className="lead">
-              Des sites web modernes, clairs et rapides pour les artisans — pour rassurer vos
-              clients, montrer vos réalisations et recevoir davantage de demandes.
+            <h1>Votre savoir-faire mérite d’être visible.</h1>
+            <p className="hero-subtitle">
+              Vous êtes excellent dans votre métier. Votre site internet doit l’être aussi.
             </p>
+            <p className="lead marketing-hero__lead">
+              Créez un site professionnel qui vous ressemble, mettez en valeur vos réalisations et
+              permettez à vos futurs clients de vous contacter facilement.
+            </p>
+            <p className="hero-value-prop">{valueProp}</p>
             <div className="hero-actions">
-              <Link to="/offres" className="btn btn-primary">
-                Découvrir les offres
+              <Link to="/configurateur" className="btn btn-primary">
+                Personnaliser mon futur site
               </Link>
-              <Link to="/demos" className="btn btn-outline">
-                Voir les démonstrations
+              <Link to="/offres" className="btn btn-outline">
+                Découvrir les offres
               </Link>
             </div>
           </div>
           <div className="marketing-hero__media" aria-hidden>
-            <img
-              className="marketing-hero__photo-main"
-              src={publicUrl("img/plombier/essentiel_1.jpg")}
-              alt=""
-            />
-            <img
-              className="marketing-hero__photo-secondary"
-              src={publicUrl("img/plombier/essentiel_2.jpg")}
-              alt=""
-            />
-            <div className="marketing-hero__float">
-              <strong>Simple & efficace</strong>
-              Pensé pour les artisans, sans jargon technique.
-            </div>
+            {bothBroken ? (
+              <div className="marketing-hero__fallback">Exemple de vitrine artisan</div>
+            ) : (
+              <>
+                <img
+                  className={`marketing-hero__photo-main${mainBroken ? " is-broken" : ""}`}
+                  src={HERO_IMAGES.main}
+                  alt=""
+                  width={720}
+                  height={900}
+                  onError={() => setMainBroken(true)}
+                />
+                <img
+                  className={`marketing-hero__photo-secondary${secondaryBroken ? " is-broken" : ""}`}
+                  src={HERO_IMAGES.secondary}
+                  alt=""
+                  width={480}
+                  height={384}
+                  onError={() => setSecondaryBroken(true)}
+                />
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--tight trust-band" aria-labelledby="trust-heading">
+        <div className="container">
+          <p className="eyebrow">Accompagnement</p>
+          <h2 id="trust-heading">Un suivi simple, pensé pour votre quotidien.</h2>
+          <p className="lead section-lead">
+            L’objectif : un site qui vous aide à être contacté, sans vous transformer en
+            webmaster.
+          </p>
+          <div className="trust-grid">
+            {trustPoints.map((item) => (
+              <article key={item.title} className="trust-card">
+                <h3>{item.title}</h3>
+                <p className="text-muted">{item.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -73,9 +149,18 @@ export default function Home() {
           <p className="eyebrow eyebrow--light">Essayez avec votre propre entreprise</p>
           <h2>Et si vous pouviez déjà vous voir dans votre futur site ?</h2>
           <p className="lead">
-            Renseignez quelques informations. Les démonstrations s’adaptent à votre métier, à
-            votre nom, à votre ville — et à vos goûts de couleurs et de polices.
+            Pour composer votre formule et voir votre tarif évoluer, ouvrez le{" "}
+            <Link to="/configurateur" style={{ color: "var(--eyebrow-light)" }}>
+              configurateur
+            </Link>
+            . Ci-dessous, personnalisez aussi les démonstrations avec votre métier, votre nom et
+            vos couleurs.
           </p>
+          <div className="hero-actions" style={{ marginBottom: "1.25rem" }}>
+            <Link to="/configurateur" className="btn btn-primary">
+              Ouvrir le configurateur
+            </Link>
+          </div>
           <Personalizer variant="immersive" />
         </div>
       </section>
@@ -84,7 +169,7 @@ export default function Home() {
         <div className="container">
           <p className="eyebrow eyebrow--light">Le constat</p>
           <h2>Ça vous parle ?</h2>
-          <p className="text-muted prose-wide">
+          <p className="text-muted section-lead">
             Beaucoup d’artisans font très bien leur métier — mais leur présence en ligne ne le
             montre pas.
           </p>
@@ -103,7 +188,7 @@ export default function Home() {
           <div className="solution-panel">
             <p className="eyebrow">La solution</p>
             <h2>Un site à votre image, sans vous compliquer la vie.</h2>
-            <p className="text-muted prose-wide">
+            <p className="text-muted section-lead">
               Des sites pensés pour votre métier et pour vos clients : clairs, rassurants, et
               faciles à utiliser au quotidien.
             </p>
@@ -121,15 +206,37 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" id="offres">
+      <section className="section journey-section" aria-labelledby="journey-heading">
+        <div className="container">
+          <p className="eyebrow">Le parcours</p>
+          <h2 id="journey-heading">Quatre étapes, du premier aperçu à la mise en ligne.</h2>
+          <p className="lead section-lead">
+            Vous avancez à votre rythme : personnalisation, échange, création, puis publication
+            sur l’hébergement que vous avez choisi.
+          </p>
+          <ol className="journey-grid">
+            {journey.map((step, index) => (
+              <li key={step.title} className="journey-card">
+                <span className="journey-card__num" aria-hidden>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3>{step.title}</h3>
+                <p className="text-muted">{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section" id="offres" style={{ background: "var(--surface)" }}>
         <div className="container">
           <p className="eyebrow">Les offres</p>
-          <h2>Trois offres, une même exigence.</h2>
-          <p className="text-muted prose-wide">
-            Du site vitrine à la vitrine premium : chaque offre correspond à ce dont vous avez
-            besoin aujourd’hui, et peut évoluer plus tard.
+          <h2>Trois formules de création, une même exigence.</h2>
+          <p className="text-muted section-lead">
+            {commercialNotes.setupOnly} L’hébergement n’est pas inclus ; la maintenance reste
+            facultative.
           </p>
-          <div className="grid grid-3" style={{ marginTop: "2rem" }}>
+          <div className="grid grid-3 offer-grid">
             {offerPlans.map((plan) => (
               <article
                 key={plan.tier}
@@ -140,47 +247,48 @@ export default function Home() {
                 <p className="text-muted" style={{ margin: 0 }}>
                   {plan.tagline}
                 </p>
-                <p className="offer-price">À partir de {plan.priceFrom}</p>
-                <p className="text-muted" style={{ margin: 0, fontSize: "0.9375rem" }}>
-                  puis {plan.monthly}
+                <p className="offer-price">
+                  <span className="offer-price__label">Création</span>
+                  {formatSetupPrice(plan.setupPrice)}
                 </p>
                 <ul>
                   {plan.highlights.slice(0, 4).map((h) => (
                     <li key={h}>{h}</li>
                   ))}
                 </ul>
-                <Link to={`/demos?offre=${plan.tier}`} className="btn btn-ghost">
-                  Voir une démo
+                <Link
+                  to={`/configurateur?formule=${plan.tier}&parcours=formula`}
+                  className="btn btn-ghost"
+                >
+                  Personnaliser
                 </Link>
               </article>
             ))}
           </div>
+          <p className="commercial-footnote text-muted">
+            {commercialNotes.hosting} {commercialNotes.maintenance}
+          </p>
+          <div className="hero-actions">
+            <Link to="/offres" className="btn btn-outline">
+              Voir le détail des offres
+            </Link>
+            <Link to="/comparatif" className="btn btn-ghost">
+              Comparer les formules
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="section" style={{ background: "var(--surface)" }}>
-        <div className="container">
-          <p className="eyebrow">Ma façon de travailler</p>
-          <h2>Simple, pour vous comme pour moi.</h2>
-          <ol className="steps" style={{ marginTop: "1.75rem" }}>
-            <li>
-              <strong>Premier échange</strong> — Un appel sans engagement. Vous me parlez de
-              votre métier, je vous écoute.
-            </li>
-            <li>
-              <strong>Proposition</strong> — Une maquette claire et un devis détaillé. Pas de
-              surprise.
-            </li>
-            <li>
-              <strong>Création & validation</strong> — Je construis le site, on ajuste ensemble
-              jusqu’à ce que tout vous convienne.
-            </li>
-            <li>
-              <strong>Mise en ligne</strong> — Nom de domaine, hébergement et formulaire prêts à
-              recevoir des demandes.
-            </li>
-          </ol>
-          <div className="hero-actions">
+      <section className="section">
+        <div className="container cta-band">
+          <div>
+            <p className="eyebrow">Prochaine étape</p>
+            <h2>Parlons de votre projet.</h2>
+            <p className="lead section-lead" style={{ marginBottom: 0 }}>
+              Un message suffit pour démarrer. Je vous réponds sous 24 à 48 h, sans engagement.
+            </p>
+          </div>
+          <div className="hero-actions" style={{ marginTop: 0 }}>
             <Link to="/contact" className="btn btn-primary">
               Parlons de votre projet
             </Link>
