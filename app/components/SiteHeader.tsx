@@ -34,6 +34,7 @@ export function SiteHeader() {
           className="nav-toggle"
           aria-expanded={open}
           aria-controls="site-nav"
+          aria-label={open ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
           onClick={() => setOpen((v) => !v)}
         >
           Menu

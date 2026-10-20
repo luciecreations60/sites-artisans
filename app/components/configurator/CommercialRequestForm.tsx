@@ -9,10 +9,36 @@ import { buildCommercialPayload, ensureClientLocalId } from "~/lib/commercial/bu
 import { submitCommercialRequest } from "~/lib/commercial/submitApi";
 import type { CommercialSubmitResult } from "~/lib/commercial/types";
 import {
+  formatConfigSummary,
   loadConfiguratorState,
   saveConfiguratorState,
 } from "~/lib/configurator/storage";
 import type { ConfiguratorState } from "~/lib/configurator/types";
+
+const CONTACT_MAIL = "contact@sites-artisans.fr";
+
+function openMailtoFallback(args: {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  summary: string;
+}) {
+  const body = [
+    args.message.trim() || "Bonjour, j’ai préparé une configuration et souhaite en discuter.",
+    "",
+    "—",
+    args.name,
+    args.email,
+    args.phone ? `Tél. ${args.phone}` : "",
+    "",
+    args.summary,
+  ]
+    .filter((line) => line !== "")
+    .join("\n");
+  const subject = encodeURIComponent(`Demande configuration — ${args.name}`);
+  window.location.href = `mailto:${CONTACT_MAIL}?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
 
 type Props = {
   catalog: PublicCatalog;
@@ -40,6 +66,7 @@ export function CommercialRequestForm({ catalog, catalogStatus, initialState }: 
   const [preference, setPreference] = useState<"email" | "phone" | "either">("either");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [offlineSent, setOfflineSent] = useState(false);
   const [result, setResult] = useState<Extract<CommercialSubmitResult, { ok: true }> | null>(
     null,
   );
@@ -95,8 +122,27 @@ export function CommercialRequestForm({ catalog, catalogStatus, initialState }: 
     setSubmitting(false);
 
     if (!res.ok) {
+      const summary = formatConfigSummary(state);
+      try {
+        sessionStorage.setItem("sa-contact-config-summary", summary);
+      } catch {
+        /* ignore */
+      }
+      // Backend indisponible (Pages sans Edge, migrations, etc.) → mailto + config conservée
+      if (
+        res.code === "migration_pending" ||
+        /supabase|migration|503|indisponible|non configur/i.test(res.error)
+      ) {
+        openMailtoFallback({ name, email, phone, message, summary });
+        setOfflineSent(true);
+        setError(
+          "L’enregistrement en ligne n’est pas encore actif. Votre messagerie devrait s’ouvrir avec le récapitulatif — sinon écrivez à " +
+            CONTACT_MAIL +
+            ".",
+        );
+        return;
+      }
       setError(res.error);
-      // Conserve la saisie + config locale (déjà en localStorage)
       return;
     }
     setResult(res);
@@ -118,6 +164,31 @@ export function CommercialRequestForm({ catalog, catalogStatus, initialState }: 
         <Link to="/configurateur" className="btn btn-primary">
           Ouvrir le configurateur
         </Link>
+      </div>
+    );
+  }
+
+  if (offlineSent) {
+    return (
+      <div className="cfg-commercial" role="status">
+        <h1>Presque envoyé</h1>
+        <p>
+          L’enregistrement automatique n’est pas encore disponible sur cet environnement. Votre
+          configuration est conservée dans ce navigateur.
+        </p>
+        <p className="text-muted">
+          Si votre messagerie ne s’est pas ouverte, écrivez à{" "}
+          <a href={`mailto:${CONTACT_MAIL}`}>{CONTACT_MAIL}</a> en joignant votre récapitulatif, ou
+          utilisez la page Contact.
+        </p>
+        <div className="cfg-recap-actions">
+          <Link to="/contact?from=configurateur" className="btn btn-primary">
+            Ouvrir la page Contact
+          </Link>
+          <Link to="/configurateur" className="btn btn-ghost">
+            Reprendre ma configuration
+          </Link>
+        </div>
       </div>
     );
   }

@@ -24,6 +24,7 @@
   --container: min(1180px, 100% - 48px);
   --section-y: 104px;
   --header-h: 74px;
+  --sage-deep: #4a7368;
 
   /* Essentiel demo shell */
   --e-bg: #faf5ec;
@@ -37,7 +38,7 @@
   --e-tint: #f3ecdd;
   --e-dark: #2b2117;
 
-  /* Avancé (Signature) shell */
+  /* Avancé shell */
   --s-bg: #f4f0e7;
   --s-card: #fbf8f1;
   --s-ink: #1c1913;
@@ -48,7 +49,7 @@
   --s-bronze: #a87f45;
   --s-tint: #ece5d5;
 
-  /* Pro (Rayonnement) shell */
+  /* Pro shell */
   --r-bg: #0f0d0b;
   --r-bg2: #161310;
   --r-ink: #ece5d8;
@@ -89,6 +90,27 @@ body {
   color: var(--ink);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 1000;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--sage);
+  outline-offset: 3px;
 }
 
 img {
@@ -1313,14 +1335,21 @@ ul {
   width: 100%;
   min-height: 48px;
   padding: 0 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 12px;
-  background: #2a2521;
-  color: #fffaf2;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f7fbf9;
   font: inherit;
   font-weight: 500;
   font-size: 0.9rem;
   outline: none;
+  color-scheme: dark;
+}
+
+.personalizer input::placeholder,
+.personalizer select::placeholder {
+  color: rgba(247, 251, 249, 0.55);
+  opacity: 1;
 }
 
 .personalizer--light input,
@@ -1328,6 +1357,12 @@ ul {
   background: #fff;
   color: var(--ink);
   border-color: var(--line);
+  color-scheme: light;
+}
+
+.personalizer--light input::placeholder,
+.personalizer--light select::placeholder {
+  color: var(--muted);
 }
 
 .personalizer input:focus,

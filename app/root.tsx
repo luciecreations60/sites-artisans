@@ -8,8 +8,10 @@ import {
   ScrollRestoration,
 } from "react-router";
 import appStyles from "./app.css?url";
+import { publicUrl } from "~/lib/publicUrl";
 
 export const links = () => [
+  { rel: "icon", href: publicUrl("favicon.svg"), type: "image/svg+xml" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
   {

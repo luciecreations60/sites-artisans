@@ -50,16 +50,17 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
       <div className="container demo-chrome__inner">
         <div className="demo-chrome__left">
           <p style={{ margin: 0 }}>
-            {UX_LABELS.gallery} · {tierLabels[tier]} — {tradeLabel}
             {prospect ? (
               <>
-                {" "}
-                · <Link to={`/demo/${pathSlug}${previewQ}`}>Offres</Link>
+                <Link to={`/demo/${pathSlug}${previewQ}`}>Démo personnalisée</Link>
+                {" · "}
+                {tierLabels[tier]} — {tradeLabel}
               </>
             ) : (
               <>
-                {" "}
-                · <Link to="/demos">{UX_LABELS.gallery}</Link>
+                <Link to="/demos">{UX_LABELS.gallery}</Link>
+                {" · "}
+                {tierLabels[tier]} — {tradeLabel}
               </>
             )}
           </p>

@@ -14,7 +14,7 @@ import {
 } from "~/lib/configurator/bridge";
 import { loadConfiguratorState } from "~/lib/configurator/storage";
 import { TRADE_SLUGS, trades } from "~/data/trades";
-import type { TradeSlug } from "~/data/types";
+import type { OfferTier, TradeSlug } from "~/data/types";
 
 type Props = {
   compact?: boolean;
@@ -24,6 +24,7 @@ type Props = {
 export function Personalizer({ compact, variant = "default" }: Props) {
   const [profile, setProfile] = useState<Profile>(emptyProfile);
   const [tradeSlug, setTradeSlug] = useState<TradeSlug>("plombier");
+  const [planId, setPlanId] = useState<OfferTier>("essentiel");
   const [mounted, setMounted] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -32,6 +33,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
     setProfile(loaded ?? emptyProfile());
     const cfg = loadConfiguratorState();
     if (cfg.tradeSlug) setTradeSlug(cfg.tradeSlug);
+    if (cfg.planId) setPlanId(cfg.planId);
     setMounted(true);
   }, []);
 
@@ -173,7 +175,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
             </div>
             <div className="hero-actions" style={{ marginTop: "1.25rem" }}>
               <Link
-                to={configuratorHrefFromDemo(tradeSlug, "essentiel")}
+                to={configuratorHrefFromDemo(tradeSlug, planId)}
                 className="btn btn-primary"
                 onClick={onSave}
               >

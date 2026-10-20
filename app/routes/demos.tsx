@@ -51,7 +51,7 @@ export default function Demos() {
               const trade = trades[slug];
               return (
                 <article key={slug} className="card card--interactive demo-card">
-                  <img src={trade.hero.src} alt="" />
+                  <img src={trade.hero.src} alt={`Exemple de site — ${trade.label}`} />
                   <div className="demo-card__body">
                     <p className="eyebrow" style={{ marginBottom: "0.5rem" }}>
                       {trade.shortLabel}

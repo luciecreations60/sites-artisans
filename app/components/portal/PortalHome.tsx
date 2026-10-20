@@ -27,27 +27,40 @@ export function PortalLanding() {
 }
 
 export function PortalSetupNeeded() {
+  const isDev = import.meta.env.DEV;
+
   return (
     <section className="section">
       <div className="container">
         <h1>Espace client</h1>
-        <p className="lead">Supabase n’est pas encore configuré sur cet environnement.</p>
-        <ol>
-          <li>
-            Copiez <code>.env.example</code> vers <code>.env</code>
-          </li>
-          <li>
-            Renseignez <code>VITE_SUPABASE_URL</code> et <code>VITE_SUPABASE_ANON_KEY</code>
-          </li>
-          <li>
-            Exécutez <code>supabase/schema.sql</code> puis la migration{" "}
-            <code>supabase/migrations/20261002_portal_admin_harden.sql</code>
-          </li>
-          <li>Redémarrez <code>npm run dev</code></li>
-        </ol>
-        <Link to="/contact" className="btn btn-ghost">
-          Contacter
-        </Link>
+        <p className="lead">
+          L’espace client sera disponible au lancement de l’activité (1<sup>er</sup> janvier 2027).
+        </p>
+        <p className="text-muted" style={{ maxWidth: "52ch" }}>
+          En attendant, vous pouvez découvrir les offres, personnaliser un aperçu de site et nous
+          écrire — nous vous répondons sous 24 à 48 h.
+        </p>
+        <div className="hero-actions" style={{ marginTop: "1.25rem" }}>
+          <Link to="/configurateur" className="btn btn-primary">
+            Personnaliser mon site
+          </Link>
+          <Link to="/contact" className="btn btn-ghost">
+            Nous contacter
+          </Link>
+        </div>
+        {isDev ? (
+          <aside
+            className="text-muted"
+            style={{ marginTop: "2rem", fontSize: "0.875rem", maxWidth: "60ch" }}
+          >
+            <p>
+              <strong>Dev uniquement :</strong> connectez Supabase pour activer la connexion
+              (copiez <code>.env.example</code> → <code>.env</code>, renseignez{" "}
+              <code>VITE_SUPABASE_URL</code> / <code>VITE_SUPABASE_ANON_KEY</code>, appliquez les
+              migrations, puis redémarrez <code>npm run dev</code>).
+            </p>
+          </aside>
+        ) : null}
       </div>
     </section>
   );

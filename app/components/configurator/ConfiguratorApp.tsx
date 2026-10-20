@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { Link, useHref, useSearchParams } from "react-router";
 import { TRADE_SLUGS, trades } from "~/data/trades";
 import { fontPresets, themePresets } from "~/data/stylePresets";
 import { STATIC_FEATURES, toPublicFeature } from "~/data/catalog/staticCatalog";
@@ -53,6 +53,7 @@ function featureLookup(catalog: PublicCatalog, id: string): CatalogFeaturePublic
 
 export function ConfiguratorApp() {
   const [searchParams] = useSearchParams();
+  const simulationHref = useHref("/configurateur/simulation");
   const [state, setState] = useState<ConfiguratorState>(() => emptyConfiguratorState());
   const [mounted, setMounted] = useState(false);
   const [catalog, setCatalog] = useState<PublicCatalog | null>(null);
@@ -598,7 +599,7 @@ export function ConfiguratorApp() {
                   hideActions
                   onPrint={() => {
                     saveConfiguratorState(state);
-                    window.open("/configurateur/simulation", "_blank", "noopener,noreferrer");
+                    window.open(simulationHref, "_blank", "noopener,noreferrer");
                   }}
                 />
               </section>
@@ -644,7 +645,7 @@ export function ConfiguratorApp() {
                       className="btn btn-ghost"
                       onClick={() => {
                         saveConfiguratorState(state);
-                        window.open("/configurateur/simulation", "_blank", "noopener,noreferrer");
+                        window.open(simulationHref, "_blank", "noopener,noreferrer");
                       }}
                     >
                       Imprimer

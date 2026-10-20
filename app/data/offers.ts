@@ -13,7 +13,7 @@ export const HOME_VALUE_PROP = {
   interim:
     "Choisissez votre métier, personnalisez votre futur site et découvrez nos offres en toute transparence.",
   final:
-    "Choisissez votre métier, personnalisez votre site et découvrez immédiatement votre tarif. Sans mauvaise surprise.",
+    "Choisissez votre métier, personnalisez votre site et estimez votre tarif en quelques étapes. Le devis détaillé suit après échange.",
 } as const;
 
 export function homeValuePropLine(): string {
@@ -74,13 +74,13 @@ const HIGHLIGHTS: Record<OfferTier, string[]> = {
     "Filtrage des projets par type",
     "Demande de devis guidée",
     "Zone d’intervention visible",
-    "Mises à jour simples via votre espace (bientôt)",
+    "Espace client pour le suivi de projet",
   ],
   pro: [
     "Design immersif et pages détaillées",
     "Fiches projet avec photos avant / après",
     "Estimateur indicatif en ligne",
-    "Formulaire pour demander un rendez-vous",
+    "Formulaire de contact / demande de rendez-vous",
     "Accompagnement contenu au lancement",
   ],
 };
@@ -105,7 +105,12 @@ export const comparisonFeatures: OfferFeature[] = [
   { label: "Bouton d’appel sur mobile", essentiel: true, avance: true, pro: true },
   { label: "Demande de devis", essentiel: false, avance: "Formulaire guidé", pro: "Guidé + estimateur" },
   { label: "Estimateur en ligne", essentiel: false, avance: false, pro: true },
-  { label: "Prise de rendez-vous", essentiel: false, avance: false, pro: "Formulaire dédié" },
+  {
+    label: "Prise de rendez-vous",
+    essentiel: "Option (lien / outil externe)",
+    avance: "Option (lien / outil externe)",
+    pro: "Option (lien / outil externe)",
+  },
   { label: "Zone d’intervention", essentiel: "Mention", avance: "Mise en avant", pro: "Mise en avant" },
   { label: "Avis clients", essentiel: true, avance: true, pro: true },
   { label: "Optimisation mobile", essentiel: true, avance: true, pro: true },

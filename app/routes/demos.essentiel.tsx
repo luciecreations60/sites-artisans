@@ -55,7 +55,7 @@ export default function DemoEssentiel() {
             <h1>{trade.tagline}</h1>
             <p className="lead e-hero__lead">
               Un site vitrine simple pour présenter votre activité, vos prestations et vos
-              coordonnées — adapté à {trade.labelPlural.toLowerCase()}.
+              coordonnées — adapté aux {trade.labelPlural.toLowerCase()}.
             </p>
             <div className="e-chips" aria-label="Prestations mises en avant">
               {trade.services.slice(0, 3).map((s) => (

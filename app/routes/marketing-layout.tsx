@@ -8,8 +8,15 @@ export default function MarketingLayout() {
 
   return (
     <>
+      <a className="skip-link" href="#contenu-principal">
+        Aller au contenu
+      </a>
       {!isAdmin && <SiteHeader />}
-      <div className={`page-main${isAdmin ? " page-main--admin" : ""}`}>
+      <div
+        id="contenu-principal"
+        className={`page-main${isAdmin ? " page-main--admin" : ""}`}
+        tabIndex={-1}
+      >
         <Outlet />
       </div>
       {!isAdmin && <SiteFooter />}

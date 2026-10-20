@@ -51,12 +51,18 @@ for (const file of files) {
   text = text.replaceAll('href="/"', `href="${BASE}/"`);
   text = text.replaceAll('href="/offres', `href="${BASE}/offres`);
   text = text.replaceAll('href="/demos', `href="${BASE}/demos`);
+  text = text.replaceAll('href="/demo/', `href="${BASE}/demo/`);
   text = text.replaceAll('href="/comparatif', `href="${BASE}/comparatif`);
+  text = text.replaceAll('href="/configurateur', `href="${BASE}/configurateur`);
+  text = text.replaceAll('href="/admin', `href="${BASE}/admin`);
   text = text.replaceAll('href="/contact', `href="${BASE}/contact`);
   text = text.replaceAll('href="/espace-client', `href="${BASE}/espace-client`);
   text = text.replaceAll('href="/mentions-legales', `href="${BASE}/mentions-legales`);
   text = text.replaceAll('href="/cgv', `href="${BASE}/cgv`);
   text = text.replaceAll('href="/confidentialite', `href="${BASE}/confidentialite`);
+  // Hardcoded absolute opens (ex. Imprimer → simulation)
+  text = text.replaceAll('"/configurateur/simulation"', `"${BASE}/configurateur/simulation"`);
+  text = text.replaceAll("'/configurateur/simulation'", `'${BASE}/configurateur/simulation'`);
 
   if (text !== before) writeFileSync(file, text);
 }
