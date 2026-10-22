@@ -10,15 +10,18 @@ permissions:
   pages: write
   id-token: write
 
+# Do not cancel in-progress deploys: cancelling mid-flight can leave GitHub Pages
+# stuck in "updating_pages" until actions/deploy-pages hits its timeout.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -42,3 +45,6 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # 15 min — default 10 min is too tight when Pages stays on updating_pages
+          timeout: 900000
