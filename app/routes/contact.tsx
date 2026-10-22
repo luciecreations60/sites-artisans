@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
+import { BRAND_EMAIL, BRAND_NAME, brandTitle } from "~/lib/brand";
 import { loadConfiguratorState, formatConfigSummary } from "~/lib/configurator/storage";
 
-export const meta = () => [{ title: "Contact — Sites Artisans" }];
+export const meta = () => [{ title: brandTitle("Contact") }];
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -45,14 +46,14 @@ export default function Contact() {
             </aside>
           )}
           <ul className="text-muted" style={{ paddingLeft: "1.1em" }}>
-            <li>contact@sites-artisans.fr</li>
+            <li>{BRAND_EMAIL}</li>
             <li>Basée dans l’Oise — aussi à distance partout en France</li>
           </ul>
         </div>
         <div className="contact-panel">
           {sent ? (
             <p role="status">
-              Votre messagerie devrait s’ouvrir. Sinon, écrivez à contact@sites-artisans.fr.
+              Votre messagerie devrait s’ouvrir. Sinon, écrivez à {BRAND_EMAIL}.
             </p>
           ) : (
             <form
@@ -65,9 +66,9 @@ export default function Contact() {
                 const fullMessage = summary
                   ? `${message}\n\n---\n${summary}`
                   : message;
-                const subject = encodeURIComponent(`Contact Sites Artisans — ${name}`);
+                const subject = encodeURIComponent(`Contact ${BRAND_NAME} — ${name}`);
                 const body = encodeURIComponent(`${fullMessage}\n\n— ${name}\n${email}`);
-                window.location.href = `mailto:contact@sites-artisans.fr?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:${BRAND_EMAIL}?subject=${subject}&body=${body}`;
                 setSent(true);
               }}
             >

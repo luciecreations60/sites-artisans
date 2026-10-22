@@ -71,7 +71,7 @@ export function renderSiteHtml(cfg: SiteBuildConfig): { files: Record<string, st
     : "";
 
   const estimator = has(cfg, "estimator")
-    ? `<section class="wrap section" id="estimateur"><h2>Estimation indicative</h2><p class="note">Barème artisan à configurer — aucun montant inventé, distinct des tarifs Sites Artisans.</p><div class="estimator-stub" data-module="estimator" aria-live="polite">Estimateur prêt — saisie des options côté mise en ligne.</div></section>`
+    ? `<section class="wrap section" id="estimateur"><h2>Estimation indicative</h2><p class="note">Barème artisan à configurer — aucun montant inventé, distinct des tarifs Site AZ.</p><div class="estimator-stub" data-module="estimator" aria-live="polite">Estimateur prêt — saisie des options côté mise en ligne.</div></section>`
     : "";
 
   const beforeAfter = has(cfg, "gallery_before_after")
@@ -80,7 +80,7 @@ export function renderSiteHtml(cfg: SiteBuildConfig): { files: Record<string, st
 
   const pages: Record<string, string> = {};
 
-  const css = `/* Sites Artisans — généré ${cfg.templateVersion} — shell ${shell} */
+  const css = `/* Site AZ — généré ${cfg.templateVersion} — shell ${shell} */
 :root {
   --ink: ${theme.ink};
   --paper: ${theme.paper};
@@ -332,7 +332,7 @@ ${has(cfg, "quote_form") ? `<section data-section="quote"><h2>Demande de devis</
     "",
     "Hébergement : le client possède et paie son hébergement.",
     "Formulaires : configurez un service d’envoi réel avant mise en ligne.",
-    "Aucun secret Sites Artisans / Supabase n’est inclus.",
+    "Aucun secret Site AZ / Supabase n’est inclus.",
   ]
     .filter(Boolean)
     .join("\n");

@@ -169,7 +169,7 @@ export function ConfigurationRecap({
         <h3>Répartition des coûts</h3>
         <div className="cfg-cost-split">
           <div>
-            <h4>Sites Artisans</h4>
+            <h4>Site AZ</h4>
             <ul className="cfg-detail-lines">
               <li>
                 <span>Création — {plan?.name}</span>

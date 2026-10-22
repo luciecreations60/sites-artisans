@@ -45,7 +45,7 @@ export default function EspaceClientConnexion() {
     <section className="section">
       <div className="container" style={{ maxWidth: "28rem" }}>
         <h1>Connexion</h1>
-        <p className="text-muted">Espace client et administration Sites Artisans.</p>
+        <p className="text-muted">Espace client et administration Site AZ.</p>
         <form className="stack-form" onSubmit={onSubmit}>
           <label>
             E-mail
@@ -80,4 +80,4 @@ export default function EspaceClientConnexion() {
   );
 }
 
-export const meta = () => [{ title: "Connexion — Sites Artisans" }];
+export const meta = () => [{ title: "Connexion — Site AZ" }];

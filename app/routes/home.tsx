@@ -7,6 +7,7 @@ import {
   homeValuePropLine,
   offerPlans,
 } from "~/data/offers";
+import { BRAND_NAME } from "~/lib/brand";
 import { publicUrl } from "~/lib/publicUrl";
 
 /** Visuels métier existants (chemins réels sous public/img/). */
@@ -16,7 +17,7 @@ const HERO_IMAGES = {
 } as const;
 
 export const meta = () => [
-  { title: "Sites Artisans — Sites simples pour artisans" },
+  { title: `${BRAND_NAME} — Sites simples pour artisans` },
 ];
 
 const problems = [

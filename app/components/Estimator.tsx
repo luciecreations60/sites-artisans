@@ -13,7 +13,7 @@ type Props = {
 };
 
 /**
- * Estimateur des prestations de l’ARTISAN (pas le prix Sites Artisans).
+ * Estimateur des prestations de l’ARTISAN (pas le prix Site AZ).
  * Réutilisable : barème porté par `trade.estimator`.
  */
 export function Estimator({ trade, demoMode = true, devisPath = "/pro/devis" }: Props) {

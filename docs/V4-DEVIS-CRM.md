@@ -1,4 +1,4 @@
-# Sites Artisans — Devis & CRM (Lot 5)
+# Site AZ — Devis & CRM (Lot 5)
 
 Parcours commercial entre configurateur, recalcul sécurisé, CRM et devis.
 

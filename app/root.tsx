@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 import appStyles from "./app.css?url";
+import { BRAND_TITLE } from "~/lib/brand";
 import { publicUrl } from "~/lib/publicUrl";
 
 export const links = () => [
@@ -24,7 +25,7 @@ export const links = () => [
 export const meta = () => [
   { charSet: "utf-8" },
   { name: "viewport", content: "width=device-width, initial-scale=1" },
-  { title: "Sites Artisans — Sites web pour artisans" },
+  { title: BRAND_TITLE },
   { name: "robots", content: "noindex, nofollow" },
   { name: "googlebot", content: "noindex" },
 ];

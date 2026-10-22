@@ -67,7 +67,7 @@ function planLinks(links: CatalogPlanFeature[], planId: OfferTier) {
   return links.filter((l) => l.planId === planId);
 }
 
-/** Tarif Sites Artisans présent au catalogue (centimes > 0). */
+/** Tarif Site AZ présent au catalogue (centimes > 0). */
 export function hasSitesArtisansPrice(feature: CatalogFeaturePublic): boolean {
   return (
     (feature.setupPriceCents != null && feature.setupPriceCents > 0) ||
@@ -265,7 +265,7 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
           label: feature.name,
           kind: "external",
           amountCents: null,
-          reason: "Configuration / lien externe — hors prix de création Sites Artisans",
+          reason: "Configuration / lien externe — hors prix de création Site AZ",
         });
         continue;
       }
@@ -309,7 +309,7 @@ export function calculateQuote(catalog: PublicCatalog, selection: PricingSelecti
           kind: "option_setup",
           amountCents: lineTotal,
           reason: provider
-            ? "Mise en place Sites Artisans (abonnement prestataire à part)"
+            ? "Mise en place Site AZ (abonnement prestataire à part)"
             : qty > 1
               ? `Prix unitaire ${feature.setupPriceCents} centimes × ${qty}`
               : undefined,

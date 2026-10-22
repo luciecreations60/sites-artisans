@@ -206,36 +206,38 @@ export async function loadCrmProductionJobs(
     }
 
     const projectIds = projects.map((p) => p.id);
+    const clientIds = [
+      ...new Set(projects.map((p) => p.client_id).filter((id): id is string => Boolean(id))),
+    ];
 
     const configsQ = db.from("site_configurations").select("*") as unknown as {
       in: (c: string, v: string[]) => Promise<QueryResult<SiteConfigurationRow[]>>;
     };
-    const quotesQ = db.from("quotes").select("*") as unknown as {
-      eq: (c: string, v: string | boolean) => {
-        eq: (c: string, v: string | boolean) => {
+    /** Devis acceptés — filtre kind/status/locked puis in(col). */
+    type QuotesFiltered = {
+      in: (c: string, v: string[]) => Promise<QueryResult<QuoteRow[]>>;
+    };
+    const quotesAcceptedBase = () =>
+      (
+        db.from("quotes").select("*") as unknown as {
           eq: (c: string, v: string | boolean) => {
-            in: (c: string, v: string[]) => Promise<QueryResult<QuoteRow[]>>;
+            eq: (c: string, v: string | boolean) => {
+              eq: (c: string, v: string | boolean) => QuotesFiltered;
+            };
           };
-        };
-      };
-    };
-    const profilesQ = db.from("profiles").select("id, full_name, company_name, email") as unknown as {
-      eq: (c: string, v: string) => Promise<QueryResult<CrmClientRow[]>>;
-    };
-
-    const [configsRes, quotesRes, profilesRes] = await Promise.all([
-      configsQ.in("project_id", projectIds),
-      quotesQ
+        }
+      )
         .eq("kind", "issued")
         .eq("status", "accepted")
-        .eq("locked", true)
-        .in("project_id", projectIds),
-      profilesQ.eq("role", "client"),
-    ]);
+        .eq("locked", true);
 
-    if (configsRes.error || quotesRes.error) {
-      const err = configsRes.error || quotesRes.error;
-      const msg = String(err?.message ?? err);
+    const profilesQ = db.from("profiles").select("id, full_name, company_name, email") as unknown as {
+      in: (c: string, v: string[]) => Promise<QueryResult<CrmClientRow[]>>;
+    };
+
+    const configsRes = await configsQ.in("project_id", projectIds);
+    if (configsRes.error) {
+      const msg = String(configsRes.error.message ?? configsRes.error);
       if (/does not exist|relation|42P01/i.test(msg)) {
         return {
           status: "migration_pending",
@@ -248,7 +250,39 @@ export async function loadCrmProductionJobs(
     }
 
     const configs = configsRes.data ?? [];
-    const quotes = quotesRes.data ?? [];
+    const configurationIds = configs.map((c) => c.id).filter(Boolean);
+
+    // Devis émis+acceptés : via project_id OU configuration_id
+    // (project_id figé après verrouillage — souvent null si émission avant conversion).
+    const [quotesByProjectRes, quotesByConfigRes, profilesRes] = await Promise.all([
+      quotesAcceptedBase().in("project_id", projectIds),
+      configurationIds.length
+        ? quotesAcceptedBase().in("configuration_id", configurationIds)
+        : Promise.resolve({ data: [] as QuoteRow[], error: null }),
+      clientIds.length
+        ? profilesQ.in("id", clientIds)
+        : Promise.resolve({ data: [] as CrmClientRow[], error: null }),
+    ]);
+
+    if (quotesByProjectRes.error || quotesByConfigRes.error) {
+      const err = quotesByProjectRes.error || quotesByConfigRes.error;
+      const msg = String(err?.message ?? err);
+      if (/does not exist|relation|42P01/i.test(msg)) {
+        return {
+          status: "migration_pending",
+          message:
+            "Migration commerciale lot 5 non appliquée — production CRM désactivée (fixtures TEST disponibles).",
+          jobs: [],
+        };
+      }
+      return { status: "error", message: msg, jobs: [] };
+    }
+
+    const quoteMap = new Map<string, QuoteRow>();
+    for (const q of [...(quotesByProjectRes.data ?? []), ...(quotesByConfigRes.data ?? [])]) {
+      quoteMap.set(q.id, q);
+    }
+    const quotes = [...quoteMap.values()];
     const profiles = profilesRes.data ?? [];
     const profileMap = new Map(profiles.map((p) => [p.id, p]));
 

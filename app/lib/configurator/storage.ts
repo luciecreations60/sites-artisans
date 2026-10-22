@@ -131,7 +131,7 @@ export function mergeBootParams(
 
 export function formatConfigSummary(state: ConfiguratorState): string {
   const lines = [
-    "Configuration Sites Artisans",
+    "Configuration Site AZ",
     `Métier : ${state.tradeSlug ?? "—"}`,
     `Parcours : ${state.path === "compose" ? "Composition libre" : state.path === "formula" ? "Formule" : "—"}`,
     `Formule : ${state.planId ?? "—"}`,

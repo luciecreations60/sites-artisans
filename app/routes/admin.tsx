@@ -19,7 +19,7 @@ import {
   type Project,
 } from "~/lib/supabase.types";
 
-export const meta = () => [{ title: "Administration — Sites Artisans" }];
+export const meta = () => [{ title: "Administration — Site AZ" }];
 
 type TodoItem = {
   id: string;

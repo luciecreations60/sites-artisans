@@ -183,7 +183,7 @@ export async function sendOrReturnInviteLink(opts: {
     .maybeSingle();
 
   const fromEmail = smtp.fromEmail || settings?.sender_email || "";
-  const fromName = smtp.fromName || settings?.sender_name || "Sites Artisans";
+  const fromName = smtp.fromName || settings?.sender_name || "Site AZ";
   const replyTo = smtp.replyTo || settings?.reply_to || undefined;
 
   if (!fromEmail) {
@@ -195,7 +195,7 @@ export async function sendOrReturnInviteLink(opts: {
   }
 
   const greeting = contactName ? `Bonjour ${contactName},` : "Bonjour,";
-  const subject = "Activez votre espace client Sites Artisans";
+  const subject = "Activez votre espace client Site AZ";
   const text = [
     greeting,
     "",
@@ -206,14 +206,14 @@ export async function sendOrReturnInviteLink(opts: {
     "",
     "Ce lien est personnel et à usage unique. Ne le partagez pas.",
     "",
-    "— Sites Artisans",
+    "— Site AZ",
   ].join("\n");
 
   const html = `<p>${greeting}</p>
 <p>Votre espace client pour <strong>${escapeHtml(companyName)}</strong> est prêt.</p>
 <p><a href="${escapeAttr(inviteLink)}">Activer mon espace client</a></p>
 <p>Ce lien est personnel et à usage unique. Ne le partagez pas.</p>
-<p>— Sites Artisans</p>`;
+<p>— Site AZ</p>`;
 
   const result = await provider.sendEmail({
     to: to.trim(),

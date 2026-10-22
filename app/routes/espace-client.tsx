@@ -14,7 +14,7 @@ import {
   type ProjectStatus,
 } from "~/lib/supabase.types";
 
-export const meta = () => [{ title: "Espace client — Sites Artisans" }];
+export const meta = () => [{ title: "Espace client — Site AZ" }];
 
 export default function EspaceClient() {
   const { configured, loading, user, profile } = useAuth();

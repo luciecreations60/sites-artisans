@@ -6,7 +6,7 @@ import {
   offerPlans,
 } from "~/data/offers";
 
-export const meta = () => [{ title: "Comparatif — Sites Artisans" }];
+export const meta = () => [{ title: "Comparatif — Site AZ" }];
 
 function cell(value: boolean | string) {
   if (value === true) return "Oui";

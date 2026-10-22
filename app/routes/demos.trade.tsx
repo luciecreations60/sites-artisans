@@ -4,7 +4,7 @@ import { tierLabels } from "~/data/offers";
 import type { OfferTier } from "~/data/types";
 
 export const meta = ({ data }: { data?: { trade: { label: string } } }) => [
-  { title: data ? `Démo ${data.trade.label} — Sites Artisans` : "Démo — Sites Artisans" },
+  { title: data ? `Démo ${data.trade.label} — Site AZ` : "Démo — Site AZ" },
 ];
 
 export function loader({ params }: { params: { trade?: string } }) {

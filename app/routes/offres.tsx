@@ -5,7 +5,7 @@ import {
   offerPlans,
 } from "~/data/offers";
 
-export const meta = () => [{ title: "Offres — Sites Artisans" }];
+export const meta = () => [{ title: "Offres — Site AZ" }];
 
 export default function Offres() {
   return (

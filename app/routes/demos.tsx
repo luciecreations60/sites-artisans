@@ -5,7 +5,7 @@ import { tierLabels } from "~/data/offers";
 import type { OfferTier } from "~/data/types";
 import { configuratorHrefFromDemo, UX_LABELS } from "~/lib/configurator/bridge";
 
-export const meta = () => [{ title: "Exemples de sites — Sites Artisans" }];
+export const meta = () => [{ title: "Exemples de sites — Site AZ" }];
 
 const tiers: OfferTier[] = ["essentiel", "avance", "pro"];
 

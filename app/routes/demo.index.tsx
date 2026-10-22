@@ -12,7 +12,7 @@ const blurbs: Record<OfferTier, string> = {
   pro: "Version premium avec estimateur et fiches projet.",
 };
 
-export const meta = () => [{ title: "Démo personnalisée — Sites Artisans" }];
+export const meta = () => [{ title: "Démo personnalisée — Site AZ" }];
 
 export default function ProspectDemoHub() {
   const prospect = useProspectDemo();

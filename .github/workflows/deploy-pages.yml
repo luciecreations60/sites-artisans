@@ -10,9 +10,12 @@ permissions:
   pages: write
   id-token: write
 
+# Ne pas annuler un déploiement en cours : cancel-in-progress laissait
+# parfois Pages bloqué en "updating_pages" (timeout) quand un run suivant
+# coupait le précédent au milieu de actions/deploy-pages.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:

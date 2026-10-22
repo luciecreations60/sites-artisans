@@ -11,7 +11,7 @@ const validIssued = {
   taxRegime: "franchise",
   vatRateBps: null,
   issuerSnapshot: {
-    legal_name: "Sites Artisans",
+    legal_name: "Site AZ",
     address_line: "1 rue Test",
     city: "Lyon",
   },

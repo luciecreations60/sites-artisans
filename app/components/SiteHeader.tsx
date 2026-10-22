@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
+import { BRAND_NAME } from "~/lib/brand";
 
 const links = [
   { to: "/", label: "Accueil", end: true },
@@ -27,7 +28,7 @@ export function SiteHeader() {
       <div className="container site-header__inner">
         <NavLink to="/" className="site-brand" onClick={() => setOpen(false)}>
           <span className="brand-mark" aria-hidden />
-          Sites Artisans
+          {BRAND_NAME}
         </NavLink>
         <button
           type="button"

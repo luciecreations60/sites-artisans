@@ -57,7 +57,7 @@ async function sha256Hex(input: string): Promise<string> {
 
 function trackingCode(): string {
   const n = crypto.randomUUID().replace(/-/g, "").slice(0, 10).toUpperCase();
-  return `SA-${n}`;
+  return `AZ-${n}`;
 }
 
 Deno.serve(async (req) => {

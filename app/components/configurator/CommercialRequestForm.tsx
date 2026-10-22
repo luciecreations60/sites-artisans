@@ -14,8 +14,9 @@ import {
   saveConfiguratorState,
 } from "~/lib/configurator/storage";
 import type { ConfiguratorState } from "~/lib/configurator/types";
+import { BRAND_EMAIL } from "~/lib/brand";
 
-const CONTACT_MAIL = "contact@sites-artisans.fr";
+const CONTACT_MAIL = BRAND_EMAIL;
 
 function openMailtoFallback(args: {
   name: string;

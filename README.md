@@ -1,4 +1,4 @@
-# Sites Artisans
+# Site AZ
 
 Générateur de sites vitrines pour artisans (React Router 8 + Vite).
 
@@ -10,7 +10,7 @@ Générateur de sites vitrines pour artisans (React Router 8 + Vite).
 
 | Branche | Contenu |
 |---|---|
-| `main` | Version actuelle (V3 React + espace client) |
+| `main` | Version actuelle (V4 Site AZ + espace client) |
 | `archive/v2-main` | Ancien site Studio Fontaine / Emergent (historisé) |
 | `cursor/cloud-agent-…` | Branche de travail Cloud Agent (historique du chantier) |
 

@@ -718,7 +718,7 @@ export const STATIC_FEATURES: CatalogFeature[] = [
     id: "client_space",
     category: "services",
     name: "Espace client suivi de projet",
-    description: "Suivi de la création via l’espace client Sites Artisans.",
+    description: "Suivi de la création via l’espace client Site AZ.",
     setupPriceCents: null,
     recurringPriceCents: null,
     billingType: "none",

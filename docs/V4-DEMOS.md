@@ -1,4 +1,4 @@
-# Sites Artisans — Démonstrations V4 (Lot 4)
+# Site AZ — Démonstrations V4 (Lot 4)
 
 Architecture des 33 démos (11 métiers × 3 formules) sans dupliquer 33 sites.
 
@@ -35,7 +35,7 @@ Les couleurs `Profile.themeId` influencent `--trade-*` ; Pro conserve une toile 
 ## Modules réutilisables
 
 - `BeforeAfter` — curseur horizontal (pointeur, tactile, clavier), libellés Avant/Après, mode illustratif
-- `Estimator` — barème `trade.estimator` (prestations artisan, **pas** le prix Sites Artisans)
+- `Estimator` — barème `trade.estimator` (prestations artisan, **pas** le prix Site AZ)
 - `DemoModulesNote` — options configurateur sans composant démo
 - `resolveDemoModules(tier)` — inclusions catalogue + options compatibles
 

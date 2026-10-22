@@ -270,7 +270,7 @@ export function calculateServerQuote(
         kind: "option_setup",
         amountCents: total,
         reason: provider
-          ? "Mise en place Sites Artisans (abonnement prestataire à part)"
+          ? "Mise en place Site AZ (abonnement prestataire à part)"
           : undefined,
       });
     }

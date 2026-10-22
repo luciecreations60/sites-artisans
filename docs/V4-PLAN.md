@@ -1,4 +1,4 @@
-# Sites Artisans — Plan V4
+# Site AZ — Plan V4
 
 Document de pilotage pour la V4. Lots 1–7 sur la branche `feature/v4-sites-artisans`.
 

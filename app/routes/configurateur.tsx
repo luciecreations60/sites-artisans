@@ -1,7 +1,7 @@
 import { ConfiguratorApp } from "~/components/configurator/ConfiguratorApp";
 
 export const meta = () => [
-  { title: "Configurateur — Sites Artisans" },
+  { title: "Configurateur — Site AZ" },
   {
     name: "description",
     content:

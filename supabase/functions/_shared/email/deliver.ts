@@ -226,7 +226,7 @@ export async function deliverProspectEmail(
   const { data: settings } = await service.from("crm_email_settings").select("*").limit(1).maybeSingle();
   const smtpDefaults = getSmtpFromDefaults();
   const fromEmail = smtpDefaults.fromEmail || settings?.sender_email || "";
-  const fromName = smtpDefaults.fromName || settings?.sender_name || "Sites Artisans";
+  const fromName = smtpDefaults.fromName || settings?.sender_name || "Site AZ";
   const replyTo = smtpDefaults.replyTo || settings?.reply_to || undefined;
 
   if (!fromEmail) {

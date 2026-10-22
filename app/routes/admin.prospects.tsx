@@ -396,7 +396,7 @@ export default function AdminProspects() {
         <div className="admin-page__header-row">
           <div>
             <h1>Prospects</h1>
-            <p className="text-muted">Pipeline commercial Sites Artisans.</p>
+            <p className="text-muted">Pipeline commercial Site AZ.</p>
           </div>
           <div className="crm-header-actions">
             <Link to="/admin/prospects/campagnes" className="btn btn-ghost">

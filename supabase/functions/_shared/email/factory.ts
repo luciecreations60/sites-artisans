@@ -36,7 +36,7 @@ export function getEmailProvider(): EmailProvider {
 export function getSmtpFromDefaults() {
   return {
     fromEmail: env("SMTP_FROM_EMAIL"),
-    fromName: env("SMTP_FROM_NAME") || "Sites Artisans",
+    fromName: env("SMTP_FROM_NAME") || "Site AZ",
     replyTo: env("SMTP_REPLY_TO"),
   };
 }

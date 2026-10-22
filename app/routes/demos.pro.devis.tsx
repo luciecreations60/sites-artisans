@@ -25,7 +25,7 @@ export default function DemoProDevis() {
           <h1>Devis & estimation</h1>
           <p className="text-muted">
             Estimateur des prestations de l’artisan (barème de démo fictif) — distinct du tarif de
-            création du site Sites Artisans.
+            création du site Site AZ.
           </p>
           {modules.estimator ? (
             <Estimator trade={trade} demoMode devisPath="/pro/contact" />

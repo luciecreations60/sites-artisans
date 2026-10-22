@@ -132,7 +132,7 @@ export default function EspaceClientActivation() {
         <div className="container" style={{ maxWidth: "28rem" }}>
           <h1>Activation</h1>
           <p className="form-error">
-            Lien d’invitation invalide ou expiré. Demandez un nouvel envoi à Sites Artisans.
+            Lien d’invitation invalide ou expiré. Demandez un nouvel envoi à Site AZ.
           </p>
           <p style={{ marginTop: "1.25rem" }}>
             <Link to="/espace-client/connexion">Aller à la connexion</Link>
@@ -184,4 +184,4 @@ export default function EspaceClientActivation() {
   );
 }
 
-export const meta = () => [{ title: "Activation — Sites Artisans" }];
+export const meta = () => [{ title: "Activation — Site AZ" }];

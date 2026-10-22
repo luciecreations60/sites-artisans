@@ -122,4 +122,15 @@ describe("raccord CRM → production", () => {
     const job = mapCrmToProductionJob({ project, configuration, acceptedQuote });
     assert.equal(job.id, "crm_proj-1");
   });
+
+  it("accepte un devis lié uniquement via configuration_id (project_id null après verrouillage)", () => {
+    const job = mapCrmToProductionJob({
+      project,
+      configuration,
+      acceptedQuote: { ...acceptedQuote, project_id: null },
+    });
+    assert.equal(job.config.acceptedQuoteId, "q-1");
+    assert.equal(job.config.acceptedQuoteReference, "D-20261012-000001");
+    assert.deepEqual(crmProductionBlockers(job), []);
+  });
 });

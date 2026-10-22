@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { BRAND_NAME } from "~/lib/brand";
 
 export function SiteFooter() {
   return (
@@ -7,14 +8,14 @@ export function SiteFooter() {
         <div>
           <div className="site-brand" style={{ color: "#f7f1e7", marginBottom: "0.85rem" }}>
             <span className="brand-mark" aria-hidden />
-            Sites Artisans
+            {BRAND_NAME}
           </div>
           <p className="text-muted" style={{ margin: 0, maxWidth: "36ch" }}>
             Sites internet pour artisans & petites entreprises. Un accompagnement simple et
             humain, du premier échange à la mise en ligne.
           </p>
           <p className="text-muted" style={{ marginTop: "0.85rem", fontSize: "0.875rem" }}>
-            Site en préparation — ouverture publique prévue en 2027.
+            Site en préparation — ouverture publique prévue le 1er janvier 2027.
           </p>
         </div>
         <div>
