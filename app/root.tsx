@@ -13,6 +13,8 @@ import { publicUrl } from "~/lib/publicUrl";
 
 export const links = () => [
   { rel: "icon", href: publicUrl("favicon.svg"), type: "image/svg+xml" },
+  { rel: "icon", href: publicUrl("brand/apple-touch-icon.png"), type: "image/png", sizes: "180x180" },
+  { rel: "apple-touch-icon", href: publicUrl("brand/apple-touch-icon.png") },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
   {

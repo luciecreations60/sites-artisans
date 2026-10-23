@@ -1,7 +1,7 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import { useEffect } from "react";
+import { SiteBrand } from "~/components/SiteBrand";
 import { useAuth } from "~/lib/auth";
-import { BRAND_NAME } from "~/lib/brand";
 import { isAdminRole } from "~/lib/portal";
 import { LoadingState } from "~/components/portal/PortalUi";
 
@@ -47,8 +47,7 @@ export default function AdminLayout() {
       <header className="admin-topbar">
         <div className="container admin-topbar__inner">
           <Link to="/admin" className="admin-brand">
-            <span className="brand-mark" aria-hidden />
-            {BRAND_NAME}
+            <SiteBrand to={undefined} markOnly />
             <span className="admin-brand__tag">Admin</span>
           </Link>
           <div className="admin-topbar__actions">

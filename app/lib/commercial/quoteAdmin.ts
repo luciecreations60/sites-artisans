@@ -100,6 +100,9 @@ export async function issueQuote(
       locked: true,
       issued_at: new Date().toISOString(),
       valid_until: validUntil.toISOString().slice(0, 10),
+      // Colonne quotes.tax_regime (trigger enforce) + snapshot émetteur
+      tax_regime: settings.tax_regime,
+      vat_rate_bps: settings.tax_regime === "liable" ? settings.vat_rate_bps : null,
       issuer_snapshot: {
         legal_name: settings.legal_name,
         trade_name: settings.trade_name,

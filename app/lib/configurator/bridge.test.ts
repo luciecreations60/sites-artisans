@@ -38,8 +38,8 @@ function configuratorHrefFromDemo(
     metier: tradeSlug,
     formule: planId,
     parcours: "formula",
+    etape: String(opts?.step ?? 2),
   });
-  if (opts?.step != null) params.set("etape", String(opts.step));
   return `/configurateur?${params.toString()}`;
 }
 
@@ -57,13 +57,13 @@ function applyDemoSelectionToConfigurator(
     tradeSlug,
     planId,
     path: state.path ?? "formula",
-    step: state.step < 3 ? 3 : state.step,
+    step: 2,
     updatedAt: new Date().toISOString(),
   };
 }
 
 const UX_LABELS = {
-  gallery: "Exemples de sites",
+  gallery: "Exemples",
   personalizeModel: "Personnaliser ce modèle",
   personalizeMine: "Personnaliser mon site",
   viewFullscreen: "Voir le site en grand",
@@ -95,11 +95,12 @@ const baseState = (): ConfiguratorState => ({
 });
 
 describe("pont démo ↔ configurateur", () => {
-  it("ouvre le configurateur avec métier et formule", () => {
+  it("ouvre le configurateur avec métier et formule à l’étape 2", () => {
     const href = configuratorHrefFromDemo("electricien", "avance");
     assert.ok(href.includes("metier=electricien"));
     assert.ok(href.includes("formule=avance"));
     assert.ok(href.includes("parcours=formula"));
+    assert.ok(href.includes("etape=2"));
   });
 
   it("conserve métier et formule vers la démo plein écran", () => {
@@ -124,7 +125,7 @@ describe("pont démo ↔ configurateur", () => {
 
   it("expose des libellés UX unifiés sans concurrence", () => {
     const labels = Object.values(UX_LABELS);
-    assert.ok(labels.includes("Exemples de sites"));
+    assert.ok(labels.includes("Exemples"));
     assert.ok(labels.includes("Personnaliser mon site"));
     assert.ok(labels.includes("Voir le site en grand"));
     assert.ok(labels.includes("Revenir à ma configuration"));

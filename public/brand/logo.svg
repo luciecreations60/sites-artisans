@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 56" role="img" aria-label="Site AZ">
+  <text
+    x="0"
+    y="42"
+    font-family="Georgia, 'Times New Roman', Times, serif"
+    font-size="40"
+    font-weight="600"
+    fill="#1f2a27"
+    letter-spacing="-0.03em"
+  >Site</text>
+  <g fill="#5f8f82" transform="translate(98 2) scale(0.95)">
+    <path d="M17 47c1-11 7.5-19.5 15.5-24-1.8 5-2.4 9.8-1.4 15.2C28.8 41.2 24.2 45.2 17 47z"/>
+    <path d="M31 13.5 H50 V21.5 L37.8 37 H50 V47 H29.5 V39 L42.5 22.5 H31 V13.5 Z"/>
+  </g>
+</svg>

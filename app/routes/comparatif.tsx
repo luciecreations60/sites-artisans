@@ -11,6 +11,18 @@ export const meta = () => [{ title: "Comparatif — Site AZ" }];
 function cell(value: boolean | string) {
   if (value === true) return "Oui";
   if (value === false) return "Non";
+  if (typeof value === "string" && value.includes("*")) {
+    const parts = value.split("*");
+    return (
+      <>
+        {parts[0]}
+        <a href="#a-votre-charge" className="compare-footnote-ref" title="Voir la note en bas de page">
+          *
+        </a>
+        {parts.slice(1).join("*")}
+      </>
+    );
+  }
   return value;
 }
 
@@ -49,7 +61,7 @@ export default function Comparatif() {
             <tbody>
               {comparisonFeatures.map((row) => (
                 <tr key={row.label}>
-                  <th scope="row">{row.label}</th>
+                  <th scope="row">{cell(row.label)}</th>
                   <td>{cell(row.essentiel)}</td>
                   <td>{cell(row.avance)}</td>
                   <td>{cell(row.pro)}</td>
@@ -59,8 +71,14 @@ export default function Comparatif() {
           </table>
         </div>
 
+        <p className="commercial-footnote text-muted" id="a-votre-charge">
+          {commercialNotes.atYourChargeFootnote}
+        </p>
         <p className="commercial-footnote text-muted">
-          {commercialNotes.hosting} {commercialNotes.maintenance}
+          {commercialNotes.hosting}
+        </p>
+        <p className="commercial-footnote text-muted">
+          {commercialNotes.maintenance} {commercialNotes.thirdParty}
         </p>
         <p style={{ marginTop: "1.25rem" }}>
           <Link to="/offres">Voir le détail des offres →</Link>

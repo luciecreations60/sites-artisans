@@ -10,7 +10,10 @@ import {
 } from "./storage";
 import type { ConfiguratorState } from "./types";
 
-/** URL configurateur préremplie depuis un modèle de démo. */
+/**
+ * URL configurateur préremplie depuis un modèle de démo.
+ * Par défaut étape 2 (formules) pour que l’artisan voie les offres avant l’identité.
+ */
 export function configuratorHrefFromDemo(
   tradeSlug: string,
   planId: OfferTier,
@@ -20,8 +23,8 @@ export function configuratorHrefFromDemo(
     metier: tradeSlug,
     formule: planId,
     parcours: "formula",
+    etape: String(opts?.step ?? 2),
   });
-  if (opts?.step != null) params.set("etape", String(opts.step));
   return `/configurateur?${params.toString()}`;
 }
 
@@ -44,7 +47,8 @@ export function applyDemoSelectionToConfigurator(
     tradeSlug,
     planId,
     path: state.path ?? "formula",
-    step: state.step < 3 ? 3 : state.step,
+    // Depuis une démo : montrer les formules (étape 2), pas le récap.
+    step: 2,
     updatedAt: new Date().toISOString(),
   };
 }
@@ -77,7 +81,7 @@ export function persistDemoEntry(
 
 /** Libellés UX unifiés (éviter Démo / Essayer / Configurer en concurrence). */
 export const UX_LABELS = {
-  gallery: "Exemples de sites",
+  gallery: "Exemples",
   personalizeModel: "Personnaliser ce modèle",
   personalizeMine: "Personnaliser mon site",
   viewFullscreen: "Voir le site en grand",

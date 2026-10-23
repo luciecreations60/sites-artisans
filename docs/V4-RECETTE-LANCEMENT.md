@@ -42,22 +42,26 @@ Alternative sans CLI : édition Dashboard (préfixe `AZ-` déjà appliqué optio
 
 ---
 
-## 3. Tests navigateur (local Site AZ)
+## 3. Tests navigateur
 
-| Zone | Largeur | Statut 2026-10-22 |
-|------|---------|-------------------|
-| Accueil | Desktop + menu mobile présent | **OK** — marque Site AZ |
-| Configurateur 5 étapes | Métier → formule Essentiel → identité → récap 490 € | **OK** |
-| `/configurateur/demande` | Formulaire prérempli + 490 € | **OK** |
-| Démo plombier Essentiel | Contenu + chrome (nom perso appliqué) | **OK** |
-| `/offres` | 490 / 790 / 1 190 € | **OK** |
-| `/comparatif` | Charge | **OK** |
-| `/contact` | `contact@site-az.fr` | **OK** |
-| `/espace-client/connexion` | Formulaire Site AZ | **OK** |
-| Campagne 375/768/1280/1920 systématique | Emulation CDP instable | **Partiel** — menu toggle vu sur viewport étroit configurateur |
-| Admin CRM UI (émettre devis) | — | **NON EXÉCUTÉ** (pas de session admin dans le navigateur agent) |
+### Local (2026-10-22)
 
-GH Pages publie encore l’ancien libellé tant que pas de push.
+| Zone | Statut |
+|------|--------|
+| Accueil / offres / comparatif / contact / connexion | **OK** — marque Site AZ |
+| Configurateur → récap 490 € + demande | **OK** |
+| Démo plombier Essentiel | **OK** |
+| Admin CRM UI | **OK** (2026-10-23) — connexion → prospect Atelier Test Site AZ → émission UI `D-20261023-000004` (fix `issueQuote` : `tax_regime` sur la ligne quotes) |
+
+### GitHub Pages post-deploy (2026-10-23)
+
+| Zone | Statut |
+|------|--------|
+| Accueil live | **OK** — titre / marque **Site AZ** |
+| `/offres` | **OK** — 490 / 790 / 1 190 € |
+| `/configurateur` | **OK** — menu mobile ouvre/ferme |
+| Démo `/demos/plombier/essentiel` | **OK** |
+| Largeurs 768/1280/1920 systématiques | **Partiel** — CDP viewport instable ; menu mobile vérifié |
 
 ---
 
@@ -94,9 +98,9 @@ GH Pages publie encore l’ancien libellé tant que pas de push.
 
 ### Non bloquantes (soft-launch)
 
-1. Push Pages Site AZ en fin de journée.
-2. Auth GitHub Supabase CLI en 504 (contournement token / Dashboard OK).
-3. Pas d’e-mail transactionnel de confirmation de demande.
+1. Auth GitHub Supabase CLI en 504 (contournement token / Dashboard OK).
+2. Pas d’e-mail transactionnel de confirmation de demande.
+3. Campagne 768/1280/1920 non instrumentée automatiquement (CDP viewport instable) — spot-check manuel téléphone recommandé.
 
 ---
 
@@ -109,8 +113,8 @@ GH Pages publie encore l’ancien libellé tant que pas de push.
 - [x] Coller `scripts/recette-issue-quote-lotc.sql` (émission + verrouillage)
 - [x] Coller `scripts/recette-accept-quote-project.sql` (acceptation + projet CRM)
 - [x] Production locale : `npm run generate:site -- --job-file=scripts/recette-crm-job.json`
-- [ ] Push / déploiement Pages (fin de journée)
-- [ ] Campagne responsive post-deploy
+- [x] Push / déploiement Pages (`5d7e1a8` — Site AZ live)
+- [x] Spot-check post-deploy Pages (accueil, offres, configurateur + menu mobile, démo plombier)
 
 ---
 
@@ -127,7 +131,7 @@ GH Pages publie encore l’ancien libellé tant que pas de push.
 2. Edge Function opérationnelle. ✅  
 3. Devis émis + accepté + projet CRM ✅.  
 4. Site Essentiel depuis job CRM ✅ (génération locale `recette-crm-essentiel`).  
-5. Campagne navigateur / a11y.  
+5. Campagne navigateur / a11y — spot-check Pages OK ; a11y clavier complète encore partielle.  
 6. Mentions légales / émetteur complets.  
 7. Pas de secret dans export client.  
 8. Décision retrait `noindex`.

@@ -108,11 +108,9 @@ export function mergeBootParams(
   let next = { ...state };
   if (isTradeSlug(params.trade ?? null)) {
     next = { ...next, tradeSlug: params.trade as TradeSlug };
-    if (next.step < 2) next = { ...next, step: 2 };
   }
   if (params.parcours === "formula" || params.parcours === "compose") {
     next = { ...next, path: params.parcours };
-    if (next.step < 3) next = { ...next, step: 3 };
   }
   if (isTier(params.formule ?? null)) {
     next = {
@@ -120,11 +118,15 @@ export function mergeBootParams(
       planId: params.formule as OfferTier,
       path: next.path ?? "formula",
     };
-    if (next.step < 3) next = { ...next, step: 3 };
   }
   const etapeNum = params.etape != null ? Number(params.etape) : NaN;
   if ([1, 2, 3, 4, 5].includes(etapeNum)) {
     next = { ...next, step: etapeNum as ConfiguratorStep };
+  } else if (params.formule || params.parcours) {
+    // Entrée depuis démo / offres sans ?etape= : formules visibles (pas le récap localStorage).
+    next = { ...next, step: 2 };
+  } else if (params.trade && next.step < 2) {
+    next = { ...next, step: 2 };
   }
   return next;
 }

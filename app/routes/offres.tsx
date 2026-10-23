@@ -44,8 +44,8 @@ export default function Offres() {
                 >
                   Personnaliser {plan.name}
                 </Link>
-                <Link to={`/demos?offre=${plan.tier}`} className="btn btn-ghost">
-                  Essayer en démo
+                <Link to="/demos" className="btn btn-ghost">
+                  Voir des exemples
                 </Link>
               </div>
             </article>
@@ -53,7 +53,7 @@ export default function Offres() {
         </div>
 
         <aside className="pricing-notes" aria-label="Précisions tarifaires">
-          <h2 className="pricing-notes__title">Ce qui est inclus — et ce qui ne l’est pas</h2>
+          <h2 className="pricing-notes__title">Ce qui est compris — et les frais à prévoir à part</h2>
           <ul className="pricing-notes__list">
             <li>
               <strong>Création du site</strong> — {commercialNotes.setupOnly}
@@ -62,7 +62,7 @@ export default function Offres() {
               <strong>Hébergement &amp; nom de domaine</strong> — {commercialNotes.hosting}
             </li>
             <li>
-              <strong>Maintenance</strong> — {commercialNotes.maintenance}
+              <strong>Maintenance (optionnelle)</strong> — {commercialNotes.maintenance}
             </li>
             <li>
               <strong>Outils externes</strong> — {commercialNotes.thirdParty}
@@ -70,7 +70,8 @@ export default function Offres() {
           </ul>
         </aside>
 
-        <p style={{ marginTop: "2.5rem" }}>
+        <p className="text-muted" style={{ marginTop: "2.5rem" }}>
+          Besoin du détail ligne à ligne ?{" "}
           <Link to="/comparatif">Comparer les formules en détail →</Link>
         </p>
       </div>

@@ -49,16 +49,20 @@ export function formatSetupPriceCents(cents: number): string {
 
 /**
  * Notes commerciales partagées — création vs frais tiers vs maintenance.
- * Ne pas présenter la maintenance comme un abonnement obligatoire.
+ * Hébergement : prix indicatifs OVH Starter (renouvellement ~2,59 € HT/mois, oct. 2026).
+ * Maintenance : forfait Site AZ facultatif (hébergement non inclus).
  */
 export const commercialNotes = {
   setupOnly: "Prix de création de référence — devis détaillé après échange.",
   hosting:
-    "Hébergement et nom de domaine : à votre charge auprès d’OVH ou d’un autre fournisseur. Non inclus dans le prix de création.",
+    "À votre charge auprès d’OVH (ou d’un autre fournisseur) : à partir d’environ 2,60 € HT/mois (~31 € HT/an) pour un hébergement Starter au tarif de renouvellement. Nom de domaine souvent offert la 1re année, puis quelques euros par an. Vous souscrivez et payez directement le fournisseur — je vous accompagne pour le paramétrage et la prise en main.",
   maintenance:
-    "Maintenance facultative, distincte de l’hébergement — proposée selon vos besoins, jamais imposée.",
+    "Facultative, à partir de 29 € HT/mois : mises à jour techniques, surveillance, sauvegardes et petites corrections sur le site. L’hébergement et le nom de domaine restent séparés (chez OVH ou autre). Jamais imposée.",
   thirdParty:
-    "Les outils métier externes (agenda, paiement, etc.) restent à votre charge auprès de leurs éditeurs.",
+    "Les outils métier externes (agenda, paiement, etc.) restent à votre charge auprès de leurs éditeurs. Sur le site, on peut simplement intégrer un lien vers ces outils.",
+  /** Note de bas de page du comparatif — lignes marquées *. */
+  atYourChargeFootnote:
+    "* À votre charge : frais payés directement au fournisseur (OVH, éditeur d’outil, etc.), hors prix de création Site AZ. Pour l’hébergement et le nom de domaine, je vous accompagne au paramétrage et à la prise en main. Pour les outils externes, un lien depuis votre site suffit souvent.",
 } as const;
 
 const HIGHLIGHTS: Record<OfferTier, string[]> = {
@@ -107,31 +111,31 @@ export const comparisonFeatures: OfferFeature[] = [
   { label: "Estimateur en ligne", essentiel: false, avance: false, pro: true },
   {
     label: "Prise de rendez-vous",
-    essentiel: "Option (lien / outil externe)",
-    avance: "Option (lien / outil externe)",
-    pro: "Option (lien / outil externe)",
+    essentiel: "Option (lien / outil externe)*",
+    avance: "Option (lien / outil externe)*",
+    pro: "Option (lien / outil externe)*",
   },
   { label: "Zone d’intervention", essentiel: "Mention", avance: "Mise en avant", pro: "Mise en avant" },
   { label: "Avis clients", essentiel: true, avance: true, pro: true },
   { label: "Optimisation mobile", essentiel: true, avance: true, pro: true },
   { label: "Bases du référencement local", essentiel: true, avance: "Renforcé", pro: "Renforcé" },
   {
-    label: "Nom de domaine",
-    essentiel: "À votre charge",
-    avance: "À votre charge",
-    pro: "À votre charge",
+    label: "Nom de domaine*",
+    essentiel: "À votre charge*",
+    avance: "À votre charge*",
+    pro: "À votre charge*",
   },
   {
-    label: "Hébergement",
-    essentiel: "À votre charge",
-    avance: "À votre charge",
-    pro: "À votre charge",
+    label: "Hébergement*",
+    essentiel: "À votre charge* (indic. dès ~2,60 € HT/mois)",
+    avance: "À votre charge* (indic. dès ~2,60 € HT/mois)",
+    pro: "À votre charge* (indic. dès ~2,60 € HT/mois)",
   },
   {
-    label: "Maintenance",
-    essentiel: "Facultative",
-    avance: "Facultative",
-    pro: "Facultative",
+    label: "Maintenance Site AZ",
+    essentiel: "Facultative (dès 29 € HT/mois)",
+    avance: "Facultative (dès 29 € HT/mois)",
+    pro: "Facultative (dès 29 € HT/mois)",
   },
   { label: "Espace client suivi de projet", essentiel: "Inclus", avance: "Inclus", pro: "Inclus" },
   { label: "Accompagnement rédaction", essentiel: "Textes de base", avance: "Textes complets", pro: "Textes + storytelling" },

@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
-import { BRAND_NAME } from "~/lib/brand";
+import { SiteBrand } from "~/components/SiteBrand";
+import { UX_LABELS } from "~/lib/configurator/bridge";
 
+/** Nav allégée — artisans novices : voir / tarifs / contact + un seul CTA personnaliser. */
 const links = [
   { to: "/", label: "Accueil", end: true },
-  { to: "/configurateur", label: "Personnaliser mon site" },
+  { to: "/demos", label: "Exemples" },
   { to: "/offres", label: "Offres" },
-  { to: "/demos", label: "Exemples de sites" },
-  { to: "/comparatif", label: "Comparer les formules" },
-  { to: "/espace-client", label: "Espace client" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -26,10 +25,7 @@ export function SiteHeader() {
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="container site-header__inner">
-        <NavLink to="/" className="site-brand" onClick={() => setOpen(false)}>
-          <span className="brand-mark" aria-hidden />
-          {BRAND_NAME}
-        </NavLink>
+        <SiteBrand onClick={() => setOpen(false)} />
         <button
           type="button"
           className="nav-toggle"
@@ -52,8 +48,8 @@ export function SiteHeader() {
               {link.label}
             </NavLink>
           ))}
-          <NavLink to="/contact" className="btn btn-primary" onClick={() => setOpen(false)}>
-            Parlons de votre projet
+          <NavLink to="/configurateur" className="btn btn-primary" onClick={() => setOpen(false)}>
+            {UX_LABELS.personalizeMine}
           </NavLink>
         </nav>
       </div>
