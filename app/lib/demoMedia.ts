@@ -35,8 +35,8 @@ function applyPackMedia(
   return {
     ...trade,
     hero: img(trade.slug, pack.hero, `${trade.label} — ${trade.specialty}`),
-    atelier: img(trade.slug, pack.about, `Atelier ${trade.label.toLowerCase()}`),
-    portrait: img(trade.slug, pack.about, `Portrait ${trade.label.toLowerCase()}`),
+    atelier: img(trade.slug, pack.about, `${trade.label} — espace de travail`),
+    portrait: img(trade.slug, pack.about, `Portrait — ${trade.label.toLowerCase()}`),
     projects,
   };
 }

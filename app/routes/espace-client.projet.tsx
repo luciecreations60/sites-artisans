@@ -80,33 +80,63 @@ export default function EspaceClientProjet() {
       setRequests((r.data as ChangeRequest[]) ?? []);
       setQuota((q.data as MaintenanceQuota | null) ?? null);
 
-      // Lot 5/7 — devis émis + config (RLS) ; silence si migration absente
-      const [quotesRes, cfgRes] = await Promise.all([
-        sb
-          .from("quotes")
-          .select(
-            "id, reference, kind, status, plan_id, trade_slug, creation_ht_cents, issued_at, locked, project_id, configuration_id",
-          )
-          .eq("project_id", projectId)
-          .eq("kind", "issued")
-          .order("issued_at", { ascending: false }),
-        sb
-          .from("site_configurations")
-          .select(
-            "id, trade_slug, plan_id, company_name, city, specialty, theme_id, desired_feature_ids, status",
-          )
-          .eq("project_id", projectId)
-          .maybeSingle(),
-      ]);
+      // Lot 5/7 — config liée au projet, puis devis via configuration_id
+      // (quotes.project_id souvent null après verrouillage) + secours project_id
+      const quoteSelect =
+        "id, reference, kind, status, plan_id, trade_slug, creation_ht_cents, issued_at, locked, project_id, configuration_id";
+      const cfgRes = await sb
+        .from("site_configurations")
+        .select(
+          "id, trade_slug, plan_id, company_name, city, specialty, theme_id, desired_feature_ids, status",
+        )
+        .eq("project_id", projectId)
+        .maybeSingle();
       if (!active) return;
-      if (quotesRes.error || cfgRes.error) {
-        const msg = quotesRes.error?.message || cfgRes.error?.message || "";
+      if (cfgRes.error) {
+        const msg = cfgRes.error.message ?? "";
         if (/does not exist|relation|42P01|permission denied/i.test(msg)) {
           setCommercialPending(true);
         }
       } else {
-        setQuotes((quotesRes.data as QuoteRow[]) ?? []);
-        setConfiguration((cfgRes.data as SiteConfigurationRow | null) ?? null);
+        const cfg = (cfgRes.data as SiteConfigurationRow | null) ?? null;
+        setConfiguration(cfg);
+
+        const byProject = sb
+          .from("quotes")
+          .select(quoteSelect)
+          .eq("project_id", projectId)
+          .eq("kind", "issued");
+        const byConfig = cfg?.id
+          ? sb
+              .from("quotes")
+              .select(quoteSelect)
+              .eq("configuration_id", cfg.id)
+              .eq("kind", "issued")
+          : Promise.resolve({ data: [] as QuoteRow[], error: null });
+
+        const [quotesByProject, quotesByConfig] = await Promise.all([byProject, byConfig]);
+        if (!active) return;
+        const qErr = quotesByProject.error || quotesByConfig.error;
+        if (qErr) {
+          const msg = qErr.message ?? "";
+          if (/does not exist|relation|42P01|permission denied/i.test(msg)) {
+            setCommercialPending(true);
+          }
+        } else {
+          const map = new Map<string, QuoteRow>();
+          for (const row of [
+            ...((quotesByProject.data as QuoteRow[]) ?? []),
+            ...((quotesByConfig.data as QuoteRow[]) ?? []),
+          ]) {
+            map.set(row.id, row);
+          }
+          const merged = [...map.values()].sort((a, b) => {
+            const ta = a.issued_at ? Date.parse(a.issued_at) : 0;
+            const tb = b.issued_at ? Date.parse(b.issued_at) : 0;
+            return tb - ta;
+          });
+          setQuotes(merged);
+        }
       }
     })();
 

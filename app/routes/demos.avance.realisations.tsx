@@ -2,10 +2,12 @@ import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
 import { DemoModulesNote } from "~/components/DemoModulesNote";
 import type { TradeData } from "~/data/types";
+import { demoCopy } from "~/lib/demoCopy";
 import { useDemoModules } from "~/lib/templates/useDemoModules";
 
 export default function DemoAvanceRealisations() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
+  const copy = demoCopy(trade);
   const modules = useDemoModules("avance");
   const allTags = useMemo(() => {
     const set = new Set<string>();
@@ -23,7 +25,7 @@ export default function DemoAvanceRealisations() {
     <main className="section">
       <DemoModulesNote modules={modules} />
       <div className="container">
-        <h1>Réalisations</h1>
+        <h1>{copy.galleryHeading}</h1>
         <p className="text-muted">
           Exemples illustratifs — {trade.projects.length} projets de démonstration. Les photos
           seront remplacées par celles du client en production.

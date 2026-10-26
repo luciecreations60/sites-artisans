@@ -199,8 +199,8 @@ export function ConfigurationRecap({
             <h4>Vos fournisseurs</h4>
             <ul className="cfg-detail-lines">
               <li>
-                <span>Hébergement & nom de domaine</span>
-                <em>À votre charge</em>
+                <span>Hébergement & nom de domaine (OVH ou autre)</span>
+                <em>environ 2,60 € HT/mois</em>
               </li>
               {quote.externalNotes.map((note) => (
                 <li key={note}>

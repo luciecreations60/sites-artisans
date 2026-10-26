@@ -2,6 +2,7 @@ import { Link, Outlet, useLoaderData, useLocation, Navigate } from "react-router
 import { DemoChrome } from "~/components/DemoChrome";
 import { TradeTheme } from "~/components/TradeTheme";
 import type { TradeData } from "~/data/types";
+import { demoCopy } from "~/lib/demoCopy";
 import { applyTierMedia } from "~/lib/demoMedia";
 import { companyName } from "~/lib/personalize";
 import { useProspectDemo } from "~/lib/ProspectDemoContext";
@@ -13,22 +14,23 @@ export function loader({ params }: { params: { trade?: string } }) {
   return demoTradeLoader(params);
 }
 
-const nav = [
-  { path: "avance", label: "Accueil" },
-  { path: "avance/services", label: "Services" },
-  { path: "avance/realisations", label: "Réalisations" },
-  { path: "avance/devis", label: "Devis" },
-  { path: "avance/contact", label: "Contact" },
-];
-
 export default function DemoAvanceLayout() {
   const data = useLoaderData() as { trade: TradeData | null } | undefined;
   const base = useResolveDemoTrade(data?.trade ?? null);
   const trade = applyTierMedia(useAppliedTrade(base), "avance");
+  const copy = demoCopy(trade);
   const location = useLocation();
   const basePath = useDemoBasePath(trade.slug);
   const q = useDemoSearch();
   const prospect = useProspectDemo();
+
+  const nav = [
+    { path: "avance", label: "Accueil" },
+    { path: "avance/services", label: "Services" },
+    { path: "avance/realisations", label: copy.galleryHeading },
+    { path: "avance/devis", label: "Devis" },
+    { path: "avance/contact", label: "Contact" },
+  ];
 
   if (prospect && !prospect.enabledTiers.includes("avance")) {
     return <Navigate to={`${basePath}${q}`} replace />;

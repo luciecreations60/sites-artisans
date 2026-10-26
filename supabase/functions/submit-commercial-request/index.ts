@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { sendCommercialRequestConfirmation } from "../_shared/commercialRequestEmail.ts";
 import { corsHeaders, jsonResponse } from "../_shared/cors.ts";
 import {
   calculateServerQuote,
@@ -490,6 +491,23 @@ Deno.serve(async (req) => {
     locked: false,
   });
 
+  // Confirmation prospect — best-effort (ne fait jamais échouer la demande)
+  const emailResult = await sendCommercialRequestConfirmation({
+    service,
+    to: contactEmail,
+    contactName,
+    companyName: companyName || "",
+    trackingCode: code,
+    planId,
+    tradeSlug,
+  });
+  if (!emailResult.email_sent) {
+    console.warn(
+      "commercial confirmation email skipped/failed",
+      emailResult.email_error ?? "unknown",
+    );
+  }
+
   return jsonResponse({
     ok: true,
     already_received: false,
@@ -503,5 +521,6 @@ Deno.serve(async (req) => {
     price_differs_from_client: priceDiffers,
     tax: pricing.tax,
     warnings: pricing.warnings,
+    email_sent: emailResult.email_sent,
   });
 });

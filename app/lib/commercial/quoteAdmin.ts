@@ -1,4 +1,5 @@
 import { getSupabase } from "~/lib/supabase";
+import { decideAcceptQuoteProjectLink } from "./acceptQuote";
 import { quoteStatusTransitionAllowed, type QuoteCommercialStatus } from "./quoteStatus";
 import type { QuoteRow } from "./types";
 
@@ -157,6 +158,112 @@ export async function updateQuoteCommercialStatus(
     .eq("id", quoteId);
   if (up) return { ok: false, error: up.message };
   return { ok: true };
+}
+
+export type AcceptIssuedQuoteResult =
+  | {
+      ok: true;
+      projectLinked: boolean;
+      projectId: string | null;
+      message: string;
+    }
+  | { ok: false; error: string };
+
+/**
+ * Accepte un devis émis (sent → accepted) et lie la configuration au projet CRM
+ * si le prospect a déjà été converti. Ne crée pas de projet orphelin.
+ */
+export async function acceptIssuedQuote(quoteId: string): Promise<AcceptIssuedQuoteResult> {
+  const sb = getSupabase();
+  if (!sb) return { ok: false, error: "Supabase non configuré" };
+
+  const { data: quote, error } = await sb
+    .from("quotes")
+    .select("id, status, kind, locked, prospect_id, configuration_id")
+    .eq("id", quoteId)
+    .maybeSingle();
+  if (error) return { ok: false, error: error.message };
+  if (!quote) return { ok: false, error: "Devis introuvable" };
+  if (quote.kind !== "issued" || !quote.locked) {
+    return { ok: false, error: "Seuls les devis émis / verrouillés peuvent être acceptés." };
+  }
+
+  if (quote.status !== "accepted") {
+    if (!quoteStatusTransitionAllowed(quote.status, "accepted")) {
+      return {
+        ok: false,
+        error: `Transition interdite : ${quote.status} → accepted`,
+      };
+    }
+    const { error: up } = await sb
+      .from("quotes")
+      .update({ status: "accepted" })
+      .eq("id", quoteId);
+    if (up) return { ok: false, error: up.message };
+  }
+
+  let configurationProjectId: string | null = null;
+  if (quote.configuration_id) {
+    const { data: cfg, error: cfgErr } = await sb
+      .from("site_configurations")
+      .select("id, project_id")
+      .eq("id", quote.configuration_id)
+      .maybeSingle();
+    if (cfgErr) return { ok: false, error: cfgErr.message };
+    configurationProjectId = (cfg?.project_id as string | null) ?? null;
+  }
+
+  let projectIdForProspect: string | null = null;
+  if (quote.prospect_id) {
+    const { data: project, error: pErr } = await sb
+      .from("projects")
+      .select("id")
+      .eq("source_prospect_id", quote.prospect_id)
+      .maybeSingle();
+    if (pErr) return { ok: false, error: pErr.message };
+    projectIdForProspect = (project?.id as string | null) ?? null;
+  }
+
+  const decision = decideAcceptQuoteProjectLink({
+    configurationId: quote.configuration_id,
+    prospectId: quote.prospect_id,
+    projectIdForProspect,
+    configurationProjectId,
+  });
+
+  if (decision.action === "link") {
+    const { error: linkErr } = await sb
+      .from("site_configurations")
+      .update({
+        project_id: decision.projectId,
+        status: "submitted",
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", decision.configurationId);
+    if (linkErr) return { ok: false, error: linkErr.message };
+    return {
+      ok: true,
+      projectLinked: true,
+      projectId: decision.projectId,
+      message: "Devis accepté et configuration liée au projet CRM.",
+    };
+  }
+
+  if (decision.action === "already_linked") {
+    return {
+      ok: true,
+      projectLinked: true,
+      projectId: decision.projectId,
+      message: "Devis accepté — configuration déjà liée au projet.",
+    };
+  }
+
+  return {
+    ok: true,
+    projectLinked: false,
+    projectId: null,
+    message: decision.reason,
+  };
 }
 
 export async function anonymizeCommercialRequest(

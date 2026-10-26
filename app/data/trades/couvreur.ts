@@ -61,7 +61,7 @@ export const couvreur = buildTrade({
     "Pose ardoise sur maison de ville, zinguerie au plomb traditionnelle.",
     "Création lucarne côté jardin, étanchéité lead-free conforme.",
     "Chéneaux zinc 25/10 sur périphérie complète de la maison.",
-    "Reprise de 40 tuines et banchement provisoire le jour même.",
+    "Reprise de 40 tuiles et bâchage provisoire le jour même.",
     "Renfort structure suite infiltration, traitement bois inclus.",
   ],
   projectTags: [

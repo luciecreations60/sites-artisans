@@ -3,6 +3,7 @@ import { DemoChrome } from "~/components/DemoChrome";
 import { DemoModulesNote } from "~/components/DemoModulesNote";
 import { TradeTheme } from "~/components/TradeTheme";
 import type { TradeData } from "~/data/types";
+import { demoCopy } from "~/lib/demoCopy";
 import { applyTierMedia } from "~/lib/demoMedia";
 import { artisanName, companyName } from "~/lib/personalize";
 import { formatPhone } from "~/lib/format";
@@ -27,6 +28,7 @@ export default function DemoEssentiel() {
   const basePath = useDemoBasePath(trade.slug);
   const q = useDemoSearch();
   const modules = useDemoModules("essentiel");
+  const copy = demoCopy(trade);
 
   if (prospect && !prospect.enabledTiers.includes("essentiel")) {
     return <Navigate to={`${basePath}${q}`} replace />;
@@ -53,10 +55,7 @@ export default function DemoEssentiel() {
           <div className="e-hero__copy">
             <p className="eyebrow">{trade.specialty}</p>
             <h1>{trade.tagline}</h1>
-            <p className="lead e-hero__lead">
-              Un site vitrine simple pour présenter votre activité, vos prestations et vos
-              coordonnées — adapté aux {trade.labelPlural.toLowerCase()}.
-            </p>
+            <p className="lead e-hero__lead">{copy.heroLead}</p>
             <div className="e-chips" aria-label="Prestations mises en avant">
               {trade.services.slice(0, 3).map((s) => (
                 <span key={s.title} className="e-chip">
@@ -66,10 +65,10 @@ export default function DemoEssentiel() {
             </div>
             <div className="hero-actions">
               <a href="#contact" className="btn btn-primary">
-                Me contacter
+                {copy.contactCta}
               </a>
               <a href="#realisations" className="btn btn-ghost">
-                Voir les réalisations
+                {copy.galleryCta}
               </a>
             </div>
           </div>
@@ -122,7 +121,7 @@ export default function DemoEssentiel() {
 
         {modules.gallery_basic && (
           <section className="e-work" id="realisations">
-            <h2>Réalisations</h2>
+            <h2>{copy.galleryHeading}</h2>
             <p className="text-muted e-section-intro">
               Exemples illustratifs pour la démonstration — à remplacer par vos photos.
             </p>
@@ -142,10 +141,8 @@ export default function DemoEssentiel() {
 
         {modules.service_area && (
           <section className="e-area">
-            <h2>Zone d’intervention</h2>
-            <p>
-              Intervention autour de <strong>{trade.defaultCity}</strong> et communes voisines.
-            </p>
+            <h2>{copy.areaTitle}</h2>
+            <p>{copy.areaText(trade.defaultCity)}</p>
           </section>
         )}
 
@@ -172,7 +169,7 @@ export default function DemoEssentiel() {
 
         <section className="e-contact" id="contact">
           <div className="e-contact-cta">
-            <h2>Parlons de votre projet</h2>
+            <h2>{copy.contactTitle}</h2>
             <p>
               <a href={`tel:${trade.defaultPhone.replace(/\s/g, "")}`}>
                 {formatPhone(trade.defaultPhone)}

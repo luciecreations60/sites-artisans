@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router";
+import { BackToTop } from "~/components/BackToTop";
 import { SiteFooter } from "~/components/SiteFooter";
 import { SiteHeader } from "~/components/SiteHeader";
 
@@ -20,6 +21,7 @@ export default function MarketingLayout() {
         <Outlet />
       </div>
       {!isAdmin && <SiteFooter />}
+      {!isAdmin && <BackToTop />}
     </>
   );
 }

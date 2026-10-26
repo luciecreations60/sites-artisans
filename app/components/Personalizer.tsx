@@ -253,6 +253,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
             id="sa-first"
             value={profile.firstName}
             onChange={(e) => update("firstName", e.target.value)}
+            placeholder="Votre prénom"
             autoComplete="given-name"
           />
         </div>
@@ -262,6 +263,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
             id="sa-last"
             value={profile.lastName}
             onChange={(e) => update("lastName", e.target.value)}
+            placeholder="Votre nom"
             autoComplete="family-name"
           />
         </div>
@@ -271,6 +273,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
             id="sa-company"
             value={profile.company}
             onChange={(e) => update("company", e.target.value)}
+            placeholder="Nom de l’entreprise"
             autoComplete="organization"
           />
         </div>
@@ -280,6 +283,7 @@ export function Personalizer({ compact, variant = "default" }: Props) {
             id="sa-city"
             value={profile.city}
             onChange={(e) => update("city", e.target.value)}
+            placeholder="Ville / secteur"
           />
         </div>
         {!compact && (

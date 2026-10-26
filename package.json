@@ -8,7 +8,7 @@
     "build": "react-router build",
     "build:pages": "node scripts/build-pages.mjs",
     "typecheck": "react-router typegen && tsc",
-    "test": "node --experimental-strip-types --test app/lib/catalog/pricing.test.ts app/lib/catalog/pricing.quantities.test.ts app/lib/catalog/optionAvailability.test.ts app/lib/catalog/sanitizeSelection.test.ts app/lib/configurator/recommend.test.ts app/lib/configurator/bridge.test.ts app/lib/templates/demoModules.test.ts app/lib/commercial/quoteStatus.test.ts app/lib/commercial/rateLimit.test.ts app/lib/commercial/issuedQuoteContract.test.ts app/lib/production/eligibility.test.ts app/lib/production/generate.test.ts app/lib/production/crmLoader.test.ts app/lib/production/parity.test.ts app/lib/production/quoteGuard.test.ts",
+    "test": "node --experimental-strip-types --test app/lib/catalog/pricing.test.ts app/lib/catalog/pricing.quantities.test.ts app/lib/catalog/optionAvailability.test.ts app/lib/catalog/sanitizeSelection.test.ts app/lib/configurator/recommend.test.ts app/lib/configurator/bridge.test.ts app/lib/templates/demoModules.test.ts app/lib/commercial/quoteStatus.test.ts app/lib/commercial/acceptQuote.test.ts app/lib/commercial/rateLimit.test.ts app/lib/commercial/issuedQuoteContract.test.ts app/lib/production/eligibility.test.ts app/lib/production/generate.test.ts app/lib/production/crmLoader.test.ts app/lib/production/parity.test.ts app/lib/production/quoteGuard.test.ts",
     "generate:site": "node --experimental-strip-types scripts/generate-site.ts",
     "preview": "vite preview --outDir build/client",
     "photos": "node scripts/download-photos.mjs",

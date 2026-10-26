@@ -139,6 +139,18 @@ export function PricePanel({
         )}
       </div>
 
+      <div className="cfg-price__hosting" role="note">
+        <p className="cfg-price__label">Hébergement & domaine (à votre charge)</p>
+        <p className="cfg-price__hosting-amount">
+          environ 2,60&nbsp;€&nbsp;HT/mois
+          <span> (~31&nbsp;€&nbsp;HT/an chez OVH Starter)</span>
+        </p>
+        <p className="cfg-price__hosting-hint">
+          Non inclus dans le prix de création — vous souscrivez auprès d’OVH (ou autre) ; accompagnement
+          au paramétrage inclus.
+        </p>
+      </div>
+
       {quote.recurringSubtotalCents > 0 && (
         <p className="cfg-price__aside">
           Récurrent estimé : {centsToEuroLabel(quote.recurringSubtotalCents)} (hors création)

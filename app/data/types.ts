@@ -79,6 +79,8 @@ export type TradeData = {
   faqs: TradeFaq[];
   estimator?: {
     label: string;
+    /** Libellé du champ quantité (ex. « Nombre de soins », « Surface (m²) »). */
+    quantityLabel?: string;
     options: { id: string; label: string; base: number; unit: string }[];
   };
 };

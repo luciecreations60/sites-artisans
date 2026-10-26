@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import type { TradeData } from "~/data/types";
+import { demoCopy, estimatorQuantityLabel } from "~/lib/demoCopy";
 import { formatEuro } from "~/lib/format";
 import { useDemoHref } from "~/lib/useDemoPaths";
 
@@ -18,12 +19,17 @@ type Props = {
  */
 export function Estimator({ trade, demoMode = true, devisPath = "/pro/devis" }: Props) {
   const estimator = trade.estimator;
+  const copy = demoCopy(trade);
   const [optionId, setOptionId] = useState(estimator?.options[0]?.id ?? "");
-  const [quantity, setQuantity] = useState("25");
+  const [quantity, setQuantity] = useState(() => {
+    const unit = estimator?.options[0]?.unit ?? "";
+    return /m²|m2/i.test(unit) ? "25" : "1";
+  });
   const devisHref = useDemoHref(trade.slug, devisPath);
 
   const selected = estimator?.options.find((o) => o.id === optionId);
   const qty = parseFloat(quantity.replace(",", ".")) || 0;
+  const qtyLabel = estimatorQuantityLabel(trade, selected?.unit);
 
   const total = useMemo(() => {
     if (!selected || !Number.isFinite(selected.base) || selected.base <= 0 || qty <= 0) {
@@ -41,7 +47,7 @@ export function Estimator({ trade, demoMode = true, devisPath = "/pro/devis" }: 
           qu’une estimation automatique.
         </p>
         <Link to={devisHref} className="btn btn-primary">
-          Demander un devis
+          {copy.quoteCta}
         </Link>
       </div>
     );
@@ -72,7 +78,7 @@ export function Estimator({ trade, demoMode = true, devisPath = "/pro/devis" }: 
           </select>
         </div>
         <div className="form-field">
-          <label htmlFor="est-qty">Surface ou quantité</label>
+          <label htmlFor="est-qty">{qtyLabel}</label>
           <input
             id="est-qty"
             type="number"
@@ -95,7 +101,7 @@ export function Estimator({ trade, demoMode = true, devisPath = "/pro/devis" }: 
       )}
       <p style={{ marginTop: "0.75rem" }}>
         <Link to={devisHref} className="btn btn-ghost">
-          Transformer en demande de devis
+          {copy.quoteCta}
         </Link>
       </p>
     </div>

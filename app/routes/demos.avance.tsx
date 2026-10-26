@@ -1,5 +1,6 @@
 import { Link, useOutletContext } from "react-router";
 import type { TradeData } from "~/data/types";
+import { demoCopy } from "~/lib/demoCopy";
 import { artisanName, companyName } from "~/lib/personalize";
 import { useDemoHref } from "~/lib/useDemoPaths";
 import { useDemoModules } from "~/lib/templates/useDemoModules";
@@ -13,6 +14,7 @@ export default function DemoAvanceHome() {
   const servicesHref = useDemoHref(trade.slug, "/avance/services");
   const contactHref = useDemoHref(trade.slug, "/avance/contact");
   const modules = useDemoModules("avance");
+  const copy = demoCopy(trade);
 
   return (
     <main>
@@ -22,22 +24,22 @@ export default function DemoAvanceHome() {
           <p className="sg-kicker">{trade.label} · {companyName(trade)}</p>
           <h1>{trade.tagline}</h1>
           <p className="lead">{trade.specialty}</p>
-          <p className="sg-hero__intro">{trade.about.slice(0, 220)}…</p>
+          <p className="sg-hero__intro">{copy.heroLead}</p>
           <p className="sg-hero__byline">
             <strong>{artisanName(trade)}</strong> — {trade.defaultCity}
           </p>
           <div className="hero-actions">
             {modules.quote_form ? (
               <Link to={devisHref} className="btn btn-primary">
-                Demander un devis
+                {copy.quoteCta}
               </Link>
             ) : (
               <Link to={contactHref} className="btn btn-primary">
-                Me contacter
+                {copy.contactCta}
               </Link>
             )}
             <Link to={realisationsHref} className="btn btn-ghost">
-              Voir les réalisations
+              {copy.galleryCta}
             </Link>
           </div>
         </div>
@@ -82,7 +84,7 @@ export default function DemoAvanceHome() {
       <section className="sg-projects-band">
         <div className="container">
           <div className="sg-services-teaser__head">
-            <h2>Réalisations</h2>
+            <h2>{copy.galleryHeading}</h2>
             <Link to={realisationsHref}>
               {modules.gallery_filtered ? "Galerie filtrable →" : "Voir tout →"}
             </Link>
@@ -103,25 +105,22 @@ export default function DemoAvanceHome() {
 
       {modules.service_area && (
         <section className="container sg-area">
-          <h2>Zone d’intervention</h2>
-          <p>
-            Présence mise en avant autour de <strong>{trade.defaultCity}</strong> — adaptée à votre
-            rayon réel lors de la mise en production.
-          </p>
+          <h2>{copy.areaTitle}</h2>
+          <p>{copy.areaText(trade.defaultCity)}</p>
         </section>
       )}
 
       <section className="sg-cta-band">
         <div className="container sg-cta-band__inner">
           <div>
-            <h2>Prêt à parler de votre projet ?</h2>
+            <h2>{copy.contactTitle}</h2>
             <p>Formulaire guidé et pages dédiées — formule Avancé.</p>
           </div>
           <Link
             to={modules.quote_form ? devisHref : contactHref}
             className="btn btn-primary"
           >
-            {modules.quote_form ? "Demander un devis" : "Me contacter"}
+            {modules.quote_form ? copy.quoteCta : copy.contactCta}
           </Link>
         </div>
       </section>

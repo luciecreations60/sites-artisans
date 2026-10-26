@@ -59,7 +59,7 @@ export const bienetre = buildTrade({
   projectSummaries: [
     "Basaltes volcaniques et huile d’argan, dénouement dos et nuque.",
     "Acide hyaluronique et massage liftant, peau repulpée visiblement.",
-    "Soin visage, manucure et coiffure légère la veille du mariage.",
+    "Soin visage, manucure et maquillage léger la veille du mariage.",
     "Points réflexes pieds 30 min, relâchement jambes lourdes.",
     "Gommage sel marin puis enveloppe algues, peau lisse.",
     "Séance 20 min chaise pour équipe de dix, sur site ou en institut.",
@@ -109,6 +109,7 @@ export const bienetre = buildTrade({
   ],
   estimator: {
     label: "Estimation soins",
+    quantityLabel: "Nombre de prestations",
     options: [
       { id: "massage-45", label: "Massage 45 min", base: 65, unit: "€" },
       { id: "visage", label: "Soin visage", base: 58, unit: "€" },

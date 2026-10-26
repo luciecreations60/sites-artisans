@@ -2,6 +2,7 @@ import { useLocation, Link } from "react-router";
 import { useState } from "react";
 import type { OfferTier, TradeSlug } from "~/data/types";
 import { tierLabels } from "~/data/offers";
+import { BackToTop } from "~/components/BackToTop";
 import { Personalizer } from "~/components/Personalizer";
 import { switchDemoTier } from "~/lib/demoMedia";
 import { useProspectDemo } from "~/lib/ProspectDemoContext";
@@ -140,6 +141,7 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
           <Personalizer compact variant="light" />
         </div>
       )}
+      <BackToTop />
     </div>
   );
 }

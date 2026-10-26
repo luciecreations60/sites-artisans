@@ -103,13 +103,14 @@ Document de pilotage pour la V4. Lots 1–7 sur la branche `feature/v4-sites-art
 - Migration production préparée, non exécutée
 - Voir `docs/V4-PRODUCTION.md`
 
-### 7. Recette et préparation au lancement — **en cours (code local)**
+### 7. Recette et préparation au lancement — **en cours (soft-launch)**
 
 - Raccord `/admin/production` ↔ projets CRM (honnête si migration absente)
 - Générateur shells e/sg/r + parité 33 combos + échappement HTML
-- Espace client : devis émis / config (si RLS + tables)
+- Acceptation devis UI + lien config → projet ; RLS client via config ; e-mail confirmation best-effort
+- Espace client : devis émis / config (migration `20261026120000_…` manuelle)
 - Recette : [`docs/V4-RECETTE-LANCEMENT.md`](./V4-RECETTE-LANCEMENT.md)
-- **V4 non prête au lancement** tant que migrations, Edge Function et campagne navigateur ne sont pas validées
+- **V4 non prête au lancement public** : SIRET/adresse définitifs, `noindex`, actions manuelles recette §6
 
 ---
 

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { centsToEuroLabel } from "~/lib/catalog/pricing";
+import { quoteStatusLabelFr } from "~/lib/commercial/acceptQuote";
 import {
+  acceptIssuedQuote,
   anonymizeCommercialRequest,
   issueQuote,
   loadProspectCommercial,
@@ -209,8 +211,32 @@ export function ProspectCommercialPanel({ prospectId }: Props) {
                           >
                             Imprimer le devis
                           </button>
+                          {q.status === "accepted" ||
+                          quoteStatusTransitionAllowed(q.status, "accepted") ? (
+                            <button
+                              type="button"
+                              className="btn btn-primary"
+                              disabled={busy}
+                              onClick={async () => {
+                                setBusy(true);
+                                setError(null);
+                                setOk(null);
+                                const res = await acceptIssuedQuote(q.id);
+                                setBusy(false);
+                                if (!res.ok) setError(res.error);
+                                else {
+                                  setOk(res.message);
+                                  await reload();
+                                }
+                              }}
+                            >
+                              {q.status === "accepted"
+                                ? "Lier au projet CRM"
+                                : "Accepter le devis"}
+                            </button>
+                          ) : null}
                           {(
-                            ["accepted", "refused", "cancelled", "superseded"] as QuoteCommercialStatus[]
+                            ["refused", "cancelled", "superseded"] as QuoteCommercialStatus[]
                           )
                             .filter((s) => quoteStatusTransitionAllowed(q.status, s))
                             .map((s) => (
@@ -226,12 +252,12 @@ export function ProspectCommercialPanel({ prospectId }: Props) {
                                   setBusy(false);
                                   if (!res.ok) setError(res.error);
                                   else {
-                                    setOk(`Statut devis → ${s}`);
+                                    setOk(`Statut devis → ${quoteStatusLabelFr(s)}`);
                                     await reload();
                                   }
                                 }}
                               >
-                                Marquer {s}
+                                Marquer {quoteStatusLabelFr(s)}
                               </button>
                             ))}
                         </>

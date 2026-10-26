@@ -60,6 +60,15 @@ Renseignez `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` (Settings → API).
 | F | E-mail `queued` | Dès le claim / `converted_at`, aucun envoi prospection |
 | G | Lien invitation en navigation privée | Pas de 404 GH Pages ; MDP → espace client |
 
+## V4 commercial / espace client (manuel)
+
+Ordre détaillé : [`docs/V4-RECETTE-LANCEMENT.md`](../docs/V4-RECETTE-LANCEMENT.md).
+
+Après les migrations `20261012140000` / `20261012140100` / `business_settings` :
+
+1. Coller `migrations/20261026120000_v4_client_quote_via_config.sql` (SELECT client devis via config liée).
+2. Redéployer `submit-commercial-request` (confirmation e-mail best-effort — voir [EMAIL.md](./EMAIL.md)).
+
 ## Upload facture Indy (manuel)
 
 1. Via **Administration → fiche projet → Documents**, ou

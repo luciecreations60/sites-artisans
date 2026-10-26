@@ -6,13 +6,15 @@ type Props = {
   after: TradeImage;
   /** Présente le couple comme illustratif (démos). */
   illustrative?: boolean;
+  /** Légende métier (évite « chantier » sur bien-être, etc.). */
+  caption?: string;
 };
 
 /**
  * Comparateur avant/après mutualisé (souris, tactile, clavier).
  * Une seule implémentation pour tous les métiers.
  */
-export function BeforeAfter({ before, after, illustrative = true }: Props) {
+export function BeforeAfter({ before, after, illustrative = true, caption }: Props) {
   const [pos, setPos] = useState(50);
   const trackRef = useRef<HTMLDivElement>(null);
   const labelId = useId();
@@ -101,7 +103,8 @@ export function BeforeAfter({ before, after, illustrative = true }: Props) {
       </div>
       <figcaption id={labelId} className="before-after__caption">
         {illustrative
-          ? "Exemple illustratif — comparaison avant / après (démonstration, pas un chantier réel)."
+          ? (caption ??
+            "Exemple illustratif — comparaison avant / après (démonstration, pas une réalisation réelle).")
           : "Comparaison avant / après."}
       </figcaption>
     </figure>

@@ -10,7 +10,8 @@ Parcours commercial entre configurateur, recalcul sécurisé, CRM et devis.
 4. Edge Function `submit-commercial-request` : recalcul serveur + prospect + config + simulation  
 5. CRM fiche prospect → panneau **Configurateur V4**  
 6. Brouillon → émission devis (snapshot verrouillé)  
-7. Conversion prospect → client (existant) + projet pour lot 6  
+7. Acceptation UI (`acceptIssuedQuote`) → lien `site_configurations.project_id` si projet CRM déjà créé  
+8. Conversion prospect → client (existant) + projet pour lot 6  
 
 ## Modèle
 
@@ -106,12 +107,14 @@ Ordre détaillé + checklist de recette : [`docs/V4-RECETTE-LANCEMENT.md`](./V4-
 4. Renseigner `business_settings` (légal + TVA)  
 5. Tester une demande depuis `/configurateur/demande`  
 6. Appliquer `20261012140100_v4_site_production.sql` (FK config/devis, validation accepted+locked)  
+7. Appliquer `20261026120000_v4_client_quote_via_config.sql` (SELECT client via config liée)  
+8. Redéployer `submit-commercial-request` après changement e-mail  
 
 ## Limitations
 
-- E-mail de confirmation prospect : non envoyé automatiquement  
+- E-mail de confirmation : best-effort via SMTP (hors `prospect_emails`) ; la demande réussit même si l’envoi échoue  
 - PDF natif : impression navigateur  
 - Fusion prospects : e-mail exact uniquement ; ambiguïté → nouvelle fiche + note admin  
 - Sans migration : formulaire affiche l’échec sans fausse confirmation  
-- Tests RLS / Edge live : **bloqués** tant que non installés manuellement  
+- `quotes.project_id` immuable après verrouillage — le lien CRM passe par `site_configurations.project_id`  
 

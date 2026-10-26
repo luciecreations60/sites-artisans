@@ -1,11 +1,22 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router";
 import type { TradeData } from "~/data/types";
+import { demoCopy } from "~/lib/demoCopy";
 
 const steps = ["Votre besoin", "Détails", "Coordonnées"];
 
+function RequiredMark() {
+  return (
+    <span className="form-required" aria-hidden>
+      {" "}
+      *
+    </span>
+  );
+}
+
 export default function DemoAvanceDevis() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
+  const copy = demoCopy(trade);
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
 
@@ -30,6 +41,9 @@ export default function DemoAvanceDevis() {
         <p className="text-muted">
           Étape {step + 1} sur {steps.length} — {steps[step]}
         </p>
+        <p className="form-required-legend text-muted">
+          Les champs marqués <span className="form-required">*</span> sont obligatoires.
+        </p>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -39,8 +53,10 @@ export default function DemoAvanceDevis() {
         >
           {step === 0 && (
             <div className="form-field">
-              <label htmlFor="need">Que souhaitez-vous ?</label>
-              <select id="need" name="need" required defaultValue="">
+              <label htmlFor="need">
+                Que souhaitez-vous ?<RequiredMark />
+              </label>
+              <select id="need" name="need" required aria-required="true" defaultValue="">
                 <option value="" disabled>
                   Choisir…
                 </option>
@@ -55,28 +71,55 @@ export default function DemoAvanceDevis() {
           {step === 1 && (
             <>
               <div className="form-field">
-                <label htmlFor="detail">Précisions (surface, délai…)</label>
-                <textarea id="detail" name="detail" required />
+                <label htmlFor="detail">
+                  Précisions
+                  <RequiredMark />
+                </label>
+                <textarea
+                  id="detail"
+                  name="detail"
+                  required
+                  aria-required="true"
+                  placeholder={copy.detailHint}
+                />
               </div>
               <div className="form-field">
-                <label htmlFor="city">Commune</label>
-                <input id="city" name="city" defaultValue={trade.defaultCity} required />
+                <label htmlFor="city">
+                  Commune
+                  <RequiredMark />
+                </label>
+                <input
+                  id="city"
+                  name="city"
+                  defaultValue={trade.defaultCity}
+                  required
+                  aria-required="true"
+                />
               </div>
             </>
           )}
           {step === 2 && (
             <>
               <div className="form-field">
-                <label htmlFor="name">Nom</label>
-                <input id="name" name="name" required />
+                <label htmlFor="name">
+                  Nom
+                  <RequiredMark />
+                </label>
+                <input id="name" name="name" required aria-required="true" />
               </div>
               <div className="form-field">
-                <label htmlFor="phone">Téléphone</label>
-                <input id="phone" name="phone" type="tel" required />
+                <label htmlFor="phone">
+                  Téléphone
+                  <RequiredMark />
+                </label>
+                <input id="phone" name="phone" type="tel" required aria-required="true" />
               </div>
               <div className="form-field">
-                <label htmlFor="email">E-mail</label>
-                <input id="email" name="email" type="email" required />
+                <label htmlFor="email">
+                  E-mail
+                  <RequiredMark />
+                </label>
+                <input id="email" name="email" type="email" required aria-required="true" />
               </div>
             </>
           )}

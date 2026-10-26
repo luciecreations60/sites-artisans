@@ -95,8 +95,8 @@ export const coiffure = buildTrade({
       answer: "Oui, par téléphone ou en ligne. Quelques créneaux sans RDV le mardi matin pour hommes.",
     },
     {
-      question: "Acceptez-vous les cartes titre ?",
-      answer: "Nous acceptons les titres restaurant sur la partie snacking si vous prenez un café ou un soin retail.",
+      question: "Acceptez-vous les titres cadeaux ?",
+      answer: "Oui, bons cadeaux coupe ou couleur, valables un an, remis en salon ou par e-mail.",
     },
     {
       question: "Faites-vous les extensions ?",
@@ -109,6 +109,7 @@ export const coiffure = buildTrade({
   ],
   estimator: {
     label: "Estimation coiffure",
+    quantityLabel: "Nombre de prestations",
     options: [
       { id: "homme", label: "Coupe homme", base: 22, unit: "€" },
       { id: "femme", label: "Coupe femme", base: 38, unit: "€" },

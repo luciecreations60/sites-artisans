@@ -77,6 +77,17 @@ Exécuter `supabase/migrations/20261006_crm_prospect_emails_phase3.sql` après P
 
 Phase 4 : `supabase/migrations/20261007_crm_convert_prospect_phase4.sql`.
 
+## Confirmation demande configurateur (hors prospection)
+
+Après `submit-commercial-request` réussi, un e-mail transactionnel best-effort
+est tenté (`_shared/commercialRequestEmail.ts`) :
+
+- hors `prospect_emails` / campagnes / limites horaires ;
+- n’échoue **jamais** la demande HTTP si SMTP absent ou en erreur ;
+- réponse JSON : `email_sent: true|false`.
+
+Redéployer `submit-commercial-request` après modification.
+
 ## Invitation espace client (Phase 4 — hors prospection)
 
 L’invitation portail réutilise le **transport** EmailProvider (SMTP), mais :

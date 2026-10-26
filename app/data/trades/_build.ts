@@ -8,6 +8,7 @@ import type {
   TradeSlug,
   TradeTestimonial,
 } from "../types";
+import { BRAND_EMAIL } from "../../lib/brand";
 import { publicUrl } from "../../lib/publicUrl";
 import { getTradeMedia } from "./media";
 
@@ -78,7 +79,7 @@ export function buildTrade(seed: Seed): TradeData {
     defaultCompany: seed.defaultCompany,
     defaultCity: seed.defaultCity,
     defaultPhone: "06 12 34 56 78",
-    defaultEmail: "contact@atelier-demo.fr",
+    defaultEmail: BRAND_EMAIL,
     palette: seed.palette,
     hero: img(
       seed.slug,

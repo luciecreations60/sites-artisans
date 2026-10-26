@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useOutletContext } from "react-router";
 import { BeforeAfter, BeforeAfterPlaceholder } from "~/components/BeforeAfter";
+import { demoCopy } from "~/lib/demoCopy";
 import { DemoModulesNote } from "~/components/DemoModulesNote";
 import type { TradeData } from "~/data/types";
 import { useDemoBasePath, useDemoSearch } from "~/lib/useDemoPaths";
@@ -8,6 +9,7 @@ import { useDemoModules } from "~/lib/templates/useDemoModules";
 
 export default function DemoProRealisations() {
   const { trade } = useOutletContext<{ trade: TradeData }>();
+  const copy = demoCopy(trade);
   const basePath = useDemoBasePath(trade.slug);
   const q = useDemoSearch();
   const modules = useDemoModules("pro");
@@ -29,7 +31,7 @@ export default function DemoProRealisations() {
     <main className="section">
       <DemoModulesNote modules={modules} />
       <div className="container">
-        <h1>Portfolio</h1>
+        <h1>{copy.galleryHeading}</h1>
         <p className="text-muted">
           Galerie premium — exemples illustratifs. Chaque fiche détaillée est accessible en formule
           Pro.
@@ -42,7 +44,12 @@ export default function DemoProRealisations() {
               {baProject?.title ?? "Module prêt à personnaliser"}
             </h2>
             {baProject?.before && baProject.after ? (
-              <BeforeAfter before={baProject.before} after={baProject.after} illustrative />
+              <BeforeAfter
+                before={baProject.before}
+                after={baProject.after}
+                illustrative
+                caption={copy.beforeAfterCaption}
+              />
             ) : (
               <BeforeAfterPlaceholder />
             )}
