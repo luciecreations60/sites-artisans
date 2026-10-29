@@ -39,6 +39,13 @@ export const trades: Record<TradeSlug, TradeData> = {
   serrurier,
 };
 
+/** Métiers triés par libellé FR (parcours marketing / studio). */
+export function sortedTradeSlugs(): TradeSlug[] {
+  return [...TRADE_SLUGS].sort((a, b) =>
+    trades[a].label.localeCompare(trades[b].label, "fr", { sensitivity: "base" }),
+  );
+}
+
 export function getTrade(slug: string): TradeData | undefined {
   return trades[slug as TradeSlug];
 }

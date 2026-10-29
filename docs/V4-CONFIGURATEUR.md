@@ -1,4 +1,4 @@
-# V4 — Configurateur immersif (lot 3)
+# V4 — Configurateur / studio (lot 3)
 
 ## Route
 
@@ -12,22 +12,29 @@ Entrées :
 | Offres / cartes | `?formule=essentiel\|avance\|pro&parcours=formula` |
 | Démos | `?metier=:slug&formule=:tier&parcours=formula` |
 
-## Parcours (5 étapes)
+## Parcours (studio 1 page)
 
-1. Métier (11 slugs `TRADE_SLUGS`)
-2. Parcours : formule prête **ou** composition libre (pas de 4ᵉ formule « sur mesure »)
-3. Identité entreprise → même `Profile` / `Personalizer` (`sa-profile`)
-4. Fonctionnalités (recommandées métier + catalogue)
-5. Récapitulatif + contact
+Plus de wizard 5 étapes. Un seul écran :
+
+1. Métier (11 slugs, ordre alpha via `sortedTradeSlugs()`)
+2. Formule Essentiel / Avancé / Pro
+3. Identité : entreprise, ville, couleur, police
+4. Options catalogue (aperçu live dès cochage)
+5. Récapitulatif + tarif + demande commerciale
+
+Aperçu `SitePreview` **sous** le formulaire ; bouton flottant mobile « Voir l’aperçu ».
+
+Accueil : grille d’exemples fixes par métier (`TradeExamplesGrid`) → `/demos/:trade/:formule`, CTA vers le studio. Plus de Personalizer immersif sur `/`.
 
 ## Architecture
 
 | Module | Rôle |
 |--------|------|
 | `app/routes/configurateur.tsx` | Page |
-| `app/components/configurator/ConfiguratorApp.tsx` | Assistant |
+| `app/components/configurator/ConfiguratorApp.tsx` | Studio 1 page |
 | `SitePreview.tsx` | Miniature visuelle live |
 | `PricePanel.tsx` | Tarif évolutif |
+| `TradeExamplesGrid.tsx` | Grille exemples métiers (accueil + `/demos`) |
 | `app/lib/configurator/storage.ts` | Persistancelocale `sa-configurator-v1` + sync Profile |
 | `app/lib/configurator/recommend.ts` | Comparaison / recommandation formules |
 | `app/lib/catalog/api.ts` + `pricing.ts` | Catalogue + calcul (lot 2) |

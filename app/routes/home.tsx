@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Personalizer } from "~/components/Personalizer";
+import { TradeExamplesGrid } from "~/components/TradeExamplesGrid";
 import {
   commercialNotes,
   formatSetupPrice,
@@ -8,6 +8,7 @@ import {
   offerPlans,
 } from "~/data/offers";
 import { BRAND_NAME } from "~/lib/brand";
+import { UX_LABELS } from "~/lib/configurator/bridge";
 import { publicUrl } from "~/lib/publicUrl";
 
 /** Visuels métier existants (chemins réels sous public/img/). */
@@ -41,7 +42,7 @@ const solutions = [
 const journey = [
   {
     title: "Personnalisez votre futur site",
-    text: "Choisissez votre métier, votre identité visuelle et vos besoins. La simulation est personnalisable et pourra être modifiée.",
+    text: "Choisissez votre métier et votre formule, ajustez nom, ville et style. L’aperçu évolue tout de suite.",
   },
   {
     title: "Échangeons sur votre projet",
@@ -145,24 +146,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="aw-personalizer" id="personnaliser">
+      <section className="section" id="personnaliser" aria-labelledby="exemples-heading">
         <div className="container">
-          <p className="eyebrow eyebrow--light">Essayez avec votre propre entreprise</p>
-          <h2>Et si vous pouviez déjà vous voir dans votre futur site ?</h2>
-          <p className="lead">
-            Pour composer votre formule et voir votre tarif évoluer, ouvrez le{" "}
-            <Link to="/configurateur" style={{ color: "var(--eyebrow-light)" }}>
-              configurateur
-            </Link>
-            . Ci-dessous, personnalisez aussi les démonstrations avec votre métier, votre nom et
-            vos couleurs.
+          <p className="eyebrow">Exemples par métier</p>
+          <h2 id="exemples-heading">Voyez ce que ça donne pour votre activité.</h2>
+          <p className="lead section-lead">
+            Un exemple fixe par métier et par formule. Ensuite, personnalisez votre site en direct
+            dans le studio : nom, ville, couleurs, options.
           </p>
-          <div className="hero-actions" style={{ marginBottom: "1.25rem" }}>
+          <TradeExamplesGrid />
+          <div className="hero-actions" style={{ marginTop: "2rem", justifyContent: "center" }}>
             <Link to="/configurateur" className="btn btn-primary">
-              Ouvrir le configurateur
+              {UX_LABELS.personalizeMine}
+            </Link>
+            <Link to="/demos" className="btn btn-outline">
+              Tous les exemples
             </Link>
           </div>
-          <Personalizer variant="immersive" />
         </div>
       </section>
 

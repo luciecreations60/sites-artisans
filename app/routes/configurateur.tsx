@@ -1,11 +1,11 @@
 import { ConfiguratorApp } from "~/components/configurator/ConfiguratorApp";
 
 export const meta = () => [
-  { title: "Configurateur — Site AZ" },
+  { title: "Personnaliser mon site — Site AZ" },
   {
     name: "description",
     content:
-      "Choisissez votre métier, personnalisez votre site et découvrez immédiatement votre tarif.",
+      "Choisissez votre métier et votre formule, ajustez nom, ville et style : l’aperçu et le tarif évoluent immédiatement.",
   },
 ];
 

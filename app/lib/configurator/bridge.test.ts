@@ -38,8 +38,8 @@ function configuratorHrefFromDemo(
     metier: tradeSlug,
     formule: planId,
     parcours: "formula",
-    etape: String(opts?.step ?? 2),
   });
+  if (opts?.step != null) params.set("etape", String(opts.step));
   return `/configurateur?${params.toString()}`;
 }
 
@@ -57,7 +57,7 @@ function applyDemoSelectionToConfigurator(
     tradeSlug,
     planId,
     path: state.path ?? "formula",
-    step: 2,
+    step: 5,
     updatedAt: new Date().toISOString(),
   };
 }
@@ -95,12 +95,12 @@ const baseState = (): ConfiguratorState => ({
 });
 
 describe("pont démo ↔ configurateur", () => {
-  it("ouvre le configurateur avec métier et formule à l’étape 2", () => {
+  it("ouvre le studio avec métier et formule", () => {
     const href = configuratorHrefFromDemo("electricien", "avance");
     assert.ok(href.includes("metier=electricien"));
     assert.ok(href.includes("formule=avance"));
     assert.ok(href.includes("parcours=formula"));
-    assert.ok(href.includes("etape=2"));
+    assert.ok(!href.includes("etape="));
   });
 
   it("conserve métier et formule vers la démo plein écran", () => {

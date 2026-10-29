@@ -13,7 +13,7 @@ export const HOME_VALUE_PROP = {
   interim:
     "Choisissez votre métier, personnalisez votre futur site et découvrez nos offres en toute transparence.",
   final:
-    "Choisissez votre métier, personnalisez votre site et estimez votre tarif en quelques étapes. Le devis détaillé suit après échange.",
+    "Choisissez votre métier, personnalisez votre site et estimez votre tarif en direct. Le devis détaillé suit après échange.",
 } as const;
 
 export function homeValuePropLine(): string {

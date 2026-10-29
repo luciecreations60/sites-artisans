@@ -11,8 +11,7 @@ import {
 import type { ConfiguratorState } from "./types";
 
 /**
- * URL configurateur préremplie depuis un modèle de démo.
- * Par défaut étape 2 (formules) pour que l’artisan voie les offres avant l’identité.
+ * URL studio préremplie depuis un modèle de démo (métier + formule).
  */
 export function configuratorHrefFromDemo(
   tradeSlug: string,
@@ -23,8 +22,9 @@ export function configuratorHrefFromDemo(
     metier: tradeSlug,
     formule: planId,
     parcours: "formula",
-    etape: String(opts?.step ?? 2),
   });
+  // etape conservé pour rétrocompat des liens partagés (ignoré par le studio 1 page).
+  if (opts?.step != null) params.set("etape", String(opts.step));
   return `/configurateur?${params.toString()}`;
 }
 
@@ -47,8 +47,8 @@ export function applyDemoSelectionToConfigurator(
     tradeSlug,
     planId,
     path: state.path ?? "formula",
-    // Depuis une démo : montrer les formules (étape 2), pas le récap.
-    step: 2,
+    // Studio 1 page : step stocké pour rétrocompat, l’UI n’en dépend plus.
+    step: 5,
     updatedAt: new Date().toISOString(),
   };
 }
