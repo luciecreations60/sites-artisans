@@ -58,6 +58,8 @@ export const commercialNotes = {
     "À votre charge auprès d’OVH (ou d’un autre fournisseur) : à partir d’environ 2,60 € HT/mois (~31 € HT/an) pour un hébergement Starter au tarif de renouvellement. Nom de domaine souvent offert la 1re année, puis quelques euros par an. Vous souscrivez et payez directement le fournisseur — je vous accompagne pour le paramétrage et la prise en main.",
   maintenance:
     "Facultative, à partir de 29 € HT/mois : mises à jour techniques, surveillance, sauvegardes et petites corrections sur le site. L’hébergement et le nom de domaine restent séparés (chez OVH ou autre). Jamais imposée.",
+  printExtras:
+    "Extras print & communication (QR code, actualités, carte de visite, flyer…) : tarifs « à partir de » dans le configurateur. En conversation, un geste commercial est possible — par ex. QR code offert ou maquette flyer / carte offerte selon le projet. Impression toujours à votre charge.",
   thirdParty:
     "Les outils métier externes (agenda, paiement, etc.) restent à votre charge auprès de leurs éditeurs. Sur le site, on peut simplement intégrer un lien vers ces outils.",
   /** Note de bas de page du comparatif — lignes marquées *. */
@@ -104,16 +106,17 @@ export const comparisonFeatures: OfferFeature[] = [
   { label: "Design & direction artistique", essentiel: "Sobre et clair", avance: "Éditorial soigné", pro: "Sur-mesure immersif" },
   { label: "Présentation des services", essentiel: "Liste simple", avance: "Pages détaillées", pro: "Pages + mise en avant" },
   { label: "Galerie / réalisations", essentiel: "3 projets", avance: "Galerie filtrable", pro: "Fiches projet détaillées" },
-  { label: "Photos avant / après", essentiel: false, avance: false, pro: true },
+  { label: "Photos avant / après", essentiel: "Option (+150 €)", avance: "Option (+150 €)", pro: true },
   { label: "Formulaire de contact", essentiel: true, avance: true, pro: true },
   { label: "Bouton d’appel sur mobile", essentiel: true, avance: true, pro: true },
-  { label: "Demande de devis", essentiel: false, avance: "Formulaire guidé", pro: "Guidé + estimateur" },
-  { label: "Estimateur en ligne", essentiel: false, avance: false, pro: true },
+  { label: "Demande de devis", essentiel: "Option (+90 €)", avance: "Formulaire guidé", pro: "Guidé + estimateur" },
+  { label: "Estimateur en ligne", essentiel: "Option (+180 €)", avance: "Option (+180 €)", pro: true },
+  { label: "Galerie filtrable", essentiel: "Option (+120 €)", avance: true, pro: true },
   {
     label: "Prise de rendez-vous",
-    essentiel: "Option (lien / outil externe)*",
-    avance: "Option (lien / outil externe)*",
-    pro: "Option (lien / outil externe)*",
+    essentiel: "Option (+49 € mise en place)*",
+    avance: "Option (+49 € mise en place)*",
+    pro: "Option (+49 € mise en place)*",
   },
   { label: "Zone d’intervention", essentiel: "Mention", avance: "Mise en avant", pro: "Mise en avant" },
   { label: "Avis clients", essentiel: true, avance: true, pro: true },

@@ -8,6 +8,7 @@ import {
   calculateQuote,
   catalogAllowsContractualQuote,
   centsToEuroLabel,
+  optionSetupPriceLabel,
 } from "~/lib/catalog/pricing";
 import { classifyOption } from "~/lib/catalog/optionAvailability";
 import { quoteIsPartial } from "~/lib/configurator/recommend";
@@ -149,7 +150,7 @@ export function ConfigurationRecap({
                   </span>
                   <strong>
                     {line?.kind === "option_setup" && line.amountCents != null
-                      ? centsToEuroLabel(line.amountCents)
+                      ? optionSetupPriceLabel(id, line.amountCents, { withPlus: false })
                       : line?.kind === "external"
                         ? "Prestataire externe"
                         : skipped?.kind === "study"
@@ -180,7 +181,9 @@ export function ConfigurationRecap({
                 .map((l) => (
                   <li key={`opt-${l.featureId}`}>
                     <span>{l.label}</span>
-                    <strong>{centsToEuroLabel(l.amountCents!)}</strong>
+                    <strong>
+                      {optionSetupPriceLabel(l.featureId, l.amountCents!, { withPlus: false })}
+                    </strong>
                   </li>
                 ))}
               <li className="cfg-detail-lines__total">

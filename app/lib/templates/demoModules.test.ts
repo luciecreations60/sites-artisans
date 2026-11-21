@@ -72,16 +72,19 @@ describe("modules démo — 33 combinaisons métier × formule", () => {
         assert.ok(inc.has("about_company"));
 
         if (tier === "essentiel") {
-          assert.ok(unavailable(tier).has("gallery_filtered"));
-          assert.ok(unavailable(tier).has("gallery_before_after"));
-          assert.ok(unavailable(tier).has("estimator"));
-          assert.ok(unavailable(tier).has("quote_form"));
+          // Modules premium : options cochables (plus « unavailable »)
+          assert.equal(unavailable(tier).size, 0);
+          assert.ok(!inc.has("gallery_filtered"));
+          assert.ok(!inc.has("quote_form"));
+          assert.ok(!inc.has("estimator"));
+          assert.ok(!inc.has("gallery_before_after"));
         }
         if (tier === "avance") {
           assert.ok(inc.has("gallery_filtered"));
           assert.ok(inc.has("quote_form"));
-          assert.ok(unavailable(tier).has("gallery_before_after"));
-          assert.ok(unavailable(tier).has("estimator"));
+          assert.ok(!inc.has("gallery_before_after"));
+          assert.ok(!inc.has("estimator"));
+          assert.equal(unavailable(tier).size, 0);
         }
         if (tier === "pro") {
           assert.ok(inc.has("gallery_filtered"));
@@ -97,10 +100,11 @@ describe("modules démo — 33 combinaisons métier × formule", () => {
 });
 
 describe("modules démo — options incompatibles", () => {
-  it("Essentiel refuse estimateur et avant/après", () => {
-    const blocked = unavailable("essentiel");
-    assert.ok(blocked.has("estimator"));
-    assert.ok(blocked.has("gallery_before_after"));
+  it("Essentiel n’inclut pas estimateur ni avant/après (options)", () => {
+    const inc = included("essentiel");
+    assert.ok(!inc.has("estimator"));
+    assert.ok(!inc.has("gallery_before_after"));
+    assert.equal(unavailable("essentiel").size, 0);
     assert.ok(IMPLEMENTED.has("estimator"));
   });
 

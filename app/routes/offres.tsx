@@ -67,6 +67,9 @@ export default function Offres() {
             <li>
               <strong>Outils externes</strong> — {commercialNotes.thirdParty}
             </li>
+            <li>
+              <strong>Extras print &amp; communication</strong> — {commercialNotes.printExtras}
+            </li>
           </ul>
         </aside>
 

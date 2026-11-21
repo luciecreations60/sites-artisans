@@ -38,7 +38,7 @@ export function SiteHeader() {
 
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
-      <div className="container site-header__inner">
+      <div className="site-header__inner">
         <SiteBrand onClick={() => setOpen(false)} />
         <button
           ref={toggleRef}

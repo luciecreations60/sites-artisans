@@ -91,6 +91,20 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
           ) : (
             <>
               Contenu illustratif ·{" "}
+              <button
+                type="button"
+                className="btn btn-ghost"
+                style={{
+                  padding: "0.2rem 0.5rem",
+                  fontSize: "0.8125rem",
+                  color: "#fff",
+                  borderColor: "#ffffff55",
+                }}
+                onClick={() => setShowPersonalizer((v) => !v)}
+              >
+                {showPersonalizer ? "Masquer" : UX_LABELS.adjustPreview}
+              </button>
+              {" · "}
               <Link
                 to={configuratorHrefFromDemo(tradeSlug, tier)}
                 className="btn btn-ghost"
@@ -118,20 +132,6 @@ export function DemoChrome({ tradeLabel, tradeSlug, tier }: Props) {
               >
                 {UX_LABELS.backToConfig}
               </Link>
-              {" · "}
-              <button
-                type="button"
-                className="btn btn-ghost"
-                style={{
-                  padding: "0.2rem 0.5rem",
-                  fontSize: "0.8125rem",
-                  color: "#fff",
-                  borderColor: "#ffffff55",
-                }}
-                onClick={() => setShowPersonalizer((v) => !v)}
-              >
-                {showPersonalizer ? "Masquer" : UX_LABELS.adjustPreview}
-              </button>
             </>
           )}
         </p>

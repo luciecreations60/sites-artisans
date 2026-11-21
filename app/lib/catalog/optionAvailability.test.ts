@@ -9,45 +9,30 @@ import { classifyOption } from "./optionAvailability.ts";
 const catalog = getStaticPublicCatalog();
 
 describe("classifyOption", () => {
-  it("Essentiel a des inclusions et des unavailable", () => {
+  it("Essentiel a des inclusions et des options (plus d’unavailable démo)", () => {
     const inc = STATIC_PLAN_FEATURES.filter(
       (l) => l.planId === "essentiel" && l.inclusion === "included",
+    );
+    const optional = STATIC_PLAN_FEATURES.filter(
+      (l) => l.planId === "essentiel" && l.inclusion === "optional",
     );
     const blocked = STATIC_PLAN_FEATURES.filter(
       (l) => l.planId === "essentiel" && l.inclusion === "unavailable",
     );
     assert.ok(inc.length > 0);
-    assert.ok(blocked.length > 0);
-    assert.ok(blocked.some((l) => l.featureId === "estimator"));
+    assert.ok(optional.some((l) => l.featureId === "estimator"));
+    assert.ok(optional.some((l) => l.featureId === "quote_form"));
+    assert.equal(blocked.length, 0);
   });
 
-  it("quote_form unavailable sur Essentiel → non sélectionnable", () => {
+  it("quote_form optional tarifé sur Essentiel → sélectionnable", () => {
     const av = classifyOption(catalog, "essentiel", "quote_form");
-    assert.equal(av.kind, "incompatible");
-    assert.equal(av.selectable, false);
-  });
-
-  it("booking_external optional sur Essentiel → sélectionnable (STATIC externe)", () => {
-    const av = classifyOption(catalog, "essentiel", "booking_external");
+    assert.equal(av.kind, "optional_priced");
     assert.equal(av.selectable, true);
   });
 
-  it("booking_external tarifé Supabase-like → optional_priced", () => {
-    const enriched = {
-      ...catalog,
-      features: catalog.features.map((f) =>
-        f.id === "booking_external"
-          ? {
-              ...f,
-              setupPriceCents: 4000,
-              billingType: "setup" as const,
-              commercialKind: "optional_priced" as const,
-              externalProviderId: "calendly",
-            }
-          : f,
-      ),
-    };
-    const av = classifyOption(enriched, "essentiel", "booking_external");
+  it("booking_external optional tarifé sur Essentiel → sélectionnable", () => {
+    const av = classifyOption(catalog, "essentiel", "booking_external");
     assert.equal(av.kind, "optional_priced");
     assert.equal(av.selectable, true);
   });

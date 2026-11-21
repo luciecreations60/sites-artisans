@@ -415,6 +415,38 @@ export function centsToEuroLabel(cents: number): string {
   }).format(cents / 100);
 }
 
+/**
+ * Options « à partir de » : plancher affiché en simulation, montant définitif
+ * à l’échange (et gestes commerciaux possibles : QR / maquette offerts, etc.).
+ */
+export const STARTING_PRICE_FEATURE_IDS = new Set([
+  "qr_code",
+  "news",
+  "business_card",
+  "flyer",
+  "team",
+  "map",
+  "google_business",
+  "seo_local_extra",
+  "training",
+  "one_off_edits",
+]);
+
+export function isStartingPriceFeature(featureId: string): boolean {
+  return STARTING_PRICE_FEATURE_IDS.has(featureId);
+}
+
+/** Libellé d’option setup pour UI (configurateur / récap). */
+export function optionSetupPriceLabel(
+  featureId: string,
+  amountCents: number,
+  opts?: { withPlus?: boolean },
+): string {
+  const amount = centsToEuroLabel(amountCents);
+  if (isStartingPriceFeature(featureId)) return `à partir de ${amount}`;
+  return opts?.withPlus === false ? amount : `+${amount}`;
+}
+
 /** Un devis contractuel ne peut s’appuyer que sur un catalogue Supabase publié. */
 export function catalogAllowsContractualQuote(catalog: PublicCatalog): boolean {
   return catalog.source === "supabase" && catalog.migrationPending === false;

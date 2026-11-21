@@ -12,9 +12,9 @@ import { BRAND_TITLE } from "~/lib/brand";
 import { publicUrl } from "~/lib/publicUrl";
 
 export const links = () => [
-  { rel: "icon", href: publicUrl("favicon.svg"), type: "image/svg+xml" },
-  { rel: "icon", href: publicUrl("brand/apple-touch-icon.png"), type: "image/png", sizes: "180x180" },
-  { rel: "apple-touch-icon", href: publicUrl("brand/apple-touch-icon.png") },
+  { rel: "icon", href: publicUrl("favicon.png"), type: "image/png", sizes: "32x32" },
+  { rel: "icon", href: publicUrl("favicon-48.png"), type: "image/png", sizes: "48x48" },
+  { rel: "apple-touch-icon", href: publicUrl("brand/apple-touch-icon.png"), sizes: "180x180" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
   {

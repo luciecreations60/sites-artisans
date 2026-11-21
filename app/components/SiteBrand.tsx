@@ -13,8 +13,7 @@ type Props = {
 };
 
 /**
- * Logo Site AZ d’après la planche de marque
- * (monogramme PNG planche + wordmark « Site »).
+ * Logo Site AZ — planche officielle (wordmark / mark PNG).
  */
 export function SiteBrand({
   to = "/",
@@ -23,34 +22,21 @@ export function SiteBrand({
   className = "",
   onClick,
 }: Props) {
-  // Compact / admin : carré sauge (planche). Wordmark : « Site » + AZ transparent.
-  const markSrc = publicUrl("brand/logo-mark.png");
-  const azSrc = publicUrl(onDark ? "brand/az-mark-on-dark.png" : "brand/az-mark.png");
+  const src = markOnly
+    ? publicUrl("brand/logo-mark.png")
+    : publicUrl(onDark ? "brand/logo-wordmark-on-dark.png" : "brand/logo-wordmark.png");
 
-  const content = markOnly ? (
+  const content = (
     <img
-      src={markSrc}
+      src={src}
       alt=""
-      className="site-brand__logo site-brand__logo--mark"
-      width={36}
-      height={36}
+      className={
+        markOnly ? "site-brand__logo site-brand__logo--mark" : "site-brand__logo"
+      }
+      width={markOnly ? 36 : 168}
+      height={markOnly ? 36 : 52}
       decoding="async"
     />
-  ) : (
-    <>
-      <span className={`site-brand__word${onDark ? " site-brand__word--on-dark" : ""}`} aria-hidden="true">
-        Site
-      </span>
-      <img
-        src={azSrc}
-        alt=""
-        aria-hidden="true"
-        className="site-brand__az"
-        width={44}
-        height={44}
-        decoding="async"
-      />
-    </>
   );
 
   if (!to) {

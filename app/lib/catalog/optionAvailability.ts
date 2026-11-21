@@ -196,50 +196,12 @@ export function listSelectableOptions(
 }
 
 /**
- * Associations plan×feature encore « unavailable » dans le catalogue statique
- * pour lesquelles un passage en « optional » mérite un arbitrage commercial
- * (ne pas appliquer automatiquement).
+ * Arbitrages déjà appliqués dans `STATIC_PLAN_FEATURES` (options tarifées).
+ * Conservé vide pour d’éventuels futurs cas admin à trancher manuellement.
  */
 export const PLAN_INCLUSION_ARBITRATION: {
   planId: OfferTier;
   featureId: string;
   proposal: "optional";
   note: string;
-}[] = [
-  {
-    planId: "essentiel",
-    featureId: "quote_form",
-    proposal: "optional",
-    note: "Devis guidé en supplément sur Essentiel si développé et tarifé",
-  },
-  {
-    planId: "essentiel",
-    featureId: "gallery_filtered",
-    proposal: "optional",
-    note: "Galerie filtrable en option Essentiel",
-  },
-  {
-    planId: "avance",
-    featureId: "gallery_before_after",
-    proposal: "optional",
-    note: "Avant/après en option Avancé (déjà inclus en Pro)",
-  },
-  {
-    planId: "avance",
-    featureId: "estimator",
-    proposal: "optional",
-    note: "Estimateur artisan en option Avancé",
-  },
-  {
-    planId: "essentiel",
-    featureId: "gallery_before_after",
-    proposal: "optional",
-    note: "Avant/après en option Essentiel — à valider techniquement",
-  },
-  {
-    planId: "essentiel",
-    featureId: "estimator",
-    proposal: "optional",
-    note: "Estimateur en option Essentiel — à valider techniquement",
-  },
-];
+}[] = [];

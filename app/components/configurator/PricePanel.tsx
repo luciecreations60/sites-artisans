@@ -4,6 +4,7 @@ import {
   calculateQuote,
   catalogAllowsContractualQuote,
   centsToEuroLabel,
+  optionSetupPriceLabel,
 } from "~/lib/catalog/pricing";
 import { quoteIsPartial } from "~/lib/configurator/recommend";
 import { commercialNotes } from "~/data/offers";
@@ -72,6 +73,21 @@ export function PricePanel({
             <span>Formule {plan?.name ?? planId}</span>
             <strong>{centsToEuroLabel(quote.planSetupCents)}</strong>
           </li>
+          {extras.length === 0 && (
+            <li>
+              <span>
+                Inclus :{" "}
+                {quote.includedFeatureIds
+                  .map((id) => featureById.get(id)?.name ?? id)
+                  .slice(0, 4)
+                  .join(", ")}
+                {quote.includedFeatureIds.length > 4
+                  ? ` (+${quote.includedFeatureIds.length - 4})`
+                  : ""}
+              </span>
+              <em>Formule</em>
+            </li>
+          )}
           {desiredFeatureIds.map((id) => {
             const feature = featureById.get(id);
             const label = feature?.name ?? id;
@@ -90,7 +106,7 @@ export function PricePanel({
               return (
                 <li key={id}>
                   <span>{labelQty}</span>
-                  <strong>+{centsToEuroLabel(line.amountCents)}</strong>
+                  <strong>{optionSetupPriceLabel(id, line.amountCents)}</strong>
                 </li>
               );
             }
@@ -116,6 +132,12 @@ export function PricePanel({
               </li>
             );
           })}
+          {extras.length === 0 && (
+            <li>
+              <span>Options complémentaires</span>
+              <em>Aucune sélectionnée</em>
+            </li>
+          )}
         </ul>
       )}
 
@@ -162,6 +184,7 @@ export function PricePanel({
       {!compact && (
         <>
           <p className="cfg-price__footnote">{commercialNotes.hosting}</p>
+          <p className="cfg-price__footnote">{commercialNotes.printExtras}</p>
           <p className="cfg-price__footnote">
             {verified
               ? "Simulation indicative — un devis ferme nécessite une validation après échange."

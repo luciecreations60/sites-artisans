@@ -2,12 +2,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useHref, useSearchParams } from "react-router";
 import { sortedTradeSlugs, trades } from "~/data/trades";
 import { fontPresets, themePresets } from "~/data/stylePresets";
-import { STATIC_FEATURES, toPublicFeature } from "~/data/catalog/staticCatalog";
+import {
+  getStaticPublicCatalog,
+  STATIC_FEATURES,
+  toPublicFeature,
+} from "~/data/catalog/staticCatalog";
 import type { CatalogFeaturePublic, PublicCatalog } from "~/data/catalog/types";
 import type { OfferTier, TradeSlug } from "~/data/types";
 import { loadPublicCatalog } from "~/lib/catalog/api";
 import { classifyOption } from "~/lib/catalog/optionAvailability";
-import { centsToEuroLabel } from "~/lib/catalog/pricing";
+import { centsToEuroLabel, optionSetupPriceLabel } from "~/lib/catalog/pricing";
 import {
   sanitizeDesiredFeatureIds,
   sanitizeFeatureQuantities,
@@ -77,12 +81,23 @@ export function ConfiguratorApp() {
 
   useEffect(() => {
     let active = true;
-    void loadPublicCatalog().then((res) => {
-      if (!active) return;
-      setCatalog(res.catalog);
-      setCatalogStatus(res.status === "ready" ? "ready" : res.status === "error" ? "error" : "migration_pending");
-      if (res.status === "error") setCatalogMessage(res.message);
-    });
+    void loadPublicCatalog()
+      .then((res) => {
+        if (!active) return;
+        setCatalog(res.catalog);
+        setCatalogStatus(
+          res.status === "ready" ? "ready" : res.status === "error" ? "error" : "migration_pending",
+        );
+        if (res.status === "error") setCatalogMessage(res.message);
+      })
+      .catch(() => {
+        if (!active) return;
+        setCatalog(getStaticPublicCatalog());
+        setCatalogStatus("error");
+        setCatalogMessage(
+          "Catalogue en ligne injoignable — simulation sur catalogue de secours (non contractuel).",
+        );
+      });
     return () => {
       active = false;
     };
@@ -190,11 +205,17 @@ export function ConfiguratorApp() {
     if (av.kind === "unpriced" || av.kind === "unavailable") {
       return av.reason ?? "Non commercialisable";
     }
+    if (feature.setupPriceCents != null && feature.recurringPriceCents != null) {
+      return `${optionSetupPriceLabel(feature.id, feature.setupPriceCents)} + ${centsToEuroLabel(feature.recurringPriceCents)}/mois`;
+    }
     if (feature.setupPriceCents != null) {
-      const base = `+${centsToEuroLabel(feature.setupPriceCents)}`;
+      const base = optionSetupPriceLabel(feature.id, feature.setupPriceCents);
       return feature.externalProviderId
         ? `${base} (mise en place — abonnement prestataire à part)`
         : base;
+    }
+    if (feature.recurringPriceCents != null) {
+      return `${centsToEuroLabel(feature.recurringPriceCents)} / mois`;
     }
     if (feature.billingType === "external") return "Prestataire externe";
     return "Option";

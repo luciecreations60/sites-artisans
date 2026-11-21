@@ -127,9 +127,10 @@ describe("configurateur — scénarios tarifaires", () => {
     const essentiel = scenarioComplete(catalog, "essentiel", desired);
     assert.equal(avance.complete, true);
     assert.equal(pro.complete, true);
+    assert.equal(essentiel.complete, true);
     assert.ok(avance.total <= pro.total);
-    // Essentiel : gallery_filtered / quote_form souvent unavailable → incomplet
-    assert.ok(essentiel.complete === false || essentiel.total <= avance.total);
+    // Essentiel + options (490+90+120) reste sous Avancé inclus (790)
+    assert.ok(essentiel.total <= avance.total);
   });
 
   it("S8: économie réelle Pro → Avancé pour les mêmes besoins inclus", () => {

@@ -453,48 +453,36 @@ ul {
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  box-sizing: border-box;
+  /* Marge gauche/droite vs fenêtre — indépendante du container du hero */
+  padding-inline: clamp(1rem, 3vw, 1.75rem);
 }
 
 .site-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--ink);
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
   text-decoration: none;
-  line-height: 1;
-}
-
-.site-brand__word {
-  letter-spacing: -0.03em;
-  color: var(--ink);
-}
-
-.site-brand__word--on-dark {
-  color: var(--paper, #f5f3ef);
-}
-
-.site-brand__az {
-  display: block;
-  height: 1.55em;
-  width: auto;
-  flex-shrink: 0;
+  line-height: 0;
 }
 
 .site-brand__logo {
   display: block;
-  height: 32px;
+  height: 42px;
   width: auto;
-  max-width: 160px;
+  max-width: 210px;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .site-brand__logo--mark {
   height: 36px;
   width: 36px;
   max-width: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  object-position: center;
 }
 
 .brand-mark {

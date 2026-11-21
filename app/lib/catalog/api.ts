@@ -36,6 +36,22 @@ function isMissingRelationError(message: string | undefined): boolean {
   );
 }
 
+/** Réseau / CORS / projet Supabase injoignable — on bascule sur le catalogue de secours. */
+function isNetworkCatalogError(message: string | undefined): boolean {
+  if (!message) return false;
+  const m = message.toLowerCase();
+  return (
+    m.includes("failed to fetch") ||
+    m.includes("fetch failed") ||
+    m.includes("networkerror") ||
+    m.includes("network request failed") ||
+    m.includes("load failed")
+  );
+}
+
+const NETWORK_CATALOG_MESSAGE =
+  "Catalogue en ligne injoignable — simulation sur catalogue de secours (non contractuel).";
+
 function mapPlan(row: Record<string, unknown>): CatalogPlan {
   return {
     id: row.id as CatalogPlan["id"],
@@ -87,76 +103,94 @@ export async function loadPublicCatalog(): Promise<CatalogLoadState> {
     return { status: "migration_pending", catalog: fallback };
   }
 
-  const plansRes = await sb
-    .from(TABLE_PLANS)
-    .select("*")
-    .eq("status", "published")
-    .eq("is_active", true)
-    .order("sort_order");
+  try {
+    const plansRes = await sb
+      .from(TABLE_PLANS)
+      .select("*")
+      .eq("status", "published")
+      .eq("is_active", true)
+      .order("sort_order");
 
-  if (plansRes.error) {
-    if (isMissingRelationError(plansRes.error.message)) {
-      return { status: "migration_pending", catalog: fallback };
+    if (plansRes.error) {
+      if (isMissingRelationError(plansRes.error.message)) {
+        return { status: "migration_pending", catalog: fallback };
+      }
+      if (isNetworkCatalogError(plansRes.error.message)) {
+        return { status: "error", message: NETWORK_CATALOG_MESSAGE, catalog: fallback };
+      }
+      return {
+        status: "error",
+        message: plansRes.error.message,
+        catalog: fallback,
+      };
+    }
+
+    const [featuresRes, planFeatRes, tradeRes, providersRes] = await Promise.all([
+      sb.from("catalog_features_public").select("*").eq("status", "published").order("sort_order"),
+      sb.from("catalog_plan_features").select("*"),
+      sb.from("catalog_trade_features").select("*").order("sort_order"),
+      sb.from("catalog_external_providers").select("*"),
+    ]);
+
+    if (
+      featuresRes.error ||
+      planFeatRes.error ||
+      tradeRes.error ||
+      providersRes.error
+    ) {
+      const msg =
+        featuresRes.error?.message ||
+        planFeatRes.error?.message ||
+        tradeRes.error?.message ||
+        providersRes.error?.message ||
+        "Erreur catalogue";
+      if (isMissingRelationError(msg)) {
+        return { status: "migration_pending", catalog: fallback };
+      }
+      if (isNetworkCatalogError(msg)) {
+        return { status: "error", message: NETWORK_CATALOG_MESSAGE, catalog: fallback };
+      }
+      return { status: "error", message: msg, catalog: fallback };
+    }
+
+    const catalog: PublicCatalog = {
+      source: "supabase",
+      migrationPending: false,
+      plans: (plansRes.data as Record<string, unknown>[]).map(mapPlan),
+      features: (featuresRes.data as Record<string, unknown>[]).map(mapFeaturePublic),
+      planFeatures: (planFeatRes.data as Record<string, unknown>[]).map((row) => ({
+        planId: row.plan_id as CatalogPlanFeature["planId"],
+        featureId: String(row.feature_id),
+        inclusion: row.inclusion as CatalogPlanFeature["inclusion"],
+        variantLabel: (row.variant_label as string | null) ?? null,
+      })),
+      tradeFeatures: (tradeRes.data as Record<string, unknown>[]).map((row) => ({
+        tradeSlug: row.trade_slug as CatalogTradeFeature["tradeSlug"],
+        featureId: String(row.feature_id),
+        sortOrder: Number(row.sort_order ?? 0),
+        note: (row.note as string | null) ?? null,
+      })),
+      externalProviders: (providersRes.data as Record<string, unknown>[]).map((row) => ({
+        id: String(row.id),
+        name: String(row.name),
+        integrationLevel: row.integration_level as CatalogExternalProvider["integrationLevel"],
+        notes: String(row.notes ?? ""),
+        vendorCostNote: (row.vendor_cost_note as string | null) ?? null,
+      })),
+    };
+
+    return { status: "ready", catalog };
+  } catch (err) {
+    const raw = err instanceof Error ? err.message : String(err);
+    if (isNetworkCatalogError(raw) || isNetworkCatalogError(String(err))) {
+      return { status: "error", message: NETWORK_CATALOG_MESSAGE, catalog: fallback };
     }
     return {
       status: "error",
-      message: plansRes.error.message,
+      message: raw || "Erreur catalogue",
       catalog: fallback,
     };
   }
-
-  const [featuresRes, planFeatRes, tradeRes, providersRes] = await Promise.all([
-    sb.from("catalog_features_public").select("*").eq("status", "published").order("sort_order"),
-    sb.from("catalog_plan_features").select("*"),
-    sb.from("catalog_trade_features").select("*").order("sort_order"),
-    sb.from("catalog_external_providers").select("*"),
-  ]);
-
-  if (
-    featuresRes.error ||
-    planFeatRes.error ||
-    tradeRes.error ||
-    providersRes.error
-  ) {
-    const msg =
-      featuresRes.error?.message ||
-      planFeatRes.error?.message ||
-      tradeRes.error?.message ||
-      providersRes.error?.message ||
-      "Erreur catalogue";
-    if (isMissingRelationError(msg)) {
-      return { status: "migration_pending", catalog: fallback };
-    }
-    return { status: "error", message: msg, catalog: fallback };
-  }
-
-  const catalog: PublicCatalog = {
-    source: "supabase",
-    migrationPending: false,
-    plans: (plansRes.data as Record<string, unknown>[]).map(mapPlan),
-    features: (featuresRes.data as Record<string, unknown>[]).map(mapFeaturePublic),
-    planFeatures: (planFeatRes.data as Record<string, unknown>[]).map((row) => ({
-      planId: row.plan_id as CatalogPlanFeature["planId"],
-      featureId: String(row.feature_id),
-      inclusion: row.inclusion as CatalogPlanFeature["inclusion"],
-      variantLabel: (row.variant_label as string | null) ?? null,
-    })),
-    tradeFeatures: (tradeRes.data as Record<string, unknown>[]).map((row) => ({
-      tradeSlug: row.trade_slug as CatalogTradeFeature["tradeSlug"],
-      featureId: String(row.feature_id),
-      sortOrder: Number(row.sort_order ?? 0),
-      note: (row.note as string | null) ?? null,
-    })),
-    externalProviders: (providersRes.data as Record<string, unknown>[]).map((row) => ({
-      id: String(row.id),
-      name: String(row.name),
-      integrationLevel: row.integration_level as CatalogExternalProvider["integrationLevel"],
-      notes: String(row.notes ?? ""),
-      vendorCostNote: (row.vendor_cost_note as string | null) ?? null,
-    })),
-  };
-
-  return { status: "ready", catalog };
 }
 
 /**

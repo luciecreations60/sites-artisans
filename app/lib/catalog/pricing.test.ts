@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { getStaticPublicCatalog, STATIC_FEATURES } from "../../data/catalog/staticCatalog.ts";
-import { calculateQuote, isFeatureOrderable } from "./pricing.ts";
+import { calculateQuote, isFeatureOrderable, optionSetupPriceLabel } from "./pricing.ts";
 
 describe("catalogue statique de secours", () => {
   it("expose les trois prix de référence", () => {
@@ -58,21 +58,27 @@ describe("moteur de calcul", () => {
   it("refuse une option sans prix (pas de 0 €)", () => {
     const quote = calculateQuote(catalog, {
       planId: "essentiel",
+      optionFeatureIds: ["pages_extra"],
+    });
+    assert.ok(quote.skipped.some((s) => s.featureId === "pages_extra"));
+    assert.equal(quote.creationSubtotalCents, 49000);
+  });
+
+  it("ajoute une option tarifée Essentiel au sous-total création", () => {
+    const quote = calculateQuote(catalog, {
+      planId: "essentiel",
+      optionFeatureIds: ["quote_form", "gallery_filtered"],
+    });
+    assert.equal(quote.creationSubtotalCents, 49000 + 9000 + 12000);
+  });
+
+  it("sépare la maintenance récurrente du prix de création", () => {
+    const quote = calculateQuote(catalog, {
+      planId: "essentiel",
       optionFeatureIds: ["maintenance_tech"],
     });
-    // maintenance_tech n’est pas dans features publiées du catalogue public
-    // → soit skipped inconnue, soit skipped non tarifée selon publication
-    const pub = catalog.features.find((f) => f.id === "maintenance_tech");
-    if (!pub) {
-      assert.ok(quote.skipped.some((s) => s.featureId === "maintenance_tech"));
-    } else {
-      assert.ok(
-        quote.skipped.some(
-          (s) => s.featureId === "maintenance_tech" && s.reason?.includes("Prix non défini"),
-        ),
-      );
-    }
     assert.equal(quote.creationSubtotalCents, 49000);
+    assert.equal(quote.recurringSubtotalCents, 2900);
   });
 
   it("marque les fonctionnalités nécessitant une étude", () => {
@@ -90,16 +96,13 @@ describe("moteur de calcul", () => {
     assert.ok(quote.skipped.length >= 1);
   });
 
-  it("ignore une fonctionnalité indisponible sur la formule", () => {
+  it("facture l’option avant/après sur Essentiel", () => {
     const quote = calculateQuote(catalog, {
       planId: "essentiel",
       optionFeatureIds: ["gallery_before_after"],
     });
-    assert.ok(
-      quote.skipped.some(
-        (s) => s.featureId === "gallery_before_after" && s.reason?.includes("Indisponible"),
-      ),
-    );
+    assert.equal(quote.creationSubtotalCents, 49000 + 15000);
+    assert.ok(quote.optionLines.some((l) => l.featureId === "gallery_before_after"));
   });
 
   it("signale les dépendances manquantes", () => {
@@ -260,94 +263,52 @@ describe("moteur de calcul", () => {
 });
 
 describe("commercialisabilité", () => {
-  it("refuse optional_unpriced et study", () => {
-    const unpriced = STATIC_FEATURES.find((f) => f.id === "maintenance_tech");
+  it("accepte les options tarifées et refuse le study", () => {
+    const priced = STATIC_FEATURES.find((f) => f.id === "maintenance_tech");
     const study = STATIC_FEATURES.find((f) => f.id === "pages_extra");
-    assert.ok(unpriced);
+    assert.ok(priced);
     assert.ok(study);
-    assert.equal(isFeatureOrderable(unpriced), false);
+    assert.equal(isFeatureOrderable(priced), true);
     assert.equal(isFeatureOrderable(study), false);
+  });
+
+  it("affiche « à partir de » pour QR / print / actualités", () => {
+    assert.match(optionSetupPriceLabel("qr_code", 2900), /à partir de/);
+    assert.match(optionSetupPriceLabel("flyer", 12000), /à partir de/);
+    assert.match(optionSetupPriceLabel("quote_form", 9000), /^\+/);
   });
 });
 
-describe("booking_external — cause 490 € vs 530 €", () => {
-  it("STATIC : setup null → Essentiel + booking reste 490 €", () => {
+describe("booking_external — mise en place tarifée", () => {
+  it("STATIC : Essentiel + booking = 490 € + 49 €, abonnement à part", () => {
     const catalog = getStaticPublicCatalog();
     const booking = catalog.features.find((f) => f.id === "booking_external");
     assert.ok(booking);
-    assert.equal(booking.setupPriceCents, null);
-    assert.equal(booking.billingType, "external");
+    assert.equal(booking.setupPriceCents, 4900);
+    assert.equal(booking.billingType, "setup");
     const quote = calculateQuote(catalog, {
       planId: "essentiel",
       optionFeatureIds: ["booking_external"],
     });
-    assert.equal(quote.creationSubtotalCents, 49000);
-    assert.ok(quote.optionLines.some((l) => l.featureId === "booking_external" && l.kind === "external"));
-    assert.ok(quote.externalNotes.length >= 1);
-  });
-
-  it("forme Supabase DEV : setup 40 € + provider → 530 € création, abonnement à part", () => {
-    const base = getStaticPublicCatalog();
-    const catalog = {
-      ...base,
-      source: "supabase" as const,
-      migrationPending: false,
-      features: base.features.map((f) =>
-        f.id === "booking_external"
-          ? {
-              ...f,
-              setupPriceCents: 4000,
-              recurringPriceCents: null,
-              billingType: "setup" as const,
-              commercialKind: "optional_priced" as const,
-              isAvailable: true,
-              status: "published" as const,
-              devStatus: "ready" as const,
-              externalProviderId: "calendly",
-            }
-          : f,
-      ),
-    };
-    const quote = calculateQuote(catalog, {
-      planId: "essentiel",
-      optionFeatureIds: ["booking_external"],
-    });
-    assert.equal(quote.creationSubtotalCents, 53000);
+    assert.equal(quote.creationSubtotalCents, 53900);
     assert.ok(
       quote.optionLines.some(
-        (l) => l.featureId === "booking_external" && l.kind === "option_setup" && l.amountCents === 4000,
+        (l) => l.featureId === "booking_external" && l.kind === "option_setup" && l.amountCents === 4900,
       ),
     );
     assert.ok(quote.externalNotes.length >= 1);
-    assert.equal(quote.recurringSubtotalCents, 0);
   });
 
-  it("quote_form unavailable sur Essentiel → ignoré (pas de +150 €)", () => {
-    const base = getStaticPublicCatalog();
-    const catalog = {
-      ...base,
-      features: base.features.map((f) =>
-        f.id === "quote_form"
-          ? {
-              ...f,
-              setupPriceCents: 15000,
-              billingType: "setup" as const,
-              commercialKind: "optional_priced" as const,
-              isAvailable: true,
-              status: "published" as const,
-              devStatus: "ready" as const,
-            }
-          : f,
-      ),
-    };
+  it("quote_form optional sur Essentiel → +90 €", () => {
+    const catalog = getStaticPublicCatalog();
     const quote = calculateQuote(catalog, {
       planId: "essentiel",
       optionFeatureIds: ["quote_form"],
     });
-    assert.equal(quote.creationSubtotalCents, 49000);
+    assert.equal(quote.creationSubtotalCents, 58000);
     assert.ok(
-      quote.skipped.some(
-        (s) => s.featureId === "quote_form" && s.reason?.includes("Indisponible"),
+      quote.optionLines.some(
+        (l) => l.featureId === "quote_form" && l.kind === "option_setup" && l.amountCents === 9000,
       ),
     );
   });
